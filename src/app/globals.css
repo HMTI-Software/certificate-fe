@@ -1,8 +1,12 @@
+@import url(https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:200,300,regular,500,600,700,800,200italic,300italic,italic,500italic,600italic,700italic,800italic);
+
 @import "tailwindcss";
-
 @plugin "tailwindcss-animate";
-
 @custom-variant dark (&:is(.dark *));
+
+body {
+  font-family: 'Plus jakarta sans', sans-serif;
+}
 
 @theme inline {
   --color-background: var(--background);
@@ -43,6 +47,13 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --color-greenn: #59FFAC; 
+  --color-redd: #FF5757; 
+  --color-grayy: #7A7A7A; 
+  --color-purplee: #99B2FF; 
+  --color-yelloww: #FFFB86; 
+  --color-grayyy: #9B9B9B; 
+  --color-greennn: #00AD31;
 }
 
 :root {
@@ -80,7 +91,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 }
-
+/* 
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -114,7 +125,7 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
-}
+} */
 
 @layer base {
   * {
@@ -122,5 +133,11 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  .bordered {
+    @apply hover:translate-y-[0.25rem] px-3 py-2 duration-150 border border-black hover:border-b border-b-4;
+  }
+  .badge {
+    @apply text-xs bg-[#99B2FF] px-3 py-1 rounded-full border border-black ; 
   }
 }
