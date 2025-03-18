@@ -15,3 +15,12 @@ export interface IEventStakeHolder {
   jabatan: string
   image: string
 }
+
+export interface IUserData {
+  id: number
+  name: string
+  email: string
+  password: string
+  position: string
+  image: string
+}

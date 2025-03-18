@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "user@gmail.com",
+    "password": "user321",
+    "position": "Event Coordinator",
+    "image": "https://example.com/john_doe.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "email": "user1@gmail.com",
+    "password": "user123",
+    "position": "Event Coordinator",
+    "image": "https://example.com/jane_smith.jpg"
+  }
+]
