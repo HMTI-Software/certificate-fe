@@ -1,4 +1,5 @@
 export interface IEventData {
+  uniqueId: string;
   id: string;
   eventName: string;
   organizer: string;
@@ -30,4 +31,12 @@ export interface IPremiumUsers {
   name: string;
   status: "active" | "inactive";
   premiumAt: string;
+}
+
+export interface IParticipantData {
+  id: number;
+  uniqueId: string;
+  name: string;
+  eventId: string;
+  certificateNumber: number;
 }

@@ -1,3 +1,5 @@
+import QRcode from 'qrcode';
+
 export const FormatDate = ({ children }: { children: string }) => {
     const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
     const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
@@ -11,3 +13,7 @@ export const FormatDate = ({ children }: { children: string }) => {
     return `${dayName} ${day} ${monthName} ${year}`;
 }
 
+export const textToQR = async (children: string) => {
+    const qrCodeString = await QRcode.toDataURL(children);
+    return `<img src={qrCodeString} alt="QR Code" />`;
+}

@@ -22,7 +22,7 @@ const page = () => {
 
   const [ formData, setFormData ] = useState<ICreateFormData>()
   const [ errorMsg, setErrorMsg ] = useState<string>("")
-  const [ formState, setFormState ] = useState<boolean>(false)
+  const [ formState, setFormState ] = useState<boolean>(true)
 
   const HandleSubmit = (e: HTMLFormElement) => {
     e.preventDefault()
@@ -67,6 +67,27 @@ const page = () => {
     },
   ]
 
+  const CreateStakeHolderField: ICreateField[] = [
+    {
+      name: "Nama Event",
+      id: "event_name",
+      placeholder: "Nama event",
+      type: "text"
+    },
+    {
+      name: "Tanggal",
+      id: "event_date",
+      placeholder: "",
+      type: "date"
+    },
+    {
+      name: "Organizer",
+      id: "event_organizer",
+      placeholder: "Organizer",
+      type: "text"
+    },
+  ]
+
   const CreateFormData = (e: React.MouseEvent <HTMLFormElement>) => {
     e.preventDefault()
 
@@ -102,15 +123,31 @@ const page = () => {
   }
 
   return (
-    <div className="w-full px-40 ">
+    <div className="w-full px-40">
       <Navbar/> 
-      <div className="pt-20 w-full flex flex-col items-center">
+      <div className="pt-10 w-full flex flex-col items-center">
       {formState ? (
-        <div className="mt-4 text-center text-green-600">
-          Form has been successfully updated!
+        <div className="w-full flex flex-col items-center">
+          <div className="bordered-nonhover flex flex-col text-white bg-redd w-full max-w-4xl px-4 py-2 rounded-md pt-20">
+            <h1 className="text-xl font-bold">Events</h1>
+            <p>tolong lengkapi field di bawah ini</p>
+          </div>
+          {errorMsg == "" ? ( null ) : (
+            <div className="bordered-nonhover mt-4 rounded-md bg-redd text-center w-full">{errorMsg}</div>
+          )}
+          <form onSubmit={CreateFormData} className="grid grid-cols-2 mt-2 gap-4 max-w-4xl w-full">
+            {CreateField.map((field) => (
+              <div className="w-full flex flex-col" key={field.id}>
+                <label htmlFor={field.id} className="mb-2">{field.name}</label>
+                <input type={field.type} name={field.id} className="bordered rounded-md w-full" id={field.id} placeholder={field.placeholder} />
+              </div>
+            ))}
+            <div></div>
+            <button className="bordered bg-purplee rounded-md">next</button>
+          </form>
         </div>
       ) : (
-        <div className="w-full">
+        <div className="w-full flex flex-col items-center">
           <div className="bordered-nonhover flex flex-col text-white bg-purplee w-full max-w-4xl px-4 py-2 rounded-md pt-20">
             <h1 className="text-xl font-bold">Events</h1>
             <p>tolong lengkapi field di bawah ini</p>

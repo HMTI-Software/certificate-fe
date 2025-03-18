@@ -34,7 +34,7 @@ const Navbar = () => {
 
   return (
     <div className="w-full py-4 bg-white">
-      <div className="w-[1206px] inline-flex justify-between items-center">
+      <div className="w-full inline-flex justify-between items-center">
         <div className="flex-1 inline-flex flex-col justify-start items-start">
           <div className="justify-start text-black text-lg font-bold font-['Plus_Jakarta_Sans']">
             Dashboard
