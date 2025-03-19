@@ -18,6 +18,7 @@ const page = () => {
   const [ eventData, setEventData ] = useState<IEventData | null>(null);
   const [ participants, setParticipants ] = useState<IParticipantData[]>([]);
   const [ notFound, setNotFound ] = useState<boolean>(false);
+  const [ pagination, setPagination ] = useState<number>(1);
 
   useEffect(() => {
     const getData = async () => {
@@ -31,7 +32,7 @@ const page = () => {
       const participant = part.filter((participant: any) => participant.eventId === uniqueid)
       
       setEventData(event || null);
-      setParticipants(participant || null);
+      setParticipants(participant || []);
       console.log(event, participant)
     }
     uniqueid ? getData() : setNotFound(true)
@@ -44,14 +45,14 @@ const page = () => {
       const response = await fetch("/api/saveQRCode", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: qrcodeUrl, owner }), // Change this text dynamically if needed
+        body: JSON.stringify({ text: qrcodeUrl, owner }),
       });
 
       const result = await response.json();
       if (result.url) {
         const link = document.createElement("a");
         link.href = result.url;
-        link.download = result.fileName; // Ensure filename is used
+        link.download = result.fileName;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -62,46 +63,62 @@ const page = () => {
       console.error("Download Error:", error);
       alert("Something went wrong");
     } finally {
-      // setLoading(false);
       console.log("done")
     }
   };
 
   const handleDownloadAllQRCode = async () => {
-    const qrcodeurl: {owner: string[], number: number[]} = {
+    const qrcodeurl = {
       owner: participants.map(p => p.name),
-      number: participants.map(p => p.certificateNumber)
-    }
-
+      number: participants.map(p => p.certificateNumber.toString()),
+      name: eventData?.eventName
+    };
+  
     try {
       const response = await fetch("/api/saveQRCodes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ texts: qrcodeurl.number, owner: qrcodeurl.owner }),
+        body: JSON.stringify({ texts: qrcodeurl.number, owner: qrcodeurl.owner, name: qrcodeurl.name }),
       });
-
+  
       const result = await response.json();
       if (result.url) {
         const link = document.createElement("a");
-        link.href = result.url
-        link.download = result.fileName
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
+        link.href = result.url;
+        link.download = result.fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       } else {
-        alert("Failed to generate QR code");
+        alert("Failed to generate QR codes");
       }
     } catch (error) {
       console.error("Download Error:", error);
       alert("Something went wrong");
-    } finally {
-      console.log("done")
+    }
+  };
+
+  const participantsPerPage     = 10;
+  const maxPagination           = Math.ceil(participants.length / participantsPerPage);
+  const indexOfLastParticipant  = pagination * participantsPerPage;
+  const indexOfFirstParticipant = indexOfLastParticipant - participantsPerPage;
+  const currentParticipants     = participants.slice(indexOfFirstParticipant, indexOfLastParticipant);
+
+  const nextPage = () => {
+    if (pagination < Math.ceil(participants.length / participantsPerPage)) {
+      setPagination(pagination + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (pagination > 1) {
+      setPagination(pagination - 1);
     }
   };
 
 
   return ( 
-    <div className="w-full px-40 2xl:px-80 ">
+    <div className="w-full px-40 2xl:px-80 pb-40">
       <Navbar/>
       {eventData ? (
         <div className="w-full">
@@ -138,7 +155,7 @@ const page = () => {
           </form>
           <div className="w-full mt-4">
             <div>
-              {participants?.map((part: any, index) => (
+              {currentParticipants?.map((part: any, index) => (
                 <div className="flex py-2 items-center gap-4 w-full justify-between" key={part.uniqueId}>
                   <p>{index + 1 + "."}</p>
                   <div className="flex flex-col flex-1">
@@ -158,7 +175,24 @@ const page = () => {
                 </div>
               ))}
             </div>
-            <button className="bordered flex items-center gap-2 rounded-md bg-yelloww" onClick={handleDownloadAllQRCode}>download <QrCode size={16}/></button>
+            <div className="flex mt-4 justify-between items-center">
+              <div className="flex gap-2 items-center flex-1">
+                {/* <button className="bordered flex items-center gap-2 rounded-md bg-redd" onClick={prevPage}>previous <ArrowLeft size={16}/></button> */}
+                {Array.from({ length: maxPagination }, (_, index) => (
+                  <button
+                    key={index}
+                    className={`bordered flex items-center justify-center gap-2 aspect-square rounded-md ${pagination === index + 1 ? 'bg-purplee' : 'bg-white'}`}
+                    onClick={() => setPagination(index + 1 )}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+                {/* <button className="bordered flex items-center gap-2 rounded-md bg-redd" onClick={nextPage}>next <ArrowRight size={16}/></button> */}
+              </div>
+              <div className="justify-end flex flex-1">
+                <button className="bordered flex items-center gap-2 rounded-md bg-yelloww" onClick={handleDownloadAllQRCode}>download all  <QrCode size={16}/></button>
+              </div>
+            </div>
           </div>
         </div>
       ) : 
