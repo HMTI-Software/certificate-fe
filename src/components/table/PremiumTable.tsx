@@ -9,7 +9,6 @@ import {
   ColumnDef,
   VisibilityState,
   ColumnFiltersState,
-  SortingState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
@@ -18,12 +17,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   Table,
   TableBody,
   TableCell,
@@ -31,7 +24,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Plus } from "lucide-react";
+import { ChevronsLeft, ChevronsRight, Plus } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -65,7 +58,6 @@ export function DataTable<TData, TValue>({
       rowSelection,
     },
   });
-
   return (
     <div className="w-full">
       <div className="flex flex-row justify-between items-center py-4">
@@ -76,11 +68,8 @@ export function DataTable<TData, TValue>({
             onChange={(event) =>
               table.getColumn("name")?.setFilterValue(event.target.value)
             }
-            className="max-w-sm border-black"
+            className=" border-black"
           />
-          <Button className="bordered bg-[#59FFAC] hover:bg-[#59FFAC]/90 text-black">
-            Search
-          </Button>
         </div>
         <Button className="bordered bg-[#59FFAC] hover:bg-[#59FFAC]/90 text-black">
           Add Account <Plus />
@@ -109,10 +98,7 @@ export function DataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
@@ -136,28 +122,71 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
+      <div className="flex items-center justify-center space-x-2 py-4">
         <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
+          {(() => {
+            const currentPage = table.getState().pagination.pageIndex + 1;
+            const totalPages = table.getPageCount();
+            const pageNumbers = [];
+            if (currentPage > 3) {
+              pageNumbers.push(1);
+            }
+            if (currentPage > 4) {
+              pageNumbers.push("...");
+            }
+            for (
+              let i = Math.max(1, currentPage - 1);
+              i <= Math.min(totalPages, currentPage + 1);
+              i++
+            ) {
+              pageNumbers.push(i);
+            }
+            if (currentPage < totalPages - 3) {
+              pageNumbers.push("...");
+            }
+            if (currentPage < totalPages - 2) {
+              pageNumbers.push(totalPages);
+            }
+            return (
+              <div className="flex space-x-1">
+                <Button
+                  size="sm"
+                  onClick={() => table.previousPage()}
+                  className={`bordered bg-red-400 hover:bg-red/90 text-black ${
+                    currentPage === 1 ? "hidden" : ""
+                  }`}
+                >
+                  <ChevronsLeft />
+                </Button>
+                {pageNumbers.map((page, index) => (
+                  <Button
+                    key={index}
+                    size="sm"
+                    onClick={() =>
+                      typeof page === "number" && table.setPageIndex(page - 1)
+                    }
+                    className={`bordered bg-white hover:bg-white/90 text-black ${
+                      currentPage === page
+                        ? "bg-[#59FFAC] hover:bg-[#59FFAC]/90"
+                        : ""
+                    }`}
+                    disabled={page === "..."}
+                  >
+                    {page}
+                  </Button>
+                ))}
+                <Button
+                  size="sm"
+                  onClick={() => table.nextPage()}
+                  className={`bordered bg-red-400 hover:bg-red/90 text-black ${
+                    currentPage === totalPages ? "hidden" : ""
+                  }`}
+                >
+                  <ChevronsRight />
+                </Button>
+              </div>
+            );
+          })()}
         </div>
       </div>
     </div>
