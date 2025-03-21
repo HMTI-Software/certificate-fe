@@ -1,16 +1,9 @@
 import { promises as fs } from "fs";
 import path from "path";
-import { Metadata } from "next";
 
 //COMPOMENTS
 import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/PremiumTable";
-import Navbar from "@/components/Navbar";
-
-export const metadata: Metadata = {
-  title: "Admin Page",
-  description: "Admin Page",
-};
 
 export async function getPremiumUsers() {
   try {
@@ -29,12 +22,9 @@ const AdminPage = async () => {
   const premiumUsersData = await getPremiumUsers();
   return (
     <>
-      <div className="w-full px-40 min-h-screen">
-        <Navbar />
-        <div className="container mx-auto py-10">
-          <h1 className="text-lg font-bold">Profile</h1>
-          <DataTable columns={columns} data={premiumUsersData} />
-        </div>
+      <div className="container mx-auto py-10">
+        <h1 className="text-lg font-bold">Profile</h1>
+        <DataTable columns={columns} data={premiumUsersData} />
       </div>
     </>
   );

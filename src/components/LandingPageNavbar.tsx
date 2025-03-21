@@ -1,33 +1,27 @@
-import Link from "next/link";
+import { Link } from "lucide-react";
 import { Button } from "./ui/button";
+import { INavMenu } from "./Navbar";
 
-export interface INavMenu {
-  id: number;
-  title: string;
-  link: string;
-}
-
-const Navbar = () => {
-  const role: string = "admin";
+const LandingPageNavbar = () => {
   const NavMenu: INavMenu[] = [
     {
       id: 1,
-      title: "event",
+      title: "about",
       link: "/event",
     },
     {
       id: 2,
-      title: "profile",
+      title: "price",
       link: "/profile",
     },
     {
       id: 3,
-      title: "subscription",
+      title: "contact",
       link: "/subscription",
     },
     {
       id: 4,
-      title: "admin",
+      title: "docs",
       link: "/admin",
     },
   ];
@@ -44,8 +38,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex-1 self-stretch flex justify-center items-center gap-10">
-          {NavMenu.map((item) => {
-            if (role !== "admin" && item.title === "admin") return null;
+          {/* {NavMenu.map((item) => {
             return (
               <Link
                 href={item.link}
@@ -56,7 +49,7 @@ const Navbar = () => {
                 <span className="absolute -bottom-2 left-0 w-0 transition-all h-[2px] bg-black group-hover:w-full"></span>
               </Link>
             );
-          })}
+          })} */}
         </div>
         <div className="flex-1 flex justify-end items-center gap-2.5">
           <Button className="bordered bg-redd hover:bg-redd/90">log out</Button>
@@ -66,4 +59,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default LandingPageNavbar;
