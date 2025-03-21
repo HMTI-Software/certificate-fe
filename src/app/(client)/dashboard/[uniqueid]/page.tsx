@@ -10,6 +10,7 @@ import { IEventData, IParticipantData } from "@/lib/Interface"
 import { useParams } from "next/navigation"
 import TextToQR from "@/components/QRConverter"
 import Loading from "@/components/Loading"
+import AddUser from "@/components/popup/AddUser"
 
 const page = () => {
   const params = useParams();
@@ -19,6 +20,7 @@ const page = () => {
   const [ participants, setParticipants ] = useState<IParticipantData[]>([]);
   const [ notFound, setNotFound ] = useState<boolean>(false);
   const [ pagination, setPagination ] = useState<number>(1);
+  const [ openAddUser, setOpenAddUser ] = useState<boolean>(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -207,6 +209,11 @@ const page = () => {
             <Loading>sabar ya bang..</Loading>
           )
         )
+      }
+      {
+        openAddUser ? (
+          <AddUser showAddUser={openAddUser} setShowAddUser={setOpenAddUser} />
+        ) : ( null )
       }
     </div>
   )
