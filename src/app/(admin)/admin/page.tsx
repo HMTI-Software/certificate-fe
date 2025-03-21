@@ -1,14 +1,17 @@
-import Navbar from "@/components/Navbar";
 import { promises as fs } from "fs";
 import path from "path";
+import { Metadata } from "next";
+
+//COMPOMENTS
+import { columns } from "@/components/table/columns";
+import { DataTable } from "@/components/table/PremiumTable";
+import Navbar from "@/components/Navbar";
+
 export const metadata: Metadata = {
   title: "Admin Page",
   description: "Admin Page",
 };
 
-import { columns } from "@/components/table/columns";
-import { DataTable } from "@/components/table/PremiumTable";
-import { Metadata } from "next";
 export async function getPremiumUsers() {
   try {
     const res = await fs.readFile(

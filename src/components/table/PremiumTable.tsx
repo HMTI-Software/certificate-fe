@@ -1,10 +1,5 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
-
-import { Input } from "@/components/ui/input";
 import * as React from "react";
-
 import {
   ColumnDef,
   VisibilityState,
@@ -16,6 +11,10 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+
+//COMPONENTS
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -24,7 +23,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
+//ICONS
 import { ChevronsLeft, ChevronsRight, Plus } from "lucide-react";
+import GeneralAlert from "../popup/GeneralAlert";
+import { useEffect, useState } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -35,29 +38,16 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
-
+  const [openAlert, setOpenAlert] = useState<boolean>(false);
   const table = useReactTable({
     data,
     columns,
-    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    state: {
-      columnFilters,
-      columnVisibility,
-      rowSelection,
-    },
   });
+
   return (
     <div className="w-full">
       <div className="flex flex-row justify-between items-center py-4">
@@ -71,7 +61,12 @@ export function DataTable<TData, TValue>({
             className=" border-black"
           />
         </div>
-        <Button className="bordered bg-[#59FFAC] hover:bg-[#59FFAC]/90 text-black">
+        <Button
+          className="bordered bg-[#59FFAC] hover:bg-[#59FFAC]/90 text-black"
+          onClick={() => {
+            setOpenAlert(true);
+          }}
+        >
           Add Account <Plus />
         </Button>
       </div>
@@ -100,7 +95,7 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),
