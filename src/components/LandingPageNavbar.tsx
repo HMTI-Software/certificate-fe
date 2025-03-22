@@ -1,4 +1,4 @@
-import { Link } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Link, LogIn } from "lucide-react";
 import { Button } from "./ui/button";
 import { INavMenu } from "./Navbar";
 
@@ -7,52 +7,61 @@ const LandingPageNavbar = () => {
     {
       id: 1,
       title: "about",
-      link: "/event",
+      link: "/#about",
     },
     {
       id: 2,
       title: "price",
-      link: "/profile",
+      link: "/#price",
     },
     {
       id: 3,
       title: "contact",
-      link: "/subscription",
+      link: "/#contact",
     },
     {
       id: 4,
       title: "docs",
-      link: "/admin",
+      link: "/docs",
     },
   ];
 
   return (
-    <div className="w-full py-4 bg-white">
+    <div className="w-full py-4 bg-white px-40">
       <div className="w-full inline-flex justify-between items-center">
-        <div className="flex-1 inline-flex flex-col justify-start items-start">
-          <div className="justify-start text-black text-lg font-bold font-['Plus_Jakarta_Sans']">
-            Dashboard
-          </div>
-          <div className="w-64 justify-start text-grayy text-sm font-normal font-['Plus_Jakarta_Sans']">
-            hi Alif, such a nice day to see you
-          </div>
+        <div className="flex flex-row justify-start items-start gap-2">
+          <BadgeCheck className="mt-[2px]" />
+          <h1 className="font-bold text-lg">CertifiedCertification</h1>
         </div>
-        <div className="flex-1 self-stretch flex justify-center items-center gap-10">
-          {/* {NavMenu.map((item) => {
+        <div className="flex flex-row justify-end items-center gap-10">
+          {NavMenu.map((item) => {
+            if (item.title == "docs")
+              return (
+                <a
+                  key={item.id}
+                  href={item.link}
+                  className="text-sm group relative w-max"
+                >
+                  <span className="inline-flex">
+                    {item.title} <ArrowUpRight className="w-4" />
+                  </span>
+                  <span className="absolute -bottom-2 left-0 w-0 transition-all h-[2px] bg-black group-hover:w-full"></span>
+                </a>
+              );
             return (
-              <Link
-                href={item.link}
+              <a
                 key={item.id}
+                href={item.link}
                 className="text-sm group relative w-max"
               >
                 <span>{item.title}</span>
                 <span className="absolute -bottom-2 left-0 w-0 transition-all h-[2px] bg-black group-hover:w-full"></span>
-              </Link>
+              </a>
             );
-          })} */}
-        </div>
-        <div className="flex-1 flex justify-end items-center gap-2.5">
-          <Button className="bordered bg-redd hover:bg-redd/90">log out</Button>
+          })}
+          <Button className="bordered bg-[#99B2FF] hover:bg-[#99B2FF/90] text-black">
+            login <LogIn />
+          </Button>
         </div>
       </div>
     </div>
