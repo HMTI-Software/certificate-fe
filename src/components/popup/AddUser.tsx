@@ -38,7 +38,7 @@ const AddUser = ({showAddUser, setShowAddUser}: {showAddUser: boolean, setShowAd
               <h1 className="font-bold -mb-1 text-xl">Import File</h1>
               <p className='text-sm'>import excel file(.xlsx)</p>
             </div>
-            <input type="file" className='bordered bg-white w-full rounded-md'/>
+            <input type="file" name="file_name" className='bordered bg-white w-full rounded-md'/>
           </div>
           <hr className='border border-black h-full'/>
           <div className="flex-1 gap-2 flex flex-col">
@@ -49,7 +49,7 @@ const AddUser = ({showAddUser, setShowAddUser}: {showAddUser: boolean, setShowAd
             <div className='w-full'>
               {Array.from({ length: participantCounter }, (_, i) => (
                 <div className="flex items-stretch gap-2" key={i}>
-                  <input name="file_name" placeholder='nama participant' type="text" className='bordered bg-white w-full rounded-md' name={'participant' + i}/>
+                  <input placeholder='nama participant' type="text" className='bordered bg-white w-full rounded-md' name={'participant' + i}/>
                   <button className='bordered bg-redd aspect-square rounded-md flex items-center justify-center' onClick={(e) => {e.preventDefault(); setParticipantCounter(participantCounter - 1)}}>
                     <Trash size={16}/>
                   </button>

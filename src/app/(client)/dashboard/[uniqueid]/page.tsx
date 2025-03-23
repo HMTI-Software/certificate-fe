@@ -11,6 +11,7 @@ import { useParams } from "next/navigation"
 import TextToQR from "@/components/QRConverter"
 import Loading from "@/components/Loading"
 import AddUser from "@/components/popup/AddUser"
+import bgall from '@/app/assets/bg.jpg'
 
 const page = () => {
   const params = useParams();
@@ -20,7 +21,8 @@ const page = () => {
   const [ participants, setParticipants ] = useState<IParticipantData[]>([]);
   const [ notFound, setNotFound ] = useState<boolean>(false);
   const [ pagination, setPagination ] = useState<number>(1);
-  const [ openAddUser, setOpenAddUser ] = useState<boolean>(true);
+  const [ openAddUser, setOpenAddUser ] = useState<boolean>(false);
+  const [ tempParticipant, setTempParticipant ] = useState<IParticipantData[]>([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -35,6 +37,7 @@ const page = () => {
       
       setEventData(event || null);
       setParticipants(participant || []);
+      setTempParticipant(participant || []);
       console.log(event, participant)
     }
     uniqueid ? getData() : setNotFound(true)
@@ -118,6 +121,25 @@ const page = () => {
     }
   };
 
+  const handleSearch = (e: React.FormEvent <HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const search = Object.fromEntries(formData.entries())
+    const searchValue = search.search as string;
+    if (searchValue === "") {
+      setParticipants(tempParticipant)
+    } else {
+      const foundUser = participants.find(user => user.name.toLowerCase().includes(searchValue.toLowerCase()));
+      if (foundUser) {
+        console.log(`Found user: ${foundUser.name}`);
+        setParticipants([foundUser])
+      } else {
+        console.log("User not found");
+      }
+    }
+  };
+
+
 
   return ( 
     <div className="w-full px-40 2xl:px-80 pb-40">
@@ -146,14 +168,14 @@ const page = () => {
           </Card>
           <div className="flex w-full justify-between mt-10 items-center">
             <b className="text-xl">Table of participants</b>
-            <button className="bordered rounded-md bg-purplee py-2 px-4 flex gap-2">
+            <button onClick={() => setOpenAddUser(true)} className="bordered rounded-md bg-purplee py-2 px-4 flex gap-2">
               add new participant
               <Plus />
             </button>
           </div>
-          <form className="mt-4 flex gap-2">
-            <input type="text" className="bordered-nonhover rounded-md w-full" placeholder="Search"/>
-            <button className="bordered rounded-md bg-greenn py-2 px-8">Search</button>
+          <form className="mt-4 flex gap-2" onSubmit={handleSearch}>
+            <input type="text" name="search" className="bordered-nonhover rounded-md w-full" placeholder="Search"/>
+            <button type="submit" className="bordered rounded-md bg-greenn py-2 px-8">Search</button>
           </form>
           <div className="w-full mt-4">
             <div>
