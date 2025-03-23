@@ -10,10 +10,18 @@ import {
 import { IPricingPackage } from "@/app/page";
 
 const PricingCard = ({ packageData }: { packageData: IPricingPackage }) => {
+  let mobileOrder = "";
+  if (packageData.packageName === "Klee Package") {
+    mobileOrder = "order-1";
+  } else if (packageData.packageName === "Furina Package") {
+    mobileOrder = "order-2";
+  } else if (packageData.packageName === "Diluc Package") {
+    mobileOrder = "order-3";
+  }
   if (packageData.packageName === "Klee Package") {
     return (
       <Card
-        className={`bordered border-b-4 hover:border-b-1 ${packageData.packageStyle} py-5`}
+        className={`bordered border-b-4 hover:border-b-1 ${packageData.packageStyle} py-5 ${mobileOrder} md:order-none`}
       >
         <CardHeader>
           <CardTitle className="font-bold text-xl">
@@ -55,7 +63,7 @@ const PricingCard = ({ packageData }: { packageData: IPricingPackage }) => {
   }
   return (
     <Card
-      className={`bordered scale-90 border-b-4 hover:border-b-1 ${packageData.packageStyle} py-5`}
+      className={`bordered scale-90 border-b-4 hover:border-b-1 ${packageData.packageStyle} py-5 ${mobileOrder} md:order-none`}
     >
       <CardHeader>
         <CardTitle className="font-bold text-xl">
