@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 
-interface INavMenu {
+export interface INavMenu {
   id: number;
   title: string;
   link: string;
 }
 
-const Navbar = () => {
+const Navbar = ({ clickable }: { clickable?: boolean }) => {
   const role: string = "admin";
   const NavMenu: INavMenu[] = [
     {
@@ -45,6 +45,13 @@ const Navbar = () => {
         </div>
         <div className="flex-1 self-stretch flex justify-center items-center gap-10">
           {NavMenu.map((item) => {
+            if (!clickable)
+              return (
+                <span key={item.id} className="text-sm group relative w-max">
+                  <span>{item.title === "admin" ? null : item.title}</span>
+                  <span className="absolute -bottom-2 left-0 w-0 transition-all h-[2px] bg-black group-hover:w-full"></span>
+                </span>
+              );
             if (role !== "admin" && item.title === "admin") return null;
             return (
               <Link
