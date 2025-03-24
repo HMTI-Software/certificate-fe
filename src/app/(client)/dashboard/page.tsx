@@ -32,7 +32,7 @@ const page = () => {
       }
     >
       {isPremium ? (
-        <div className="w-full grid grid-cols-3 pt-8 gap-4">
+        <div className="w-full grid grid-rows-1 md:grid-cols-3 pt-8 gap-4">
           {eventData?.map((event: IEventData) => {
             return (
               <Link href={"/dashboard/" + event.uniqueId} key={event.id}>

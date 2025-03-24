@@ -4,8 +4,10 @@ import { ArrowUpRight, BadgeCheck, LogIn, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { INavMenu } from "./Navbar";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const LandingPageNavbar = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   const NavMenu: INavMenu[] = [
@@ -38,19 +40,35 @@ const LandingPageNavbar = () => {
               <span className="absolute -bottom-2 left-0 w-0 transition-all h-[2px] bg-black group-hover:w-full"></span>
             </Link>
           ))}
-          <Button className="bordered bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black flex items-center gap-2">
+          <Button
+            className="bordered bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black flex items-center gap-2"
+            onClick={() => router.push("/signin")}
+          >
             login <LogIn />
           </Button>
         </div>
 
         {/* Mobile Menu Button */}
-        <Button
+        <button
+          className="md:hidden flex flex-col space-y-1.5 p-2 "
           onClick={() => setIsOpen(!isOpen)}
-          variant={"outline"}
-          className="md:hidden block text-black bg-white"
         >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </Button>
+          <div
+            className={`w-6 h-0.5 bg-black transition-all ${
+              isOpen ? "rotate-45 translate-y-2 " : ""
+            }`}
+          ></div>
+          <div
+            className={`w-6 h-0.5 bg-black transition-all ${
+              isOpen ? "opacity-0" : ""
+            }`}
+          ></div>
+          <div
+            className={`w-6 h-0.5 bg-black transition-all ${
+              isOpen ? "-rotate-45 -translate-y-2" : ""
+            }`}
+          ></div>
+        </button>
       </div>
 
       {/* Mobile Menu */}

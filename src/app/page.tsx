@@ -1,44 +1,21 @@
+import GetStartedButton from "@/components/button/GetStartedButton";
+import PricingButton from "@/components/button/PricingButton";
 import ContactCard from "@/components/card/ContactCard";
 import PricingCard from "@/components/card/PricingCard";
 import DashboardView from "@/components/DashboardView";
 import LandingPageNavbar from "@/components/LandingPageNavbar";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { IAdminContact, IPricingPackage } from "@/lib/Interface";
 import { BadgeCheck, BookMarked, SquareCheckBig, Tag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-type featureType = {
-  feature: string;
-  icon: React.ReactNode;
-};
-export interface IPricingPackage {
-  packageName: string;
-  packageDescription: string;
-  packagePrice: number;
-  packageFeatures: featureType[];
-  packageStyle: string;
-}
-
-interface IAdminContact {
-  name: string;
-  description: string;
-  noTelp: number;
-  igUsername: string;
-  adminImage: string;
-  cardStyle?: string;
-  imageStyle?: string;
-}
-
-const Home = async () => {
+/*
+  This is the Landing Page Component
+  This component will be used as the main page for the website
+  CACHING : SSG (Static Site Generation) - This page will be generated at build time
+*/
+const LandingPage = async () => {
   const pricingPackage: IPricingPackage[] = [
     {
       packageName: "Furina Package",
@@ -128,14 +105,13 @@ const Home = async () => {
       packageStyle: "bg-[#59FFAC] border-black",
     },
   ];
-
   const contacts: IAdminContact[] = [
     {
       name: "Deris Firmansyah",
       description: "contact person",
       noTelp: 628123456789,
       igUsername: "@derisfirmansyah",
-      adminImage: "/sheep-image.png",
+      adminImage: "/sheep-image.svg",
       cardStyle: "bg-[#99B2FF] snap-center",
       imageStyle:
         "absolute -top-[149px] left-[140px] transform -translate-x-1/2 w-52 h-auto",
@@ -145,7 +121,7 @@ const Home = async () => {
       description: "contact person",
       noTelp: 628123456789,
       igUsername: "@alifmahendra",
-      adminImage: "/dog-image.png",
+      adminImage: "/dog-image.svg",
       cardStyle: "bg-[#59FFAC] snap-center",
       imageStyle:
         "absolute -top-[190px] left-[180px] transform -translate-x-1/2 w-64 h-auto",
@@ -155,7 +131,7 @@ const Home = async () => {
       description: "contact person",
       noTelp: 628123456789,
       igUsername: "@fatihattala",
-      adminImage: "/pig-image.png",
+      adminImage: "/pig-image.svg",
       cardStyle: "bg-[#FFFB86] snap-center",
       imageStyle:
         "absolute -top-[152px] left-[185px] transform -translate-x-1/2 w-64 h-auto",
@@ -169,7 +145,7 @@ const Home = async () => {
           {/* Hero Section */}
           <section
             id="hero"
-            className="relative w-full h-auto md:h-auto lg:h-[700px] px-10 lg:px-40 flex flex-col items-center gap-8 pt-28 md:px-20"
+            className="relative w-full h-auto md:h-auto lg:h-[700px] px-10 md:px-20 lg:px-40 flex flex-col items-center gap-8 pt-28"
           >
             <div className="inline-flex border-1 border-black rounded-lg p-1 px-4 gap-1 items-center">
               <Image
@@ -180,29 +156,20 @@ const Home = async () => {
               />
               <h1 className="text-xs text-center">hmtiudinusproduct</h1>
             </div>
-            <h1 className="text-4xl font-bold flex items-center text-center lg:w-[40%]">
+            <h1 className="text-4xl font-bold flex items-center text-center lg:px-[350px]">
               Easier to Make Certificate for Your Hectic Event
             </h1>
-            <p className="text-center">
+            <p className="text-center text-lg md:text-lg">
               wondering you just focus on your event without thinking in
               certification, think again!
             </p>
             <div className="flex flex-row justify-center gap-3">
-              <Button
-                className="bordered bg-[#59FFAC] hover:bg-[#59FFAC/90] text-black"
-                size={"lg"}
-              >
-                pricing <Tag />
-              </Button>
-              <Button
-                className="bordered bg-[#99B2FF] hover:bg-[#99B2FF/90] text-black"
-                size={"lg"}
-              >
-                get started <BookMarked />
-              </Button>
+              <PricingButton />
+              <GetStartedButton />
             </div>
           </section>
-          <div className="relative justify-center items-center hidden md:hidden lg:flex">
+          {/* Dashboard Section */}
+          <section className="relative w-full h-auto justify-center items-center hidden lg:flex">
             <div className="absolute z-10 px-40">
               <DashboardView />
             </div>
@@ -213,13 +180,11 @@ const Home = async () => {
               height={1000}
               alt="landing-page-bg-1"
             />
-          </div>
+          </section>
           {/* About Section */}
-          <section
-            id="about"
-            className="w-full px-10 md:px-40 pt-20 md:pt-36 lg:pt-72  pb-36"
-          >
+          <section className="w-full px-10 md:px-40 py-36 pt-36 md:pt-52">
             <div className="flex flex-col items-center gap-12">
+              <span id="about"></span>
               <Image
                 src={"/logo-hmti.png"}
                 className="object-cover object-center"
@@ -228,31 +193,25 @@ const Home = async () => {
                 alt="logo-hmti-udinus"
               />
               <h1 className="font-bold text-4xl">About</h1>
-              <p className="font-normal text-sm text-center">
+              <p className="font-normal text-lg md:text-lg text-center">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Temporibus dignissimos aperiam facere tenetur, nulla harum
-                minima modi eveniet, vero doloremque architecto quidem quam
-                numquam ullam repellendus accusantium natus sed rem cupiditate
-                velit nihil. At consequuntur tempora aliquam sit blanditiis ea,
-                dolore, velit voluptate aliquid quas repellat fuga quo hic
-                tempore odit ad expedita, maiores a! Numquam in illo aspernatur,
-                porro repudiandae exercitationem dolorem vel distinctio
-                consectetur laudantium, corporis repellat quo quisquam est ipsa
-                quaerat obcaecati reiciendis! Expedita, eligendi harum qui
-                magnam laudantium, iusto tempore odit atque totam ad quidem
-                aperiam quisquam placeat eum minima dolorum numquam sequi est
-                temporibus odio?
+                Quisquam dolore officiis voluptatibus, veritatis minima delectus
+                velit? Officiis, aspernatur? Veniam deleniti quibusdam,
+                architecto aperiam velit expedita suscipit perferendis voluptate
+                at id in nesciunt nobis quaerat ab accusantium rerum quia quam
+                ad debitis fuga eius omnis quas animi. Ex repudiandae deserunt
+                quis.
               </p>
             </div>
           </section>
           {/* Pricing Section */}
           <section
             id="price"
-            className="md:block w-full px-10 md:px-20 lg:px-40 pb-32"
+            className="md:block w-full px-10 md:px-20 lg:px-40 pb-36"
           >
             <div className="flex flex-col items-center gap-4">
               <h1 className="font-bold text-4xl text-center">Pricing</h1>
-              <p className="text-center text-sm font-normal pb-7">
+              <p className="text-center text-lg md:text-lg font-normal pb-7">
                 Discover our competitive pricing packages, each designed to
                 offer unique features that cater to your event's specific needs.
                 Explore the benefits and find the perfect fit for your budget
@@ -268,64 +227,51 @@ const Home = async () => {
           {/* Contact Section */}
           <section
             id="contact"
-            className="md:block w-full px-10 md:px-20 lg:px-40 pb-32"
+            className="md:block w-full px-10 md:px-20 lg:px-40 pb-36"
           >
-            <div className="grid grid-rows-1 md:grid-cols-1 gap-10 md:gap-52">
+            <div className="flex flex-col gap-10 md:gap-36">
               <div className="flex flex-col items-center gap-2">
                 <h1 className="font-bold text-4xl">Contact</h1>
-                <p className="font-normal text-sm text-center">
+                <p className="font-normal text-lg text-center">
                   Contact us to get Something Special from Us
                 </p>
               </div>
-              <div className="md:hidden px-5 flex flex-col gap-3.5">
-                {contacts.map((contact, index) => (
-                  <div key={index}>
-                    <ContactCard
-                      name={contact.name}
-                      description={contact.description}
-                      callNumber={contact.noTelp.toString()}
-                      instagram={contact.igUsername}
-                      cardStyle={contact.cardStyle}
-                    >
-                      <Image
-                        src={contact.adminImage}
-                        width={200}
-                        height={100}
-                        alt="admin-image"
-                        className={contact.imageStyle}
-                      />
-                    </ContactCard>
-                  </div>
-                ))}
-              </div>
-              <div className="hidden md:grid grid-rows-1 gap-5 md:grid-cols-3 md:gap-10 overflow-x-visible snap-x">
+              {/* Contact Card Desktop*/}
+              <div className="hidden md:grid grid-cols-3 gap-5 md:gap-4 lg:gap-10">
                 {contacts.map((contact, index) => {
                   return (
-                    <ContactCard
-                      key={index}
-                      name={contact.name}
-                      description={contact.description}
-                      callNumber={contact.noTelp.toString()}
-                      instagram={contact.igUsername}
-                      cardStyle={contact.cardStyle}
-                    >
+                    <ContactCard key={index} contacts={contact}>
                       <Image
                         src={contact.adminImage}
                         width={200}
-                        height={100}
-                        alt="admin-image"
-                        className={contact.imageStyle}
+                        height={250}
+                        alt={contact.name}
+                        className="relative md:-mt-52 lg:-mt-64 mx-auto "
                       />
                     </ContactCard>
                   );
                 })}
+              </div>
+              {/* Contact Card Mobile */}
+              <div className="md:hidden flex flex-col gap-3.5 ">
+                {contacts.map((contact, index) => (
+                  <ContactCard contacts={contact} key={index}>
+                    <Image
+                      src={contact.adminImage}
+                      width={200}
+                      height={100}
+                      alt="admin-image"
+                      className={contact.imageStyle}
+                    />
+                  </ContactCard>
+                ))}
               </div>
             </div>
           </section>
         </div>
       </main>
       {/* Footer Section */}
-      <footer className="w-full bg-black text-white px-6 md:px-40 py-10">
+      <footer className="w-full bg-black text-white px-6 md:px-40 pt-20 pb-5">
         <div className="flex flex-col items-center md:items-start gap-6">
           {/* Logo */}
           <div className="flex flex-row items-center gap-2">
@@ -377,9 +323,14 @@ const Home = async () => {
             </div>
           </div>
         </div>
+        <div className="flex justify-center items-center pt-8">
+          <h1 className="text-sm text-center mt-4">
+            ©2025 HMTI Software Team. All rights reserved.
+          </h1>
+        </div>
       </footer>
     </>
   );
 };
 
-export default Home;
+export default LandingPage;

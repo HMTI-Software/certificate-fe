@@ -67,7 +67,7 @@ export function DataTable<TData, TValue>({
             setOpenAlert(true);
           }}
         >
-          Add Account <Plus />
+          <span className="hidden md:block">Add Account</span> <Plus />
         </Button>
       </div>
       <div className="rounded-md border">

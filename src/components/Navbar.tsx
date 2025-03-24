@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { Button } from "./ui/button";
 
 export interface INavMenu {
@@ -8,56 +11,45 @@ export interface INavMenu {
 }
 
 const Navbar = ({ clickable }: { clickable?: boolean }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const role: string = "admin";
+
   const NavMenu: INavMenu[] = [
-    {
-      id: 1,
-      title: "event",
-      link: "/dashboard",
-    },
-    {
-      id: 2,
-      title: "profile",
-      link: "/profile",
-    },
-    {
-      id: 3,
-      title: "subscription",
-      link: "/subscription",
-    },
-    {
-      id: 4,
-      title: "admin",
-      link: "/admin",
-    },
+    { id: 1, title: "event", link: "/dashboard" },
+    { id: 2, title: "profile", link: "/profile" },
+    { id: 3, title: "subscription", link: "/#price" },
+    { id: 4, title: "admin", link: "/admin" },
   ];
 
   return (
     <div className="w-full py-4 bg-white">
-      <div className="w-full inline-flex justify-between items-center">
-        <div className="flex-1 inline-flex flex-col justify-start items-start">
-          <div className="justify-start text-black text-lg font-bold font-['Plus_Jakarta_Sans']">
-            Dashboard
-          </div>
-          <div className="w-64 justify-start text-grayy text-sm font-normal font-['Plus_Jakarta_Sans']">
+      <div className="flex justify-between items-center">
+        <div className="flex flex-col">
+          <div className="text-black text-lg font-bold">Dashboard</div>
+          <div className="text-gray-500 text-sm">
             hi Alif, such a nice day to see you
           </div>
         </div>
-        <div className="flex-1 self-stretch flex justify-center items-center gap-10">
+        <div className="hidden md:flex gap-10">
           {NavMenu.map((item) => {
             if (!clickable)
               return (
-                <span key={item.id} className="text-sm group relative w-max">
+                <span
+                  key={item.id}
+                  className="text-sm group relative cursor-pointer"
+                >
                   <span>{item.title === "admin" ? null : item.title}</span>
                   <span className="absolute -bottom-2 left-0 w-0 transition-all h-[2px] bg-black group-hover:w-full"></span>
                 </span>
               );
+
             if (role !== "admin" && item.title === "admin") return null;
+
             return (
               <Link
-                href={item.link}
                 key={item.id}
-                className="text-sm group relative w-max"
+                href={item.link}
+                className="text-sm group relative"
               >
                 <span>{item.title}</span>
                 <span className="absolute -bottom-2 left-0 w-0 transition-all h-[2px] bg-black group-hover:w-full"></span>
@@ -65,9 +57,51 @@ const Navbar = ({ clickable }: { clickable?: boolean }) => {
             );
           })}
         </div>
-        <div className="flex-1 flex justify-end items-center gap-2.5">
-          <Button className="bordered bg-redd hover:bg-redd/90">log out</Button>
+
+        <div className="flex items-center gap-5">
+          <Button className="bordered hidden md:flex bg-redd hover:bg-redd/90">
+            log out
+          </Button>
+
+          <button
+            className="md:hidden flex flex-col space-y-1.5 p-2 "
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <div
+              className={`w-6 h-0.5 bg-black transition-all ${
+                isOpen ? "rotate-45 translate-y-2 " : ""
+              }`}
+            ></div>
+            <div
+              className={`w-6 h-0.5 bg-black transition-all ${
+                isOpen ? "opacity-0" : ""
+              }`}
+            ></div>
+            <div
+              className={`w-6 h-0.5 bg-black transition-all ${
+                isOpen ? "-rotate-45 -translate-y-2" : ""
+              }`}
+            ></div>
+          </button>
         </div>
+      </div>
+
+      <div
+        className={`md:hidden flex flex-col items-center bg-white shadow-md px-3 rounded-b-2xl transition-all duration-300 ${
+          isOpen ? "h-auto opacity-100 py-3" : "h-0 opacity-0 overflow-hidden"
+        }`}
+      >
+        {NavMenu.map((item) => {
+          if (role !== "admin" && item.title === "admin") return null;
+          return (
+            <Link key={item.id} href={item.link} className="py-2 text-sm">
+              {item.title}
+            </Link>
+          );
+        })}
+        <Button className="mt-3 bordered w-full bg-redd hover:bg-redd/90">
+          log out
+        </Button>
       </div>
     </div>
   );

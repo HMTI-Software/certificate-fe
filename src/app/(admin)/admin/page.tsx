@@ -22,7 +22,7 @@ const AdminPage = async () => {
   const premiumUsersData = await getPremiumUsers();
   return (
     <>
-      <div className="container mx-auto py-10">
+      <div className=" mx-auto py-10">
         <h1 className="text-lg font-bold">Profile</h1>
         <DataTable columns={columns} data={premiumUsersData} />
       </div>

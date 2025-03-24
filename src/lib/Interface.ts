@@ -40,3 +40,24 @@ export interface IParticipantData {
   eventId: string;
   certificateNumber: number;
 }
+
+export interface IPricingPackage {
+  packageName: string;
+  packageDescription: string;
+  packagePrice: number;
+  packageFeatures: {
+    feature: string;
+    icon: React.ReactNode;
+  }[];
+  packageStyle: string;
+}
+
+export interface IAdminContact {
+  name: string;
+  description: string;
+  noTelp: number;
+  igUsername: string;
+  adminImage: string;
+  cardStyle?: string;
+  imageStyle?: string;
+}

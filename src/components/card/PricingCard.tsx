@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { IPricingPackage } from "@/app/page";
+import { IPricingPackage } from "@/lib/Interface";
 
 const PricingCard = ({ packageData }: { packageData: IPricingPackage }) => {
   let mobileOrder = "";

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import "../globals.css";
+import "../../globals.css";
 import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  title: "Dashboard",
+  title: "Profile",
   description: "Certified Certification Dashboard",
 };
 
-export default function ClientLayout({
+export default function ProfileLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export default function ClientLayout({
   return (
     <div className="w-full px-40 min-h-screen">
       <header>
-        <Navbar />
+        <Navbar clickable />
       </header>
       <main>{children}</main>
     </div>

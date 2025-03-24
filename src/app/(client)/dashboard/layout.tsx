@@ -3,11 +3,11 @@ import "../../globals.css";
 import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  title: "Admin",
-  description: "Certified Certification Super Admin Page",
+  title: "Dashboard",
+  description: "Certified Certification Dashboard",
 };
 
-export default function AdminLayout({
+export default function ProfileLayout({
   children,
 }: {
   children: React.ReactNode;

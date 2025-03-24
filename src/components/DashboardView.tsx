@@ -33,7 +33,7 @@ const DashboardView = () => {
   return (
     <>
       <div className="border-1 border-black  bg-white">
-        <div className="w-full px-24 pt-4 pb-24 min-h-screen">
+        <div className="w-full md:px-10 lg:px-24 pt-4 pb-24 min-h-screen">
           <Navbar clickable={false} />
           <div className="flex flex-col pt-14">
             <h1 className="font-bold text-lg">Events</h1>
