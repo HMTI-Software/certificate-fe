@@ -4,20 +4,22 @@ import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Admin",
-  description: "Certified Certification Super Admin Page",
+  description: "Certified Certification Admin Dashboard",
 };
 
-export default function AdminLayout({
+export default function ProfileLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="w-full px-10 md:px-20 lg:px-40 min-h-screen">
+    <div className="w-full min-h-screen">
       <header>
         <Navbar clickable />
       </header>
-      <main>{children}</main>
+      <div className="px-4 md:px-20 lg:px-40">
+        <main>{children}</main>
+      </div>
     </div>
   );
 }

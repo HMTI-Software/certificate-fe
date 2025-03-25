@@ -23,7 +23,7 @@ const Navbar = ({ clickable }: { clickable?: boolean }) => {
 
   return (
     <div className="w-full py-4 bg-white">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center px-4 md:px-20 lg:px-40">
         <div className="flex flex-col">
           <div className="text-black text-lg font-bold">Dashboard</div>
           <div className="text-gray-500 text-sm">
@@ -87,14 +87,18 @@ const Navbar = ({ clickable }: { clickable?: boolean }) => {
       </div>
 
       <div
-        className={`md:hidden flex flex-col items-center bg-white shadow-md px-3 rounded-b-2xl transition-all duration-300 ${
-          isOpen ? "h-auto opacity-100 py-3" : "h-0 opacity-0 overflow-hidden"
+        className={`space-y-4 bg-white px-4 rounded-lg shadow-lg  transition-all duration-300 ${
+          isOpen ? "h-auto opacity-100 py-4" : "h-0 opacity-0 overflow-hidden"
         }`}
       >
         {NavMenu.map((item) => {
           if (role !== "admin" && item.title === "admin") return null;
           return (
-            <Link key={item.id} href={item.link} className="py-2 text-sm">
+            <Link
+              key={item.id}
+              href={item.link}
+              className="block text-sm text-black py-1 hover:bg-gray-200 rounded-md transition-all"
+            >
               {item.title}
             </Link>
           );

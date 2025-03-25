@@ -61,3 +61,10 @@ export interface IAdminContact {
   cardStyle?: string;
   imageStyle?: string;
 }
+
+export interface IProfileCard {
+  title: string;
+  description: string;
+  status: number | string;
+  bgColor: string;
+}

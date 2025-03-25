@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import bg from "@/app/assets/eventbg-1.jpg";
 import { Card } from "@/components/ui/card";
 import { FormatDate } from "@/lib/functions";
-import { FilePenLine, Plus, QrCode, Trash2 } from "lucide-react";
+import { Ellipsis, FilePenLine, Plus, QrCode, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { IEventData, IParticipantData } from "@/lib/Interface";
 import { useParams } from "next/navigation";
@@ -12,6 +12,18 @@ import TextToQR from "@/components/QRConverter";
 import Loading from "@/components/Loading";
 import AddUser from "@/components/popup/AddUser";
 import bgall from "@/app/assets/bg.jpg";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 const page = () => {
   const params = useParams();
@@ -155,15 +167,16 @@ const page = () => {
   };
 
   return (
-    <div className="w-full px-40 2xl:px-80 pb-40">
-      <Navbar />
+    <div className="w-full px-0 md:px-20 lg:px-40 2xl:px-60 pb-40">
       {eventData ? (
         <div className="w-full">
           <Card className="bordered-nonhover py-4 border-b-4 cursor-pointer mt-4">
             <div className="aspect-[7/1] p-0 w-full rounded-md border-black overflow-hidden border">
-              <img
+              <Image
                 src={bg.src}
                 alt="Event Background"
+                width={100}
+                height={100}
                 className="object-cover object-center h-full w-full"
               />
             </div>
@@ -177,34 +190,39 @@ const page = () => {
           </Card>
           <div className="flex w-full justify-between mt-10 items-center">
             <b className="text-xl">Table of participants</b>
-            <button
+            <Button
               onClick={() => setOpenAddUser(true)}
-              className="bordered rounded-md bg-purplee py-2 px-4 flex gap-2"
+              className="bordered rounded-md bg-purplee py-2 px-4 flex gap-2 hover:bg-purplee"
             >
-              add new participant
-              <Plus />
-            </button>
+              <span className="hidden md:inline-flex text-black">
+                add new participant
+              </span>
+              <Plus className="text-black" />
+            </Button>
           </div>
-          <form className="mt-4 flex gap-2" onSubmit={handleSearch}>
+          <form
+            className="mt-4 flex items-center gap-2"
+            onSubmit={handleSearch}
+          >
             <input
               type="text"
               name="search"
               className="bordered-nonhover rounded-md w-full"
               placeholder="Search"
             />
-            <button
+            <Button
               type="submit"
-              className="bordered rounded-md bg-greenn py-2 px-8"
+              className="bordered rounded-md bg-greenn hover:bg-green text-black py-5 px-8"
             >
               Search
-            </button>
+            </Button>
           </form>
           <div className="w-full mt-4">
             <div>
               {currentParticipants?.map((part: any, index) => (
                 <div
                   className="flex py-2 items-center gap-4 w-full justify-between"
-                  key={part.uniqueId}
+                  key={index}
                 >
                   <p>{index + 1 + "."}</p>
                   <div className="flex flex-col flex-1">
@@ -222,15 +240,36 @@ const page = () => {
                         part.certificateNumber}
                     </TextToQR>
                   </div>
-                  <div className="flex-1 flex  gap-2 justify-end">
-                    <button className="bordered flex items-center gap-2 rounded-md bg-redd">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="md:hidden text-black">
+                      <Ellipsis />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem>
+                        <Trash2 size={16} />
+                        Delete
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <FilePenLine size={16} />
+                        Edit
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <QrCode size={16} />
+                        Download
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                  <div className="hidden flex-1 md:flex  gap-2 justify-end items-center">
+                    <Button className="bordered flex items-center gap-2 rounded-md bg-redd hover:bg-redd text-black h-full">
                       delete <Trash2 size={16} />
-                    </button>
-                    <button className="bordered flex items-center gap-2 rounded-md bg-purplee">
+                    </Button>
+                    <Button className="bordered flex items-center gap-2 rounded-md bg-purplee hover:bg-purplee text-black h-full">
                       edit <FilePenLine size={16} />
-                    </button>
-                    <button
-                      className="bordered flex items-center gap-2 rounded-md bg-yelloww"
+                    </Button>
+                    <Button
+                      className="bordered flex items-center gap-2 rounded-md bg-yelloww hover:bg-yelloww text-black h-full"
                       onClick={() =>
                         handleDownload(
                           eventData.certificateNumber +
@@ -241,7 +280,7 @@ const page = () => {
                       }
                     >
                       download <QrCode size={16} />
-                    </button>
+                    </Button>
                   </div>
                 </div>
               ))}
@@ -250,25 +289,27 @@ const page = () => {
               <div className="flex gap-2 items-center flex-1">
                 {/* <button className="bordered flex items-center gap-2 rounded-md bg-redd" onClick={prevPage}>previous <ArrowLeft size={16}/></button> */}
                 {Array.from({ length: maxPagination }, (_, index) => (
-                  <button
+                  <Button
                     key={index}
-                    className={`bordered flex items-center justify-center gap-2 aspect-square rounded-md ${
-                      pagination === index + 1 ? "bg-purplee" : "bg-white"
+                    className={`bordered flex items-center text-black justify-center gap-2 aspect-square rounded-md ${
+                      pagination === index + 1
+                        ? "bg-purplee hover:bg-purplee"
+                        : "bg-white"
                     }`}
                     onClick={() => setPagination(index + 1)}
                   >
                     {index + 1}
-                  </button>
+                  </Button>
                 ))}
                 {/* <button className="bordered flex items-center gap-2 rounded-md bg-redd" onClick={nextPage}>next <ArrowRight size={16}/></button> */}
               </div>
               <div className="justify-end flex flex-1">
-                <button
-                  className="bordered flex items-center gap-2 rounded-md bg-yelloww"
+                <Button
+                  className="bordered flex items-center gap-2 rounded-md bg-yelloww hover:bg-yelloww text-black"
                   onClick={handleDownloadAllQRCode}
                 >
                   download all <QrCode size={16} />
-                </button>
+                </Button>
               </div>
             </div>
           </div>

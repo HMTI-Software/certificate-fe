@@ -182,7 +182,7 @@ const LandingPage = async () => {
             />
           </section>
           {/* About Section */}
-          <section className="w-full px-10 md:px-40 py-36 pt-36 md:pt-52">
+          <section className="w-full px-10 md:px-40 pb-20 pt-36 md:pt-52">
             <div className="flex flex-col items-center gap-12">
               <span id="about"></span>
               <Image
@@ -206,8 +206,8 @@ const LandingPage = async () => {
           </section>
           {/* Pricing Section */}
           <section
+            className="md:flex w-full px-10 md:px-20 lg:px-40 py-20"
             id="price"
-            className="md:block w-full px-10 md:px-20 lg:px-40 pb-36"
           >
             <div className="flex flex-col items-center gap-4">
               <h1 className="font-bold text-4xl text-center">Pricing</h1>
@@ -227,7 +227,7 @@ const LandingPage = async () => {
           {/* Contact Section */}
           <section
             id="contact"
-            className="md:block w-full px-10 md:px-20 lg:px-40 pb-36"
+            className="md:block w-full px-10 md:px-20 lg:px-40 py-20"
           >
             <div className="flex flex-col gap-10 md:gap-36">
               <div className="flex flex-col items-center gap-2">
