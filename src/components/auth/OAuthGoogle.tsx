@@ -23,7 +23,7 @@ const OAuthGoogle = ({ mode }: { mode?: "signIn" | "signUp" }) => {
   return (
     <div className="flex gap-2 w-full max-w-sm">
       <button
-        className="bordered rounded-md w-full justify-center bg-yelloww flex items-center gap-2 text-sm"
+        className="bordered rounded-md w-full justify-center bg-yelloww flex items-center gap-2 text-sm cursor-pointer"
         type="button"
         onClick={() => {
           if (mode === "signIn") {

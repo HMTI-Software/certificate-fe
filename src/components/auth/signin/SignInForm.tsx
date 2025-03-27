@@ -11,10 +11,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 //UI / COMPONENTS LIBRARY
+import FormField from "@/components/auth/FormField";
 import { Form } from "@/components/ui/form";
-import SignInField from "@/components/auth/signin/SignInField";
 import ErrorMessage from "@/components/auth/ErrorMessage";
-import SignInButton from "@/components/auth/AuthButton";
+import AuthButton from "@/components/auth/AuthButton";
 
 //SCHEMA
 import { signInFormSchema } from "@/lib/definitions";
@@ -81,7 +81,7 @@ const SignInForm = () => {
         <ErrorMessage message={signInForm.formState.errors.email?.message} />
         <ErrorMessage message={signInForm.formState.errors.password?.message} />
 
-        <SignInField
+        <FormField
           name="email"
           label="Email"
           type="email"
@@ -89,7 +89,7 @@ const SignInForm = () => {
           form={signInForm}
           error={signInForm.formState.errors.email}
         />
-        <SignInField
+        <FormField
           name="password"
           label="Password"
           type="password"
@@ -104,7 +104,7 @@ const SignInForm = () => {
           </Link>
         </div>
 
-        <SignInButton
+        <AuthButton
           isLoading={signInForm.formState.isSubmitting}
           mode="signIn"
         />
