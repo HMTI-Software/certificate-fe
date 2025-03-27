@@ -4,7 +4,7 @@
  * @component
  * @param {Object} props - The props object.
  * @param {boolean} [props.isLoading] - The loading state of the button.
- * @param {"signIn" | "signUp"} props.mode - The mode of the button.
+ * @param {"signIn" | "signUp" | "forgotPassword" | "resetPassword"} props.mode - The mode of the button.
  *
  * @example
  * // Display a sign in button
@@ -21,7 +21,7 @@ const AuthButton = ({
   mode,
 }: {
   isLoading?: boolean;
-  mode: "signIn" | "signUp";
+  mode: "signIn" | "signUp" | "forgotPassword" | "resetPassword";
 }) => {
   return (
     <button
@@ -29,7 +29,15 @@ const AuthButton = ({
       type="submit"
       disabled={isLoading}
     >
-      {isLoading ? "Loading..." : mode == "signIn" ? "Sign In" : "Sign Up"}
+      {isLoading
+        ? "Loading..."
+        : mode == "signIn"
+        ? "Sign In"
+        : mode == "signUp"
+        ? "Sign Up"
+        : mode == "forgotPassword"
+        ? "Send Email"
+        : "Reset Password"}
     </button>
   );
 };

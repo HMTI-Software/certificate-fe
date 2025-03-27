@@ -1,9 +1,7 @@
 "use client";
 
 //REACT / NEXTJS HOOKS AND LIBRARIES
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useState } from "react";
 
 //FORM COMPONENTS
 import { useForm } from "react-hook-form";
@@ -11,84 +9,67 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 //UI / COMPONENTS LIBRARY
+import FormField from "@/components/auth/FormField";
 import { Form } from "@/components/ui/form";
 import ErrorMessage from "@/components/auth/ErrorMessage";
-import FormField from "@/components/auth/FormField";
 import AuthButton from "@/components/auth/AuthButton";
 
 //SCHEMA
-import { signUpFormSchema } from "@/lib/definitions";
-import { IUserData } from "@/lib/Interface";
+import { resetPasswordFormSchema } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeClosed } from "lucide-react";
 
 /**
  * @returns
- * SignUpForm component
+ * Forgot Password component
  *
  * @description
- * This component is used to render the sign up form
+ * This component is used to render the forgot password form
  *
  * @example
- * <SignUpForm />
+ * <ForgotPasswordForm />
  */
-const SignUpForm = () => {
-  const router = useRouter();
+const ResetPasswordForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
 
-  const signUpForm = useForm<z.infer<typeof signUpFormSchema>>({
-    resolver: zodResolver(signUpFormSchema),
+  const resetPasswordForm = useForm<z.infer<typeof resetPasswordFormSchema>>({
+    resolver: zodResolver(resetPasswordFormSchema),
     defaultValues: {
-      email: "",
       password: "",
       confirmPassword: "",
     },
   });
 
-  const submitHandler = (values: z.infer<typeof signUpFormSchema>) => {
+  const submitHandler = (values: z.infer<typeof resetPasswordFormSchema>) => {
     try {
       console.log(values);
-      if (values.password !== values.confirmPassword) {
-        signUpForm.setError("confirmPassword", {
-          message: "Password not match",
-        });
-        return;
-      }
-      router.push("/auth/sign-in");
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <Form {...signUpForm}>
+    <Form {...resetPasswordForm}>
       <form
-        onSubmit={signUpForm.handleSubmit(submitHandler)}
+        onSubmit={resetPasswordForm.handleSubmit(submitHandler)}
         className="w-full max-w-sm flex flex-col gap-4"
       >
-        <ErrorMessage message={signUpForm.formState.errors.email?.message} />
-        <ErrorMessage message={signUpForm.formState.errors.password?.message} />
         <ErrorMessage
-          message={signUpForm.formState.errors.confirmPassword?.message}
+          message={resetPasswordForm.formState.errors.password?.message}
+        />
+        <ErrorMessage
+          message={resetPasswordForm.formState.errors.confirmPassword?.message}
         />
 
-        <FormField
-          name="email"
-          label="Email"
-          type="email"
-          placeholder="user@example.com"
-          form={signUpForm}
-          error={signUpForm.formState.errors.email}
-        />
         <FormField
           name="password"
           label="Password"
           type={showPassword ? "text" : "password"}
           placeholder="***********"
-          form={signUpForm}
-          error={signUpForm.formState.errors.password}
+          form={resetPasswordForm}
+          error={resetPasswordForm.formState.errors.password}
         >
           <Button
             type="button"
@@ -97,7 +78,11 @@ const SignUpForm = () => {
               setShowPassword(!showPassword);
             }}
           >
-            <Eye width={12} height={12} />
+            {showPassword ? (
+              <Eye width={12} height={12} />
+            ) : (
+              <EyeClosed width={12} height={12} />
+            )}
           </Button>
         </FormField>
         <FormField
@@ -105,8 +90,8 @@ const SignUpForm = () => {
           label="Confirm Password"
           type={showConfirmPassword ? "text" : "password"}
           placeholder="***********"
-          form={signUpForm}
-          error={signUpForm.formState.errors.confirmPassword}
+          form={resetPasswordForm}
+          error={resetPasswordForm.formState.errors.confirmPassword}
         >
           <Button
             type="button"
@@ -122,14 +107,13 @@ const SignUpForm = () => {
             )}
           </Button>
         </FormField>
-
         <AuthButton
-          isLoading={signUpForm.formState.isSubmitting}
-          mode="signUp"
+          isLoading={resetPasswordForm.formState.isSubmitting}
+          mode="resetPassword"
         />
       </form>
     </Form>
   );
 };
 
-export default SignUpForm;
+export default ResetPasswordForm;

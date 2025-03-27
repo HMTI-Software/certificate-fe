@@ -4,8 +4,12 @@ import SignInForm from "@/components/auth/signin/SignInForm";
 
 const SignInPage = () => {
   return (
-    <div className="w-full px-10 md:px-20 lg:px-40 min-h-screen flex flex-col items-center md:justify-center">
-      <div className="min-w-sm flex flex-col border-black p-4 rounded-lg items-center">
+    <div className="w-full py-6 md:py-0 px-10 md:px-20 lg:px-40 min-h-screen flex flex-col items-center md:justify-center">
+      <div className="min-w-sm flex flex-col border-black p-4 rounded-lg items-start">
+        <div className="max-w-sm flex flex-col gap-1 mb-3">
+          <b className="text-xl">Halo, User</b>
+          <p>Please sign in to continue</p>
+        </div>
         <SignInForm />
         <div className="flex gap-2 w-full items-center max-w-sm py-6">
           <div className="border border-black w-full"></div>

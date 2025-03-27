@@ -74,10 +74,6 @@ const SignInForm = () => {
         onSubmit={signInForm.handleSubmit(submitHandler)}
         className="w-full max-w-sm flex flex-col gap-4"
       >
-        <div className="mb-3">
-          <b className="text-xl">Halo, User</b>
-          <p>Please sign in to continue</p>
-        </div>
         <ErrorMessage message={signInForm.formState.errors.email?.message} />
         <ErrorMessage message={signInForm.formState.errors.password?.message} />
 
