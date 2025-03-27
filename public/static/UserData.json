@@ -3,7 +3,7 @@
     "id": 1,
     "name": "John Doe",
     "email": "user@gmail.com",
-    "password": "user321",
+    "password": "user1234",
     "position": "Event Coordinator",
     "image": "https://example.com/john_doe.jpg"
   },

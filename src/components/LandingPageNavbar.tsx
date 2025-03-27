@@ -43,7 +43,7 @@ const LandingPageNavbar = () => {
             ))}
             <Button
               className="bordered bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black flex items-center gap-2"
-              onClick={() => router.push("/signin")}
+              onClick={() => router.push("/auth/sign-in")}
             >
               login <LogIn />
             </Button>
@@ -91,7 +91,10 @@ const LandingPageNavbar = () => {
             )}
           </Link>
         ))}
-        <Button className="bordered w-full bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black flex items-center gap-2">
+        <Button
+          className="bordered w-full bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black flex items-center gap-2"
+          onClick={() => router.push("/auth/sign-in")}
+        >
           login <LogIn />
         </Button>
       </div>
