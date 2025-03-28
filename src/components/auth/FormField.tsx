@@ -21,6 +21,7 @@ interface FieldFormProps {
   form: UseFormReturn<any>;
   error?: FieldError;
   children?: React.ReactNode;
+  description?: string;
 }
 
 /**
@@ -40,6 +41,7 @@ interface FieldFormProps {
  * @prop {UseFormReturn<any>} form - The `react-hook-form` instance used for managing form state.
  * @prop {FieldError} [error] - Optional error object for displaying validation errors.
  * @prop {React.ReactNode} [children] - Optional child elements to render alongside the input field.
+ * @prop {string} description - Optional description text displayed below the input field.
  *
  * @example
  * ```tsx
@@ -72,6 +74,7 @@ const FormField = ({
   form,
   error,
   children,
+  description,
 }: FieldFormProps) => {
   return (
     <FormItem className="w-full flex flex-col">
@@ -104,9 +107,9 @@ const FormField = ({
           />
         </FormControl>
       )}
-      <FormDescription className="text-sm">
-        {name === "email" && "Enter the registered email address."}
-      </FormDescription>
+      {description && (
+        <FormDescription className="text-xs">{description}</FormDescription>
+      )}
     </FormItem>
   );
 };

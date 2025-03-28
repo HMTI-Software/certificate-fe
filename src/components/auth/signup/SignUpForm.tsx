@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { submitForm } from "@/actions/actions";
+import { submitSignUpForm } from "@/actions/submitSignUpForm";
 
 //UI / COMPONENTS LIBRARY
 import { Form } from "@/components/ui/form";
@@ -57,7 +57,7 @@ const SignUpForm = () => {
         return;
       }
       setIsLoading(true);
-      toast.promise(submitForm(values), {
+      toast.promise(submitSignUpForm(values), {
         loading: "Signing up...",
         success: (data) => {
           router.push("/auth/sign-in/");
@@ -93,6 +93,7 @@ const SignUpForm = () => {
           placeholder="user@example.com"
           form={signUpForm}
           error={signUpForm.formState.errors.email}
+          description="We'll never share your email with anyone else."
         />
         <FormField
           name="password"
@@ -109,7 +110,11 @@ const SignUpForm = () => {
               setShowPassword(!showPassword);
             }}
           >
-            <Eye width={12} height={12} />
+            {showPassword ? (
+              <Eye width={12} height={12} />
+            ) : (
+              <EyeClosed width={12} height={12} />
+            )}
           </Button>
         </FormField>
         <FormField

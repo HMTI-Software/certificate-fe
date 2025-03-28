@@ -18,7 +18,9 @@ import AuthButton from "@/components/auth/AuthButton";
 
 //SCHEMA
 import { signInFormSchema } from "@/lib/definitions";
-import { IUserData } from "@/lib/Interface";
+import { IAuthResponse, IUserData } from "@/lib/Interface";
+import { toast } from "sonner";
+import { submitSignInForm } from "@/actions/submitSignInForm";
 
 /**
  * @returns
@@ -32,17 +34,7 @@ import { IUserData } from "@/lib/Interface";
  */
 const SignInForm = () => {
   const router = useRouter();
-  const [userAllData, setUserAllData] = useState<IUserData[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch("/static/UserData.json");
-      const data = await res.json();
-      setUserAllData(data);
-    };
-    fetchData();
-  }, []);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const signInForm = useForm<z.infer<typeof signInFormSchema>>({
     resolver: zodResolver(signInFormSchema),
     defaultValues: {
@@ -52,17 +44,24 @@ const SignInForm = () => {
   });
 
   const submitHandler = (values: z.infer<typeof signInFormSchema>) => {
+    setIsLoading(true);
     try {
-      const user = userAllData.find((user) => user.email === values.email);
-      if (!user) {
-        signInForm.setError("email", { message: "Email not found" });
-        return;
-      }
-      if (user.password !== values.password) {
-        signInForm.setError("password", { message: "Password incorrect." });
-        return;
-      }
-      router.push("/dashboard");
+      toast.promise(submitSignInForm(values), {
+        loading: "Signing In...",
+        success: (data) => {
+          if (data?.data?.status === 200) {
+            router.push("/dashboard");
+            return data?.message;
+          }
+          throw new Error(data?.message);
+        },
+        error: (error) => {
+          return "Sign In failed";
+        },
+        finally: () => {
+          setIsLoading(false);
+        },
+      });
     } catch (error) {
       console.error(error);
     }
@@ -84,6 +83,7 @@ const SignInForm = () => {
           placeholder="user@example.com"
           form={signInForm}
           error={signInForm.formState.errors.email}
+          description="Please enter your registered email address"
         />
         <FormField
           name="password"
@@ -100,10 +100,7 @@ const SignInForm = () => {
           </Link>
         </div>
 
-        <AuthButton
-          isLoading={signInForm.formState.isSubmitting}
-          mode="signIn"
-        />
+        <AuthButton isLoading={isLoading} mode="signIn" />
       </form>
     </Form>
   );

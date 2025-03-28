@@ -11,6 +11,17 @@ export interface IEventData {
   timestamp: string;
 }
 
+interface AuthData {
+  token: string;
+}
+
+export interface IAuthResponse {
+  success: boolean;
+  status: number;
+  message: string;
+  data: AuthData;
+}
+
 export interface IEventStakeHolder {
   name: string;
   jabatan: string;
