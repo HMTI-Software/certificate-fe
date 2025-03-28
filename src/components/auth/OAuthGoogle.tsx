@@ -1,4 +1,6 @@
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "sonner";
+import { set } from "zod";
 
 /**
  * Component OAuthGoogle for Google OAuth button.
@@ -20,6 +22,26 @@ import { FcGoogle } from "react-icons/fc";
  * @returns {JSX.Element} Komponen tombol yang sudah diberi gaya untuk OAuth Google.
  */
 const OAuthGoogle = ({ mode }: { mode?: "signIn" | "signUp" }) => {
+  // const handleSubmit = async () => {
+  //   await toastPromise(
+  //     () =>
+  //       new Promise((resolve, reject) => {
+  //         setTimeout(() => {
+  //           Math.random() > 0.5
+  //             ? resolve("Data Saved!")
+  //             : reject(new Error("Failed to save data"));
+  //         }, 3000);
+  //       }),
+  //     {
+  //       title: "Operation Status",
+  //       description: "This is the result of the operation.",
+  //       button: {
+  //         label: "Dismiss",
+  //         onClick: () => console.log("Toast dismissed"),
+  //       },
+  //     },
+  //   );
+  // };
   return (
     <div className="flex gap-2 w-full max-w-sm">
       <button
@@ -27,6 +49,18 @@ const OAuthGoogle = ({ mode }: { mode?: "signIn" | "signUp" }) => {
         type="button"
         onClick={() => {
           if (mode === "signIn") {
+            const myPromise = new Promise((resolve, reject) => {
+              setTimeout(() => {
+                const value = Math.random();
+                const data = value > 0.5;
+                data ? resolve(value) : reject("Data failed!");
+              }, 3000);
+            });
+            toast.promise(myPromise, {
+              loading: "Loading...",
+              success: (data) => `Data saved: ${data}`,
+              error: "Failed to save data",
+            });
             console.log("Google Sign In");
           } else {
             console.log("Google Sign Up");

@@ -2,7 +2,6 @@
 
 import OAuthGoogle from "@/components/auth/OAuthGoogle";
 import SignUpForm from "@/components/auth/signup/SignUpForm";
-import { useState } from "react";
 
 const SignupPage = () => {
   return (

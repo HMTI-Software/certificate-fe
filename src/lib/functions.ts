@@ -1,5 +1,4 @@
 import QRcode from "qrcode";
-
 export const FormatDate = ({
   children,
   withDay,

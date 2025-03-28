@@ -1,14 +1,14 @@
 "use client";
 
 //REACT / NEXTJS HOOKS AND LIBRARIES
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useState } from "react";
 
 //FORM COMPONENTS
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { submitForm } from "@/actions/actions";
 
 //UI / COMPONENTS LIBRARY
 import { Form } from "@/components/ui/form";
@@ -18,9 +18,9 @@ import AuthButton from "@/components/auth/AuthButton";
 
 //SCHEMA
 import { signUpFormSchema } from "@/lib/definitions";
-import { IUserData } from "@/lib/Interface";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeClosed } from "lucide-react";
+import { toast } from "sonner";
 
 /**
  * @returns
@@ -37,6 +37,7 @@ const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const signUpForm = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
@@ -49,16 +50,27 @@ const SignUpForm = () => {
 
   const submitHandler = (values: z.infer<typeof signUpFormSchema>) => {
     try {
-      console.log(values);
       if (values.password !== values.confirmPassword) {
         signUpForm.setError("confirmPassword", {
           message: "Password not match",
         });
         return;
       }
-      router.push("/auth/sign-in");
+      setIsLoading(true);
+      toast.promise(submitForm(values), {
+        loading: "Signing up...",
+        success: (data) => {
+          router.push("/auth/sign-in/");
+          return data.success;
+        },
+        error: (error) => {
+          return "Sign up failed";
+        },
+      });
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -122,11 +134,7 @@ const SignUpForm = () => {
             )}
           </Button>
         </FormField>
-
-        <AuthButton
-          isLoading={signUpForm.formState.isSubmitting}
-          mode="signUp"
-        />
+        <AuthButton isLoading={isLoading} mode="signUp" />
       </form>
     </Form>
   );
