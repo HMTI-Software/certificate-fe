@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
-
+import { auth } from "@/auth";
 //COMPOMENTS
 import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/PremiumTable";
@@ -19,7 +19,9 @@ export async function getPremiumUsers() {
 }
 
 const AdminPage = async () => {
+  const session = await auth();
   const premiumUsersData = await getPremiumUsers();
+
   return (
     <>
       <div className=" mx-auto py-10">

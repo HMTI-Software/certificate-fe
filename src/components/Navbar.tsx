@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "./ui/button";
+import { signOut } from "@/auth";
+import AuthButton from "./auth/AuthButton";
 
 export interface INavMenu {
   id: number;
@@ -59,10 +61,7 @@ const Navbar = ({ clickable }: { clickable?: boolean }) => {
         </div>
 
         <div className="flex items-center gap-5">
-          <Button className="bordered hidden md:flex bg-redd hover:bg-redd/90">
-            log out
-          </Button>
-
+          <AuthButton mode="signOut" />
           <button
             className="md:hidden flex flex-col space-y-1.5 p-2 "
             onClick={() => setIsOpen(!isOpen)}

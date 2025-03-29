@@ -49,6 +49,7 @@ const SignUpForm = () => {
   });
 
   const submitHandler = (values: z.infer<typeof signUpFormSchema>) => {
+    setIsLoading(true);
     try {
       if (values.password !== values.confirmPassword) {
         signUpForm.setError("confirmPassword", {
@@ -56,21 +57,25 @@ const SignUpForm = () => {
         });
         return;
       }
-      setIsLoading(true);
       toast.promise(submitSignUpForm(values), {
         loading: "Signing up...",
         success: (data) => {
-          router.push("/auth/sign-in/");
-          return data.success;
+          if (data?.data?.status === 201 && data.data.status) {
+            router.push("/auth/sign-in");
+            return data?.message;
+          } else {
+            return data.error;
+          }
         },
         error: (error) => {
-          return "Sign up failed";
+          return error;
+        },
+        finally: () => {
+          setIsLoading(false);
         },
       });
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
