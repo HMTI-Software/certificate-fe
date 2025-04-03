@@ -21,6 +21,7 @@ export async function getPremiumUsers() {
 const AdminPage = async () => {
   const session = await auth();
   const premiumUsersData = await getPremiumUsers();
+  console.log(session);
 
   return (
     <>

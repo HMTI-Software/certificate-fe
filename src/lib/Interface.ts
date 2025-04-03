@@ -38,7 +38,7 @@ export interface IAuthResponse {
  *
  */
 export interface IUserPayload {
-  uid: string;
+  idUser: string;
   email: string;
   isPremium: boolean;
   premiumPackage: "FREEPLAN" | "SMALL" | "MEDIUM" | "LARGEST";
@@ -47,6 +47,14 @@ export interface IUserPayload {
   exp: number;
 }
 
+export interface IAuthToken {
+  id: string;
+  email: string;
+  isPremium: boolean;
+  premiumPackage: "FREEPLAN" | "SMALL" | "MEDIUM" | "LARGEST";
+  roles: "USER" | "SUPERADMIN";
+  token: string;
+}
 export interface IUsersData {
   email: string;
   isPremium: boolean;
@@ -116,6 +124,7 @@ export interface IProfileCard {
 }
 
 import NextAuth, { DefaultSession } from "next-auth";
+import { string } from "zod";
 
 declare module "next-auth" {
   interface Session {

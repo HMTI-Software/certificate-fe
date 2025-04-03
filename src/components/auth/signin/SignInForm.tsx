@@ -49,8 +49,11 @@ const SignInForm = () => {
       toast.promise(submitSignInForm(values), {
         loading: "Signing In...",
         success: (data) => {
-          router.push("/dashboard");
-          return data?.message;
+          if (data.success) {
+            router.push("/dashboard");
+            return data.message;
+          }
+          throw new Error(data.message);
         },
         error: (error) => {
           return error.message;
