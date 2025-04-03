@@ -18,6 +18,9 @@ import AuthButton from "@/components/auth/AuthButton";
 import { resetPasswordFormSchema } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeClosed } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
+import { submitResetPasswordForm } from "@/actions/submitResetPasswordForm";
 
 /**
  * @returns
@@ -30,9 +33,13 @@ import { Eye, EyeClosed } from "lucide-react";
  * <ForgotPasswordForm />
  */
 const ResetPasswordForm = () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const query = useSearchParams();
+  const token = query.get("token") || undefined;
 
   const resetPasswordForm = useForm<z.infer<typeof resetPasswordFormSchema>>({
     resolver: zodResolver(resetPasswordFormSchema),
@@ -43,9 +50,28 @@ const ResetPasswordForm = () => {
   });
 
   const submitHandler = (values: z.infer<typeof resetPasswordFormSchema>) => {
+    console.log("values", values);
+
+    setIsLoading(true);
     try {
-      console.log(values);
+      toast.promise(submitResetPasswordForm(values, token), {
+        loading: "Resetting Password...",
+        success: (data) => {
+          if (data.success) {
+            router.push("/auth/sign-in");
+            return data.message;
+          }
+          throw new Error(data.message);
+        },
+        error: (error) => {
+          return error.message;
+        },
+        finally: () => {
+          setIsLoading(false);
+        },
+      });
     } catch (error) {
+      setIsLoading(false);
       console.error(error);
     }
   };
@@ -107,10 +133,7 @@ const ResetPasswordForm = () => {
             )}
           </Button>
         </FormField>
-        <AuthButton
-          isLoading={resetPasswordForm.formState.isSubmitting}
-          mode="resetPassword"
-        />
+        <AuthButton isLoading={isLoading} mode="resetPassword" />
       </form>
     </Form>
   );

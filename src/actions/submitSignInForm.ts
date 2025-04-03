@@ -10,7 +10,7 @@ export const submitSignInForm = async (
 ) => {
   const validatedFields = signInFormSchema.safeParse(values);
   if (!validatedFields.success) {
-    return { success: false, message: "Input validation failed" };
+    return { success: false, message: "Invalid Credentials!" };
   }
 
   try {
@@ -19,14 +19,14 @@ export const submitSignInForm = async (
       redirect: false,
       redirectTo: "/dashboard",
     });
-    return { success: true, message: "Sign in successful" };
+    return { success: true, message: "Sign in successful! Welcome back!" };
   } catch (error) {
     if (error instanceof AuthError) {
       return {
         success: false,
         message:
           error.type === "CredentialsSignin"
-            ? "Invalid credentials"
+            ? "Email and password do not match"
             : "Authentication error",
       };
     }

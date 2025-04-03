@@ -60,15 +60,14 @@ const SignUpForm = () => {
       toast.promise(submitSignUpForm(values), {
         loading: "Signing up...",
         success: (data) => {
-          if (data?.data?.status === 201 && data.data.status) {
+          if (data.success) {
             router.push("/auth/sign-in");
-            return data?.message;
-          } else {
-            return data.error;
+            return data.message;
           }
+          throw new Error(data.message);
         },
         error: (error) => {
-          return error;
+          return error.message;
         },
         finally: () => {
           setIsLoading(false);
@@ -76,6 +75,7 @@ const SignUpForm = () => {
       });
     } catch (error) {
       console.error(error);
+      setIsLoading(false);
     }
   };
 

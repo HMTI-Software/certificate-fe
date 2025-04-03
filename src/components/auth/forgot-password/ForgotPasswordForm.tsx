@@ -15,7 +15,9 @@ import AuthButton from "@/components/auth/AuthButton";
 
 //SCHEMA
 import { forgotPasswordFormSchema } from "@/lib/definitions";
-
+import { useState } from "react";
+import { toast } from "sonner";
+import { submitForgotPasswordForm } from "@/actions/submitForgotPasswordForm";
 /**
  * @returns
  * Forgot Password component
@@ -27,6 +29,7 @@ import { forgotPasswordFormSchema } from "@/lib/definitions";
  * <ForgotPasswordForm />
  */
 const ForgotPasswordForm = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const forgotPasswordForm = useForm<z.infer<typeof forgotPasswordFormSchema>>({
     resolver: zodResolver(forgotPasswordFormSchema),
     defaultValues: {
@@ -35,8 +38,23 @@ const ForgotPasswordForm = () => {
   });
 
   const submitHandler = (values: z.infer<typeof forgotPasswordFormSchema>) => {
+    setIsLoading(true);
     try {
-      console.log(values);
+      toast.promise(submitForgotPasswordForm(values), {
+        loading: "Sending Email...",
+        success: (data) => {
+          if (data.success) {
+            return data.message;
+          }
+          throw new Error(data.message);
+        },
+        error: (error) => {
+          return error.message;
+        },
+        finally: () => {
+          setIsLoading(false);
+        },
+      });
     } catch (error) {
       console.error(error);
     }
@@ -60,10 +78,7 @@ const ForgotPasswordForm = () => {
           form={forgotPasswordForm}
           error={forgotPasswordForm.formState.errors.email}
         />
-        <AuthButton
-          isLoading={forgotPasswordForm.formState.isSubmitting}
-          mode="forgotPassword"
-        />
+        <AuthButton isLoading={isLoading} mode="forgotPassword" />
       </form>
     </Form>
   );

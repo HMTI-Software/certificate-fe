@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 //COMPOMENTS
 import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/PremiumTable";
+import { request } from "http";
 
 export async function getPremiumUsers() {
   try {
@@ -21,6 +22,7 @@ export async function getPremiumUsers() {
 const AdminPage = async () => {
   const session = await auth();
   const premiumUsersData = await getPremiumUsers();
+
   console.log(session);
 
   return (

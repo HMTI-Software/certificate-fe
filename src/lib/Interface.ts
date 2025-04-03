@@ -1,3 +1,85 @@
+//AUTH & USER INTERFACE
+
+/**
+ * @interface IJWTPayload
+ * This interface is used to define the structure of the user payload
+ * that is returned from the server after a successful sign in.
+ *
+ * @property {string} idUser - The unique identifier of the user.
+ * @property {string} email - The email address of the user.
+ * @property {boolean} isPremium - Indicates whether the user has a premium account.
+ * @property {string} premiumPackage - The package name of the user's premium account.
+ * @property {string} roles - The role of the user (e.g., USER, SUPERADMIN).
+ * @property {number} iat - The issued at timestamp of the token.
+ * @property {number} exp - The expiration timestamp of the token.
+ *
+ */
+export interface IJWTPayload {
+  idUser: string;
+  email: string;
+  isPremium: boolean;
+  premiumPackage: "FREEPLAN" | "SILVER" | "PLATINUM" | "GOLD";
+  roles: "USER" | "SUPERADMIN";
+  iat: number;
+  exp: number;
+}
+
+/**
+ * @interface IAuthResponse
+ * A generic interface representing the structure of an authentication response.
+ *
+ * @template T - The type of the data property, which defaults to either ISignInResponseData or ISignUpResponseData.
+ *
+ * @property {boolean} success - Indicates whether the authentication request was successful.
+ * @property {number} status - The HTTP status code of the authentication response.
+ * @property {string} message - A message providing additional information about the authentication response.
+ * @property {T} data - The data payload of the authentication response, which contains specific details
+ *                      depending on the type of authentication operation (e.g., sign-in or sign-up).
+ */
+export interface IAuthResponse<
+  T = ISignInResponseData | ISignUpResponseData | IUserData,
+> {
+  success: boolean;
+  status: number;
+  message: string[] | string;
+  data: T;
+}
+
+export interface ISignInResponseData {
+  token: string;
+}
+
+export type ISignInResponse = IAuthResponse<ISignInResponseData>;
+
+export interface ISignUpResponseData {
+  token: string;
+}
+
+export type ISignUpResponse = IAuthResponse<ISignUpResponseData>;
+
+export interface IAuthSessionUserData {
+  id: string;
+  email: string;
+  isPremium: boolean;
+  premiumPackage: "FREEPLAN" | "SILVER" | "PLATINUM" | "GOLD";
+  roles: "USER" | "SUPERADMIN";
+}
+
+export interface IAuthSession {
+  user: IAuthSessionUserData;
+  token: string;
+  expires: string;
+}
+
+export interface IUserData {
+  email: string;
+  roles: "USER" | "SUPERADMIN";
+  createdAt: string;
+  isPremium: boolean;
+  premiumAt: string | null;
+  premiumExpiredAt: string | null;
+  premiumPackage: "FREEPLAN" | "SILVER" | "PLATINUM" | "GOLD";
+}
 export interface IEventData {
   uniqueId: string;
   id: string;
@@ -11,59 +93,15 @@ export interface IEventData {
   timestamp: string;
 }
 
-interface AuthData {
-  token: string;
-}
-
-export interface IAuthResponse {
-  success: boolean;
-  status: number;
-  message: string;
-  data: AuthData | null;
-}
-
-/**
- * @description
- * This interface is used to define the structure of the user payload
- * that is returned from the server after a successful sign in.
- *
- * @interface IUserPayload
- * @property {string} uid - The unique identifier of the user.
- * @property {string} email - The email address of the user.
- * @property {boolean} isPremium - Indicates whether the user has a premium account.
- * @property {string} premiumPackage - The package name of the user's premium account.
- * @property {string} roles - The role of the user (e.g., USER, SUPERADMIN).
- * @property {number} iat - The issued at timestamp of the token.
- * @property {number} exp - The expiration timestamp of the token.
- *
- */
-export interface IUserPayload {
-  idUser: string;
-  email: string;
-  isPremium: boolean;
-  premiumPackage: "FREEPLAN" | "SMALL" | "MEDIUM" | "LARGEST";
-  roles: "USER" | "SUPERADMIN";
-  iat: number;
-  exp: number;
-}
-
-export interface IAuthToken {
-  id: string;
-  email: string;
-  isPremium: boolean;
-  premiumPackage: "FREEPLAN" | "SMALL" | "MEDIUM" | "LARGEST";
-  roles: "USER" | "SUPERADMIN";
-  token: string;
-}
-export interface IUsersData {
-  email: string;
-  isPremium: boolean;
-  premiumAt: string;
-  createdAt: string;
-  premiumPackage: "FREEPLAN" | "SMALL" | "MEDIUM" | "LARGEST";
-  role: "USER" | "SUPERADMIN";
-  events: number;
-}
+// export interface IUsersData {
+//   email: string;
+//   isPremium: boolean;
+//   premiumAt: string;
+//   createdAt: string;
+//   premiumPackage: "FREEPLAN" | "SILVER" | "PLATINUM" | "GOLD";
+//   role: "USER" | "SUPERADMIN";
+//   events: number;
+// }
 
 export interface IEventStakeHolder {
   name: string;
@@ -71,14 +109,14 @@ export interface IEventStakeHolder {
   image: string;
 }
 
-export interface IUserData {
-  id: number;
-  name: string;
-  email: string;
-  password: string;
-  position: string;
-  image: string;
-}
+// export interface IUserData {
+//   id: number;
+//   name: string;
+//   email: string;
+//   password: string;
+//   position: string;
+//   image: string;
+// }
 
 export interface IPremiumUsers {
   id: number;

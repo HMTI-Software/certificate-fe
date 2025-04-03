@@ -8,7 +8,7 @@ declare module "next-auth" {
       id: string;
       email: string;
       isPremium: boolean;
-      premiumPackage: "FREEPLAN" | "SMALL" | "MEDIUM" | "LARGEST";
+      premiumPackage: "FREEPLAN" | "SILVER" | "GOLD" | "PLATINUM";
       roles: "USER" | "SUPERADMIN";
     } & DefaultSession["user"];
     token: string;
@@ -18,7 +18,7 @@ declare module "next-auth" {
     id: string;
     email: string;
     isPremium: boolean;
-    premiumPackage: "FREEPLAN" | "SMALL" | "MEDIUM" | "LARGEST";
+    premiumPackage: "FREEPLAN" | "SILVER" | "GOLD" | "PLATINUM";
     roles: "USER" | "SUPERADMIN";
     token?: string;
   }
@@ -29,7 +29,7 @@ declare module "next-auth/jwt" {
     id: string;
     email: string;
     isPremium: boolean;
-    premiumPackage: "FREEPLAN" | "SMALL" | "MEDIUM" | "LARGEST";
+    premiumPackage: "FREEPLAN" | "SILVER" | "GOLD" | "PLATINUM";
     roles: "USER" | "SUPERADMIN";
     token?: string;
   }

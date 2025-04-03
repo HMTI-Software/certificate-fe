@@ -1,7 +1,7 @@
 "use client";
 
 //REACT / NEXTJS HOOKS AND LIBRARIES
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -18,7 +18,6 @@ import AuthButton from "@/components/auth/AuthButton";
 
 //SCHEMA
 import { signInFormSchema } from "@/lib/definitions";
-import { IAuthResponse, IUserData } from "@/lib/Interface";
 import { toast } from "sonner";
 import { submitSignInForm } from "@/actions/submitSignInForm";
 
@@ -34,6 +33,7 @@ import { submitSignInForm } from "@/actions/submitSignInForm";
  */
 const SignInForm = () => {
   const router = useRouter();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const signInForm = useForm<z.infer<typeof signInFormSchema>>({
     resolver: zodResolver(signInFormSchema),
@@ -96,7 +96,7 @@ const SignInForm = () => {
 
         <div className="text-black text-end">
           <Link href="/auth/forgot-password" className="underline text-sm">
-            Forget password?
+            Forgot password?
           </Link>
         </div>
 

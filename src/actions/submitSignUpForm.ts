@@ -4,16 +4,23 @@ import { signUpFormSchema } from "@/lib/definitions";
 import { IAuthResponse } from "@/lib/Interface";
 import { z } from "zod";
 
+interface ISignUpResponse extends IAuthResponse {
+  message: string;
+}
+
 export const submitSignUpForm = async (
   values: z.infer<typeof signUpFormSchema>,
 ) => {
   try {
     const validatedFields = signUpFormSchema.safeParse(values);
     if (!validatedFields.success) {
-      return { error: "Invalid form values" };
+      return {
+        success: false,
+        message: "Invalid email or password",
+      };
     }
     const { email, password } = validatedFields.data;
-    const res = await fetch(`${process.env.BACKEND_URL}/api/auth/sign-up`, {
+    const res = await fetch(`${process.env.FRONTEND_URL}/api/auth/sign-up`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,19 +30,23 @@ export const submitSignUpForm = async (
         password,
       }),
     });
-    if (res.status === 409) {
-      return { error: "User already exists" };
+
+    const data: ISignUpResponse = await res.json();
+    if (!data.success) {
+      return {
+        success: false,
+        message: data.message,
+      };
     }
-    if (res.status !== 201 || !res.ok) {
-    }
-    const data = (await res.json()) as IAuthResponse;
-    console.log("User Sign Up Data", data);
     return {
-      message: "Sign up successful! Welcome aboard!",
-      data: { success: data.success, status: data.status },
+      success: true,
+      message: data.message,
     };
   } catch (error) {
-    console.error(error);
-    return { error: "Sign up failed" };
+    console.error("ERROR IN SIGN UP (SERVER ACTION) : ", error);
+    return {
+      success: false,
+      message: "An unknown error occurred",
+    };
   }
 };

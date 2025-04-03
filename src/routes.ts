@@ -2,18 +2,18 @@
  * Array of routes that public access is allowed without authentication.
  * @type {string[]}
  */
-export const publicRoutes = ["/", "/docs"];
+export const publicRoutes = [
+  "/",
+  "/docs",
+  "/auth/forgot-password",
+  "/auth/reset-password",
+];
 
 /**
  * Array of routes that are used for authentication purposes.
  * @type {string[]}
  */
-export const authRoutes = [
-  "/auth/sign-in",
-  "/auth/sign-up",
-  "/auth/forgot-password",
-  "/auth/reset-password",
-];
+export const authRoutes = ["/auth/sign-in", "/auth/sign-up"];
 /**
  * The Prefix for API routes that are used for authentication purposes.
  * @type {string}

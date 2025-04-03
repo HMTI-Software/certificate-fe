@@ -1,5 +1,5 @@
 import NextAuth from "next-auth";
-import { IAuthResponse, IAuthToken, IUserPayload } from "./lib/Interface";
+import { IAuthResponse, IJWTPayload, ISignInResponse } from "./lib/Interface";
 import Credentials from "next-auth/providers/credentials";
 import { signInFormSchema } from "./lib/definitions";
 import { jwtDecode } from "jwt-decode";
@@ -15,7 +15,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         const { email, password } = validatedFields.data;
         try {
           const response = await fetch(
-            `${process.env.BACKEND_URL}/api/auth/sign-in`,
+            `${process.env.FRONTEND_URL}/api/auth/sign-in`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -25,15 +25,13 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           if (!response.ok) {
             return null;
           }
-          const data: IAuthResponse = await response.json();
+          const data: ISignInResponse = await response.json();
           if (!data.success || data.status === 400 || data.status === 401) {
             return null;
           }
           // Decode JWT
           try {
-            const userData = jwtDecode<IUserPayload>(
-              data.data?.token as string,
-            );
+            const userData = jwtDecode<IJWTPayload>(data.data.token);
             return {
               id: userData.idUser,
               email: userData.email,
@@ -41,7 +39,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
               premiumPackage: userData.premiumPackage,
               roles: userData.roles,
               token: data.data?.token,
-            } as IAuthToken;
+            };
           } catch (decodeError) {
             return null;
           }
@@ -56,8 +54,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       if (user) {
         token = {
           ...token,
-          ...user, // Spread semua properti user ke token
-          email: user.email ?? "", // Ensure email is a non-nullable string
+          ...user,
+          email: user.email ?? "",
         };
       }
       return token;
@@ -73,6 +71,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         roles: token.roles!,
       };
       session.token = token.token!;
+
       return session;
     },
     async signIn({ user }) {
