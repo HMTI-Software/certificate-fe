@@ -1,7 +1,8 @@
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "sonner";
-import { signIn } from "@/auth";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+
 /**
  * Component OAuthGoogle for Google OAuth button.
  *
@@ -22,9 +23,15 @@ import { useRouter } from "next/navigation";
  * @returns {JSX.Element} Komponen tombol yang sudah diberi gaya untuk OAuth Google.
  */
 const OAuthGoogle = ({ mode }: { mode?: "signIn" | "signUp" }) => {
-  const router = useRouter();
   const handleSubmit = async () => {
-    await signIn("google");
+    try {
+      toast.info(
+        "Currently in development, please use email and password to sign in.",
+      );
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
+      toast.error("Failed to sign in with Google.");
+    }
   };
   return (
     <div className="flex gap-2 w-full max-w-sm">
@@ -32,17 +39,7 @@ const OAuthGoogle = ({ mode }: { mode?: "signIn" | "signUp" }) => {
         className="bordered rounded-md w-full justify-center bg-yelloww flex items-center gap-2 text-sm cursor-pointer"
         type="button"
         onClick={() => {
-          if (mode === "signIn") {
-            toast.promise(handleSubmit, {
-              loading: "Signing with Google...",
-              success: () => {
-                return "Successfully signed in with Google!";
-              },
-              error: "Failed to save data",
-            });
-          } else {
-            console.log("Google Sign Up");
-          }
+          handleSubmit();
         }}
       >
         <FcGoogle />

@@ -1,8 +1,7 @@
 import { IEventData } from "@/lib/Interface";
 import Navbar from "./Navbar";
 import { Card, CardContent } from "./ui/card";
-
-import bg from "@/app/assets/eventbg-1.jpg";
+import Image from "next/image";
 import { FormatDate } from "@/lib/functions";
 import { Plus } from "lucide-react";
 
@@ -46,9 +45,11 @@ const DashboardView = () => {
                       key={event.eventName}
                     >
                       <div className="aspect-[7/2] p-0 w-full rounded-md border-black overflow-hidden border">
-                        <img
-                          src={bg.src}
+                        <Image
+                          src="/eventbg-1.jpg"
                           alt="Event Background"
+                          width={1000}
+                          height={500}
                           className="object-cover object-center h-full w-full"
                         />
                       </div>

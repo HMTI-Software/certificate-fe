@@ -1,27 +1,35 @@
-"use client";
-
-import Navbar from "@/components/Navbar";
-import { Card, CardContent } from "@/components/ui/card";
-import { FormatDate } from "@/lib/functions";
-import { IEventData } from "@/lib/Interface";
+import { CardContent } from "@/components/ui/card";
+import { IEventData, IEventResponse } from "@/lib/Interface";
 import { Frown, Plus } from "lucide-react";
-import { useEffect, useState } from "react";
-import bg from "@/app/assets/eventbg-1.jpg";
 import Link from "next/link";
+import EventCard from "@/components/card/EventCard";
+import { auth } from "@/auth";
 
-const page = () => {
-  const [isPremium, setIsPremium] = useState<boolean>(true);
-  const [eventData, setEventData] = useState<IEventData[]>();
+const fetchEventData = async (token: string) => {
+  "use server";
+  try {
+    const res = await fetch(
+      `${process.env.FRONTEND_URL}/api/events?token=${token}`,
+      {
+        method: "GET",
+        cache: "no-store",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
 
-  useEffect(() => {
-    const fetchEvent = async () => {
-      const res = await fetch("/static/EventData.json");
-      const data = await res.json();
-      console.log(data);
-      setEventData(data);
-    };
-    fetchEvent();
-  }, []);
+    const eventData: IEventResponse<IEventData[]> = await res.json();
+    return eventData.data;
+  } catch (error) {
+    console.error("Error fetching event data:", error);
+  }
+};
+
+const DashboardPage = async () => {
+  const session = await auth();
+  const isPremium = session?.user.isPremium;
+  const eventData = await fetchEventData(session?.token!);
 
   return (
     <div
@@ -34,31 +42,7 @@ const page = () => {
       {isPremium ? (
         <div className="w-full grid grid-rows-1 md:grid-cols-3 pt-4 md:pt-8 gap-4">
           {eventData?.map((event: IEventData) => {
-            return (
-              <Link href={"/dashboard/" + event.uniqueId} key={event.id}>
-                <Card
-                  className="bordered py-4 border-b-4 hover:border-b cursor-pointer"
-                  key={event.id}
-                >
-                  <div className="aspect-[7/2] p-0 w-full rounded-md border-black overflow-hidden border">
-                    <img
-                      src={bg.src}
-                      alt="Event Background"
-                      className="object-cover object-center h-full w-full"
-                    />
-                  </div>
-                  <div className="flex flex-col items-start">
-                    <div className="badge mb-2">{event.stakeHolder.name}</div>
-                    <h1 className="font-bold text-xl mb-4">
-                      {event.eventName}
-                    </h1>
-                    <p className="text-grayy text-sm">
-                      <FormatDate>{event.timestamp}</FormatDate>
-                    </p>
-                  </div>
-                </Card>
-              </Link>
-            );
+            return <EventCard event={event} key={event.uid} />;
           })}
           <Link
             href="/dashboard/create"
@@ -80,4 +64,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default DashboardPage;

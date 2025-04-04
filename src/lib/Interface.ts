@@ -80,43 +80,66 @@ export interface IUserData {
   premiumExpiredAt: string | null;
   premiumPackage: "FREEPLAN" | "SILVER" | "PLATINUM" | "GOLD";
 }
+
+//INTERFACE FOR EVENT DATA
+
+export interface IEventResponse<T = IEventData> {
+  success: boolean;
+  status: number;
+  message: string | string[];
+  data: T | [] | null;
+}
+
+/**
+ * @interface IEventResponseData
+ * Interface yang merepresentasikan struktur data respons untuk sebuah event.
+ *
+ * @property {string} uid - ID unik dari event.
+ * @property {string} eventName - Nama dari event.
+ * @property {string} eventTheme - Tema dari event.
+ * @property {string} description - Deskripsi singkat mengenai event.
+ * @property {string} createdAt - Tanggal dan waktu pembuatan event.
+ * @property {string} activityAt - Tanggal dan waktu aktivitas event.
+ * @property {string} organizer - Nama penyelenggara event.
+ * @property {string} prefixCode - Kode prefix yang digunakan untuk sertifikat event.
+ * @property {number} suffixCode - Kode suffix yang digunakan untuk sertifikat event.
+ * @property {IEventParticipants[] | [] | null} eventParticipants - Daftar peserta yang terlibat dalam event.
+ * @property {IEventStakeholder[] | [] | null} stakeholders - Daftar pemangku kepentingan yang terlibat dalam event.
+ * @property {IEventOwner} owner - Informasi pemilik event.
+ */
 export interface IEventData {
-  uniqueId: string;
-  id: string;
+  uid: string;
   eventName: string;
-  organizer: string;
-  certificateNumber: string;
-  date: string;
   eventTheme: string;
-  initalNumber: number;
-  stakeHolder: IEventStakeHolder;
-  timestamp: string;
+  description: string;
+  createdAt: string;
+  activityAt: string;
+  organizer: string;
+  prefixCode: string;
+  suffixCode: number;
+  eventParticipants: IEventParticipants[] | [] | null;
+  stakeholders: IEventStakeholder[] | [] | null;
+  owner: IEventOwner;
 }
 
-// export interface IUsersData {
-//   email: string;
-//   isPremium: boolean;
-//   premiumAt: string;
-//   createdAt: string;
-//   premiumPackage: "FREEPLAN" | "SILVER" | "PLATINUM" | "GOLD";
-//   role: "USER" | "SUPERADMIN";
-//   events: number;
-// }
-
-export interface IEventStakeHolder {
+interface IEventStakeholder {
+  uid: string;
   name: string;
-  jabatan: string;
-  image: string;
+  position: string;
 }
 
-// export interface IUserData {
-//   id: number;
-//   name: string;
-//   email: string;
-//   password: string;
-//   position: string;
-//   image: string;
-// }
+interface IEventOwner {
+  uid: string;
+  email: string;
+}
+
+interface IEventParticipants {
+  uid: string;
+  name: string;
+  position: string;
+  email: string;
+  certificateNumber: string;
+}
 
 export interface IPremiumUsers {
   id: number;

@@ -1,5 +1,5 @@
 import NextAuth from "next-auth";
-import { IAuthResponse, IJWTPayload, ISignInResponse } from "./lib/Interface";
+import { IJWTPayload, ISignInResponse } from "./lib/Interface";
 import Credentials from "next-auth/providers/credentials";
 import { signInFormSchema } from "./lib/definitions";
 import { jwtDecode } from "jwt-decode";

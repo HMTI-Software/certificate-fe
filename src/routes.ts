@@ -21,6 +21,12 @@ export const authRoutes = ["/auth/sign-in", "/auth/sign-up"];
 export const apiAuthPrefix = "/api/auth";
 
 /**
+ * Array of routes that are used for API purposes.
+ * @type {string}
+ */
+export const apiRoute = "/api";
+
+/**
  * The prefix for redirect routes after login.
  * @type {string}
  */

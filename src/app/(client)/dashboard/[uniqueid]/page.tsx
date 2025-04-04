@@ -1,7 +1,5 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
-import bg from "@/app/assets/eventbg-1.jpg";
 import { Card } from "@/components/ui/card";
 import { FormatDate } from "@/lib/functions";
 import { Ellipsis, FilePenLine, Plus, QrCode, Trash2 } from "lucide-react";
