@@ -1,6 +1,6 @@
 "use server";
 
-import { signUpFormSchema } from "@/lib/definitions";
+import { signUpFormSchema } from "@/lib/types/General";
 import { IAuthResponse } from "@/lib/types/Auth";
 import { z } from "zod";
 

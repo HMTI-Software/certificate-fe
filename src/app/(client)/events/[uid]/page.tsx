@@ -9,6 +9,7 @@ const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
   const { uid } = await params;
   const session = await auth();
   const eventData = await getEventByEventId(uid, session?.token!);
+
   return (
     <div className="w-full px-0 md:px-20 lg:px-40 2xl:px-60 pb-40">
       <div className="w-full">

@@ -1,14 +1,12 @@
 import { CardContent } from "@/components/ui/card";
-import { IEventData, IEventResponse } from "@/lib/types/Event";
+import { IEventData } from "@/lib/types/Event";
 import { Frown, Plus } from "lucide-react";
 import Link from "next/link";
 import EventCard from "@/components/card/EventCard";
 import { auth } from "@/auth";
 import { getAllEvents } from "@/actions/getAllEvents";
-
 const DashboardPage = async () => {
   const session = await auth();
-  console.log("session : ", session?.token);
 
   const isPremium = session?.user.isPremium;
   const eventData = await getAllEvents(session?.token!);
@@ -27,7 +25,7 @@ const DashboardPage = async () => {
             return <EventCard event={event} key={event.uid} page="dashboard" />;
           })}
           <Link
-            href="/dashboard/create"
+            href="/events/create"
             className="py-20 rounded-md bordered border-b-4 hover:border-b cursor-pointer"
           >
             <CardContent className="flex flex-col items-center justify-center h-full">

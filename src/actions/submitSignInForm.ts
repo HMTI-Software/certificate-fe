@@ -1,6 +1,6 @@
 "use server";
 
-import { signInFormSchema } from "@/lib/definitions";
+import { signInFormSchema } from "@/lib/types/General";
 import { z } from "zod";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";

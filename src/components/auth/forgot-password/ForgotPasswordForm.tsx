@@ -14,7 +14,7 @@ import ErrorMessage from "@/components/auth/ErrorMessage";
 import AuthButton from "@/components/auth/AuthButton";
 
 //SCHEMA
-import { forgotPasswordFormSchema } from "@/lib/definitions";
+import { forgotPasswordFormSchema } from "@/lib/types/General";
 import { useState } from "react";
 import { toast } from "sonner";
 import { submitForgotPasswordForm } from "@/actions/submitForgotPasswordForm";

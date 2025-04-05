@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-const page = () => {
+const EventCreatePage = () => {
   interface ICreateField {
     name: string;
     id: string;
@@ -201,4 +201,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default EventCreatePage;

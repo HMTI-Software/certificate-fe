@@ -17,7 +17,7 @@ import FormField from "@/components/auth/FormField";
 import AuthButton from "@/components/auth/AuthButton";
 
 //SCHEMA
-import { signUpFormSchema } from "@/lib/definitions";
+import { signUpFormSchema } from "@/lib/types/General";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeClosed } from "lucide-react";
 import { toast } from "sonner";

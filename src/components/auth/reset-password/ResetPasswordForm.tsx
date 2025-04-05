@@ -15,7 +15,7 @@ import ErrorMessage from "@/components/auth/ErrorMessage";
 import AuthButton from "@/components/auth/AuthButton";
 
 //SCHEMA
-import { resetPasswordFormSchema } from "@/lib/definitions";
+import { resetPasswordFormSchema } from "@/lib/types/General";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeClosed } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";

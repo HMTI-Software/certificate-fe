@@ -1,7 +1,6 @@
 "use server";
 
 import { IEventData, IEventResponse } from "@/lib/types/Event";
-
 export const getAllEvents = async (token: string) => {
   try {
     const res = await fetch(
@@ -17,7 +16,6 @@ export const getAllEvents = async (token: string) => {
     const eventData: IEventResponse<IEventData[]> = await res.json();
     if (!eventData.success && eventData.status !== 200) {
       console.log("eventData error kocak", eventData);
-
       return null;
     }
     return eventData.data;

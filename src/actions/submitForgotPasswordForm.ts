@@ -1,6 +1,6 @@
 "use server";
 
-import { forgotPasswordFormSchema } from "@/lib/definitions";
+import { forgotPasswordFormSchema } from "@/lib/types/General";
 import { z } from "zod";
 
 export const submitForgotPasswordForm = async (

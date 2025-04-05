@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import { IJWTPayload } from "@/lib/types/User";
 import { IAuthResponse, ISignInResponseData } from "@/lib/types/Auth";
 import Credentials from "next-auth/providers/credentials";
-import { signInFormSchema } from "./lib/definitions";
+import { signInFormSchema } from "@/lib/types/General";
 import { jwtDecode } from "jwt-decode";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({

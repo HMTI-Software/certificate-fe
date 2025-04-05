@@ -1,9 +1,6 @@
 "use server";
 
-import { resetPasswordFormSchema } from "@/lib/definitions";
-import { IAuthResponse } from "@/lib/types/Auth";
-import { IUserData } from "@/lib/types/User";
-import { jwtDecode } from "jwt-decode";
+import { resetPasswordFormSchema } from "@/lib/types/General";
 import { z } from "zod";
 
 interface IJWTPayloadResetPassword {

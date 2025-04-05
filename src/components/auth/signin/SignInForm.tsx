@@ -17,7 +17,7 @@ import ErrorMessage from "@/components/auth/ErrorMessage";
 import AuthButton from "@/components/auth/AuthButton";
 
 //SCHEMA
-import { signInFormSchema } from "@/lib/definitions";
+import { signInFormSchema } from "@/lib/types/General";
 import { toast } from "sonner";
 import { submitSignInForm } from "@/actions/submitSignInForm";
 

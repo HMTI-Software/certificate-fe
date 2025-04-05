@@ -24,7 +24,10 @@ export async function GET(req: NextRequest) {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      next: { revalidate: 60 },
+      next: {
+        revalidate: 60,
+        tags: ["events"],
+      },
     });
     const eventData: IEventResponse<IEventData> = await res.json();
 
