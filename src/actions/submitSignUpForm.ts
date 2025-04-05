@@ -1,7 +1,7 @@
 "use server";
 
 import { signUpFormSchema } from "@/lib/definitions";
-import { IAuthResponse } from "@/lib/Interface";
+import { IAuthResponse } from "@/lib/types/Auth";
 import { z } from "zod";
 
 interface ISignUpResponse extends IAuthResponse {

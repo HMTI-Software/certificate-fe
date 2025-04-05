@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { IAuthResponse, IJWTPayload, IUserData } from "@/lib/Interface";
+import { IUserData, IJWTPayload } from "@/lib/types/User";
+import { IAuthResponse } from "@/lib/types/Auth";
 import { jwtDecode } from "jwt-decode";
 
 export const useGetUserData = (

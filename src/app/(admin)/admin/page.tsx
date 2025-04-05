@@ -2,10 +2,8 @@ import { promises as fs } from "fs";
 import path from "path";
 import { auth } from "@/auth";
 //COMPOMENTS
-import { columns } from "@/components/table/columns";
-import { DataTable } from "@/components/table/PremiumTable";
-import { request } from "http";
-
+import { columns } from "@/components/table/columns/UsersColumn";
+import { GeneralTable } from "@/components/table/table";
 export async function getPremiumUsers() {
   try {
     const res = await fs.readFile(
@@ -29,7 +27,7 @@ const AdminPage = async () => {
     <>
       <div className=" mx-auto py-10">
         <h1 className="text-lg font-bold">Profile</h1>
-        <DataTable columns={columns} data={premiumUsersData} />
+        <GeneralTable columns={columns} data={premiumUsersData} />
       </div>
     </>
   );

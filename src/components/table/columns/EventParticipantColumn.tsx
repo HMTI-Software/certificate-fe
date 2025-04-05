@@ -6,15 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 //LIBRARY
-import { IPremiumUsers } from "@/lib/Interface";
+import { IEventParticipantsTable } from "@/lib/types/Event";
 import { FormatDate } from "@/lib/functions";
 
 //ICONS
 import { BookMarked, Tag } from "lucide-react";
 import { useState } from "react";
-import GeneralAlert from "../popup/GeneralAlert";
+import GeneralAlert from "@/components/popup/GeneralAlert";
 
-export const columns: ColumnDef<IPremiumUsers>[] = [
+const EventParticipantColumn: ColumnDef<IEventParticipantsTable>[] = [
   {
     accessorKey: "id",
     enableHiding: false,
@@ -27,40 +27,25 @@ export const columns: ColumnDef<IPremiumUsers>[] = [
   },
   {
     accessorKey: "name",
-    header: "Name",
-    cell: ({ row }) => {
-      const getDate = new Date(row.original.premiumAt);
-      return (
-        <div className="flex flex-col justify-start">
-          <div>{row.getValue("name")}</div>
-          <div className="text-xs text-gray-400">
-            Active Since {FormatDate({ children: getDate.toISOString() })}
-          </div>
-        </div>
-      );
+    header: () => {
+      return <div className="text-center text-xs md:text-sm">Name</div>;
     },
+    cell: ({ row }) => (
+      <div className="text-center text-xs md:text-sm">
+        {row.getValue("name")}
+      </div>
+    ),
   },
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => {
-      return (
-        <>
-          <Badge
-            variant={
-              row.getValue("status") === "active" ? "default" : "destructive"
-            }
-            className={`border-black ${
-              row.getValue("status") === "active"
-                ? "bg-[#99B2FF]"
-                : "bg-[#7A7A7A]"
-            } text-black px-3 rounded-l-full rounded-r-full`}
-          >
-            {row.getValue("status")}
-          </Badge>
-        </>
-      );
+    accessorKey: "qrcode",
+    header: () => {
+      return <div className="text-center text-xs md:text-sm">QR Code</div>;
     },
+    cell: ({ row }) => (
+      <div className="text-center text-xs md:text-sm">
+        {row.getValue("qrcode")}
+      </div>
+    ),
   },
   {
     id: "actions",
@@ -121,3 +106,5 @@ export const columns: ColumnDef<IPremiumUsers>[] = [
     },
   },
 ];
+
+export default EventParticipantColumn;

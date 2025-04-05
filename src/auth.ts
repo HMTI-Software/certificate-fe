@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
-import { IJWTPayload, ISignInResponse } from "./lib/Interface";
+import { IJWTPayload } from "@/lib/types/User";
+import { IAuthResponse, ISignInResponseData } from "@/lib/types/Auth";
 import Credentials from "next-auth/providers/credentials";
 import { signInFormSchema } from "./lib/definitions";
 import { jwtDecode } from "jwt-decode";
@@ -25,7 +26,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           if (!response.ok) {
             return null;
           }
-          const data: ISignInResponse = await response.json();
+          const data: IAuthResponse<ISignInResponseData> =
+            await response.json();
           if (!data.success || data.status === 400 || data.status === 401) {
             return null;
           }

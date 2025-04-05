@@ -1,35 +1,17 @@
 import { CardContent } from "@/components/ui/card";
-import { IEventData, IEventResponse } from "@/lib/Interface";
+import { IEventData, IEventResponse } from "@/lib/types/Event";
 import { Frown, Plus } from "lucide-react";
 import Link from "next/link";
 import EventCard from "@/components/card/EventCard";
 import { auth } from "@/auth";
-
-const fetchEventData = async (token: string) => {
-  "use server";
-  try {
-    const res = await fetch(
-      `${process.env.FRONTEND_URL}/api/events?token=${token}`,
-      {
-        method: "GET",
-        cache: "no-store",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    const eventData: IEventResponse<IEventData[]> = await res.json();
-    return eventData.data;
-  } catch (error) {
-    console.error("Error fetching event data:", error);
-  }
-};
+import { getAllEvents } from "@/actions/getAllEvents";
 
 const DashboardPage = async () => {
   const session = await auth();
+  console.log("session : ", session?.token);
+
   const isPremium = session?.user.isPremium;
-  const eventData = await fetchEventData(session?.token!);
+  const eventData = await getAllEvents(session?.token!);
 
   return (
     <div
@@ -42,7 +24,7 @@ const DashboardPage = async () => {
       {isPremium ? (
         <div className="w-full grid grid-rows-1 md:grid-cols-3 pt-4 md:pt-8 gap-4">
           {eventData?.map((event: IEventData) => {
-            return <EventCard event={event} key={event.uid} />;
+            return <EventCard event={event} key={event.uid} page="dashboard" />;
           })}
           <Link
             href="/dashboard/create"

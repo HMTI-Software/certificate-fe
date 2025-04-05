@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { IEventData, IEventResponse } from "@/lib/Interface";
+import { IEventData, IEventResponse } from "@/lib/types/Event";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60; // seconds
 
 export async function GET(req: NextRequest) {
   try {

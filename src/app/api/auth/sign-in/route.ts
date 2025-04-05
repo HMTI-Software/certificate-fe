@@ -1,4 +1,4 @@
-import { ISignInResponse } from "@/lib/Interface";
+import { IAuthResponse, ISignInResponseData } from "@/lib/types/Auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
         { status: res.status },
       );
     }
-    const data: ISignInResponse = await res.json();
+    const data: IAuthResponse<ISignInResponseData> = await res.json();
     return NextResponse.json(
       {
         success: true,

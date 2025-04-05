@@ -1,7 +1,8 @@
 "use server";
 
 import { resetPasswordFormSchema } from "@/lib/definitions";
-import { IAuthResponse, IUserData } from "@/lib/Interface";
+import { IAuthResponse } from "@/lib/types/Auth";
+import { IUserData } from "@/lib/types/User";
 import { jwtDecode } from "jwt-decode";
 import { z } from "zod";
 
