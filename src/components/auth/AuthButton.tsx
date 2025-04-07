@@ -42,7 +42,7 @@ const AuthButton = ({
   if (mode === "signOut") {
     return (
       <Button
-        className="mt-3 bordered w-full bg-redd hover:bg-redd/90"
+        className="mt-3 bordered w-full bg-redd hover:bg-redd/90 hidden md:block"
         onClick={() => handleSignOut()}
       >
         log out

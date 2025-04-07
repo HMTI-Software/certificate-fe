@@ -8,11 +8,38 @@
  * @property {string | string[]} message - Pesan yang menjelaskan hasil dari permintaan.
  * @property {T | [] | null} data - Data yang dikembalikan dalam respons. Bisa berupa data tipe `T`, array kosong, atau null.
  */
-export interface IEventResponse<T = IEventData> {
+export interface IEventResponse<T = IEventData | IEventCreate> {
   success: boolean;
   status: number;
   message: string | string[];
   data: T | [] | null;
+}
+
+export interface IEventCreate {
+  newEvent: {
+    uid: string;
+    userId: string;
+    eventName: string;
+    description: string;
+    createdAt: string;
+    activityAt: string;
+    prefixCode: string;
+    suffixCOde: number;
+    organizer: string;
+    eventTheme: string;
+    eventTemplate:
+      | "DEFAULTDESIGN"
+      | "TECHNOLOGYDESIGN_1"
+      | "TECHNOLOGYDESIGN_2"
+      | "TECHNOLOGYDESIGN_3"
+      | "FORMALDESIGN_1"
+      | "FORMALDESIGN_2"
+      | "FORMALDESIGN_3";
+  };
+  stakeholder: {
+    name: string;
+    position: string;
+  };
 }
 
 /**

@@ -1,73 +1,101 @@
-import { IAuthResponse, ISignUpResponseData } from "@/lib/types/Auth";
+import { IEventCreate, IEventResponse } from "@/lib/types/Event";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password } = await req.json();
+    const searchParams = req.nextUrl.searchParams;
+    const token = searchParams.get("token");
+    const {
+      eventName,
+      eventDescription,
+      eventDate,
+      eventPrefixCode,
+      eventSuffixCode,
+      eventOrganizer,
+      eventTheme,
+      eventTemplate,
+      eventStakeholderName,
+      eventStakeholderPosition,
+    } = await req.json();
 
-    if (!email || !password) {
+    if (
+      !eventName ||
+      !eventDescription ||
+      !eventDate ||
+      !eventPrefixCode ||
+      !eventSuffixCode ||
+      !eventOrganizer ||
+      !eventTheme ||
+      !eventTemplate ||
+      !eventStakeholderName ||
+      !eventStakeholderPosition ||
+      !token
+    ) {
       return NextResponse.json(
         {
           success: false,
           status: 400,
-          message: "Email and password are required",
+          message: "Credentials are not complete",
         },
         { status: 400 },
       );
     }
-    const res = await fetch(`${process.env.BACKEND_URL}/api/auth/sign-up`, {
+    const requestBody = {
+      eventName: eventName,
+      description: eventDescription,
+      activityAt: eventDate,
+      prefixCode: eventPrefixCode,
+      suffixCode: eventSuffixCode,
+      organizer: eventOrganizer,
+      eventTheme: eventTheme,
+      eventTemplate: eventTemplate,
+      stakeholders: {
+        name: eventStakeholderName,
+        position: eventStakeholderPosition,
+      },
+    };
+    const res = await fetch(`${process.env.BACKEND_URL}/api/events/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
+      body: JSON.stringify(requestBody),
     });
 
-    if (!res.ok && res.status === 409) {
+    if (!res.ok) {
+      const errorData: IEventResponse<IEventCreate> = await res.json();
       return NextResponse.json(
         {
           success: false,
-          status: res.status,
-          message: "User already exists",
+          status: errorData.status,
+          message: errorData.message,
         },
-        { status: res.status },
-      );
-    } else if (!res.ok && res.status === 400) {
-      return NextResponse.json(
-        {
-          success: false,
-          status: res.status,
-          message: "Password must be at least 8 characters long",
-        },
-        { status: res.status },
-      );
-    } else if (!res.ok) {
-      return NextResponse.json(
-        {
-          success: false,
-          status: res.status,
-          message: "An unknown error occurred, Sign up failed",
-        },
-        { status: res.status },
+        { status: errorData.status },
       );
     }
-    const data: IAuthResponse<ISignUpResponseData> = await res.json();
+    const data: IEventResponse<IEventCreate> = await res.json();
+    if (!data.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          status: 400,
+          message: data.message,
+        },
+        { status: 400 },
+      );
+    }
     return NextResponse.json(
       {
         success: true,
         status: data.status,
-        message: "Sign up successful! Welcome aboard!",
-        data: {
-          token: data.data.token,
-        },
+        message: "Event created successfully",
+        data: data.data,
       },
       { status: data.status },
     );
   } catch (error) {
-    console.error("ERROR IN SIGN UP (ROUTE HANDLER) : ", error);
+    console.error("ERROR IN CREATE EVENT (ROUTE HANDLER) : ", error);
     return NextResponse.json(
       {
         success: false,

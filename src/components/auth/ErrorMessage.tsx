@@ -8,7 +8,7 @@
 const ErrorMessage = ({ message }: { message?: string }) => {
   if (!message) return null;
   return (
-    <div className="w-full text-xs text-center bordered-nonhover rounded-md bg-redd">
+    <div className="w-full text-xs text-center bordered-nonhover rounded-md bg-redd ">
       {message}
     </div>
   );

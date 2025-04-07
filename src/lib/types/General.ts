@@ -43,33 +43,46 @@ export const resetPasswordFormSchema = z.object({
 export const createEventSchema = z.object({
   eventName: z
     .string()
-    .min(3, { message: "Nama event minimal 3 karakter" })
-    .max(100, { message: "Nama event maksimal 100 karakter" }),
+    .min(3, { message: "Event name must be at least 3 characters" })
+    .max(100, { message: "Event name maximum 100 characters" }),
   eventDescription: z
     .string()
-    .min(10, { message: "Deskripsi minimal 10 karakter" }),
-  eventDate: z.string().refine((val) => !isNaN(Date.parse(val)), {
-    message: "Tanggal event tidak valid (format ISO 8601 diharapkan)",
+    .min(10, { message: "Description at least 10 characters" }),
+  eventDate: z.string({
+    message: "The event date is invalid",
   }),
   eventCertificatePrefixCode: z
     .string()
+    .min(1, { message: "Prefix must be at least 1" })
     .refine((val) => val.endsWith("/") && !val.startsWith("/"), {
-      message: "Prefix harus diakhiri dengan '/' dan tidak diawali dengan '/'",
+      message: "Prefixes must end with ‘/’ and not begin with '/'",
     }),
   eventCertificateSuffixCode: z
-    .number()
-    .int({ message: "Suffix harus berupa bilangan bulat" })
-    .min(1, { message: "Suffix minimal bernilai 1" }),
+    .string()
+    .min(1, { message: "Suffix must be at least 1" })
+    .refine((val) => val !== null, { message: "Suffix cannot be empty" }),
   eventOrganizer: z
     .string()
-    .min(2, { message: "Penyelenggara minimal 2 karakter" }),
-  eventTheme: z.enum(["Technology Design", "Formal Design", "Custom Design"], {
-    errorMap: () => ({ message: "Tema event tidak valid" }),
-  }),
+    .min(2, { message: "Organizer Name of at least 2 characters" }),
+  eventTheme: z.string().min(1, { message: "Event theme must not be empty" }),
+  eventTemplate: z.enum(
+    [
+      "DEFAULTDESIGN",
+      "TECHNOLOGYDESIGN_1",
+      "TECHNOLOGYDESIGN_2",
+      "TECHNOLOGYDESIGN_3",
+      "FORMALDESIGN_1",
+      "FORMALDESIGN_2",
+      "FORMALDESIGN_3",
+    ],
+    {
+      errorMap: () => ({ message: "Design template must not be empty" }),
+    },
+  ),
   eventStakeholderName: z
     .string()
-    .min(2, { message: "Nama stakeholder minimal 2 karakter" }),
+    .min(2, { message: "Stakeholder name at least 2 characters" }),
   eventStakeholderPosition: z
     .string()
-    .min(2, { message: "Posisi stakeholder minimal 2 karakter" }),
+    .min(2, { message: "Position name of stakeholder at least 2 characters" }),
 });
