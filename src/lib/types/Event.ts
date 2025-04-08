@@ -41,6 +41,7 @@ export interface IEventCreate {
     position: string;
   };
 }
+
 /**
  * @interface IEventResponseData
  * Interface yang merepresentasikan struktur data respons untuk sebuah event.
@@ -69,6 +70,14 @@ export interface IEventData {
   organizer: string;
   prefixCode: string;
   suffixCode: number;
+  eventTemplate:
+    | "DEFAULTDESIGN"
+    | "TECHNOLOGYDESIGN_1"
+    | "TECHNOLOGYDESIGN_2"
+    | "TECHNOLOGYDESIGN_3"
+    | "FORMALDESIGN_1"
+    | "FORMALDESIGN_2"
+    | "FORMALDESIGN_3";
   stakeholders: IEventStakeholder[] | [] | null;
 }
 

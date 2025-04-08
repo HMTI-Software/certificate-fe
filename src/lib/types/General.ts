@@ -58,8 +58,7 @@ export const createEventSchema = z.object({
       message: "Prefixes must end with ‘/’ and not begin with '/'",
     }),
   eventCertificateSuffixCode: z
-    .string()
-    .min(1, { message: "Suffix must be at least 1" })
+    .number({ message: "Suffix must be a number" })
     .refine((val) => val !== null, { message: "Suffix cannot be empty" }),
   eventOrganizer: z
     .string()
@@ -86,3 +85,53 @@ export const createEventSchema = z.object({
     .string()
     .min(2, { message: "Position name of stakeholder at least 2 characters" }),
 });
+
+export const updateEventSchema = z
+  .object({
+    eventName: z
+      .string()
+      .min(3, { message: "Event name must be at least 3 characters" })
+      .max(100, { message: "Event name maximum 100 characters" })
+      .optional(),
+    description: z
+      .string()
+      .min(10, { message: "Description at least 10 characters" })
+      .optional(),
+    activityAt: z.string({ message: "The event date is invalid" }).optional(),
+    prefixCode: z
+      .string()
+      .min(1, { message: "Prefix must be at least 1" })
+      .refine((val) => val.endsWith("/") && !val.startsWith("/"), {
+        message: "Prefixes must end with ‘/’ and not begin with '/'",
+      })
+      .optional(),
+    suffixCode: z
+      .number({ message: "Suffix must be a number" })
+      .refine((val) => val !== null, { message: "Suffix cannot be empty" })
+      .optional(),
+    organizer: z
+      .string()
+      .min(2, { message: "Organizer Name of at least 2 characters" })
+      .optional(),
+    eventTheme: z
+      .string()
+      .min(1, { message: "Event theme must not be empty" })
+      .optional(),
+    eventTemplate: z
+      .enum(
+        [
+          "DEFAULTDESIGN",
+          "TECHNOLOGYDESIGN_1",
+          "TECHNOLOGYDESIGN_2",
+          "TECHNOLOGYDESIGN_3",
+          "FORMALDESIGN_1",
+          "FORMALDESIGN_2",
+          "FORMALDESIGN_3",
+        ],
+        {
+          errorMap: () => ({ message: "Design template must not be empty" }),
+        },
+      )
+      .optional(),
+  })
+  .strict(); // <- menolak field asing

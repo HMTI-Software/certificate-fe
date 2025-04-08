@@ -66,7 +66,9 @@ const EventCard = ({
     }
   };
 
-  const editEventHandler = () => {};
+  const editEventHandler = () => {
+    router.push(`/events/${event.uid}/update`);
+  };
   if (page === "event") {
     return (
       <>
@@ -101,7 +103,9 @@ const EventCard = ({
               >
                 <DropdownMenuLabel>Event Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Edit</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => editEventHandler()}>
+                  Edit
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setOpenDeleteAlert(true)}>
                   Delete
                 </DropdownMenuItem>

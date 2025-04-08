@@ -8,7 +8,7 @@ export const getEventByEventId = async (eventUid: string, token: string) => {
       `${process.env.FRONTEND_URL}/api/events?token=${token}`,
       {
         method: "GET",
-        cache: "no-cache",
+        cache: "force-cache",
         headers: {
           "Content-Type": "application/json",
         },

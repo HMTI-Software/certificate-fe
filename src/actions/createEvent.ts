@@ -34,7 +34,7 @@ export const createEvent = async (
       eventDescription: eventDescription,
       eventDate: eventDate,
       eventPrefixCode: eventCertificatePrefixCode,
-      eventSuffixCode: parseInt(eventCertificateSuffixCode),
+      eventSuffixCode: eventCertificateSuffixCode,
       eventOrganizer: eventOrganizer,
       eventTemplate: eventTemplate,
       eventTheme: eventTheme,

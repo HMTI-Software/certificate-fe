@@ -1,7 +1,7 @@
 // components/events/CreateEventForm.tsx
 "use client";
 
-import { createEventSchema } from "@/lib/types/General";
+import { updateEventSchema } from "@/lib/types/General";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,6 +14,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { createEvent } from "@/actions/createEvent";
 import { useRouter } from "next/navigation";
+import { IEventData } from "@/lib/types/Event";
+import { updateEvent } from "@/actions/updateEvent";
 
 const templateOptions = [
   { value: "DEFAULTDESIGN", label: "Default Design" },
@@ -27,36 +29,35 @@ const templateOptions = [
 
 interface CreateEventFormProps {
   token: string | undefined;
+  eventData: IEventData;
 }
 
-const CreateEventForm = ({ token }: CreateEventFormProps) => {
+const UpdateEventForm = ({ token, eventData }: CreateEventFormProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const form = useForm<z.infer<typeof createEventSchema>>({
-    resolver: zodResolver(createEventSchema),
+  const form = useForm<z.infer<typeof updateEventSchema>>({
+    resolver: zodResolver(updateEventSchema),
     defaultValues: {
-      eventName: "",
-      eventDescription: "",
-      eventDate: new Date().toISOString(),
-      eventCertificatePrefixCode: "",
-      eventCertificateSuffixCode: 1,
-      eventOrganizer: "",
-      eventTheme: "",
-      eventStakeholderName: "",
-      eventStakeholderPosition: "",
-      eventTemplate: "DEFAULTDESIGN",
+      eventName: eventData.eventName,
+      description: eventData.description,
+      activityAt: eventData.activityAt,
+      prefixCode: eventData.prefixCode,
+      suffixCode: eventData.suffixCode,
+      organizer: eventData.organizer,
+      eventTheme: eventData.eventTheme,
+      eventTemplate: eventData.eventTemplate,
     },
   });
 
-  const submitHandler = async (values: z.infer<typeof createEventSchema>) => {
+  const submitHandler = async (values: z.infer<typeof updateEventSchema>) => {
     setIsLoading(true);
     try {
-      toast.promise(createEvent(values, token), {
-        loading: "Creating event...",
+      toast.promise(updateEvent(values, token, eventData.uid), {
+        loading: "Updating event...",
         success: (data) => {
           if (data.success) {
-            router.push("/dashboard");
-            return "Event created successfully!";
+            router.push(`/events/${eventData.uid}`);
+            return "Event updated successfully!";
           }
           throw new Error(data.message as string);
         },
@@ -68,7 +69,7 @@ const CreateEventForm = ({ token }: CreateEventFormProps) => {
         },
       });
     } catch (error) {
-      console.error("Error creating event: ", error);
+      console.error("Error updating event: ", error);
       setIsLoading(false);
     }
   };
@@ -86,27 +87,27 @@ const CreateEventForm = ({ token }: CreateEventFormProps) => {
           />
           <InputFormField
             form={form}
-            name="eventDescription"
+            name="description"
             label="Event Description"
             description="Provide a brief description of your event"
             placeholder="SEMINAR NASIONAL TEKNOLOGI INFORMASI 2024"
           />
           <DatePickerFormField
             form={form}
-            name="eventDate"
+            name="activityAt"
             label="Event Date"
             description="Activity date of your event"
           />
           <InputFormField
             form={form}
-            name="eventCertificatePrefixCode"
+            name="prefixCode"
             label="Event Certificate Prefix Code"
             description="Starting Serial of your certificate"
             placeholder="001/HMTI/SEMNASTI/XI/2024"
           />
           <InputFormField
             form={form}
-            name="eventCertificateSuffixCode"
+            name="suffixCode"
             label="Event Certificate Suffix Code"
             description="The starting number for the certificate suffix"
             placeholder="1"
@@ -114,7 +115,7 @@ const CreateEventForm = ({ token }: CreateEventFormProps) => {
           />
           <InputFormField
             form={form}
-            name="eventOrganizer"
+            name="organizer"
             label="Event Organizer"
             description="Name a organizer for your event"
             placeholder="Himpunan Mahasiswa Teknik Informatika"
@@ -134,26 +135,12 @@ const CreateEventForm = ({ token }: CreateEventFormProps) => {
             placeholder="Select a certificate theme"
             options={templateOptions}
           />
-          <InputFormField
-            form={form}
-            name="eventStakeholderName"
-            label="Event Stakeholder Name"
-            description="Name of the stakeholder for the event"
-            placeholder="Mr. John Doe"
-          />
-          <InputFormField
-            form={form}
-            name="eventStakeholderPosition"
-            label="Event Stakeholder Position"
-            description="Position of the stakeholder for the event"
-            placeholder="Manager"
-          />
           <Button
             type="submit"
             disabled={form.formState.isSubmitting}
             className="md:col-span-2 min-h-10 mt-4 w-full bordered hover:bg-purplee/90 border-b-4 bg-purplee hover:border-b-1 text-black"
           >
-            {isLoading ? "Creating..." : "Create Event"}
+            {isLoading ? "Updating..." : "Update Event"}
           </Button>
         </div>
       </form>
@@ -161,4 +148,4 @@ const CreateEventForm = ({ token }: CreateEventFormProps) => {
   );
 };
 
-export default CreateEventForm;
+export default UpdateEventForm;
