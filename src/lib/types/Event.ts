@@ -41,7 +41,6 @@ export interface IEventCreate {
     position: string;
   };
 }
-
 /**
  * @interface IEventResponseData
  * Interface yang merepresentasikan struktur data respons untuk sebuah event.

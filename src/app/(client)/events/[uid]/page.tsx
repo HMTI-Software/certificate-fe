@@ -9,11 +9,17 @@ const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
   const { uid } = await params;
   const session = await auth();
   const eventData = await getEventByEventId(uid, session?.token!);
-
+  if (!eventData) {
+    return (
+      <div className="w-full min-h-screen flex items-center justify-center">
+        No event found
+      </div>
+    );
+  }
   return (
     <div className="w-full px-0 md:px-20 lg:px-40 2xl:px-60 pb-40">
       <div className="w-full">
-        <EventCard event={eventData!} page="event" />
+        <EventCard event={eventData!} page="event" token={session?.token} />
         <div className="flex w-full justify-between mt-10 items-center">
           <b className="text-xl">Table of participants</b>
           <AddNewParticipantsButton />

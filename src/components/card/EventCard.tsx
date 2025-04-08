@@ -1,42 +1,128 @@
+"use client";
+
 import { IEventData } from "@/lib/types/Event";
 import Link from "next/link";
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import Image from "next/image";
 import { FormatDate } from "@/lib/functions";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
+import { MoreHorizontal } from "lucide-react";
+import { useState } from "react";
+import GeneralAlert from "../popup/GeneralAlert";
+import { toast } from "sonner";
+import { deleteEvent } from "@/actions/deleteEvent";
+import { useRouter } from "next/navigation";
 
 const EventCard = ({
   event,
   page,
+  token,
 }: {
   event: IEventData;
   page: "dashboard" | "event";
+  token?: string;
 }) => {
+  const router = useRouter();
+  const [openDeleteAlert, setOpenDeleteAlert] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const deleteEventHandler = () => {
+    setIsLoading(true);
+    try {
+      toast.promise(deleteEvent(event.uid, token!), {
+        loading: "Deleting event...",
+        success: (data) => {
+          setOpenDeleteAlert(false);
+          if (data.success) {
+            router.push("/dashboard");
+            return data.message;
+          }
+          throw new Error(data.message as string);
+        },
+        error: (error) => {
+          console.error("Error deleting event:", error);
+          return error.message;
+        },
+        finally: () => {
+          setIsLoading(false);
+        },
+      });
+    } catch (error) {
+      console.error("Error deleting event:", error);
+      setIsLoading(false);
+    }
+  };
+
+  const editEventHandler = () => {};
   if (page === "event") {
     return (
-      <Card className="bordered-nonhover py-4 border-b-4">
-        <div className="aspect-[7/1] p-0 w-full rounded-md border-black overflow-hidden border">
-          <Image
-            src="/eventbg-1.jpg"
-            alt="Event Background"
-            width={1000}
-            height={500}
-            className="object-cover object-center h-full w-full"
-          />
-        </div>
-        <div className="flex flex-col items-start">
-          <div className="badge mb-2">{event.organizer}</div>
-          <h1 className="font-bold text-xl mb-4">{event.eventName}</h1>
-          <p className="text-grayy text-sm">
+      <>
+        <Card className="bordered-nonhover py-4 border-b-4 gap-3">
+          <CardHeader className="aspect-[7/1] p-0 w-full rounded-md border-black overflow-hidden border">
+            <Image
+              src="/eventbg-1.jpg"
+              alt="Event Background"
+              width={1000}
+              height={500}
+              className="object-cover object-center h-full w-full"
+            />
+          </CardHeader>
+          <CardContent className="flex flex-col items-start p-0 m-0">
+            <div className="badge mb-2">{event.organizer}</div>
+            <h1 className="font-bold text-xl mb-4">{event.eventName}</h1>
+          </CardContent>
+          <CardFooter className="flex flex-row justify-between p-0 m-0 text-gray-700 text-sm">
             <FormatDate>{event.activityAt}</FormatDate>
-          </p>
-        </div>
-      </Card>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  className="bordered bg-purplee hover:bg-purplee/90 hover:border-b-1 border-b-4 text-black"
+                  variant={"outline"}
+                >
+                  <MoreHorizontal size={16} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="bordered border-b-4 hover:border-b-1"
+              >
+                <DropdownMenuLabel>Event Actions</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Edit</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setOpenDeleteAlert(true)}>
+                  Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </CardFooter>
+        </Card>
+        <GeneralAlert
+          open={openDeleteAlert}
+          setOpen={setOpenDeleteAlert}
+          title="Are you sure for delete event data?"
+          message="okakaodkaod"
+          onSuccess={deleteEventHandler}
+        />
+      </>
     );
   }
   return (
     <Link href={"/events/" + event.uid} key={event.uid}>
-      <Card className="bordered py-4 border-b-4 hover:border-b cursor-pointer">
-        <div className="aspect-[7/2] p-0 w-full rounded-md border-black overflow-hidden border">
+      <Card className="bordered py-4 border-b-4 hover:border-b cursor-pointer flex flex-col gap-4">
+        <CardHeader className="aspect-[7/2] p-0 w-full rounded-md border-black overflow-hidden border">
           <Image
             src="/eventbg-1.jpg"
             alt="Event Background"
@@ -44,14 +130,14 @@ const EventCard = ({
             height={500}
             className="object-cover object-center h-full w-full"
           />
-        </div>
-        <div className="flex flex-col items-start">
-          <div className="badge mb-2">{event.eventName}</div>
+        </CardHeader>
+        <CardContent className="flex flex-col items-start p-0 m-0">
+          <div className="badge mb-2 flex">{event.organizer}</div>
           <h1 className="font-bold text-xl mb-4">{event.eventName}</h1>
-          <p className="text-grayy text-sm">
-            <FormatDate>{event.activityAt}</FormatDate>
-          </p>
-        </div>
+        </CardContent>
+        <CardFooter className="flex flex-row justify-between p-0 m-0 text-gray-700 text-sm">
+          <FormatDate>{event.activityAt}</FormatDate>
+        </CardFooter>
       </Card>
     </Link>
   );
