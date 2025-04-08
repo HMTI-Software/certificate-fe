@@ -64,13 +64,12 @@ export interface IEventData {
   eventTheme: string;
   description: string;
   createdAt: string;
+  updatedAt: string;
   activityAt: string;
   organizer: string;
   prefixCode: string;
   suffixCode: number;
-  eventParticipants: IEventParticipants[] | [] | null;
   stakeholders: IEventStakeholder[] | [] | null;
-  owner: IEventOwner;
 }
 
 /**
