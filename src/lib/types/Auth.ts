@@ -51,6 +51,7 @@ export interface IAuthSessionUserData {
   id: string;
   email: string;
   isPremium: boolean;
+  isVerifiedEmail: boolean;
   premiumPackage: "FREEPLAN" | "SILVER" | "PLATINUM" | "GOLD";
   roles: "USER" | "SUPERADMIN";
 }

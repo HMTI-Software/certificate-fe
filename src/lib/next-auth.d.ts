@@ -10,6 +10,7 @@ declare module "next-auth" {
       isPremium: boolean;
       premiumPackage: "FREEPLAN" | "SILVER" | "GOLD" | "PLATINUM";
       roles: "USER" | "SUPERADMIN";
+      isVerifiedEmail: boolean;
     } & DefaultSession["user"];
     token: string;
   }
@@ -21,6 +22,7 @@ declare module "next-auth" {
     premiumPackage: "FREEPLAN" | "SILVER" | "GOLD" | "PLATINUM";
     roles: "USER" | "SUPERADMIN";
     token?: string;
+    isVerifiedEmail: boolean;
   }
 }
 
@@ -32,5 +34,6 @@ declare module "next-auth/jwt" {
     premiumPackage: "FREEPLAN" | "SILVER" | "GOLD" | "PLATINUM";
     roles: "USER" | "SUPERADMIN";
     token?: string;
+    isVerifiedEmail: boolean;
   }
 }

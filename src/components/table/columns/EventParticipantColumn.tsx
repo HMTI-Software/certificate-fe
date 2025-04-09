@@ -5,15 +5,13 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 
 //LIBRARY
-import { IEventParticipantsTable } from "@/lib/types/Event";
 
 //ICONS
-import { BookMarked, Tag } from "lucide-react";
-import { useState } from "react";
-import GeneralAlert from "@/components/popup/GeneralAlert";
+import { BookMarked, QrCode, SquarePen, Tag, Trash2 } from "lucide-react";
+import { IParticipantDataTable } from "@/lib/types/Participants";
+import Image from "next/image";
 
-const [isOpen, setIsOpen] = useState(false);
-const EventParticipantColumn: ColumnDef<IEventParticipantsTable>[] = [
+const EventParticipantColumn: ColumnDef<IParticipantDataTable>[] = [
   {
     accessorKey: "id",
     enableHiding: false,
@@ -31,20 +29,30 @@ const EventParticipantColumn: ColumnDef<IEventParticipantsTable>[] = [
     },
     cell: ({ row }) => (
       <div className="text-center text-xs md:text-sm">
-        {row.getValue("name")}
+        <h1>{row.getValue("name")}</h1>
+        <p>{row.getValue("certificateNumber")}</p>
       </div>
     ),
   },
   {
-    accessorKey: "qrcode",
+    accessorKey: "pathQr",
     header: () => {
       return <div className="text-center text-xs md:text-sm">QR Code</div>;
     },
-    cell: ({ row }) => (
-      <div className="text-center text-xs md:text-sm">
-        {row.getValue("qrcode")}
-      </div>
-    ),
+    cell: ({ row }) => {
+      return (
+        <Image
+          src={
+            `https://certificate-be-production.up.railway.app` +
+            row.getValue("pathQr")
+          }
+          alt={`QR Code : ${row.getValue("name")}`}
+          width={60}
+          height={60}
+          className="rounded-md mx-auto"
+        />
+      );
+    },
   },
   {
     id: "actions",
@@ -52,53 +60,21 @@ const EventParticipantColumn: ColumnDef<IEventParticipantsTable>[] = [
       return <div className="text-center text-xs md:text-sm">Actions</div>;
     },
     cell: ({ row }) => {
-      const status = row.getValue("status");
-      if (status === "active") {
-        return (
-          <>
-            <div className="flex flex-row justify-center items-center space-x-2">
-              <Button
-                className="bordered bg-[#9B9B9B] hover:bg-[#9B9B9B]/90 text-black"
-                onClick={() => setIsOpen(true)}
-              >
-                deactivate <Tag />
-              </Button>
-              <Button className="bordered bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black">
-                show <BookMarked />
-              </Button>
-            </div>
-            <GeneralAlert
-              open={isOpen}
-              setOpen={setIsOpen}
-              title={"Deactivate Premium Feature"}
-              message={
-                "Are you sure you want to deactive the premium feature for this user?"
-              }
-            />
-          </>
-        );
-      }
+      const data = row.original;
+      const { uid, name, certificateNumber } = data;
       return (
         <>
-          <div className="flex flex-row justify-center items-center space-x-2">
-            <Button
-              className="bordered bg-[#59FFAC] hover:bg-[#59FFAC]/90 text-black"
-              onClick={() => setIsOpen(true)}
-            >
-              activate <Tag />
+          <div className="w-full flex flex-1 justify-end items-end space-x-2">
+            <Button className="bordered bg-redd hover:bg-redd/90 text-black">
+              delete <Trash2 />
             </Button>
             <Button className="bordered bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black">
-              show <BookMarked />
+              update <SquarePen />
+            </Button>
+            <Button className="bordered bg-yelloww hover:bg-yelloww/90 text-black">
+              download <QrCode />
             </Button>
           </div>
-          <GeneralAlert
-            open={isOpen}
-            setOpen={setIsOpen}
-            title={"Activate Premium Feature"}
-            message={
-              "Are you sure you want to activate the premium feature for this user?"
-            }
-          />
         </>
       );
     },

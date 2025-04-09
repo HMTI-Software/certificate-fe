@@ -7,6 +7,7 @@ export const publicRoutes = [
   "/docs",
   "/auth/forgot-password",
   "/auth/reset-password",
+  "/auth/verify-email",
 ];
 
 /**

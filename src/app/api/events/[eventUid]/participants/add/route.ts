@@ -1,0 +1,11 @@
+import { NextRequest, NextResponse } from "next/server";
+
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  return NextResponse.json({
+    success: true,
+    status: 200,
+    message: "Participant added successfully",
+    data: body,
+  });
+}

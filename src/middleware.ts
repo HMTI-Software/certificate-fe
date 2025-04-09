@@ -13,6 +13,12 @@ export default auth((req) => {
     return Response.redirect(new URL("/dashboard", nextUrl));
   }
 
+  // if (nextUrl.pathname === "/auth/verify-email") {
+  //   if (!nextUrl.searchParams.has("token")) {
+  //     return Response.redirect(new URL("/auth/sign-up", nextUrl));
+  //   }
+  // }
+
   const isLoggedIn: boolean = !!req.auth;
 
   const isApiRoute: boolean = nextUrl.pathname.startsWith(apiRoute);

@@ -45,6 +45,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
               isPremium: userData.isPremium,
               premiumPackage: userData.premiumPackage,
               roles: userData.roles,
+              isVerifiedEmail: userData.isVerifiedEmail,
               token: data.data?.token,
             };
           } catch (decodeError) {
@@ -63,6 +64,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           ...token,
           ...user,
           email: user.email ?? "",
+          isVerifiedEmail: user.isVerifiedEmail,
         };
       }
       return token;
@@ -75,6 +77,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         email: token.email!,
         isPremium: token.isPremium!,
         premiumPackage: token.premiumPackage!,
+        isVerifiedEmail: token.isVerifiedEmail!,
         roles: token.roles!,
       };
       session.token = token.token!;
