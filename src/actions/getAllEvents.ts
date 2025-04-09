@@ -1,13 +1,17 @@
 "use server";
 
 import { IEventData, IEventResponse } from "@/lib/types/Event";
+
 export const getAllEvents = async (token: string) => {
   try {
     const res = await fetch(
       `${process.env.FRONTEND_URL}/api/events?token=${token}`,
       {
         method: "GET",
-        cache: "force-cache",
+        next: {
+          revalidate: 60, // Revalidate every 60 seconds
+          tags: ["events"],
+        },
         headers: {
           "Content-Type": "application/json",
         },

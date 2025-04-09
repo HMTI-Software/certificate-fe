@@ -3,6 +3,7 @@
 import { createEventSchema } from "@/lib/types/General";
 import { z } from "zod";
 import { IEventCreate, IEventResponse } from "@/lib/types/Event";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export const createEvent = async (
   values: z.infer<typeof createEventSchema>,
@@ -65,11 +66,13 @@ export const createEvent = async (
         success: false,
         message: data.message,
       };
+    } else {
+      revalidateTag("events");
+      return {
+        success: true,
+        message: data.message,
+      };
     }
-    return {
-      success: true,
-      message: data.message,
-    };
   } catch (error) {
     console.error("ERROR IN EVENT CREATE (SERVER ACTION) : ", error);
     return {

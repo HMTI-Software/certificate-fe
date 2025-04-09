@@ -3,6 +3,7 @@
 import { updateEventSchema } from "@/lib/types/General";
 import { z } from "zod";
 import { IEventResponse } from "@/lib/types/Event";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export const updateEvent = async (
   values: z.infer<typeof updateEventSchema>,
@@ -59,11 +60,13 @@ export const updateEvent = async (
         success: false,
         message: data.message,
       };
+    } else {
+      revalidateTag("events");
+      return {
+        success: true,
+        message: data.message,
+      };
     }
-    return {
-      success: true,
-      message: data.message,
-    };
   } catch (error) {
     console.error("ERROR IN EVENT UPDATE (SERVER ACTION) : ", error);
     return {

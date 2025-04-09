@@ -1,5 +1,7 @@
 "use server";
 import { IEventCreate, IEventResponse } from "@/lib/types/Event";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export const deleteEvent = async (eventUid: string, token: string) => {
   try {
@@ -32,11 +34,13 @@ export const deleteEvent = async (eventUid: string, token: string) => {
         success: false,
         message: data.message,
       };
+    } else {
+      revalidatePath(`/dashboard`);
+      return {
+        success: true,
+        message: data.message,
+      };
     }
-    return {
-      success: true,
-      message: data.message,
-    };
   } catch (error) {
     console.error("ERROR IN EVENT CREATE (SERVER ACTION) : ", error);
     return {

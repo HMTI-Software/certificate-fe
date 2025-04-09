@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { IEventData, IEventResponse } from "@/lib/types/Event";
 
-export const revalidate = 60; // seconds
-
 export async function GET(req: NextRequest) {
   try {
     const searchParams = req.nextUrl.searchParams;
@@ -23,10 +21,6 @@ export async function GET(req: NextRequest) {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
-      },
-      next: {
-        revalidate: 60,
-        tags: ["events"],
       },
     });
     const eventData: IEventResponse<IEventData> = await res.json();
