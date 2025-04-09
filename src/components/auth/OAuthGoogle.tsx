@@ -1,7 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "sonner";
-import { signIn } from "next-auth/react";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 /**
  * Component OAuthGoogle for Google OAuth button.
@@ -22,7 +20,7 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
  *
  * @returns {JSX.Element} Komponen tombol yang sudah diberi gaya untuk OAuth Google.
  */
-const OAuthGoogle = ({ mode }: { mode?: "signIn" | "signUp" }) => {
+const OAuthGoogle = () => {
   const handleSubmit = async () => {
     try {
       toast.info(

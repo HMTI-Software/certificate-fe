@@ -12,7 +12,6 @@ import { InputFormField } from "./fields/CustomInputField";
 import { SelectFormField } from "./fields/CustomSelectField";
 import { useState } from "react";
 import { toast } from "sonner";
-import { createEvent } from "@/actions/createEvent";
 import { useRouter } from "next/navigation";
 import { IEventData } from "@/lib/types/Event";
 import { updateEvent } from "@/actions/updateEvent";

@@ -19,7 +19,7 @@ const SignInPage = () => {
         </div>
         <OAuthGoogle mode="signIn" />
         <div className="inline-flex text-sm justify-center mt-3">
-          <p>Don't have an account yet?</p>
+          <p>Don&#39;t have an account yet?</p>
           <Link href="/auth/sign-up" className="underline cursor-pointer ml-1">
             Register Here!
           </Link>

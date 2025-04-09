@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { ArrowUpRight, BadgeCheck, LogIn, Menu, X } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, LogIn } from "lucide-react";
 import { Button } from "./ui/button";
 import { INavMenu } from "./Navbar";
 import Link from "next/link";

@@ -8,7 +8,15 @@ import { getEventByEventId } from "@/actions/getEventByEventId";
 const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
   const { uid } = await params;
   const session = await auth();
-  const eventData = await getEventByEventId(uid, session?.token!);
+  const token = session?.token;
+  if (!token) {
+    return (
+      <div className="w-full min-h-screen flex items-center justify-center">
+        Unauthorized access
+      </div>
+    );
+  }
+  const eventData = await getEventByEventId(uid, token);
   if (!eventData) {
     return (
       <div className="w-full min-h-screen flex items-center justify-center">

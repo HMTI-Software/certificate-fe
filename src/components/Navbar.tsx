@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { signOut } from "@/auth";
 import AuthButton from "./auth/AuthButton";
 
 export interface INavMenu {

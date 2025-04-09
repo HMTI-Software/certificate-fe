@@ -9,7 +9,7 @@ const DashboardPage = async () => {
   const session = await auth();
 
   const isPremium = session?.user.isPremium;
-  const eventData = await getAllEvents(session?.token!);
+  const eventData = session?.token ? await getAllEvents(session.token) : [];
 
   return (
     <div

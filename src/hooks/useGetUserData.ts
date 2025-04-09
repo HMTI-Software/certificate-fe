@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { IUserData, IJWTPayload } from "@/lib/types/User";
 import { IAuthResponse } from "@/lib/types/Auth";
-import { jwtDecode } from "jwt-decode";
+import jwt from "jsonwebtoken";
 
 export const useGetUserData = (
   backendUrl: string,
@@ -20,7 +20,10 @@ export const useGetUserData = (
 
     try {
       if (!fetchData) {
-        const userData: IJWTPayload = jwtDecode(token as string);
+        const userData: IJWTPayload = jwt.verify(
+          token as string,
+          process.env.JWT_SECRET as string,
+        ) as IJWTPayload;
         setData(userData as IJWTPayload);
       } else {
         if (!token) {

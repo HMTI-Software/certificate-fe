@@ -1,6 +1,5 @@
 import ProfileCard from "@/components/card/ProfileCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { IProfileCard } from "@/lib/Interface";
 
 const ProfilePage = () => {

@@ -106,8 +106,11 @@ const EventCard = ({
                 <DropdownMenuItem onClick={() => editEventHandler()}>
                   Edit
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setOpenDeleteAlert(true)}>
-                  Delete
+                <DropdownMenuItem
+                  onClick={() => setOpenDeleteAlert(true)}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Deleting..." : "Delete"}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -1,4 +1,3 @@
-import { IEventData } from "@/lib/Interface";
 import Navbar from "./Navbar";
 import { Card, CardContent } from "./ui/card";
 import Image from "next/image";

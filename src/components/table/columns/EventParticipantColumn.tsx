@@ -3,17 +3,16 @@ import { ColumnDef } from "@tanstack/react-table";
 
 //COMPONENTS
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 //LIBRARY
 import { IEventParticipantsTable } from "@/lib/types/Event";
-import { FormatDate } from "@/lib/functions";
 
 //ICONS
 import { BookMarked, Tag } from "lucide-react";
 import { useState } from "react";
 import GeneralAlert from "@/components/popup/GeneralAlert";
 
+const [isOpen, setIsOpen] = useState(false);
 const EventParticipantColumn: ColumnDef<IEventParticipantsTable>[] = [
   {
     accessorKey: "id",
@@ -53,7 +52,6 @@ const EventParticipantColumn: ColumnDef<IEventParticipantsTable>[] = [
       return <div className="text-center text-xs md:text-sm">Actions</div>;
     },
     cell: ({ row }) => {
-      const [isOpen, setIsOpen] = useState(false);
       const status = row.getValue("status");
       if (status === "active") {
         return (

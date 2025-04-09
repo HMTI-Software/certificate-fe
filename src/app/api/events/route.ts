@@ -44,8 +44,10 @@ export async function GET(req: NextRequest) {
       },
       { status: 200 },
     );
-  } catch (error: any) {
-    console.error("Error fetching events (ROUTE HANDLER): ", error.message);
+  } catch (error: unknown) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    console.error("Error fetching events (ROUTE HANDLER): ", errorMessage);
     return NextResponse.json(
       {
         success: false,

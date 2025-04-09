@@ -3,13 +3,6 @@
 import { resetPasswordFormSchema } from "@/lib/types/General";
 import { z } from "zod";
 
-interface IJWTPayloadResetPassword {
-  email: string;
-  ip: string;
-  iat: number;
-  exp: number;
-}
-
 export const submitResetPasswordForm = async (
   values: z.infer<typeof resetPasswordFormSchema>,
   token: string | undefined,

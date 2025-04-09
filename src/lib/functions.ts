@@ -34,5 +34,5 @@ export const FormatDate = ({
 
 export const textToQR = async (children: string) => {
   const qrCodeString = await QRcode.toDataURL(children);
-  return `<img src={qrCodeString} alt="QR Code" />`;
+  return `<img src=${qrCodeString} alt="QR Code" />`;
 };

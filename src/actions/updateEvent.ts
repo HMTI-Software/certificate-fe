@@ -3,7 +3,7 @@
 import { updateEventSchema } from "@/lib/types/General";
 import { z } from "zod";
 import { IEventResponse } from "@/lib/types/Event";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 export const updateEvent = async (
   values: z.infer<typeof updateEventSchema>,

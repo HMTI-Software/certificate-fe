@@ -2,8 +2,6 @@
 import * as React from "react";
 import {
   ColumnDef,
-  VisibilityState,
-  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
@@ -26,9 +24,6 @@ import {
 
 //ICONS
 import { ChevronsLeft, ChevronsRight, Plus } from "lucide-react";
-import GeneralAlert from "../popup/GeneralAlert";
-import { useEffect, useState } from "react";
-
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -38,7 +33,6 @@ export function GeneralTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [openAlert, setOpenAlert] = useState<boolean>(false);
   const table = useReactTable({
     data,
     columns,
@@ -61,12 +55,7 @@ export function GeneralTable<TData, TValue>({
             className=" border-black"
           />
         </div>
-        <Button
-          className="bordered bg-[#59FFAC] hover:bg-[#59FFAC]/90 text-black"
-          onClick={() => {
-            setOpenAlert(true);
-          }}
-        >
+        <Button className="bordered bg-[#59FFAC] hover:bg-[#59FFAC]/90 text-black">
           <span className="hidden md:block">Add Account</span> <Plus />
         </Button>
       </div>

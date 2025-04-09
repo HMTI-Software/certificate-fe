@@ -3,7 +3,7 @@ import { IJWTPayload } from "@/lib/types/User";
 import { IAuthResponse, ISignInResponseData } from "@/lib/types/Auth";
 import Credentials from "next-auth/providers/credentials";
 import { signInFormSchema } from "@/lib/types/General";
-import { jwtDecode } from "jwt-decode";
+import jwt from "jsonwebtoken";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
@@ -33,7 +33,12 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           }
           // Decode JWT
           try {
-            const userData = jwtDecode<IJWTPayload>(data.data.token);
+            const userData = jwt.verify(
+              data.data.token,
+              process.env.JWT_SECRET as string,
+            ) as IJWTPayload;
+            console.log("userData", userData);
+
             return {
               id: userData.idUser,
               email: userData.email,

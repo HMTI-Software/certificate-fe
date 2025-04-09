@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { jwtDecode, InvalidTokenError } from "jwt-decode";
+import jwt from "jsonwebtoken";
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,8 +17,12 @@ export async function POST(req: NextRequest) {
     }
     //TRY CATCH DECODE TOKEN
     try {
-      const decoded: { email: string; ip: string; iat: number; exp: number } =
-        jwtDecode(token);
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
+        email: string;
+        ip: string;
+        iat: number;
+        exp: number;
+      };
       if (decoded.exp * 1000 < Date.now()) {
         return NextResponse.json(
           {
@@ -30,7 +34,7 @@ export async function POST(req: NextRequest) {
         );
       }
     } catch (err) {
-      if (err instanceof InvalidTokenError) {
+      if (err instanceof Error && err.name === "JsonWebTokenError") {
         return NextResponse.json(
           {
             success: false,

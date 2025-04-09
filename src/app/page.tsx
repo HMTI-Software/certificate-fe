@@ -4,9 +4,8 @@ import ContactCard from "@/components/card/ContactCard";
 import PricingCard from "@/components/card/PricingCard";
 import DashboardView from "@/components/DashboardView";
 import LandingPageNavbar from "@/components/LandingPageNavbar";
-import { Button } from "@/components/ui/button";
 import { IAdminContact, IPricingPackage } from "@/lib/Interface";
-import { BadgeCheck, BookMarked, SquareCheckBig, Tag } from "lucide-react";
+import { BadgeCheck, SquareCheckBig } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -213,9 +212,9 @@ const LandingPage = async () => {
               <h1 className="font-bold text-4xl text-center">Pricing</h1>
               <p className="text-center text-lg md:text-lg font-normal pb-7">
                 Discover our competitive pricing packages, each designed to
-                offer unique features that cater to your event's specific needs.
-                Explore the benefits and find the perfect fit for your budget
-                and requirements.
+                offer unique features that cater to your event&#39;s specific
+                needs. Explore the benefits and find the perfect fit for your
+                budget and requirements.
               </p>
               <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-1 md:gap-4">
                 {pricingPackage.map((packageData, index) => {

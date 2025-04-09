@@ -1,5 +1,5 @@
 import { IEventResponse } from "@/lib/types/Event";
-import { createEventSchema, updateEventSchema } from "@/lib/types/General";
+import { updateEventSchema } from "@/lib/types/General";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
