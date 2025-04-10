@@ -1,15 +1,15 @@
 "use client";
+
 import { ColumnDef } from "@tanstack/react-table";
 
 //COMPONENTS
-import { Button } from "@/components/ui/button";
 
 //LIBRARY
 
 //ICONS
-import { BookMarked, QrCode, SquarePen, Tag, Trash2 } from "lucide-react";
 import { IParticipantDataTable } from "@/lib/types/Participants";
-import Image from "next/image";
+import { QRCodeImage } from "@/components/image/QRCodeImage";
+import { ParticipantActionOption } from "@/components/options/ParticipantActionOption";
 
 const EventParticipantColumn: ColumnDef<IParticipantDataTable>[] = [
   {
@@ -27,12 +27,16 @@ const EventParticipantColumn: ColumnDef<IParticipantDataTable>[] = [
     header: () => {
       return <div className="text-center text-xs md:text-sm">Name</div>;
     },
-    cell: ({ row }) => (
-      <div className="text-center text-xs md:text-sm">
-        <h1>{row.getValue("name")}</h1>
-        <p>{row.getValue("certificateNumber")}</p>
-      </div>
-    ),
+    cell: ({ row }) => {
+      const data = row.original;
+      const { certificateNumber } = data;
+      return (
+        <div className="text-center text-xs md:text-sm flex flex-col items-start">
+          <h1>{row.getValue("name")}</h1>
+          <p className="text-[10px] md:text-xs">{certificateNumber}</p>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "pathQr",
@@ -40,17 +44,9 @@ const EventParticipantColumn: ColumnDef<IParticipantDataTable>[] = [
       return <div className="text-center text-xs md:text-sm">QR Code</div>;
     },
     cell: ({ row }) => {
+      const data = row.original;
       return (
-        <Image
-          src={
-            `https://certificate-be-production.up.railway.app` +
-            row.getValue("pathQr")
-          }
-          alt={`QR Code : ${row.getValue("name")}`}
-          width={60}
-          height={60}
-          className="rounded-md mx-auto"
-        />
+        <QRCodeImage qrCodeSource={row.getValue("pathQr")} alt={data.name} />
       );
     },
   },
@@ -61,21 +57,12 @@ const EventParticipantColumn: ColumnDef<IParticipantDataTable>[] = [
     },
     cell: ({ row }) => {
       const data = row.original;
-      const { uid, name, certificateNumber } = data;
       return (
-        <>
-          <div className="w-full flex flex-1 justify-end items-end space-x-2">
-            <Button className="bordered bg-redd hover:bg-redd/90 text-black">
-              delete <Trash2 />
-            </Button>
-            <Button className="bordered bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black">
-              update <SquarePen />
-            </Button>
-            <Button className="bordered bg-yelloww hover:bg-yelloww/90 text-black">
-              download <QrCode />
-            </Button>
-          </div>
-        </>
+        <ParticipantActionOption
+          data={data}
+          eventUid={data.eventUid}
+          token={data.token}
+        />
       );
     },
   },

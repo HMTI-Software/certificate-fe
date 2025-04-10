@@ -38,6 +38,7 @@ export default async function RootLayout({
               borderBottomWidth: "4px",
               borderBottomStyle: "solid",
             },
+            duration: 3000,
           }}
         />
         {children}

@@ -6,10 +6,7 @@ import AddNewParticipantsButton from "@/components/button/AddNewParticipants";
 import { getEventByEventId } from "@/actions/getEventByEventId";
 import getAllParticipanByEventUid from "@/actions/getAllParticipantByEventUid";
 import { GeneralTable } from "@/components/table/table";
-import {
-  IParticipantData,
-  IParticipantDataTable,
-} from "@/lib/types/Participants";
+import { IParticipantDataTable } from "@/lib/types/Participants";
 import EventParticipantColumn from "@/components/table/columns/EventParticipantColumn";
 
 const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
@@ -44,11 +41,15 @@ const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
   const filteredParticipantDataTable: IParticipantDataTable[] =
     participantData.map((value, index) => {
       return {
+        token: token,
+        eventUid: uid,
         uid: value.uid,
         id: index + 1,
         name: value.name,
         certificateNumber: value.certificateNumber,
         pathQr: value.qrCodes[0].pathQr,
+        email: value.email,
+        position: value.position,
       };
     });
   return (
@@ -63,16 +64,6 @@ const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
           data={filteredParticipantDataTable!}
           page="event"
         />
-        <div className="w-full mt-4">
-          <div className="flex mt-4 justify-between items-center">
-            <div className="flex gap-2 items-center flex-1"></div>
-            <div className="justify-end flex flex-1">
-              <Button className="bordered flex items-center gap-2 rounded-md bg-yelloww hover:bg-yelloww text-black">
-                download all <QrCode size={16} />
-              </Button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

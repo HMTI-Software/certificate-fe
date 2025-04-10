@@ -36,11 +36,15 @@ export interface IParticipantAdd {
 }
 
 export interface IParticipantDataTable {
+  token: string;
+  eventUid: string;
   uid: string;
   id: number;
   name: string;
   certificateNumber: string;
   pathQr: string;
+  email?: string;
+  position?: string;
 }
 
 export interface IParticipantUpdate {}

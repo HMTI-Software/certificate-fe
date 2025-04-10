@@ -2,7 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["certificate-be-production.up.railway.app"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "certificate-be-production.up.railway.app",
+        port: "",
+      },
+    ],
   },
   logging: {
     fetches: {

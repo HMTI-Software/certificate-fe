@@ -135,3 +135,9 @@ export const updateEventSchema = z
       .optional(),
   })
   .strict(); // <- menolak field asing
+
+export const updateParticipantSchema = z.object({
+  name: z.string().min(1, { message: "Name must not be empty" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  position: z.string().min(1, { message: "Position must not be empty" }),
+});

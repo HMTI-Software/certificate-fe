@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/table";
 
 //ICONS
-import { ChevronsLeft, ChevronsRight, Plus } from "lucide-react";
+import { ChevronsLeft, ChevronsRight, Plus, QrCode } from "lucide-react";
 import AddNewParticipantsButton from "../button/AddNewParticipants";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -47,7 +47,7 @@ export function GeneralTable<TData, TValue>({
 
   return (
     <div className="w-full">
-      <div className="flex flex-row justify-start py-4">
+      <div className="flex flex-row justify-start py-4 gap-3">
         <div className="flex w-full">
           <Input
             placeholder="Name..."
@@ -113,7 +113,7 @@ export function GeneralTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-center space-x-2 py-4">
+      <div className="flex items-center justify-between space-x-2 py-4">
         <div className="space-x-2">
           {(() => {
             const currentPage = table.getState().pagination.pageIndex + 1;
@@ -139,7 +139,11 @@ export function GeneralTable<TData, TValue>({
               pageNumbers.push(totalPages);
             }
             return (
-              <div className="flex space-x-1">
+              <div
+                className={
+                  table.getRowModel().rows?.length ? "flex space-x-1" : "hidden"
+                }
+              >
                 <Button
                   size="sm"
                   onClick={() => table.previousPage()}
@@ -152,7 +156,7 @@ export function GeneralTable<TData, TValue>({
                 {pageNumbers.map((page, index) => (
                   <Button
                     key={index}
-                    size="sm"
+                    size={"sm"}
                     onClick={() =>
                       typeof page === "number" && table.setPageIndex(page - 1)
                     }
@@ -179,6 +183,14 @@ export function GeneralTable<TData, TValue>({
             );
           })()}
         </div>
+        {page === "event" ? (
+          <Button
+            size={"sm"}
+            className="bordered  rounded-md bg-yelloww hover:bg-yelloww text-black"
+          >
+            download all <QrCode size={16} />
+          </Button>
+        ) : null}
       </div>
     </div>
   );

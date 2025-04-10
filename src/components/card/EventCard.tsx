@@ -83,7 +83,9 @@ const EventCard = ({
             />
           </CardHeader>
           <CardContent className="flex flex-col items-start p-0 m-0">
-            <div className="badge mb-2">{event.organizer}</div>
+            <div className="badge mb-2 text-[10px] md:text-xs">
+              {event.organizer}
+            </div>
             <h1 className="font-bold text-xl mb-4">{event.eventName}</h1>
           </CardContent>
           <CardFooter className="flex flex-row justify-between p-0 m-0 text-gray-700 text-sm">
