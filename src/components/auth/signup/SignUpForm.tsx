@@ -61,6 +61,7 @@ const SignUpForm = () => {
         loading: "Signing up...",
         success: (data) => {
           if (data.success) {
+            toast.info("Please check your email to verify your account.");
             router.push("/auth/sign-in");
             return data.message;
           }

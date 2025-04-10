@@ -1,3 +1,4 @@
+import { IAuthResponse } from "@/lib/types/Auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest) {
     );
 
     if (!res.ok) {
-      const errorData = await res.json();
+      const errorData: IAuthResponse = await res.json();
       return NextResponse.json(
         {
           success: false,
@@ -37,7 +38,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const data = await res.json();
+    const data: IAuthResponse = await res.json();
     if (!data.success) {
       return NextResponse.json(
         {
@@ -47,15 +48,16 @@ export async function POST(req: NextRequest) {
         },
         { status: data.status },
       );
+    } else {
+      return NextResponse.json(
+        {
+          success: true,
+          status: 200,
+          message: "Email verified successfully",
+        },
+        { status: 200 },
+      );
     }
-    return NextResponse.json(
-      {
-        success: true,
-        status: 200,
-        message: "Email verified successfully",
-      },
-      { status: 200 },
-    );
   } catch (error) {
     console.error("Error verifying email (ROUTE HANDLER) : ", error);
     return NextResponse.json(

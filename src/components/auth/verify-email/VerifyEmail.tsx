@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { IAuthSession } from "@/lib/types/Auth";
 
-export const VerifyEmail = ({ token }: { token: string }) => {
+export const VerifyEmail = ({ session }: { session: IAuthSession }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [disableButton, setDisableButton] = useState<boolean>(false);
 
@@ -18,7 +19,7 @@ export const VerifyEmail = ({ token }: { token: string }) => {
   const handleResendEmail = () => {
     setIsLoading(true);
     try {
-      toast.promise(submitRequestVerify(token!), {
+      toast.promise(submitRequestVerify(session.token!), {
         loading: "Sending email...",
         success: (data) => {
           if (data.message) {
@@ -68,7 +69,7 @@ export const VerifyEmail = ({ token }: { token: string }) => {
     return (
       <div className="min-w-sm flex flex-col border-black p-4 rounded-lg items-start">
         <div className="max-w-lg flex flex-col gap-1 mb-3">
-          <b className="text-xl">We Already Sent You Verification Email</b>
+          <b className="text-xl">Send Verification Link</b>
           <p className="text-sm">
             Please check your email inbox and click on the verification link to
             confirm your email address.
@@ -76,12 +77,12 @@ export const VerifyEmail = ({ token }: { token: string }) => {
         </div>
         <Button
           onClick={() => handleResendEmail()}
-          disabled={disableButton}
+          disabled={disableButton || isLoading}
           className="bordered bg-greenn hover:bg-greenn/90 hover:border-b-1 border-b-4 border-black text-black w-full"
         >
           {disableButton
             ? "Sending Verify Email..."
-            : "Resend Verification Email"}
+            : "Send Verification Email"}
         </Button>
       </div>
     );

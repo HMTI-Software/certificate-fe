@@ -17,7 +17,7 @@ const SignInPage = () => {
           <p className="whitespace-nowrap">or login using</p>
           <div className="border border-black w-full"></div>
         </div>
-        <OAuthGoogle mode="signIn" />
+        <OAuthGoogle />
         <div className="inline-flex text-sm justify-center mt-3">
           <p>Don&#39;t have an account yet?</p>
           <Link href="/auth/sign-up" className="underline cursor-pointer ml-1">

@@ -1,16 +1,16 @@
 import { CardContent } from "@/components/ui/card";
 import { IEventData } from "@/lib/types/Event";
-import { Frown, Plus } from "lucide-react";
+import { Frown, MailWarning, Plus } from "lucide-react";
 import Link from "next/link";
 import EventCard from "@/components/card/EventCard";
 import { auth } from "@/auth";
 import { getAllEvents } from "@/actions/getAllEvents";
+
 const DashboardPage = async () => {
   const session = await auth();
-
   const isPremium = session?.user.isPremium;
+  const isVerifiedEmail = session?.user.isVerifiedEmail;
   const eventData = session?.token ? await getAllEvents(session.token) : [];
-
   return (
     <div
       className={
@@ -19,25 +19,37 @@ const DashboardPage = async () => {
           : "pt-40 w-full flex flex-col items-center justify-center "
       }
     >
-      {isPremium ? (
-        <div className="w-full grid grid-rows-1 md:grid-cols-3 pt-4 md:pt-8 gap-4">
-          {eventData?.map((event: IEventData) => {
-            return <EventCard event={event} key={event.uid} page="dashboard" />;
-          })}
-          <Link
-            href="/events/create"
-            className="py-20 rounded-md bordered border-b-4 hover:border-b cursor-pointer"
-          >
-            <CardContent className="flex flex-col items-center justify-center h-full">
-              <Plus className="text-center" />
-              <p>Add event</p>
-            </CardContent>
-          </Link>
-        </div>
+      {" "}
+      {isVerifiedEmail ? (
+        isPremium ? (
+          <div className="w-full grid grid-rows-1 md:grid-cols-3 pt-4 md:pt-8 gap-4">
+            {eventData?.map((event: IEventData) => {
+              return (
+                <EventCard event={event} key={event.uid} page="dashboard" />
+              );
+            })}
+            <Link
+              href="/events/create"
+              className="py-20 rounded-md bordered border-b-4 hover:border-b cursor-pointer"
+            >
+              <CardContent className="flex flex-col items-center justify-center h-full">
+                <Plus className="text-center" />
+                <p>Add event</p>
+              </CardContent>
+            </Link>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center text-grayy justify-center gap-4">
+            <Frown size={100} />
+            <p>You are not Premium</p>
+          </div>
+        )
       ) : (
         <div className="flex flex-col items-center text-grayy justify-center gap-4">
-          <Frown size={100}></Frown>
-          <p>You are not Premium</p>
+          <MailWarning size={100} className="text-black" />
+          <p className="text-black text-center">
+            Please verify your email address to access this feature.
+          </p>
         </div>
       )}
     </div>

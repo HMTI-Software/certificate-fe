@@ -1,9 +1,11 @@
 "use server";
 
+import { signOut } from "@/auth";
+import { IAuthResponse } from "@/lib/types/Auth";
+
 const submitVerifyEmail = async (token: string) => {
   try {
     if (!token) {
-      console.error("Token is required");
       return {
         success: false,
         message: "Token is required",
@@ -22,25 +24,36 @@ const submitVerifyEmail = async (token: string) => {
     );
 
     if (!res.ok) {
-      const errorData = await res.json();
-      console.error("Error data", errorData);
+      const errorData: IAuthResponse = await res.json();
       return {
         success: false,
         message: errorData.message || "Error verifying email",
       };
     }
 
-    const data = await res.json();
+    const data: IAuthResponse = await res.json();
     if (!data.success) {
       return {
         success: false,
         message: data.message || "Error verifying email",
       };
+    } else {
+      try {
+        await signOut({
+          redirect: false,
+        });
+        return {
+          success: true,
+          message: "Email verified successfully",
+        };
+      } catch (error) {
+        console.error("Error verifying email", error);
+        return {
+          success: false,
+          message: "Error verifying email",
+        };
+      }
     }
-    return {
-      success: true,
-      message: "Email verified successfully",
-    };
   } catch (error) {
     console.error("Error verifying email", error);
     return {

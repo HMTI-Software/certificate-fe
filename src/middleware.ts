@@ -6,18 +6,13 @@ import {
   apiRoute,
 } from "@/routes";
 import { auth } from "./auth";
+import jwt from "jsonwebtoken";
 
 export default auth((req) => {
   const { nextUrl } = req;
   if (nextUrl.pathname === "/events") {
     return Response.redirect(new URL("/dashboard", nextUrl));
   }
-
-  // if (nextUrl.pathname === "/auth/verify-email") {
-  //   if (!nextUrl.searchParams.has("token")) {
-  //     return Response.redirect(new URL("/auth/sign-up", nextUrl));
-  //   }
-  // }
 
   const isLoggedIn: boolean = !!req.auth;
 
@@ -28,6 +23,19 @@ export default auth((req) => {
 
   if (isApiAuthRoute) return;
   if (isApiRoute) return;
+
+  if (nextUrl.pathname === "/auth/verify-email") {
+    const token = nextUrl.searchParams.get("token");
+    if (token) return;
+    if (!token) {
+      if (isLoggedIn) {
+        return;
+      } else {
+        return Response.redirect(new URL("/auth/sign-in", nextUrl));
+      }
+    }
+  }
+
   if (isAuthRoute) {
     if (isLoggedIn) {
       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
