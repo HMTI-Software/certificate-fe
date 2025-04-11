@@ -16,19 +16,6 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { deleteParticipant } from "@/actions/deleteParticipant";
 import { useRouter } from "next/navigation";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "../ui/sheet";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { GeneralSheet } from "../sheet/GeneralSheet";
 import { UpdateParticipantSheet } from "../sheet/form/UpdateParticipantSheet";
 
 type ParticantActionOptionProps = {

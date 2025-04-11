@@ -24,17 +24,24 @@ import {
 
 //ICONS
 import { ChevronsLeft, ChevronsRight, Plus, QrCode } from "lucide-react";
-import AddNewParticipantsButton from "../button/AddNewParticipants";
+import { IParticipantDataTable } from "@/lib/types/Participants";
+import { useState } from "react";
+import { ButtonGroup } from "../ui/button-group";
+import { AddParticipantsButton } from "../button/AddParticipantsButton";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   page: "event" | "admin";
+  eventUid?: string;
+  token?: string;
 }
 
 export function GeneralTable<TData, TValue>({
   columns,
   data,
   page,
+  eventUid,
+  token,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -44,7 +51,6 @@ export function GeneralTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   });
-
   return (
     <div className="w-full">
       <div className="flex flex-row justify-start py-4 gap-3">
@@ -59,7 +65,9 @@ export function GeneralTable<TData, TValue>({
           />
         </div>
         {page === "event" ? (
-          <AddNewParticipantsButton />
+          <>
+            <AddParticipantsButton eventUid={eventUid!} token={token!} />
+          </>
         ) : (
           <Button className="bordered bg-[#59FFAC] hover:bg-[#59FFAC]/90 text-black">
             <span className="hidden md:block">Add Account</span> <Plus />

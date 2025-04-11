@@ -136,8 +136,16 @@ export const updateEventSchema = z
   })
   .strict(); // <- menolak field asing
 
+export const addParticipantSchema = z.object({
+  name: z.string().min(1, { message: "Name must not be empty" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  position: z.string().min(1, { message: "Position must not be empty" }),
+});
+
 export const updateParticipantSchema = z.object({
   name: z.string().min(1, { message: "Name must not be empty" }),
   email: z.string().email({ message: "Invalid email address" }),
   position: z.string().min(1, { message: "Position must not be empty" }),
 });
+
+export const multipleParticipantSchema = z.array(addParticipantSchema);

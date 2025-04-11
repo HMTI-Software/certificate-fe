@@ -2,7 +2,6 @@ import { QrCode } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import EventCard from "@/components/card/EventCard";
 import { auth } from "@/auth";
-import AddNewParticipantsButton from "@/components/button/AddNewParticipants";
 import { getEventByEventId } from "@/actions/getEventByEventId";
 import getAllParticipanByEventUid from "@/actions/getAllParticipantByEventUid";
 import { GeneralTable } from "@/components/table/table";
@@ -63,6 +62,8 @@ const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
           columns={EventParticipantColumn}
           data={filteredParticipantDataTable!}
           page="event"
+          eventUid={uid}
+          token={session?.token}
         />
       </div>
     </div>
