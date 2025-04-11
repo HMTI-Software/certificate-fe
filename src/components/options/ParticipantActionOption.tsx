@@ -10,6 +10,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { IParticipantDataTable } from "@/lib/types/Participants";
 import GeneralAlert from "../popup/GeneralAlert";
 import { useState } from "react";
@@ -17,6 +25,7 @@ import { toast } from "sonner";
 import { deleteParticipant } from "@/actions/deleteParticipant";
 import { useRouter } from "next/navigation";
 import { UpdateParticipantSheet } from "../sheet/form/UpdateParticipantSheet";
+import GeneralDialog from "../popup/GeneralDialog";
 
 type ParticantActionOptionProps = {
   data: IParticipantDataTable;
@@ -31,11 +40,53 @@ export const ParticipantActionOption = ({
   const router = useRouter();
   const [openDeleteAlert, setOpenDeleteAlert] = useState<boolean>(false);
   const [openUpdateSheet, setOpenUpdateSheet] = useState<boolean>(false);
+  const [openDownloadDialog, setOpenDownloadDialog] = useState<boolean>(false);
+  const [extensionSelected, setExtensionSelected] = useState<string>("webp");
+
   const handleDownload = () => {
-    console.log("Download QR Code : ", data.pathQr);
-  };
-  const handleUpdate = () => {
-    console.log("Update participant : ", data.uid);
+    if (extensionSelected === "") {
+      toast.error("Please select a format to download the QR code");
+      return;
+    }
+    const downloadFile = async () => {
+      try {
+        const url = new URL(
+          data.pathQr,
+          "https://certificate-be-production.up.railway.app",
+        );
+        url.searchParams.set("download", "1");
+        const updatedUrl = url.toString() + `&ext=${extensionSelected}`;
+        const link = document.createElement("a");
+        link.href = updatedUrl;
+        link.download = updatedUrl;
+        return new Promise<void>((resolve, reject) => {
+          link.addEventListener("click", () => {
+            setTimeout(() => {
+              resolve();
+            }, 4000);
+          });
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+      } catch (error) {
+        throw new Error("Error downloading QR code: " + error);
+      }
+    };
+    try {
+      toast.promise(downloadFile(), {
+        loading: "Downloading QR code...",
+        success: () => {
+          return "QR code downloaded successfully";
+        },
+        error: (error) => {
+          return error.message as string;
+        },
+      });
+    } catch (error) {
+      console.error("Error downloading QR code:", error);
+      toast.error("Error downloading QR code");
+    }
   };
   const handleDelete = () => {
     try {
@@ -76,7 +127,7 @@ export const ParticipantActionOption = ({
         </Button>
         <Button
           className="bordered bg-yelloww hover:bg-yelloww/90 text-black"
-          onClick={() => handleDownload()}
+          onClick={() => setOpenDownloadDialog(true)}
         >
           download <QrCode />
         </Button>
@@ -96,7 +147,7 @@ export const ParticipantActionOption = ({
         >
           <DropdownMenuLabel>Event Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => handleDownload()}>
+          <DropdownMenuItem onClick={() => setOpenDownloadDialog(true)}>
             <QrCode />
             download
           </DropdownMenuItem>
@@ -121,6 +172,35 @@ export const ParticipantActionOption = ({
         setOpen={setOpenUpdateSheet}
         data={data}
       />
+      <GeneralDialog
+        open={openDownloadDialog}
+        setOpen={setOpenDownloadDialog}
+        message="This action will download the QR code for the participant. Please select the format you want to download."
+        title="Download QR Code"
+        onSuccess={handleDownload}
+        successText="download"
+      >
+        <div className="inline-flex flex-row w-full">
+          <div className=" bg-purplee bordered-nonhover rounded-lg rounded-r-none text-black flex w-full">
+            <QrCode className="mr-2 my-auto" />
+            <span className="my-auto">{data.name}</span>
+          </div>
+          <Select onValueChange={(e) => setExtensionSelected(e)}>
+            <SelectTrigger className="text-black bg-purplee bordered border-black rounded-lg rounded-l-none  border-b-4 hover:border-b-1 min-h-12">
+              <SelectValue placeholder="download as" />
+            </SelectTrigger>
+            <SelectContent
+              className="bordered border-b-4 hover:border-b-1"
+              side="bottom"
+            >
+              <SelectItem value="webp">.webp</SelectItem>
+              <SelectItem value="jpeg">.jpeg</SelectItem>
+              <SelectItem value="jpg">.jpg</SelectItem>
+              <SelectItem value="png">.png</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </GeneralDialog>
     </>
   );
 };
