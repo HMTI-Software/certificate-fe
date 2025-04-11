@@ -64,6 +64,7 @@ const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
           columns={EventParticipantColumn}
           data={filteredParticipantDataTable!}
           page="event"
+          eventName={eventData.eventName}
           eventUid={uid}
           token={session?.token}
         />

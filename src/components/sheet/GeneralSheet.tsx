@@ -16,6 +16,7 @@ type GeneralSheetProps = {
   setOpen: (value: boolean) => void;
   children?: React.ReactNode;
   sheetClose?: boolean;
+  side?: "left" | "right";
 };
 export const GeneralSheet = ({
   title,
@@ -23,12 +24,13 @@ export const GeneralSheet = ({
   open,
   setOpen,
   children,
+  side = "right",
 }: GeneralSheetProps) => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
-        side={"right"}
-        className="w-full md:border-l-4 md:border-black"
+        side={side}
+        className="w-full md:border-x-4 md:border-black"
       >
         <SheetHeader>
           <SheetTitle>{title}</SheetTitle>

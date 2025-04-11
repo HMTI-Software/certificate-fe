@@ -19,12 +19,21 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { MoreHorizontal } from "lucide-react";
+import {
+  CircleUserRound,
+  MoreHorizontal,
+  Newspaper,
+  SquarePen,
+  Trash2,
+  View,
+} from "lucide-react";
 import { useState } from "react";
 import GeneralAlert from "../popup/GeneralAlert";
 import { toast } from "sonner";
 import { deleteEvent } from "@/actions/deleteEvent";
 import { useRouter } from "next/navigation";
+import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
+import { GeneralSheet } from "../sheet/GeneralSheet";
 
 const EventCard = ({
   event,
@@ -37,6 +46,8 @@ const EventCard = ({
 }) => {
   const router = useRouter();
   const [openDeleteAlert, setOpenDeleteAlert] = useState<boolean>(false);
+  const [openStakeholderDetail, setOpenStakeholderDetail] =
+    useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const deleteEventHandler = () => {
@@ -86,7 +97,8 @@ const EventCard = ({
             <div className="badge mb-2 text-[10px] md:text-xs">
               {event.organizer}
             </div>
-            <h1 className="font-bold text-xl mb-4">{event.eventName}</h1>
+            <h1 className="font-bold text-xl ">{event.eventName}</h1>
+            <p className="text-sm text-grayy">{event.description}</p>
           </CardContent>
           <CardFooter className="flex flex-row justify-between p-0 m-0 text-gray-700 text-sm">
             <FormatDate>{event.activityAt}</FormatDate>
@@ -103,17 +115,43 @@ const EventCard = ({
                 align="end"
                 className="bordered border-b-4 hover:border-b-1"
               >
-                <DropdownMenuLabel>Event Actions</DropdownMenuLabel>
+                <DropdownMenuLabel className="text-sm">
+                  Event Actions
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => editEventHandler()}>
-                  Edit
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => setOpenDeleteAlert(true)}
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Deleting..." : "Delete"}
-                </DropdownMenuItem>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem
+                    className="text-xs"
+                    onClick={() => editEventHandler()}
+                  >
+                    <SquarePen /> Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="text-xs"
+                    onClick={() => setOpenDeleteAlert(true)}
+                    disabled={isLoading}
+                  >
+                    <Trash2 /> {isLoading ? "Deleting..." : "Delete"}
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem
+                    className="text-xs"
+                    onClick={() => {
+                      setOpenStakeholderDetail(true);
+                    }}
+                  >
+                    <View />
+                    View
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="text-xs">
+                    <Newspaper /> Preview
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="text-xs">
+                    <CircleUserRound /> Upload Stakeholder Image
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>
           </CardFooter>
@@ -122,9 +160,15 @@ const EventCard = ({
           open={openDeleteAlert}
           setOpen={setOpenDeleteAlert}
           title="Are you sure for delete event data?"
-          message="okakaodkaod"
+          message={`This action will permanently remove the event data from storage. This cannot be undone.`}
           onSuccess={deleteEventHandler}
         />
+        <GeneralAlert
+          open={openStakeholderDetail}
+          setOpen={setOpenStakeholderDetail}
+          title="Are you sure for delete event data?"
+          message={`This action will permanently remove the event data from storage. This cannot be undone.`}
+        ></GeneralAlert>
       </>
     );
   }

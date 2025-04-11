@@ -24,16 +24,24 @@ import {
 
 //ICONS
 import { ChevronsLeft, ChevronsRight, Plus, QrCode } from "lucide-react";
-import { IParticipantDataTable } from "@/lib/types/Participants";
 import { useState } from "react";
-import { ButtonGroup } from "../ui/button-group";
 import { AddParticipantsButton } from "../button/AddParticipantsButton";
+import GeneralDialog from "../popup/GeneralDialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { toast } from "sonner";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   page: "event" | "admin";
   eventUid?: string;
   token?: string;
+  eventName?: string;
 }
 
 export function GeneralTable<TData, TValue>({
@@ -42,7 +50,55 @@ export function GeneralTable<TData, TValue>({
   page,
   eventUid,
   token,
+  eventName,
 }: DataTableProps<TData, TValue>) {
+  const [openDownloadDialog, setOpenDownloadDialog] = useState<boolean>(false);
+  const [extensionSelected, setExtensionSelected] = useState<string>("webp");
+  const handleDownload = () => {
+    if (extensionSelected === "") {
+      toast.error("Please select a format to download the QR code");
+      return;
+    }
+    const downloadFile = async () => {
+      try {
+        const url = new URL(
+          `/qrcode/${eventUid}/all`,
+          "https://certificate-be-production.up.railway.app",
+        );
+        url.searchParams.set("ext", extensionSelected);
+        const updatedUrl = url.toString();
+        const link = document.createElement("a");
+        link.href = updatedUrl;
+        link.download = updatedUrl;
+        return new Promise<void>((resolve, reject) => {
+          link.addEventListener("click", () => {
+            setTimeout(() => {
+              resolve();
+            }, 7000);
+          });
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+      } catch (error) {
+        throw new Error("Error downloading QR code: " + error);
+      }
+    };
+    try {
+      toast.promise(downloadFile(), {
+        loading: "Downloading QR code...",
+        success: () => {
+          return "QR code downloaded successfully";
+        },
+        error: (error) => {
+          return error.message as string;
+        },
+      });
+    } catch (error) {
+      console.error("Error downloading QR code:", error);
+      toast.error("Error downloading QR code");
+    }
+  };
   const table = useReactTable({
     data,
     columns,
@@ -192,12 +248,43 @@ export function GeneralTable<TData, TValue>({
           })()}
         </div>
         {page === "event" ? (
-          <Button
-            size={"sm"}
-            className="bordered  rounded-md bg-yelloww hover:bg-yelloww text-black"
-          >
-            download all <QrCode size={16} />
-          </Button>
+          <>
+            <Button
+              className="bordered  rounded-md bg-yelloww hover:bg-yelloww text-black"
+              onClick={() => setOpenDownloadDialog(true)}
+            >
+              download all <QrCode size={16} />
+            </Button>
+            <GeneralDialog
+              open={openDownloadDialog}
+              setOpen={setOpenDownloadDialog}
+              message="This action will download All QR code for the event participant. Please select the format you want to download."
+              title="Download All QR Code"
+              onSuccess={handleDownload}
+              successText="download"
+            >
+              <div className="inline-flex flex-row w-full">
+                <div className=" bg-purplee bordered-nonhover rounded-lg rounded-r-none text-black flex w-full">
+                  <QrCode className="mr-2 my-auto" />
+                  <span className="my-auto">{eventName}</span>
+                </div>
+                <Select onValueChange={(e) => setExtensionSelected(e)}>
+                  <SelectTrigger className="text-black bg-purplee bordered border-black rounded-lg rounded-l-none  border-b-4 hover:border-b-1 min-h-12">
+                    <SelectValue placeholder="download as" />
+                  </SelectTrigger>
+                  <SelectContent
+                    className="bordered border-b-4 hover:border-b-1"
+                    side="bottom"
+                  >
+                    <SelectItem value="webp">.webp</SelectItem>
+                    <SelectItem value="jpeg">.jpeg</SelectItem>
+                    <SelectItem value="jpg">.jpg</SelectItem>
+                    <SelectItem value="png">.png</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </GeneralDialog>
+          </>
         ) : null}
       </div>
     </div>
