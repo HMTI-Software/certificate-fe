@@ -41,6 +41,8 @@ export const AddParticipantsButton = ({ eventUid, token }: Props) => {
         token={token}
       />
       <AddParticantByExcelSheet
+        eventUid={eventUid}
+        token={token}
         open={openAddParticipantSheetExcel}
         setOpen={setOpenAddParticipantSheetExcel}
       />

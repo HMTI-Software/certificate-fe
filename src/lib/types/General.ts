@@ -149,3 +149,20 @@ export const updateParticipantSchema = z.object({
 });
 
 export const multipleParticipantSchema = z.array(addParticipantSchema);
+
+export const uploadParticipantByExcelSchema = z.object({
+  file: z
+    .any()
+    .refine((files) => files instanceof FileList && files.length === 1, {
+      message: "Please upload exactly one file.",
+    })
+    .refine(
+      (files) =>
+        files?.[0]?.type ===
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      { message: "File must be an Excel (.xlsx)" },
+    )
+    .refine((files) => files?.[0]?.size <= 10 * 1024 * 1024, {
+      message: "File must be smaller than 10MB.",
+    }),
+});

@@ -7,6 +7,8 @@ import getAllParticipanByEventUid from "@/actions/getAllParticipantByEventUid";
 import { GeneralTable } from "@/components/table/table";
 import { IParticipantDataTable } from "@/lib/types/Participants";
 import EventParticipantColumn from "@/components/table/columns/EventParticipantColumn";
+import { Suspense } from "react";
+import ThreeCircleLoading from "@/components/animation/ThreeCircleLoading";
 
 const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
   const { uid } = await params;

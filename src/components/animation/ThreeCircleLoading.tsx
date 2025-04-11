@@ -1,4 +1,4 @@
-const LoadingSpesificEvent = () => {
+const ThreeCircleLoading = () => {
   return (
     <div className="w-full flex flex-col items-center justify-center pt-40">
       <div className="flex gap-2 mb-2">
@@ -11,4 +11,4 @@ const LoadingSpesificEvent = () => {
   );
 };
 
-export default LoadingSpesificEvent;
+export default ThreeCircleLoading;
