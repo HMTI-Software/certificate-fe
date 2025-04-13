@@ -47,7 +47,7 @@ const DashboardPage = async () => {
       ) : (
         <div className="flex flex-col items-center text-grayy justify-center gap-4">
           <MailWarning size={100} className="text-black" />
-          <p className="text-black text-center">
+          <p className="text-black text-center font-bold">
             Please verify your email address to access this feature.
           </p>
         </div>
