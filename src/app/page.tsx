@@ -5,7 +5,7 @@ import ContactCard from "@/components/card/ContactCard";
 import PricingCard from "@/components/card/PricingCard";
 import DashboardView from "@/components/DashboardView";
 import LandingPageNavbar from "@/components/LandingPageNavbar";
-import { IAdminContact, IPricingPackage } from "@/lib/Interface";
+import { IAdminContact, IPricingPackage } from "@/lib/types/General";
 import { BadgeCheck, SquareCheckBig } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,87 +20,87 @@ const LandingPage = async () => {
 
   const pricingPackage: IPricingPackage[] = [
     {
-      packageName: "Furina Package",
-      packageDescription:
-        "The Lowest Package, Suitable for Small Event with Low Budget",
-      packagePrice: 100000,
+      id: 1,
+      packageName: "🥈 Silver Package",
+      packageDescription: "Perfect for Small Events",
+      packagePrice: 150000,
       packageFeatures: [
         {
-          feature: "The Offer 1",
+          feature: "Create up to 2 events",
           icon: <SquareCheckBig className="text-green-500" />,
         },
         {
-          feature: "The Offer 2",
-          icon: <SquareCheckBig className="text-red-500" />,
+          feature: "150 Participants per event",
+          icon: <SquareCheckBig className="text-green-500" />,
         },
         {
-          feature: "The Offer 3",
-          icon: <SquareCheckBig className="text-red-500" />,
+          feature: "QR Code generator included",
+          icon: <SquareCheckBig className="text-green-500" />,
         },
         {
-          feature: "The Offer 4",
-          icon: <SquareCheckBig className="text-red-500" />,
+          feature: "Priority support",
+          icon: <SquareCheckBig className="text-redd" />,
         },
         {
-          feature: "The Offer 5",
-          icon: <SquareCheckBig className="text-red-500" />,
+          feature: "Exclusive email sending (via external app)",
+          icon: <SquareCheckBig className="text-redd" />,
         },
       ],
       packageStyle: "bg-[#FFFB86] border-black",
     },
     {
-      packageName: "Klee Package",
-      packageDescription:
-        "The Most Worth Package, Suitable for Medium Event with Medium Budget",
-      packagePrice: 350000,
+      id: 2,
+      packageName: "💎 Platinum Package",
+      packageDescription: "Ideal for Medium-Sized Events",
+      packagePrice: 300000,
       packageFeatures: [
         {
-          feature: "The Offer 1",
+          feature: "Create up to 4 events",
           icon: <SquareCheckBig className="text-green-500" />,
         },
         {
-          feature: "The Offer 2",
+          feature: "300 Participants per event",
           icon: <SquareCheckBig className="text-green-500" />,
         },
         {
-          feature: "The Offer 3",
-          icon: <SquareCheckBig className="text-red-500" />,
+          feature: "QR Code generator included",
+          icon: <SquareCheckBig className="text-green-500" />,
         },
         {
-          feature: "The Offer 4",
-          icon: <SquareCheckBig className="text-red-500" />,
+          feature: "Priority support (admin help, lag issues, tutorials)",
+          icon: <SquareCheckBig className="text-green-500" />,
         },
         {
-          feature: "The Offer 5",
-          icon: <SquareCheckBig className="text-red-500" />,
+          feature: "Exclusive email sending (via external app)",
+          icon: <SquareCheckBig className="text-redd" />,
         },
       ],
       packageStyle: "bg-[#99B2FF] border-black",
     },
     {
-      packageName: "Diluc Package",
-      packageDescription:
-        "The Most Expensive Package, Suitable for Large Event with High Budget",
+      id: 3,
+      packageName: "🏆 Gold Package",
+      packageDescription: "Best for Large-Scale Events",
       packagePrice: 500000,
       packageFeatures: [
         {
-          feature: "The Offer 1",
+          feature: "Create up to 6 events",
           icon: <SquareCheckBig className="text-green-500" />,
         },
         {
-          feature: "The Offer 2",
+          feature: "600 Participants per event",
           icon: <SquareCheckBig className="text-green-500" />,
         },
         {
-          feature: "The Offer 3",
+          feature: "QR Code generator included",
           icon: <SquareCheckBig className="text-green-500" />,
         },
         {
-          feature: "The Offer 4",
+          feature: "Priority support (admin help, lag issues, tutorials)",
           icon: <SquareCheckBig className="text-green-500" />,
         },
         {
-          feature: "The Offer 5",
+          feature: "Exclusive email sending (via external app)",
           icon: <SquareCheckBig className="text-green-500" />,
         },
       ],
@@ -173,7 +173,7 @@ const LandingPage = async () => {
           {/* Dashboard Section */}
           <section className="relative w-full h-auto justify-center items-center hidden lg:flex">
             <div className="absolute z-10 px-40">
-              <DashboardView />
+              <DashboardView session={session!} />
             </div>
             <Image
               src={"/landing-page-bg-1.png"}

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import AuthButton from "./auth/AuthButton";
 import { LogOut } from "lucide-react";
+import { IAuthSession } from "@/lib/types/Auth";
 
 export interface INavMenu {
   id: number;
@@ -12,10 +13,15 @@ export interface INavMenu {
   link: string;
 }
 
-const Navbar = ({ clickable }: { clickable?: boolean }) => {
+const Navbar = ({
+  clickable,
+  session,
+}: {
+  clickable?: boolean;
+  session: IAuthSession;
+}) => {
+  const role = session?.user.roles;
   const [isOpen, setIsOpen] = useState(false);
-  const role: string = "admin";
-
   const NavMenu: INavMenu[] = [
     { id: 1, title: "event", link: "/dashboard" },
     { id: 2, title: "profile", link: "/profile" },
@@ -49,7 +55,7 @@ const Navbar = ({ clickable }: { clickable?: boolean }) => {
                 </span>
               );
 
-            if (role !== "admin" && item.title === "admin") return null;
+            if (role !== "SUPERADMIN" && item.title === "admin") return null;
 
             return (
               <Link
@@ -95,7 +101,7 @@ const Navbar = ({ clickable }: { clickable?: boolean }) => {
         }`}
       >
         {NavMenu.map((item) => {
-          if (role !== "admin" && item.title === "admin") return null;
+          if (role !== "SUPERADMIN" && item.title === "admin") return null;
           return (
             <Link
               key={item.id}

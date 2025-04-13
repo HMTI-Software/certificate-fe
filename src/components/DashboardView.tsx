@@ -3,6 +3,7 @@ import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
 import { FormatDate } from "@/lib/functions";
 import { Plus } from "lucide-react";
+import { IAuthSession } from "@/lib/types/Auth";
 
 interface IDummyEvent {
   owner: string;
@@ -10,7 +11,7 @@ interface IDummyEvent {
   eventTimestamp: string;
 }
 
-const DashboardView = () => {
+const DashboardView = ({ session }: { session: IAuthSession }) => {
   const dummyEvent: IDummyEvent[] = [
     {
       owner: "Sindu",
@@ -32,7 +33,7 @@ const DashboardView = () => {
     <>
       <div className="border-1 border-black  bg-white">
         <div className="w-full md:px-10 lg:px-24 pt-4 pb-24 min-h-screen">
-          <Navbar clickable={false} />
+          <Navbar clickable={false} session={session} />
           <div className="flex flex-col pt-14">
             <h1 className="font-bold text-lg">Events</h1>
             <div className="pt-4">

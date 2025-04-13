@@ -1,5 +1,34 @@
 import { z } from "zod";
 
+export interface IPricingPackage {
+  id: number;
+  packageName: string;
+  packageDescription: string;
+  packagePrice: number;
+  packageFeatures: {
+    feature: string;
+    icon: React.ReactNode;
+  }[];
+  packageStyle: string;
+}
+
+export interface IAdminContact {
+  name: string;
+  description: string;
+  noTelp: number;
+  igUsername: string;
+  adminImage: string;
+  cardStyle?: string;
+  imageStyle?: string;
+}
+
+export interface IProfileCard {
+  title: string;
+  description: string;
+  status: number | string;
+  bgColor: string;
+}
+
 export const signInFormSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z
