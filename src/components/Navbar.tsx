@@ -21,6 +21,8 @@ const Navbar = ({
   session: IAuthSession;
 }) => {
   const role = session?.user.roles;
+  const name = session?.user.email.split("@")[0];
+
   const [isOpen, setIsOpen] = useState(false);
   const NavMenu: INavMenu[] = [
     { id: 1, title: "event", link: "/dashboard" },
@@ -39,7 +41,7 @@ const Navbar = ({
         <div className="flex flex-col">
           <div className="text-black text-lg font-bold">Dashboard</div>
           <div className="text-gray-500 text-sm">
-            hi Alif, such a nice day to see you
+            hi {name}, such a nice day to see you
           </div>
         </div>
         <div className="hidden md:flex gap-10">

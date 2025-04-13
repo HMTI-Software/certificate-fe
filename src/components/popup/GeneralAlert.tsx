@@ -37,7 +37,7 @@ const GeneralAlert = ({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel
-            className="bordered bg-red-400 hover:bg-red-400/90 border-b-4 hover:border-b-1 text-black"
+            className="bordered bg-red-400 hover:bg-red-400/90 border-b-4 hover:border-b-1 text-black hover:cursor-pointer"
             onClick={() => {
               onCancel?.();
               setOpen(false);
@@ -46,7 +46,7 @@ const GeneralAlert = ({
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
-            className="bordered bg-[#59FFAC] hover:bg-[#59FFAC]/90 text-black"
+            className="bordered bg-[#59FFAC] hover:bg-[#59FFAC]/90 text-black hover:cursor-pointer"
             onClick={() => {
               onSuccess?.();
               setOpen(false);
