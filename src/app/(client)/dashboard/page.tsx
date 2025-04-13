@@ -39,15 +39,18 @@ const DashboardPage = async () => {
             </Link>
           </div>
         ) : (
-          <div className="flex flex-col items-center text-grayy justify-center gap-4">
+          <div className="flex flex-col items-center text-grayy  justify-center gap-4">
             <Frown size={100} />
-            <p>You are not Premium</p>
+            <p className="text-sm md:text-lg text-center ">
+              Upgrade to our premium package to unlock this feature. Check out
+              the details on our homepage!
+            </p>
           </div>
         )
       ) : (
         <div className="flex flex-col items-center text-grayy justify-center gap-4">
-          <MailWarning size={100} className="text-black" />
-          <p className="text-black text-center font-bold">
+          <MailWarning size={100} />
+          <p className="text-sm md:text-lg text-center">
             Please verify your email address to access this feature.
           </p>
         </div>

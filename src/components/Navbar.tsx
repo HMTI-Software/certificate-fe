@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import AuthButton from "./auth/AuthButton";
+import { LogOut } from "lucide-react";
 
 export interface INavMenu {
   id: number;
@@ -24,7 +25,11 @@ const Navbar = ({ clickable }: { clickable?: boolean }) => {
 
   return (
     <div className="w-full py-4 bg-white">
-      <div className="flex justify-between items-center px-4 md:px-20 lg:px-40">
+      <div
+        className={`flex justify-between items-center   ${
+          clickable ? "px-4 md:px-20 lg:px-40" : "px-0"
+        }`}
+      >
         <div className="flex flex-col">
           <div className="text-black text-lg font-bold">Dashboard</div>
           <div className="text-gray-500 text-sm">
@@ -103,6 +108,7 @@ const Navbar = ({ clickable }: { clickable?: boolean }) => {
         })}
         <Button className="mt-3 bordered w-full bg-redd hover:bg-redd/90">
           log out
+          <LogOut />
         </Button>
       </div>
     </div>

@@ -1,7 +1,11 @@
+"use client";
+
 import { userSignOut } from "@/actions/signOut";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import LoadingCircle from "../animation/LoadingCircle";
+import { LogOut } from "lucide-react";
 
 /**
  * AuthButton component for sign in and sign up button.
@@ -33,7 +37,7 @@ const AuthButton = ({
     toast.promise(userSignOut, {
       loading: "Signing out...",
       success: () => {
-        router.push("/auth/sign-in");
+        router.push("/");
         return "Successfully signed out!";
       },
       error: "Failed to sign out",
@@ -42,10 +46,20 @@ const AuthButton = ({
   if (mode === "signOut") {
     return (
       <Button
-        className="mt-3 bordered w-full bg-redd hover:bg-redd/90 hidden md:block"
+        className="bordered w-full bg-redd hover:bg-redd/90 hidden md:block text-black"
         onClick={() => handleSignOut()}
+        disabled={isLoading}
       >
-        log out
+        <span className="my-auto">
+          {isLoading ? (
+            <LoadingCircle />
+          ) : (
+            <div className="inline-flex items-center gap-1">
+              log out
+              <LogOut />
+            </div>
+          )}
+        </span>
       </Button>
     );
   }
@@ -55,15 +69,17 @@ const AuthButton = ({
       type="submit"
       disabled={isLoading}
     >
-      {isLoading
-        ? "Loading..."
-        : mode == "signIn"
-        ? "Sign In"
-        : mode == "signUp"
-        ? "Sign Up"
-        : mode == "forgotPassword"
-        ? "Send Email"
-        : "Reset Password"}
+      {isLoading ? (
+        <LoadingCircle />
+      ) : mode == "signIn" ? (
+        "Sign In"
+      ) : mode == "signUp" ? (
+        "Sign Up"
+      ) : mode == "forgotPassword" ? (
+        "Send Email"
+      ) : (
+        "Reset Password"
+      )}
     </button>
   );
 };

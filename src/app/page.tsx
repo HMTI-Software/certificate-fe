@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import GetStartedButton from "@/components/button/GetStartedButton";
 import PricingButton from "@/components/button/PricingButton";
 import ContactCard from "@/components/card/ContactCard";
@@ -15,6 +16,8 @@ import Link from "next/link";
   CACHING : SSG (Static Site Generation) - This page will be generated at build time
 */
 const LandingPage = async () => {
+  const session = await auth();
+
   const pricingPackage: IPricingPackage[] = [
     {
       packageName: "Furina Package",
@@ -140,7 +143,7 @@ const LandingPage = async () => {
     <>
       <main>
         <div className="w-full min-h-screen">
-          <LandingPageNavbar />
+          <LandingPageNavbar session={session!} />
           {/* Hero Section */}
           <section
             id="hero"

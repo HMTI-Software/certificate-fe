@@ -1,12 +1,13 @@
 "use client";
 import { useState } from "react";
-import { ArrowUpRight, BadgeCheck, LogIn } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, LayoutDashboard, LogIn } from "lucide-react";
 import { Button } from "./ui/button";
 import { INavMenu } from "./Navbar";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { IAuthSession } from "@/lib/types/Auth";
 
-const LandingPageNavbar = () => {
+const LandingPageNavbar = ({ session }: { session: IAuthSession }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -45,7 +46,24 @@ const LandingPageNavbar = () => {
               className="bordered bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black flex items-center gap-2"
               onClick={() => router.push("/auth/sign-in")}
             >
-              login <LogIn />
+              {session ? (
+                session.user ? (
+                  <>
+                    <span>dashboard</span>
+                    <LayoutDashboard />
+                  </>
+                ) : (
+                  <>
+                    <span>login</span>
+                    <LogIn />
+                  </>
+                )
+              ) : (
+                <>
+                  <span>login</span>
+                  <LogIn />
+                </>
+              )}
             </Button>
           </div>
 
