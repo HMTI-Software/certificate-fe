@@ -96,7 +96,6 @@ interface IEventStakeholder {
   position: string;
   photoPath: string | null;
 }
-}
 
 /**
  * Interface untuk mendeskripsikan pemilik acara (event owner).
