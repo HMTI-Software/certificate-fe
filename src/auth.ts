@@ -49,9 +49,11 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
               token: data.data?.token,
             };
           } catch (decodeError) {
+            console.error("JWT Decode Error:", decodeError);
             return null;
           }
         } catch (error) {
+          console.error("Authorization Error:", error);
           return null;
         }
       },

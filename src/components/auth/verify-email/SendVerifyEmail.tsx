@@ -60,8 +60,8 @@ export const SendVerifyEmail = ({ session }: SendVerifyEmailProps) => {
         )}
       </Button>
       <p className="text-xs text-gray-600">
-        If you don't see the email in your inbox, please check your spam or junk
-        folder.
+        If you don&#39;t see the email in your inbox, please check your spam or
+        junk folder.
       </p>
     </div>
   );

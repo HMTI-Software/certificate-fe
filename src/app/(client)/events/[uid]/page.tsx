@@ -1,5 +1,3 @@
-import { QrCode } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import EventCard from "@/components/card/EventCard";
 import { auth } from "@/auth";
 import { getEventByEventId } from "@/actions/getEventByEventId";
@@ -7,8 +5,6 @@ import getAllParticipanByEventUid from "@/actions/getAllParticipantByEventUid";
 import { GeneralTable } from "@/components/table/table";
 import { IParticipantDataTable } from "@/lib/types/Participants";
 import EventParticipantColumn from "@/components/table/columns/EventParticipantColumn";
-import { Suspense } from "react";
-import ThreeCircleLoading from "@/components/animation/ThreeCircleLoading";
 
 const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
   const { uid } = await params;
@@ -40,7 +36,7 @@ const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
     );
   }
   const filteredParticipantDataTable: IParticipantDataTable[] =
-    participantData.map((value, index) => {
+    participantData.map((value) => {
       return {
         token: token,
         eventUid: uid,

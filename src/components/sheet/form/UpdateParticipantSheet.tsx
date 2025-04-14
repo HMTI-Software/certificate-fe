@@ -12,6 +12,7 @@ import { updateParticipant } from "@/actions/updateParticipant";
 import { useRouter } from "next/navigation";
 import { IParticipantDataTable } from "@/lib/types/Participants";
 import { useState } from "react";
+import LoadingCircle from "@/components/animation/LoadingCircle";
 
 type UpdateParticipantSheetProps = {
   open: boolean;
@@ -110,8 +111,9 @@ export const UpdateParticipantSheet = ({
               className="bordered bg-greenn hover:bg-greenn/90 text-black"
               size={"lg"}
               onClick={() => form.handleSubmit(submitHandler)}
+              disabled={isLoading}
             >
-              save changes
+              {isLoading ? <LoadingCircle /> : "save changes"}
             </Button>
           </form>
         </Form>

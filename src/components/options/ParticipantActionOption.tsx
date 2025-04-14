@@ -59,7 +59,7 @@ export const ParticipantActionOption = ({
         const link = document.createElement("a");
         link.href = updatedUrl;
         link.download = updatedUrl;
-        return new Promise<void>((resolve, reject) => {
+        return new Promise<void>((resolve) => {
           link.addEventListener("click", () => {
             setTimeout(() => {
               resolve();

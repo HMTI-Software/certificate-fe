@@ -33,7 +33,6 @@ import { toast } from "sonner";
 import { deleteEvent } from "@/actions/deleteEvent";
 import { useRouter } from "next/navigation";
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
-import { GeneralSheet } from "../sheet/GeneralSheet";
 
 const EventCard = ({
   event,

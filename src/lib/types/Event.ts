@@ -100,10 +100,10 @@ interface IEventStakeholder {
  * @property {string} uid - ID unik pengguna yang menjadi pemilik event.
  * @property {string} email - Alamat email pengguna yang menjadi pemilik event.
  */
-interface IEventOwner {
-  uid: string;
-  email: string;
-}
+// interface IEventOwner {
+//   uid: string;
+//   email: string;
+// }
 
 /**
  * Interface untuk mendeskripsikan peserta acara (event participants).

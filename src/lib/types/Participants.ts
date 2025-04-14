@@ -46,5 +46,3 @@ export interface IParticipantDataTable {
   email?: string;
   position?: string;
 }
-
-export interface IParticipantUpdate {}

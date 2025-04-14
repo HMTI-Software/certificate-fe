@@ -1,4 +1,3 @@
-import { updateParticipantSchema } from "@/lib/types/General";
 import { IParticipantResponse } from "@/lib/types/Participants";
 import { NextRequest, NextResponse } from "next/server";
 

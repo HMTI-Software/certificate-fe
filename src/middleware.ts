@@ -6,7 +6,6 @@ import {
   apiRoute,
 } from "@/routes";
 import { auth } from "./auth";
-import jwt from "jsonwebtoken";
 
 export default auth((req) => {
   const { nextUrl } = req;

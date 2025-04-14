@@ -1,14 +1,10 @@
 "use client";
-import { submitRequestVerify } from "@/actions/submitRequestVerify";
 import submitVerifyEmail from "@/actions/submitVerifyEmail";
-import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { IAuthSession } from "@/lib/types/Auth";
 import { MailCheck, MailX } from "lucide-react";
 import ThreeCircleLoading from "@/components/animation/ThreeCircleLoading";
-import LoadingCircle from "@/components/animation/LoadingCircle";
 import { SendVerifyEmail } from "./SendVerifyEmail";
 
 export const VerifyEmail = ({ session }: { session: IAuthSession }) => {
