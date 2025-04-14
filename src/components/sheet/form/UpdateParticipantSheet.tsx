@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { updateParticipant } from "@/actions/updateParticipant";
 import { useRouter } from "next/navigation";
 import { IParticipantDataTable } from "@/lib/types/Participants";
+import { useState } from "react";
 
 type UpdateParticipantSheetProps = {
   open: boolean;
@@ -23,6 +24,7 @@ export const UpdateParticipantSheet = ({
   data,
 }: UpdateParticipantSheetProps) => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof updateParticipantSchema>>({
     resolver: zodResolver(updateParticipantSchema),
     defaultValues: {
@@ -35,6 +37,8 @@ export const UpdateParticipantSheet = ({
   const submitHandler = async (
     values: z.infer<typeof updateParticipantSchema>,
   ) => {
+    setIsLoading(true);
+    setOpen(false);
     try {
       toast.promise(
         updateParticipant(values, data.token, data.eventUid, data.uid),
@@ -51,6 +55,8 @@ export const UpdateParticipantSheet = ({
             return error as string;
           },
           finally: () => {
+            setIsLoading(false);
+            form.reset();
             setOpen(false);
           },
           duration: 3000,

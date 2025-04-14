@@ -8,6 +8,7 @@ import {
   getFilteredRowModel,
   getSortedRowModel,
   useReactTable,
+  SortingState,
 } from "@tanstack/react-table";
 
 //COMPONENTS
@@ -52,6 +53,9 @@ export function GeneralTable<TData, TValue>({
   token,
   eventName,
 }: DataTableProps<TData, TValue>) {
+  const [sorting, setSorting] = useState<SortingState>([
+    { id: "id", desc: false },
+  ]);
   const [openDownloadDialog, setOpenDownloadDialog] = useState<boolean>(false);
   const [extensionSelected, setExtensionSelected] = useState<string>("webp");
   const handleDownload = () => {
@@ -106,6 +110,10 @@ export function GeneralTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    onSortingChange: setSorting,
+    state: {
+      sorting,
+    },
   });
   return (
     <div className="w-full">

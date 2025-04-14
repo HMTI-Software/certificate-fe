@@ -15,6 +15,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { addParticipants } from "@/actions/mutation/participants/addParticipants";
+import LoadingCircle from "@/components/animation/LoadingCircle";
 
 type AddParticipantSheetProps = {
   open: boolean;
@@ -29,6 +30,7 @@ export const AddParticipantSheet = ({
   eventUid,
   token,
 }: AddParticipantSheetProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [participantCount, setParticipantCount] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [participants, setParticipants] = useState<
@@ -50,20 +52,11 @@ export const AddParticipantSheet = ({
     form.reset();
   };
 
-  const handleBack = () => {
-    if (currentIndex === 0) return;
-
-    const prevIndex = currentIndex - 1;
-    const prevData = participants[prevIndex];
-
-    setParticipants((prev) => prev.slice(0, prevIndex));
-    setCurrentIndex(prevIndex);
-    form.reset(prevData);
-  };
-
   const submitHandler = async (
     values: z.infer<typeof addParticipantSchema>,
   ) => {
+    setIsLoading(true);
+    setOpen(false);
     try {
       const validatedFields = multipleParticipantSchema.safeParse([
         ...participants,
@@ -88,7 +81,7 @@ export const AddParticipantSheet = ({
           setParticipants([]);
           setCurrentIndex(0);
           setParticipantCount(null);
-          setOpen(false);
+          setIsLoading(false);
         },
       });
     } catch (error) {
@@ -175,10 +168,15 @@ export const AddParticipantSheet = ({
                   type="submit"
                   className="bordered bg-greenn hover:bg-greenn/90 border-b-4 hover:border-b-1 text-black w-full"
                   size={"lg"}
+                  disabled={isLoading}
                 >
-                  {currentIndex + 1 === participantCount
-                    ? "submit all"
-                    : `next (${currentIndex + 1}/${participantCount})`}
+                  {isLoading ? (
+                    <LoadingCircle />
+                  ) : currentIndex + 1 === participantCount ? (
+                    "submit all"
+                  ) : (
+                    `next (${currentIndex + 1}/${participantCount})`
+                  )}
                 </Button>
               </form>
             </Form>

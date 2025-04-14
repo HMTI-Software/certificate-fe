@@ -45,7 +45,7 @@ const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
         token: token,
         eventUid: uid,
         uid: value.uid,
-        id: index + 1,
+        id: parseInt(value.certificateNumber.slice(-3)),
         name: value.name,
         certificateNumber: value.certificateNumber,
         pathQr: value.qrCodes[0].pathQr,
