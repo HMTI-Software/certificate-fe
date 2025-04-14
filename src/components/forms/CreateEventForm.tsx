@@ -14,6 +14,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { createEvent } from "@/actions/createEvent";
 import { useRouter } from "next/navigation";
+import LoadingCircle from "../animation/LoadingCircle";
 
 const templateOptions = [
   { value: "DEFAULTDESIGN", label: "Default Design" },
@@ -150,10 +151,10 @@ const CreateEventForm = ({ token }: CreateEventFormProps) => {
           />
           <Button
             type="submit"
-            disabled={form.formState.isSubmitting}
+            disabled={isLoading}
             className="md:col-span-2 min-h-10 mt-4 w-full bordered hover:bg-purplee/90 border-b-4 bg-purplee hover:border-b-1 text-black"
           >
-            {isLoading ? "Creating..." : "Create Event"}
+            {isLoading ? <LoadingCircle /> : "create event"}
           </Button>
         </div>
       </form>

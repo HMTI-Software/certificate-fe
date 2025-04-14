@@ -37,11 +37,11 @@ export const deleteEvent = async (eventUid: string, token: string) => {
       revalidateTag("events");
       return {
         success: true,
-        message: data.message,
+        message: "Event deleted successfully",
       };
     }
   } catch (error) {
-    console.error("ERROR IN EVENT CREATE (SERVER ACTION) : ", error);
+    console.error("ERROR IN EVENT DELETE (SERVER ACTION) : ", error);
     return {
       success: false,
       message: "An unknown error occurred",

@@ -62,6 +62,7 @@ export const updateEvent = async (
       };
     } else {
       revalidateTag("events");
+      revalidateTag("participants");
       return {
         success: true,
         message: data.message,

@@ -1,12 +1,6 @@
-import type { Metadata } from "next";
 import "../globals.css";
 import Navbar from "@/components/Navbar";
 import { auth } from "@/auth";
-
-export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Certified Certification Dashboard",
-};
 
 export default async function DashboardLayout({
   children,

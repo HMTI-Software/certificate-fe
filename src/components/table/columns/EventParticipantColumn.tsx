@@ -2,10 +2,6 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 
-//COMPONENTS
-
-//LIBRARY
-
 //ICONS
 import { IParticipantDataTable } from "@/lib/types/Participants";
 import { QRCodeImage } from "@/components/image/QRCodeImage";

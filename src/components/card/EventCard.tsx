@@ -34,6 +34,7 @@ import { deleteEvent } from "@/actions/deleteEvent";
 import { useRouter } from "next/navigation";
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
 import { GeneralSheet } from "../sheet/GeneralSheet";
+import { EventStakeholderDetailSheet } from "../sheet/form/EventStakeholderDetails";
 
 const EventCard = ({
   event,
@@ -139,11 +140,13 @@ const EventCard = ({
                   <DropdownMenuItem
                     className="text-xs"
                     onClick={() => {
-                      setOpenStakeholderDetail(true);
+                      setTimeout(() => {
+                        setOpenStakeholderDetail(true);
+                      }, 50);
                     }}
                   >
                     <View />
-                    View
+                    Stakeholder Details
                   </DropdownMenuItem>
                   <DropdownMenuItem className="text-xs">
                     <Newspaper /> Preview
@@ -163,12 +166,11 @@ const EventCard = ({
           message={`This action will permanently remove the event data from storage. This cannot be undone.`}
           onSuccess={deleteEventHandler}
         />
-        <GeneralAlert
+        <EventStakeholderDetailSheet
+          eventData={event}
           open={openStakeholderDetail}
           setOpen={setOpenStakeholderDetail}
-          title="Are you sure for delete event data?"
-          message={`This action will permanently remove the event data from storage. This cannot be undone.`}
-        ></GeneralAlert>
+        />
       </>
     );
   }

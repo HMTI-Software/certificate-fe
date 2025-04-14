@@ -5,6 +5,15 @@ import Link from "next/link";
 import EventCard from "@/components/card/EventCard";
 import { auth } from "@/auth";
 import { getAllEvents } from "@/actions/getAllEvents";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description: "Dashboard Page",
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
 
 const DashboardPage = async () => {
   const session = await auth();

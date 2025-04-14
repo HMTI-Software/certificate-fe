@@ -57,7 +57,6 @@ export interface IEventCreate {
  * @property {number} suffixCode - Kode suffix yang digunakan untuk sertifikat event.
  * @property {IEventParticipants[] | [] | null} eventParticipants - Daftar peserta yang terlibat dalam event.
  * @property {IEventStakeholder[] | [] | null} stakeholders - Daftar pemangku kepentingan yang terlibat dalam event.
- * @property {IEventOwner} owner - Informasi pemilik event.
  */
 export interface IEventData {
   uid: string;
@@ -78,33 +77,25 @@ export interface IEventData {
     | "FORMALDESIGN_1"
     | "FORMALDESIGN_2"
     | "FORMALDESIGN_3";
-  stakeholders: IEventStakeholder[] | [] | null;
+  stakeholders: IEventStakeholder[] | null;
 }
 
 /**
  * Interface untuk mendeskripsikan pemangku kepentingan (stakeholder) dalam sebuah event.
  *
  * @property {string} uid - ID unik dari pemangku kepentingan.
+ * @property {string} eventId - ID unik dari event yang terkait dengan pemangku kepentingan.
  * @property {string} name - Nama pemangku kepentingan / stakeholder.
  * @property {string} position - Posisi atau jabatan pemangku kepentingan dalam event.
+ * @property {string} photoPath - Path atau URL foto pemangku kepentingan.
  */
 interface IEventStakeholder {
   uid: string;
+  eventId: string;
   name: string;
   position: string;
+  photoPath: string | null;
 }
-
-/**
- * Interface untuk mendeskripsikan pemilik acara (event owner).
- *
- * @property {string} uid - ID unik pengguna yang menjadi pemilik event.
- * @property {string} email - Alamat email pengguna yang menjadi pemilik event.
- */
-interface IEventOwner {
-  uid: string;
-  email: string;
-}
-
 /**
  * Interface untuk mendeskripsikan peserta acara (event participants).
  *
