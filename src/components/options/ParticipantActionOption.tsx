@@ -186,7 +186,7 @@ export const ParticipantActionOption = ({
             <span className="my-auto">{data.name}</span>
           </div>
           <Select onValueChange={(e) => setExtensionSelected(e)}>
-            <SelectTrigger className="text-black bg-purplee bordered border-black rounded-lg rounded-l-none  border-b-4 hover:border-b-1 min-h-12">
+            <SelectTrigger className="text-black bg-purplee bordered border-black rounded-lg rounded-l-none  border-b-4 hover:border-b-1 min-h-12 hover:cursor-pointer">
               <SelectValue placeholder="download as" />
             </SelectTrigger>
             <SelectContent

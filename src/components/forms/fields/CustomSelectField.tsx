@@ -60,7 +60,10 @@ export function SelectFormField<T extends FieldValues>({
                   form.formState.errors[name] ? "border-redd" : ""
                 }`}
               >
-                <SelectValue placeholder={placeholder} />
+                <SelectValue
+                  placeholder={placeholder}
+                  className="placeholder:text-grayy"
+                />
               </SelectTrigger>
             </FormControl>
             <SelectContent>

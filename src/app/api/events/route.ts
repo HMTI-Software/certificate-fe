@@ -23,8 +23,7 @@ export async function GET(req: NextRequest) {
         "Content-Type": "application/json",
       },
     });
-    const eventData: IEventResponse<IEventData> = await res.json();
-
+    const eventData: IEventResponse<IEventData[]> = await res.json();
     if (!eventData.success && eventData.status !== 200) {
       return NextResponse.json(
         {
@@ -34,16 +33,17 @@ export async function GET(req: NextRequest) {
         },
         { status: eventData.status || 500 },
       );
+    } else {
+      return NextResponse.json(
+        {
+          success: true,
+          status: 200,
+          message: "Events fetched successfully",
+          data: eventData.data,
+        },
+        { status: 200 },
+      );
     }
-    return NextResponse.json(
-      {
-        success: true,
-        status: 200,
-        message: "Events fetched successfully",
-        data: eventData.data,
-      },
-      { status: 200 },
-    );
   } catch (error: unknown) {
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";

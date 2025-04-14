@@ -24,7 +24,13 @@ import {
 } from "@/components/ui/table";
 
 //ICONS
-import { ChevronsLeft, ChevronsRight, Plus, QrCode } from "lucide-react";
+import {
+  ChevronsLeft,
+  ChevronsRight,
+  Plus,
+  QrCode,
+  Trash2,
+} from "lucide-react";
 import { useState } from "react";
 import { AddParticipantsButton } from "../button/AddParticipantsButton";
 import GeneralDialog from "../popup/GeneralDialog";
@@ -36,6 +42,9 @@ import {
   SelectValue,
 } from "../ui/select";
 import { toast } from "sonner";
+import GeneralAlert from "../popup/GeneralAlert";
+import { deleteAllParticipants } from "@/actions/mutation/participants/deleteAllParticipants";
+import LoadingCircle from "../animation/LoadingCircle";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -56,6 +65,8 @@ export function GeneralTable<TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([
     { id: "id", desc: false },
   ]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [openDeleteAlert, setOpenDeleteAlert] = useState<boolean>(false);
   const [openDownloadDialog, setOpenDownloadDialog] = useState<boolean>(false);
   const [extensionSelected, setExtensionSelected] = useState<string>("webp");
   const handleDownload = () => {
@@ -115,6 +126,32 @@ export function GeneralTable<TData, TValue>({
       sorting,
     },
   });
+
+  const deleteEventHandler = () => {
+    setIsLoading(true);
+    try {
+      toast.promise(deleteAllParticipants(eventUid!, token!), {
+        loading: "Deleting all participants...",
+        success: (data) => {
+          setOpenDeleteAlert(false);
+          if (data.success) {
+            return data.message;
+          }
+          throw new Error(data.message as string);
+        },
+        error: (error) => {
+          console.error("Error deleting all participants :", error);
+          return error.message;
+        },
+        finally: () => {
+          setIsLoading(false);
+        },
+      });
+    } catch (error) {
+      console.error("Error deleting all participants:", error);
+      setIsLoading(false);
+    }
+  };
   return (
     <div className="w-full">
       <div className="flex flex-row justify-start py-4 gap-3">
@@ -257,12 +294,34 @@ export function GeneralTable<TData, TValue>({
         </div>
         {page === "event" ? (
           <>
-            <Button
-              className="bordered  rounded-md bg-yelloww hover:bg-yelloww text-black"
-              onClick={() => setOpenDownloadDialog(true)}
+            <div
+              className={`${
+                !table.getRowModel().rows?.length
+                  ? "hidden"
+                  : "flex flex-row gap-2 "
+              }`}
             >
-              download all <QrCode size={16} />
-            </Button>
+              <Button
+                className="bordered  rounded-md bg-yelloww hover:bg-yelloww text-black"
+                onClick={() => setOpenDownloadDialog(true)}
+              >
+                download all <QrCode size={16} />
+              </Button>
+              <Button
+                className="bordered  rounded-md bg-redd hover:bg-redd/90 text-black"
+                onClick={() => setOpenDeleteAlert(true)}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <LoadingCircle />
+                ) : (
+                  <>
+                    <span>delete all</span>
+                    <Trash2 size={16} />
+                  </>
+                )}
+              </Button>
+            </div>
             <GeneralDialog
               open={openDownloadDialog}
               setOpen={setOpenDownloadDialog}
@@ -292,6 +351,13 @@ export function GeneralTable<TData, TValue>({
                 </Select>
               </div>
             </GeneralDialog>
+            <GeneralAlert
+              open={openDeleteAlert}
+              setOpen={setOpenDeleteAlert}
+              title="Are you sure for delete all participants data?"
+              message={`This action will permanently remove all participants data from storage. This cannot be undone.`}
+              onSuccess={deleteEventHandler}
+            />
           </>
         ) : null}
       </div>

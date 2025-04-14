@@ -43,7 +43,7 @@ export function InputFormField<T extends FieldValues>({
               placeholder={placeholder}
               type={type}
               {...field}
-              className={`bordered rounded-md min-h-12 border-b-4 border-black hover:border-1 w-full ${
+              className={`bordered placeholder:text-grayy rounded-md min-h-12 border-b-4 border-black hover:border-1 w-full ${
                 form.formState.errors[name] ? "border-redd" : ""
               } ${className}`}
               required

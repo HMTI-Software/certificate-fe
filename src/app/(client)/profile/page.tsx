@@ -1,8 +1,17 @@
 import ProfileCard from "@/components/card/ProfileCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { IProfileCard } from "@/lib/Interface";
+import { IProfileCard } from "@/lib/types/General";
+import { Metadata } from "next";
 
-const ProfilePage = () => {
+export const metadata: Metadata = {
+  title: "Profile",
+  description: "User Profile Page",
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
+
+const ProfilePage = async () => {
   const profileCard: IProfileCard[] = [
     {
       title: "Events",

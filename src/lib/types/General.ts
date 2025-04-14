@@ -195,3 +195,12 @@ export const uploadParticipantByExcelSchema = z.object({
       message: "File must be smaller than 10MB.",
     }),
 });
+
+export const updateStakeholderSchema = z.object({
+  eventStakeholderName: z
+    .string()
+    .min(2, { message: "Stakeholder name at least 2 characters" }),
+  eventStakeholderPosition: z
+    .string()
+    .min(2, { message: "Position name of stakeholder at least 2 characters" }),
+});

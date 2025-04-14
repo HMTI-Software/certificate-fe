@@ -46,7 +46,7 @@ export function FileUploadField<T extends FieldValues>({
               multiple={false}
               value={undefined} // Prevent uncontrolled input warning
               onChange={(e) => field.onChange(e.target.files)}
-              className={`bordered rounded-md min-h-10 border-b-4 border-black hover:border-1 w-full ${
+              className={`bordered placeholder:text-grayy rounded-md min-h-10 border-b-4 border-black hover:border-1 w-full ${
                 form.formState.errors[name] ? "border-redd" : ""
               } ${className}`}
               required

@@ -1,4 +1,4 @@
-import { IProfileCard } from "@/lib/Interface";
+import { IProfileCard } from "@/lib/types/General";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
 const ProfileCard = ({ profileData }: { profileData: IProfileCard }) => {
