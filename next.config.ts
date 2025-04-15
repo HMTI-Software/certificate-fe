@@ -6,9 +6,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "certificate-be-production.up.railway.app",
-        port: "",
+        pathname: "/**",
       },
     ],
+    domains: ["certificate-be-production.up.railway.app"],
   },
   logging: {
     fetches: {

@@ -25,13 +25,6 @@ export const getAllEvents = async (token: string) => {
     if (!eventData.success && eventData.status !== 200) {
       return null;
     }
-    const test = eventData.data?.find(
-      (event) => event.uid === "3f45ee13-5558-48a6-8023-a532a9daf8d8",
-    );
-    console.log(
-      "test",
-      test?.stakeholders ? test?.stakeholders[0].name : "No stakeholders found",
-    );
 
     return eventData.data;
   } catch (error) {

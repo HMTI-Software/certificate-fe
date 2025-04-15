@@ -11,25 +11,27 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { InputFormField } from "@/components/forms/fields/CustomInputField";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { toast } from "sonner";
+import { updateStakeholderData } from "@/actions/mutation/events/updateStakeholderData";
 
 type EventStakeholderDetailSheetProps = {
   open: boolean;
   setOpen: (value: boolean) => void;
   eventData: IEventData;
+  token: string;
 };
 export const EventStakeholderDetailSheet = ({
   open,
   setOpen,
   eventData,
+  token,
 }: EventStakeholderDetailSheetProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  if (!eventData) return null;
   if (!eventData.stakeholders) return null;
-  const eventStakeholderPhotoPath = eventData.stakeholders.find((value) => {
-    return value.eventId === eventData.uid;
-  });
-  console.log(eventData.stakeholders);
-
   if (eventData.stakeholders.length === 0) return null;
+  const stakeholderUid = eventData.stakeholders[0].uid;
   const form = useForm<z.infer<typeof updateStakeholderSchema>>({
     resolver: zodResolver(updateStakeholderSchema),
     defaultValues: {
@@ -53,9 +55,35 @@ export const EventStakeholderDetailSheet = ({
     fileInputRef.current?.click();
   };
 
-  const handleSubmit = (data: z.infer<typeof updateStakeholderSchema>) => {
-    console.log(data);
+  const handleSubmit = (values: z.infer<typeof updateStakeholderSchema>) => {
+    setIsLoading(true);
+    setOpen(false);
+    try {
+      toast.promise(
+        updateStakeholderData(values, token, eventData.uid, stakeholderUid),
+        {
+          loading: "Updating stakeholder data...",
+          success: (data) => {
+            if (data.success) {
+              return data.message;
+            }
+            throw new Error(data.message as string);
+          },
+          error: (error) => {
+            console.error("Error updating stakeholder data:", error);
+            return error.message;
+          },
+          finally: () => {
+            setIsLoading(false);
+          },
+        },
+      );
+    } catch (error) {
+      console.error(error);
+      setIsLoading(false);
+    }
   };
+
   return (
     <GeneralSheet
       open={open}
@@ -65,18 +93,18 @@ export const EventStakeholderDetailSheet = ({
     >
       <div className="flex flex-col justify-center gap-4 px-4">
         <div className="flex flex-row items-start justify-start">
-          <Avatar className="w-[70px] h-[70px] mr-4 cursor-pointer relative overflow-hidden">
-            <AvatarImage
+          <Avatar className="w-[70px] h-[70px] mr-4 cursor-pointer">
+            <Image
               src={
-                process.env.BACKEND_URL !== null || undefined
-                  ? `${process.env.BACKEND_URL}${eventData.stakeholders[0].photoPath}`
-                  : `https://certificate-be-production.up.railway.app/${eventData.stakeholders[0].photoPath}`
+                "https://certificate-be-production.up.railway.app" +
+                eventData.stakeholders[0].photoPath
               }
+              width={70}
+              height={70}
+              className="object-cover object-center"
               alt="User avatar"
             />
-            <AvatarFallback className="bg-gray-200 text-grayy flex flex-col items-center justify-center">
-              CN
-            </AvatarFallback>
+            <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <div className="flex flex-col gap-1 items-start justify-center">
             <h1 className="text-lg font-bold">

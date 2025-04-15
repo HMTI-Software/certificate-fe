@@ -167,6 +167,7 @@ const EventCard = ({
           onSuccess={deleteEventHandler}
         />
         <EventStakeholderDetailSheet
+          token={token!}
           eventData={event}
           open={openStakeholderDetail}
           setOpen={setOpenStakeholderDetail}
