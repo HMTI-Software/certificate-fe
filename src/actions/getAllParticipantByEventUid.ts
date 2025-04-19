@@ -33,7 +33,7 @@ const getAllParticipanByEventUid = async (
     const participantsData: IParticipantResponse<IParticipantData[]> =
       await res.json();
     if (!participantsData.success && participantsData.status !== 200) {
-      console.error("Error data", participantsData);
+      return null;
     }
     return participantsData.data;
   } catch (error) {

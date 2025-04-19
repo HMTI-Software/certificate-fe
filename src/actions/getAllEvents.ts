@@ -2,7 +2,7 @@
 
 import { IEventData, IEventResponse } from "@/lib/types/Event";
 
-export const getAllEvents = async (token: string) => {
+export const getAllEvents = async (token: string, eventUid?: string) => {
   try {
     if (!token) {
       console.error("Token is required");

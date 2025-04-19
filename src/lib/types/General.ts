@@ -204,3 +204,17 @@ export const updateStakeholderSchema = z.object({
     .string()
     .min(2, { message: "Position name of stakeholder at least 2 characters" }),
 });
+
+export const uploadStakeholderImageSchema = z.object({
+  file: z
+    .any()
+    .refine((files) => files instanceof FileList && files.length === 1, {
+      message: "Please upload exactly one file.",
+    })
+    .refine((files) => files?.[0]?.type.startsWith("image/"), {
+      message: "File must be an image (e.g., png, jpg, jpeg, webp).",
+    })
+    .refine((files) => files?.[0]?.size <= 5 * 1024 * 1024, {
+      message: "File must be smaller than 5MB.",
+    }),
+});

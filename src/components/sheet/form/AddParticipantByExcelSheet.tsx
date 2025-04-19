@@ -83,6 +83,7 @@ export const AddParticantByExcelSheet = ({
             form={form}
             name="file"
             label="Upload Excel File"
+            accept=".xlsx"
             description="Please upload an Excel file (.xlsx) containing participant details."
             placeholder="Choose file..."
           />

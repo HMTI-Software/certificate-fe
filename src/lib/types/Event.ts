@@ -12,7 +12,7 @@ export interface IEventResponse<T = IEventData | IEventCreate> {
   success: boolean;
   status: number;
   message: string | string[];
-  data: T | [] | null;
+  data: T | null;
 }
 
 export interface IEventCreate {
@@ -69,6 +69,8 @@ export interface IEventData {
   organizer: string;
   prefixCode: string;
   suffixCode: number;
+  logoFirstPath: string | null;
+  logoSecondPath: string | null;
   eventTemplate:
     | "DEFAULTDESIGN"
     | "TECHNOLOGYDESIGN_1"

@@ -151,9 +151,6 @@ const EventCard = ({
                   <DropdownMenuItem className="text-xs">
                     <Newspaper /> Preview
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="text-xs">
-                    <CircleUserRound /> Upload Stakeholder Image
-                  </DropdownMenuItem>
                 </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>

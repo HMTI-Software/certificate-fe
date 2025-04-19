@@ -7,7 +7,6 @@ import {
 import { z } from "zod";
 import { IEventResponse } from "@/lib/types/Event";
 import { revalidateTag } from "next/cache";
-
 export const updateStakeholderData = async (
   values: z.infer<typeof updateStakeholderSchema>,
   token: string | undefined,
@@ -51,7 +50,7 @@ export const updateStakeholderData = async (
         message: data.message,
       };
     } else {
-      revalidateTag("events");
+      revalidateTag("events/" + eventUid);
       return {
         success: true,
         message: data.message,

@@ -61,7 +61,7 @@ export const updateEvent = async (
         message: data.message,
       };
     } else {
-      revalidateTag("events");
+      revalidateTag(`events/${eventUid}`);
       revalidateTag("participants");
       return {
         success: true,

@@ -17,6 +17,7 @@ type FileUploadFieldProps<T extends FieldValues> = {
   placeholder?: string;
   type?: string;
   className?: string;
+  accept: string;
 };
 
 export function FileUploadField<T extends FieldValues>({
@@ -26,6 +27,7 @@ export function FileUploadField<T extends FieldValues>({
   description,
   placeholder = "",
   className = "",
+  accept,
 }: FileUploadFieldProps<T>) {
   return (
     <FormField
@@ -41,7 +43,7 @@ export function FileUploadField<T extends FieldValues>({
             <Input
               placeholder={placeholder}
               type="file"
-              accept=".xlsx"
+              accept={accept}
               {...field}
               multiple={false}
               value={undefined} // Prevent uncontrolled input warning

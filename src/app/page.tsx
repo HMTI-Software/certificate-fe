@@ -27,15 +27,15 @@ const LandingPage = async () => {
       packageFeatures: [
         {
           feature: "Create up to 2 events",
-          icon: <SquareCheckBig className="text-green-500" />,
+          icon: <SquareCheckBig className="text-[#5AB95F]" />,
         },
         {
-          feature: "150 Participants per event",
-          icon: <SquareCheckBig className="text-green-500" />,
+          feature: "150 Participants each event",
+          icon: <SquareCheckBig className="text-[#5AB95F]" />,
         },
         {
           feature: "QR Code generator included",
-          icon: <SquareCheckBig className="text-green-500" />,
+          icon: <SquareCheckBig className="text-[#5AB95F]" />,
         },
         {
           feature: "Priority support",
@@ -56,19 +56,19 @@ const LandingPage = async () => {
       packageFeatures: [
         {
           feature: "Create up to 4 events",
-          icon: <SquareCheckBig className="text-green-500" />,
+          icon: <SquareCheckBig className="text-[#5AB95F]" />,
         },
         {
-          feature: "300 Participants per event",
-          icon: <SquareCheckBig className="text-green-500" />,
+          feature: "300 Participants each event",
+          icon: <SquareCheckBig className="text-[#5AB95F]" />,
         },
         {
           feature: "QR Code generator included",
-          icon: <SquareCheckBig className="text-green-500" />,
+          icon: <SquareCheckBig className="text-[#5AB95F]" />,
         },
         {
           feature: "Priority support (admin help, lag issues, tutorials)",
-          icon: <SquareCheckBig className="text-green-500" />,
+          icon: <SquareCheckBig className="text-[#5AB95F]" />,
         },
         {
           feature: "Exclusive email sending (via external app)",
@@ -85,23 +85,23 @@ const LandingPage = async () => {
       packageFeatures: [
         {
           feature: "Create up to 6 events",
-          icon: <SquareCheckBig className="text-green-500" />,
+          icon: <SquareCheckBig className="text-[#5AB95F]" />,
         },
         {
-          feature: "600 Participants per event",
-          icon: <SquareCheckBig className="text-green-500" />,
+          feature: "600 Participants each event",
+          icon: <SquareCheckBig className="text-[#5AB95F]" />,
         },
         {
           feature: "QR Code generator included",
-          icon: <SquareCheckBig className="text-green-500" />,
+          icon: <SquareCheckBig className="text-[#5AB95F]" />,
         },
         {
           feature: "Priority support (admin help, lag issues, tutorials)",
-          icon: <SquareCheckBig className="text-green-500" />,
+          icon: <SquareCheckBig className="text-[#5AB95F]" />,
         },
         {
           feature: "Exclusive email sending (via external app)",
-          icon: <SquareCheckBig className="text-green-500" />,
+          icon: <SquareCheckBig className="text-[#5AB95F]" />,
         },
       ],
       packageStyle: "bg-[#59FFAC] border-black",

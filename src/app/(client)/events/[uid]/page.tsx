@@ -52,7 +52,7 @@ const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
   return (
     <div className="w-full px-0 md:px-20 lg:px-40 2xl:px-60 pb-40">
       <div className="w-full">
-        <EventCard event={eventData!} page="event" token={session?.token} />
+        <EventCard event={eventData} page="event" token={session?.token} />
         <div className="flex w-full justify-between mt-10 items-center">
           <b className="text-xl">table of participants</b>
         </div>
