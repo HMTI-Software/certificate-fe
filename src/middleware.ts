@@ -23,6 +23,13 @@ export default auth((req) => {
   if (isApiAuthRoute) return;
   if (isApiRoute) return;
 
+  if (nextUrl.pathname === "/admin") {
+    if (req.auth?.user.roles !== "SUPERADMIN") {
+      return Response.redirect(new URL("/dashboard", nextUrl));
+    }
+    return;
+  }
+
   if (nextUrl.pathname === "/auth/verify-email") {
     const token = nextUrl.searchParams.get("token");
     if (token) return;
