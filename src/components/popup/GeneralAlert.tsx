@@ -43,7 +43,7 @@ const GeneralAlert = ({
               setOpen(false);
             }}
           >
-            Cancel
+            cancel
           </AlertDialogCancel>
           <AlertDialogAction
             className="bordered bg-[#59FFAC] hover:bg-[#59FFAC]/90 text-black hover:cursor-pointer"
@@ -52,7 +52,7 @@ const GeneralAlert = ({
               setOpen(false);
             }}
           >
-            Continue
+            continue
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

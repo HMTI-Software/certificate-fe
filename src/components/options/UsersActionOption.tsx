@@ -4,12 +4,14 @@ import {
   BookMarked,
   Mail,
   MoreHorizontal,
+  MoreVertical,
   Package,
   QrCode,
   Rocket,
   SquarePen,
   Tag,
   Trash2,
+  TrendingDown,
   UserCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -37,6 +39,15 @@ import { GeneralSheet } from "../sheet/GeneralSheet";
 import { Badge } from "../ui/badge";
 import { FormatDate } from "@/lib/functions";
 import GeneralDialog from "../popup/GeneralDialog";
+import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { updownPackageFormSchema } from "@/lib/types/General";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SelectFormField } from "../forms/fields/CustomSelectField";
+import { Form } from "../ui/form";
+import { toast } from "sonner";
+import { updownUserPackage } from "@/actions/mutation/users/updownUserPackage";
 
 type UsersActionOptionProps = {
   data: IUsersDataTable;
@@ -45,35 +56,93 @@ export const UsersActionOption = ({ data }: UsersActionOptionProps) => {
   const [openDeactiveAlert, setOpenDeactiveAlert] = useState<boolean>(false);
   const [openActivateAlert, setOpenActivateAlert] = useState<boolean>(false);
   const [openShowUserSheet, setOpenShowUserSheet] = useState<boolean>(false);
-  const [openUpgradeDialog, setOpenUpgradeDialog] = useState<boolean>(false);
+  const [openUpdownDialog, setOpenUpdownDialog] = useState<boolean>(false);
+
+  const updownForm = useForm<z.infer<typeof updownPackageFormSchema>>({
+    resolver: zodResolver(updownPackageFormSchema),
+  });
+
+  const updownPackageHandler = async (
+    values: z.infer<typeof updownPackageFormSchema>,
+  ) => {
+    setOpenUpdownDialog(false);
+    try {
+      toast.promise(updownUserPackage(data.token, data.uid, values), {
+        loading: "upgrading or downgrading package...",
+        success: (data) => {
+          if (data.success) {
+            updownForm.reset();
+            setOpenUpdownDialog(false);
+            return data.message;
+          }
+          throw new Error(data.message);
+        },
+        error: (error) => {
+          updownForm.reset();
+          setOpenUpdownDialog(false);
+          return error.message;
+        },
+        finally: () => {
+          setOpenUpdownDialog(false);
+          setOpenShowUserSheet(false);
+        },
+      });
+    } catch (error) {
+      console.error("ERROR IN UPDOWN PACKAGE HANDLER : ", error);
+      toast.error("An unknown error occurred while upgrading the package.");
+    }
+  };
+  const updownPackageOptions = [
+    { value: "FREEPLAN", label: "free plan" },
+    { value: "SILVER", label: "silver plan" },
+    { value: "PLATINUM", label: "platinum plan" },
+    { value: "GOLD", label: "gold plan" },
+  ];
+  const filteredUpdownPackageOptions = updownPackageOptions.filter(
+    (option) => option.value !== data.premiumPackage,
+  );
+
   return (
     <>
-      <div className="flex flex-row justify-center items-center space-x-2">
+      <div className="flex flex-row justify-center items-center">
         <Button
-          className={`bordered ${
-            data.isPremium
-              ? "bg-redd hover:bg-redd/90"
-              : "bg-greenn hover:bg-greenn/90"
-          }  text-black`}
-          onClick={() => {
-            if (data.isPremium) {
-              setOpenDeactiveAlert(true);
-            } else {
-              setOpenActivateAlert(true);
-            }
-          }}
-        >
-          {data.isPremium ? "deactivate" : "activate"}
-          <Tag />
-        </Button>
-        <Button
-          className="bordered bg-purplee hover:bg-purplee/90 text-black"
+          className="bordered bg-yelloww hover:bg-yelloww/90 text-black rounded-r-none"
           onClick={() => setOpenShowUserSheet(true)}
         >
           show <BookMarked />
         </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button className="bordered bg-purplee hover:bg-purplee/90 text-black rounded-l-none">
+              <MoreVertical />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            side="bottom"
+            align="end"
+            className="border-b-4 border-black hover:border-b-1 bordered"
+          >
+            <DropdownMenuLabel className="text-sm">Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem
+                className="text-sm"
+                onClick={() => {
+                  setTimeout(() => {
+                    setOpenUpdownDialog(true);
+                  }, 50);
+                }}
+              >
+                <Rocket /> Upgrade
+              </DropdownMenuItem>
+              <DropdownMenuItem className="text-sm">
+                <Trash2 /> Delete
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
-      <GeneralAlert
+      <GeneralDialog
         open={openActivateAlert}
         setOpen={setOpenActivateAlert}
         title={"Activate Premium Feature"}
@@ -172,7 +241,7 @@ export const UsersActionOption = ({ data }: UsersActionOptionProps) => {
                 className="border-black bordered bg-greenn hover:bg-greenn/90 text-black hover:border-b-1 border-b-3"
                 onClick={() => {
                   setTimeout(() => {
-                    setOpenUpgradeDialog(true);
+                    setOpenUpdownDialog(true);
                   }, 50);
                 }}
               >
@@ -183,11 +252,32 @@ export const UsersActionOption = ({ data }: UsersActionOptionProps) => {
         </div>
       </GeneralSheet>
       <GeneralDialog
-        open={openUpgradeDialog}
-        setOpen={setOpenUpgradeDialog}
-        title={"Upgrade Premium Package"}
-        message={`Upgrade ${data.email} premium package`}
-      ></GeneralDialog>
+        open={openUpdownDialog}
+        setOpen={setOpenUpdownDialog}
+        title={"Upgrade / Downgrade Premium Package"}
+        message={`Upgrade or Downgrade ${data.email} premium package`}
+        onSuccess={() => {
+          updownForm.handleSubmit(updownPackageHandler)();
+        }}
+        onCancel={() => {
+          updownForm.reset();
+          setOpenUpdownDialog(false);
+        }}
+        autoClose={false}
+      >
+        <Form {...updownForm}>
+          <form>
+            <SelectFormField
+              form={updownForm}
+              name={"premiumPackage"}
+              label={"Premium Package"}
+              placeholder={"Select premium package"}
+              options={filteredUpdownPackageOptions}
+              description="Select the premium package you want to upgrade or downgrade to."
+            />
+          </form>
+        </Form>
+      </GeneralDialog>
     </>
   );
 };

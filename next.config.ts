@@ -9,7 +9,6 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
-    domains: ["certificate-be-production.up.railway.app"],
   },
   logging: {
     fetches: {

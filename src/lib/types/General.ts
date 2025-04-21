@@ -239,3 +239,9 @@ export const addAccountFormSchema = z.object({
     errorMap: () => ({ message: "Package must not be empty" }),
   }),
 });
+
+export const updownPackageFormSchema = z.object({
+  premiumPackage: z.enum(["FREEPLAN", "SILVER", "PLATINUM", "GOLD"], {
+    errorMap: () => ({ message: "Package must not be empty" }),
+  }),
+});

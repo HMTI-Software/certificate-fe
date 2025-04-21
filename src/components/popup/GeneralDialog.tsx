@@ -20,6 +20,7 @@ type GeneralDialogProps = {
   successText?: string;
   cancelText?: string;
   children?: React.ReactNode;
+  autoClose?: boolean;
 };
 
 const GeneralDialog = ({
@@ -32,6 +33,7 @@ const GeneralDialog = ({
   children,
   successText = "continue",
   cancelText = "cancel",
+  autoClose = true,
 }: GeneralDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -48,7 +50,9 @@ const GeneralDialog = ({
             className="bordered bg-red-400 hover:bg-red-400/90 border-b-4 hover:border-b-1 text-black"
             onClick={() => {
               onCancel?.();
-              setOpen(false);
+              if (autoClose) {
+                setOpen(false);
+              }
             }}
           >
             {cancelText}
@@ -57,7 +61,9 @@ const GeneralDialog = ({
             className="bordered bg-[#59FFAC] hover:bg-[#59FFAC]/90 text-black"
             onClick={() => {
               onSuccess?.();
-              setOpen(false);
+              if (autoClose) {
+                setOpen(false);
+              }
             }}
           >
             {successText}

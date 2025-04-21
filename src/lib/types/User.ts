@@ -66,6 +66,7 @@ export interface IUsersData {
 
 export interface IUsersDataTable {
   id: number;
+  token: string;
   uid: string;
   email: string;
   fullEmail: string;

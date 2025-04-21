@@ -46,6 +46,7 @@ const AdminPage = async () => {
     (value, index) => {
       return {
         id: index + 1,
+        token: token,
         uid: value.uid,
         email: value.email.split("@")[0],
         fullEmail: value.email,
