@@ -23,6 +23,13 @@ export interface IJWTPayload {
   exp: number;
 }
 
+export interface IUserResponse<T = IUsersData[]> {
+  success: boolean;
+  status: number;
+  message: string;
+  data: T | null;
+}
+
 /**
  * Antarmuka untuk mendefinisikan data pengguna.
  *
@@ -42,4 +49,28 @@ export interface IUserData {
   premiumAt: string | null;
   premiumExpiredAt: string | null;
   premiumPackage: "FREEPLAN" | "SILVER" | "PLATINUM" | "GOLD";
+}
+
+export interface IUsersData {
+  uid: string;
+  email: string;
+  isPremium: boolean;
+  premiumAt: string | null;
+  createdAt: string;
+  premiumPackage: "FREEPLAN" | "SILVER" | "PLATINUM" | "GOLD";
+  role: "USER" | "SUPERADMIN";
+  updateAt: string;
+  premiumExpiredAt: string | null;
+  events: number;
+}
+
+export interface IUsersDataTable {
+  id: number;
+  uid: string;
+  email: string;
+  fullEmail: string;
+  isPremium: boolean;
+  premiumAt: string | null;
+  premiumPackage: "FREEPLAN" | "SILVER" | "PLATINUM" | "GOLD";
+  role: "USER" | "SUPERADMIN";
 }

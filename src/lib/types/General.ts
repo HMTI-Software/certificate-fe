@@ -218,3 +218,24 @@ export const uploadStakeholderImageSchema = z.object({
       message: "File must be smaller than 5MB.",
     }),
 });
+
+export const addAccountFormSchema = z.object({
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters long" })
+    .regex(/[A-Z]/, {
+      message: "Password must contain at least one uppercase letter",
+    })
+    .regex(/[a-z]/, {
+      message: "Password must contain at least one lowercase letter",
+    })
+    .regex(/[0-9]/, { message: "Password must contain at least one number" }),
+  confirmPassword: z.string(),
+  roles: z.enum(["USER", "SUPERADMIN"], {
+    errorMap: () => ({ message: "Role must not be empty" }),
+  }),
+  packagePremium: z.enum(["FREEPLAN", "SILVER", "PLATINUM", "GOLD"], {
+    errorMap: () => ({ message: "Package must not be empty" }),
+  }),
+});

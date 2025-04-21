@@ -17,7 +17,7 @@ export interface IAuthResponse<
   success: boolean;
   status: number;
   message: string[] | string;
-  data: T;
+  data: T | null;
 }
 
 /**

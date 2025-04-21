@@ -148,7 +148,14 @@ const EventCard = ({
                     <View />
                     Stakeholder Details
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="text-xs">
+                  <DropdownMenuItem
+                    className="text-xs"
+                    onClick={() => {
+                      setTimeout(() => {
+                        router.push(`/certificates/${event.uid}/preview`);
+                      }, 50);
+                    }}
+                  >
                     <Newspaper /> Preview
                   </DropdownMenuItem>
                 </DropdownMenuGroup>

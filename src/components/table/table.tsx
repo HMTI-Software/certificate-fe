@@ -45,6 +45,7 @@ import { toast } from "sonner";
 import GeneralAlert from "../popup/GeneralAlert";
 import { deleteAllParticipants } from "@/actions/mutation/participants/deleteAllParticipants";
 import LoadingCircle from "../animation/LoadingCircle";
+import { AddAccountButton } from "../button/AddAccountButton";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -157,12 +158,22 @@ export function GeneralTable<TData, TValue>({
       <div className="flex flex-row justify-start py-4 gap-3">
         <div className="flex w-full">
           <Input
-            placeholder="Name..."
-            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("name")?.setFilterValue(event.target.value)
+            placeholder={
+              page === "event" ? "search by name" : "search by email"
             }
-            className="border-black max-w-4xl bordered border-b-4 hover:border-b-1"
+            value={
+              page === "event"
+                ? (table.getColumn("name")?.getFilterValue() as string) ?? ""
+                : (table.getColumn("email")?.getFilterValue() as string) ?? ""
+            }
+            onChange={(event) =>
+              page === "event"
+                ? table.getColumn("name")?.setFilterValue(event.target.value)
+                : table.getColumn("email")?.setFilterValue(event.target.value)
+            }
+            className={`border-black ${
+              page === "event" ? "max-w-4xl" : "max-w-xs"
+            } bordered border-b-4 hover:border-b-1`}
           />
         </div>
         {page === "event" ? (
@@ -170,9 +181,7 @@ export function GeneralTable<TData, TValue>({
             <AddParticipantsButton eventUid={eventUid!} token={token!} />
           </>
         ) : (
-          <Button className="bordered bg-[#59FFAC] hover:bg-[#59FFAC]/90 text-black">
-            <span className="hidden md:block">Add Account</span> <Plus />
-          </Button>
+          <AddAccountButton token={token!} />
         )}
       </div>
       <div>
