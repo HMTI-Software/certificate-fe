@@ -1,30 +1,11 @@
-import { getEventByEventId } from "@/actions/getEventByEventId";
-import { auth } from "@/auth";
 import { FormatDate } from "@/lib/functions";
+import { IEventData } from "@/lib/types/Event";
 import Image from "next/image";
 
-const CertificateTemplatePage = async ({
-  params,
-}: {
-  params: Promise<{ eventUid: string }>;
-}) => {
-  const session = await auth();
-  const { eventUid } = await params;
-  const eventData = await getEventByEventId(eventUid, session?.token!);
-  if (!eventData) {
-    return (
-      <div className="w-full min-h-screen flex items-center justify-center">
-        No event found
-      </div>
-    );
-  }
-  if (eventData.stakeholders!.length === 0) {
-    return (
-      <div className="w-full min-h-screen flex items-center justify-center">
-        No stakeholder found
-      </div>
-    );
-  }
+type Props = {
+  eventData: IEventData;
+};
+export const FormalDesign1 = ({ eventData }: Props) => {
   return (
     <div
       className="relative max-w-[400px] h-[500px] md:max-w-[600px] md:min-h-screen aspect-[3/4] bg-cover bg-center mx-auto "
@@ -75,5 +56,3 @@ const CertificateTemplatePage = async ({
     </div>
   );
 };
-
-export default CertificateTemplatePage;
