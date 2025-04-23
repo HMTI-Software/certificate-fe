@@ -1,26 +1,32 @@
 "use server";
 
 import { IEventData, IEventResponse } from "@/lib/types/Event";
+import { auth } from "@/auth";
 
-export const getAllEvents = async (token: string, eventUid?: string) => {
+export const getAllEvents = async () => {
   try {
-    if (!token) {
-      console.error("Token is required");
+    const session = await auth();
+    if (!session) {
+      console.error("Session not found");
       return null;
     }
-    const res = await fetch(
-      `${process.env.FRONTEND_URL}/api/events?token=${token}`,
-      {
-        method: "GET",
-        next: {
-          revalidate: 60, // Revalidate every 60 seconds
-          tags: ["events"],
-        },
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const token = session.token;
+    if (!token) {
+      console.error("Token not found");
+      return null;
+    }
+
+    const res = await fetch(`${process.env.FRONTEND_URL}/api/events`, {
+      method: "GET",
+      next: {
+        revalidate: 60, // Revalidate every 60 seconds
+        tags: ["events"],
       },
-    );
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const eventData: IEventResponse<IEventData[]> = await res.json();
     if (!eventData.success && eventData.status !== 200) {
       return null;
@@ -28,9 +34,6 @@ export const getAllEvents = async (token: string, eventUid?: string) => {
 
     return eventData.data;
   } catch (error) {
-    console.error(
-      `Error fetching event (${token}) data (SERVER ACTIONS) : `,
-      error,
-    );
+    console.error(`Error fetching event data (SERVER ACTIONS) : `, error);
   }
 };

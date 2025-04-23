@@ -7,13 +7,27 @@ import {
   IParticipantAdd,
 } from "@/lib/types/Participants";
 import { revalidateTag } from "next/cache";
+import { auth } from "@/auth";
 
 export const addParticipants = async (
   values: z.infer<typeof multipleParticipantSchema>,
-  token: string | undefined,
   eventUid: string,
 ) => {
   try {
+    const session = await auth();
+    if (!session) {
+      return {
+        success: false,
+        message: "Unauthorized access",
+      };
+    }
+    const token = session.token;
+    if (!token) {
+      return {
+        success: false,
+        message: "Token is required",
+      };
+    }
     const validatedFields = multipleParticipantSchema.safeParse(values);
     if (!eventUid) {
       return {
@@ -21,24 +35,19 @@ export const addParticipants = async (
         message: "Event UID is required",
       };
     }
-    if (!token) {
-      return {
-        success: false,
-        message: "Token is required",
-      };
-    }
-    if (!validatedFields.success || !token) {
+    if (!validatedFields.success) {
       return {
         success: false,
         message: "Invalid event data.",
       };
     }
     const res = await fetch(
-      `${process.env.FRONTEND_URL}/api/events/${eventUid}/participants/add?token=${token}`,
+      `${process.env.FRONTEND_URL}/api/events/${eventUid}/participants/add`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(validatedFields.data),
       },

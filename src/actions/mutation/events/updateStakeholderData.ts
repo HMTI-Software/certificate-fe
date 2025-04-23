@@ -1,21 +1,32 @@
 "use server";
 
-import {
-  updateEventSchema,
-  updateStakeholderSchema,
-} from "@/lib/types/General";
+import { updateStakeholderSchema } from "@/lib/types/General";
 import { z } from "zod";
 import { IEventResponse } from "@/lib/types/Event";
 import { revalidateTag } from "next/cache";
+import { auth } from "@/auth";
 export const updateStakeholderData = async (
   values: z.infer<typeof updateStakeholderSchema>,
-  token: string | undefined,
   eventUid: string,
   stakeholderUid: string,
 ) => {
   try {
+    const session = await auth();
+    if (!session) {
+      return {
+        success: false,
+        message: "Session not found.",
+      };
+    }
+    const token = session.token;
+    if (!token) {
+      return {
+        success: false,
+        message: "Unauthorized",
+      };
+    }
     const validatedFields = updateStakeholderSchema.safeParse(values);
-    if (!validatedFields.success || !token) {
+    if (!validatedFields.success) {
       return {
         success: false,
         message: "Invalid event stakeholder data.",
@@ -24,11 +35,12 @@ export const updateStakeholderData = async (
     const { eventStakeholderName, eventStakeholderPosition } =
       validatedFields.data;
     const res = await fetch(
-      `${process.env.FRONTEND_URL}/api/events/${eventUid}/stakeholder/${stakeholderUid}/update?token=${token}`,
+      `${process.env.FRONTEND_URL}/api/events/${eventUid}/stakeholder/${stakeholderUid}/update`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           eventStakeholderName: eventStakeholderName,

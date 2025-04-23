@@ -7,9 +7,18 @@ export async function PATCH(
   { params }: { params: Promise<{ eventUid: string; stakeholderUid: string }> },
 ) {
   try {
+    const token = req.headers.get("Authorization")?.split(" ")[1];
+    if (!token) {
+      return NextResponse.json(
+        {
+          success: false,
+          status: 401,
+          message: "Unauthorized",
+        },
+        { status: 401 },
+      );
+    }
     const { eventUid, stakeholderUid } = await params;
-    const searchParams = req.nextUrl.searchParams;
-    const token = searchParams.get("token");
 
     const { eventStakeholderName, eventStakeholderPosition } = await req.json();
 
@@ -27,12 +36,12 @@ export async function PATCH(
         { status: 400 },
       );
     }
-    if (!eventUid || !token || !stakeholderUid) {
+    if (!eventUid || !stakeholderUid) {
       return NextResponse.json(
         {
           success: false,
           status: 400,
-          message: "Invalid event uid / stakeholder uid / user token.",
+          message: "Invalid event uid / stakeholder uid.",
         },
         { status: 400 },
       );

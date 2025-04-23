@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { InputFormField } from "@/components/forms/fields/CustomInputField";
 import { toast } from "sonner";
-import { updateParticipant } from "@/actions/updateParticipant";
+import { updateParticipant } from "@/actions/mutation/participants/updateParticipant";
 import { useRouter } from "next/navigation";
 import { IParticipantDataTable } from "@/lib/types/Participants";
 import { useState } from "react";
@@ -41,28 +41,25 @@ export const UpdateParticipantSheet = ({
     setIsLoading(true);
     setOpen(false);
     try {
-      toast.promise(
-        updateParticipant(values, data.token, data.eventUid, data.uid),
-        {
-          loading: "Updating participant...",
-          success: (status) => {
-            if (status.success) {
-              router.push("/events/" + data.eventUid);
-              return "Participant updated successfully!";
-            }
-            throw new Error(status.message as string);
-          },
-          error: (error) => {
-            return error as string;
-          },
-          finally: () => {
-            setIsLoading(false);
-            form.reset();
-            setOpen(false);
-          },
-          duration: 3000,
+      toast.promise(updateParticipant(values, data.eventUid, data.uid), {
+        loading: "Updating participant...",
+        success: (status) => {
+          if (status.success) {
+            router.push("/events/" + data.eventUid);
+            return "Participant updated successfully!";
+          }
+          throw new Error(status.message as string);
         },
-      );
+        error: (error) => {
+          return error as string;
+        },
+        finally: () => {
+          setIsLoading(false);
+          form.reset();
+          setOpen(false);
+        },
+        duration: 3000,
+      });
     } catch (error) {
       setOpen(false);
       console.error("Error updating participant: ", error);

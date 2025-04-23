@@ -4,16 +4,30 @@ import { updateParticipantSchema } from "@/lib/types/General";
 import { z } from "zod";
 import { IParticipantResponse } from "@/lib/types/Participants";
 import { revalidateTag } from "next/cache";
+import { auth } from "@/auth";
 
 export const updateParticipant = async (
   values: z.infer<typeof updateParticipantSchema>,
-  token: string | undefined,
   eventUid: string,
   participantUid: string,
 ) => {
   try {
+    const session = await auth();
+    if (!session) {
+      return {
+        success: false,
+        message: "Session not found.",
+      };
+    }
+    const token = session.token;
+    if (!token) {
+      return {
+        success: false,
+        message: "Unauthorized",
+      };
+    }
     const validatedFields = updateParticipantSchema.safeParse(values);
-    if (!validatedFields.success || !token) {
+    if (!validatedFields.success) {
       return {
         success: false,
         message: "Invalid event data.",
@@ -21,11 +35,12 @@ export const updateParticipant = async (
     }
     const { name, email, position } = validatedFields.data;
     const res = await fetch(
-      `${process.env.FRONTEND_URL}/api/events/${eventUid}/participants/${participantUid}/update?token=${token}`,
+      `${process.env.FRONTEND_URL}/api/events/${eventUid}/participants/${participantUid}/update`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           participantName: name,

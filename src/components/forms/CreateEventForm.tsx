@@ -12,7 +12,7 @@ import { InputFormField } from "./fields/CustomInputField";
 import { SelectFormField } from "./fields/CustomSelectField";
 import { useState } from "react";
 import { toast } from "sonner";
-import { createEvent } from "@/actions/createEvent";
+import { createEvent } from "@/actions/mutation/events/createEvent";
 import { useRouter } from "next/navigation";
 import LoadingCircle from "../animation/LoadingCircle";
 
@@ -25,12 +25,7 @@ const templateOptions = [
   { value: "FORMALDESIGN_2", label: "Formal Design 2" },
   { value: "FORMALDESIGN_3", label: "Formal Design 3" },
 ];
-
-interface CreateEventFormProps {
-  token: string | undefined;
-}
-
-const CreateEventForm = ({ token }: CreateEventFormProps) => {
+const CreateEventForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof createEventSchema>>({
@@ -52,7 +47,7 @@ const CreateEventForm = ({ token }: CreateEventFormProps) => {
   const submitHandler = async (values: z.infer<typeof createEventSchema>) => {
     setIsLoading(true);
     try {
-      toast.promise(createEvent(values, token), {
+      toast.promise(createEvent(values), {
         loading: "Creating event...",
         success: (data) => {
           if (data.success) {

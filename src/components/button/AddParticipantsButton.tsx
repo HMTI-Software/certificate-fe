@@ -7,10 +7,9 @@ import { AddParticantByExcelSheet } from "../sheet/form/AddParticipantByExcelShe
 
 type Props = {
   eventUid: string;
-  token: string;
 };
 
-export const AddParticipantsButton = ({ eventUid, token }: Props) => {
+export const AddParticipantsButton = ({ eventUid }: Props) => {
   const [openAddParticipantSheet, setOpenAddParticipantSheet] =
     useState<boolean>(false);
   const [openAddParticipantSheetExcel, setOpenAddParticipantSheetExcel] =
@@ -36,11 +35,9 @@ export const AddParticipantsButton = ({ eventUid, token }: Props) => {
         open={openAddParticipantSheet}
         setOpen={setOpenAddParticipantSheet}
         eventUid={eventUid}
-        token={token}
       />
       <AddParticantByExcelSheet
         eventUid={eventUid}
-        token={token}
         open={openAddParticipantSheetExcel}
         setOpen={setOpenAddParticipantSheetExcel}
       />

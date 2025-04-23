@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { GeneralSheet } from "../GeneralSheet";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Upload } from "lucide-react";
-import { IEventData } from "@/lib/types/Event";
+import { IEventData, IEventStakeholder } from "@/lib/types/Event";
 import { Separator } from "@/components/ui/separator";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,49 +16,44 @@ import Image from "next/image";
 import { toast } from "sonner";
 import { updateStakeholderData } from "@/actions/mutation/events/updateStakeholderData";
 import GeneralDialog from "@/components/popup/GeneralDialog";
-import LoadingCircle from "@/components/animation/LoadingCircle";
 import { FileUploadField } from "@/components/forms/fields/CustomFileUpload";
 import { uploadStakeholderImage } from "@/actions/mutation/events/uploadStakeholderImage";
-import Cropper from "react-easy-crop";
 import ImageCropper from "@/components/image/ImageCropper";
 import { useRouter } from "next/navigation";
+import { Image as Img } from "lucide-react";
 
 type EventStakeholderDetailSheetProps = {
   open: boolean;
   setOpen: (value: boolean) => void;
   eventData: IEventData;
-  token: string;
 };
-
-type Point = {
-  x: number;
-  y: number;
-};
-
-type Area = { x: number; y: number; width: number; height: number };
 
 export const EventStakeholderDetailSheet = ({
   open,
   setOpen,
   eventData,
-  token,
 }: EventStakeholderDetailSheetProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
-  if (!eventData) return null;
-  if (!eventData.stakeholders) return null;
-  if (eventData.stakeholders.length === 0) return null;
-  const stakeholderUid = eventData.stakeholders[0].uid;
-  const stakeholderName = eventData.stakeholders[0].name;
+
+  const [stakeholderData, setStakeholderData] = useState<IEventStakeholder>({
+    uid: eventData.stakeholders![0].uid,
+    eventId: eventData.stakeholders![0].eventId,
+    name: eventData.stakeholders![0].name,
+    position: eventData.stakeholders![0].position,
+    photoPath:
+      "https://certificate-be-production.up.railway.app" +
+        eventData.stakeholders![0].photoPath || null,
+  });
 
   const form = useForm<z.infer<typeof updateStakeholderSchema>>({
     resolver: zodResolver(updateStakeholderSchema),
     defaultValues: {
-      eventStakeholderName: eventData.stakeholders[0].name,
-      eventStakeholderPosition: eventData.stakeholders[0].position,
+      eventStakeholderName: stakeholderData.name,
+      eventStakeholderPosition: stakeholderData.position,
     },
   });
 
@@ -79,7 +72,7 @@ export const EventStakeholderDetailSheet = ({
     setOpen(false);
     try {
       toast.promise(
-        updateStakeholderData(values, token, eventData.uid, stakeholderUid),
+        updateStakeholderData(values, eventData.uid, stakeholderData.uid),
         {
           loading: "Updating stakeholder data...",
           success: (data) => {
@@ -117,8 +110,9 @@ export const EventStakeholderDetailSheet = ({
     }
   };
   const handleImageUploadSubmit = (file: File) => {
+    setOpen(false);
     try {
-      toast.promise(uploadStakeholderImage(file, token, eventData.uid), {
+      toast.promise(uploadStakeholderImage(file, eventData.uid), {
         loading: "Uploading stakeholder image...",
         success: (data) => {
           if (data.success) {
@@ -142,6 +136,17 @@ export const EventStakeholderDetailSheet = ({
       toast.error("Failed to upload image. Please try again.");
     }
   };
+  useEffect(() => {
+    setStakeholderData({
+      uid: eventData.stakeholders![0].uid,
+      eventId: eventData.stakeholders![0].eventId,
+      name: eventData.stakeholders![0].name,
+      position: eventData.stakeholders![0].position,
+      photoPath:
+        "https://certificate-be-production.up.railway.app" +
+          eventData.stakeholders![0].photoPath || null,
+    });
+  }, [eventData]);
   return (
     <>
       <GeneralSheet
@@ -158,25 +163,24 @@ export const EventStakeholderDetailSheet = ({
             >
               <div className="flex flex-row items-start justify-start">
                 <div className="w-[70px] h-[70px] mr-4 rounded-full overflow-hidden border-2 border-black">
-                  <Image
-                    src={
-                      ("https://certificate-be-production.up.railway.app" +
-                        eventData.stakeholders[0].photoPath) as string
-                    }
-                    width={70}
-                    height={70}
-                    className="object-cover object-center"
-                    alt={eventData.stakeholders[0].name.slice(0, 2)}
-                    onLoad={() => {}}
-                  />
+                  {stakeholderData.photoPath === null || undefined ? (
+                    <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500 font-bold">
+                      {stakeholderData.name.slice(0, 2)}
+                    </div>
+                  ) : (
+                    <Image
+                      src={stakeholderData.photoPath}
+                      width={70}
+                      height={70}
+                      className="object-cover object-center"
+                      alt={stakeholderData.name.slice(0, 2)}
+                    />
+                  )}
                 </div>
-
                 <div className="flex flex-col gap-[1px] items-start justify-center">
-                  <h1 className="text-lg font-bold">
-                    {eventData.stakeholders[0].name}
-                  </h1>
+                  <h1 className="text-lg font-bold">{stakeholderData.name}</h1>
                   <p className="text-sm text-grayy">
-                    {eventData.stakeholders[0].position}
+                    {stakeholderData.position}
                   </p>
                 </div>
               </div>
@@ -207,7 +211,7 @@ export const EventStakeholderDetailSheet = ({
                   className="bordered bg-purplee hover:bg-purplee/90 border-b-4 hover:border-b-1 text-black w-full"
                   onClick={() => setOpenDialog(true)}
                 >
-                  upload stakeholder image
+                  <Img /> upload stakeholder image
                 </Button>
                 <Button
                   type="submit"
@@ -215,7 +219,7 @@ export const EventStakeholderDetailSheet = ({
                   size={"lg"}
                   disabled={isLoading}
                 >
-                  update
+                  update data
                 </Button>
               </div>
             </form>
@@ -281,10 +285,12 @@ export const EventStakeholderDetailSheet = ({
         {croppedImage && (
           <div className="flex flex-col items-center justify-center">
             <p className="mb-2 text-sm font-medium">Cropped Image Preview: </p>
-            <img
+            <Image
               src={croppedImage}
               alt="Cropped Avatar"
               className="w-32 h-32 rounded-full object-cover"
+              width={100}
+              height={100}
             />
           </div>
         )}

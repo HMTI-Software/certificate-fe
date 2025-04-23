@@ -1,13 +1,10 @@
 import UpdateEventForm from "@/components/forms/UpdateEventForm";
-import { auth } from "@/auth";
 import { getEventByEventId } from "@/actions/getEventByEventId";
 const UpdateEventPage = async ({
   params,
 }: {
   params: Promise<{ uid: string }>;
 }) => {
-  const session = await auth();
-  const token = session?.token;
   const { uid } = await params;
 
   if (!uid) {
@@ -20,7 +17,7 @@ const UpdateEventPage = async ({
       </div>
     );
   }
-  const eventData = await getEventByEventId(uid, token!);
+  const eventData = await getEventByEventId(uid);
   if (!eventData) {
     return (
       <div className="max-w-4xl mb-7 flex flex-col items-center justify-center mx-auto">
@@ -40,7 +37,7 @@ const UpdateEventPage = async ({
         </p>
       </div>
       <div className="mt-4 w-full">
-        <UpdateEventForm token={token} eventData={eventData} />
+        <UpdateEventForm eventData={eventData} />
       </div>
     </div>
   );

@@ -10,21 +10,23 @@ export async function GET(
 ) {
   try {
     const { eventUid } = await params;
-    const searchParams = req.nextUrl.searchParams;
-    const token = searchParams.get("token");
+    const token = req.headers.get("Authorization")?.split(" ")[1];
 
+    if (!token) {
+      return NextResponse.json(
+        {
+          success: false,
+          status: 401,
+          message: "Authorization token is required",
+        },
+        { status: 401 },
+      );
+    }
     if (!eventUid) {
       return NextResponse.json({
         success: false,
         status: 400,
         message: "Event UID is required",
-      });
-    }
-    if (!token) {
-      return NextResponse.json({
-        success: false,
-        status: 400,
-        message: "Token is required",
       });
     }
 
@@ -47,19 +49,20 @@ export async function GET(
         message: errorData.message || "Error fetching participants",
       });
     }
-    const data: IParticipantResponse<IParticipantData> = await res.json();
-    if (!data.success) {
+    const participantData: IParticipantResponse<IParticipantData> =
+      await res.json();
+    if (!participantData.success) {
       return NextResponse.json({
         success: false,
-        status: data.status,
-        message: data.message || "Error fetching participants",
+        status: participantData.status,
+        message: participantData.message || "Error fetching participants",
       });
     } else {
       return NextResponse.json({
         success: true,
         status: 200,
         message: "Participants fetched successfully",
-        data: data.data,
+        data: participantData.data,
       });
     }
   } catch (error) {

@@ -7,8 +7,7 @@ export async function GET(
 ) {
   try {
     const { eventUid } = await params;
-    const searchParams = req.nextUrl.searchParams;
-    const token = searchParams.get("token");
+    const token = req.headers.get("Authorization")?.split(" ")[1];
 
     if (!token) {
       return NextResponse.json(

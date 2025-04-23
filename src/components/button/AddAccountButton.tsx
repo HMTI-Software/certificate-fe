@@ -1,14 +1,10 @@
 "use client";
 import { useState } from "react";
-import { GeneralSheet } from "../sheet/GeneralSheet";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 import { AddAccountSheet } from "../sheet/form/AddAccountSheet";
 
-type AddAccountButtonProps = {
-  token: string;
-};
-export const AddAccountButton = ({ token }: AddAccountButtonProps) => {
+export const AddAccountButton = () => {
   const [openAddAccountSheet, setOpenAddAccountSheet] =
     useState<boolean>(false);
   return (
@@ -22,7 +18,6 @@ export const AddAccountButton = ({ token }: AddAccountButtonProps) => {
       <AddAccountSheet
         open={openAddAccountSheet}
         setOpen={setOpenAddAccountSheet}
-        token={token}
       />
     </>
   );

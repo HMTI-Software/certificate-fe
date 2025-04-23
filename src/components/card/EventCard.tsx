@@ -20,7 +20,6 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import {
-  CircleUserRound,
   MoreHorizontal,
   Newspaper,
   SquarePen,
@@ -30,20 +29,17 @@ import {
 import { useState } from "react";
 import GeneralAlert from "../popup/GeneralAlert";
 import { toast } from "sonner";
-import { deleteEvent } from "@/actions/deleteEvent";
+import { deleteEvent } from "@/actions/mutation/events/deleteEvent";
 import { useRouter } from "next/navigation";
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
-import { GeneralSheet } from "../sheet/GeneralSheet";
 import { EventStakeholderDetailSheet } from "../sheet/form/EventStakeholderDetails";
 
 const EventCard = ({
   event,
   page,
-  token,
 }: {
   event: IEventData;
   page: "dashboard" | "event";
-  token?: string;
 }) => {
   const router = useRouter();
   const [openDeleteAlert, setOpenDeleteAlert] = useState<boolean>(false);
@@ -54,7 +50,7 @@ const EventCard = ({
   const deleteEventHandler = () => {
     setIsLoading(true);
     try {
-      toast.promise(deleteEvent(event.uid, token!), {
+      toast.promise(deleteEvent(event.uid), {
         loading: "Deleting event...",
         success: (data) => {
           setOpenDeleteAlert(false);
@@ -92,6 +88,7 @@ const EventCard = ({
               width={1000}
               height={500}
               className="object-cover object-center h-full w-full"
+              priority
             />
           </CardHeader>
           <CardContent className="flex flex-col items-start p-0 m-0">
@@ -123,22 +120,6 @@ const EventCard = ({
                 <DropdownMenuGroup>
                   <DropdownMenuItem
                     className="text-xs"
-                    onClick={() => editEventHandler()}
-                  >
-                    <SquarePen /> Edit
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className="text-xs"
-                    onClick={() => setOpenDeleteAlert(true)}
-                    disabled={isLoading}
-                  >
-                    <Trash2 /> {isLoading ? "Deleting..." : "Delete"}
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem
-                    className="text-xs"
                     onClick={() => {
                       setTimeout(() => {
                         setOpenStakeholderDetail(true);
@@ -159,6 +140,22 @@ const EventCard = ({
                     <Newspaper /> Preview
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem
+                    className="text-xs"
+                    onClick={() => editEventHandler()}
+                  >
+                    <SquarePen /> Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="text-xs"
+                    onClick={() => setOpenDeleteAlert(true)}
+                    disabled={isLoading}
+                  >
+                    <Trash2 /> {isLoading ? "Deleting..." : "Delete"}
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>
           </CardFooter>
@@ -171,7 +168,6 @@ const EventCard = ({
           onSuccess={deleteEventHandler}
         />
         <EventStakeholderDetailSheet
-          token={token!}
           eventData={event}
           open={openStakeholderDetail}
           setOpen={setOpenStakeholderDetail}
@@ -189,6 +185,7 @@ const EventCard = ({
             width={1000}
             height={500}
             className="object-cover object-center h-full w-full"
+            priority
           />
         </CardHeader>
         <CardContent className="flex flex-col items-start p-0 m-0">

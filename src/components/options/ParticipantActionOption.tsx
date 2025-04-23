@@ -22,26 +22,26 @@ import { IParticipantDataTable } from "@/lib/types/Participants";
 import GeneralAlert from "../popup/GeneralAlert";
 import { useState } from "react";
 import { toast } from "sonner";
-import { deleteParticipant } from "@/actions/deleteParticipant";
+import { deleteParticipant } from "@/actions/mutation/participants/deleteParticipant";
 import { useRouter } from "next/navigation";
 import { UpdateParticipantSheet } from "../sheet/form/UpdateParticipantSheet";
 import GeneralDialog from "../popup/GeneralDialog";
+import LoadingCircle from "../animation/LoadingCircle";
 
 type ParticantActionOptionProps = {
   data: IParticipantDataTable;
   eventUid: string;
-  token: string;
 };
 export const ParticipantActionOption = ({
   data,
   eventUid,
-  token,
 }: ParticantActionOptionProps) => {
   const router = useRouter();
   const [openDeleteAlert, setOpenDeleteAlert] = useState<boolean>(false);
   const [openUpdateSheet, setOpenUpdateSheet] = useState<boolean>(false);
   const [openDownloadDialog, setOpenDownloadDialog] = useState<boolean>(false);
   const [extensionSelected, setExtensionSelected] = useState<string>("webp");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleDownload = () => {
     if (extensionSelected === "") {
@@ -89,8 +89,9 @@ export const ParticipantActionOption = ({
     }
   };
   const handleDelete = () => {
+    setIsLoading(true);
     try {
-      toast.promise(deleteParticipant(eventUid, data.uid, token), {
+      toast.promise(deleteParticipant(eventUid, data.uid), {
         loading: "Deleting participant...",
         success: (data) => {
           if (data.success) {
@@ -103,6 +104,7 @@ export const ParticipantActionOption = ({
           return error.message as string;
         },
         finally: () => {
+          setIsLoading(false);
           setOpenDeleteAlert(false);
         },
       });
@@ -116,8 +118,18 @@ export const ParticipantActionOption = ({
         <Button
           className="bordered bg-redd hover:bg-redd/90 text-black"
           onClick={() => setOpenDeleteAlert(true)}
+          disabled={isLoading}
         >
-          delete <Trash2 />
+          {isLoading ? (
+            <div>
+              <LoadingCircle />
+              <span className="ml-2">deleting...</span>
+            </div>
+          ) : (
+            <span className="inline-flex items-center">
+              delete <Trash2 className="ml-2" />
+            </span>
+          )}
         </Button>
         <Button
           className="bordered bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black"
@@ -155,8 +167,20 @@ export const ParticipantActionOption = ({
             <SquarePen />
             update
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpenDeleteAlert(true)}>
-            <Trash2 /> delete
+          <DropdownMenuItem
+            onClick={() => setOpenDeleteAlert(true)}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <div>
+                <LoadingCircle />
+                <span className="ml-2">deleting...</span>
+              </div>
+            ) : (
+              <span className="inline-flex items-center">
+                <Trash2 className="mr-2" /> delete
+              </span>
+            )}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

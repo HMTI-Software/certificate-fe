@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { IEventData, IEventResponse } from "@/lib/types/Event";
-
 export async function GET(req: NextRequest) {
   try {
-    const searchParams = req.nextUrl.searchParams;
-    const token = searchParams.get("token");
+    const token = req.headers.get("Authorization")?.split(" ")[1];
 
     if (!token) {
       return NextResponse.json(
         {
           success: false,
           status: 401,
-          message: "Unauthorized",
+          message: "Token not found",
         },
         { status: 401 },
       );

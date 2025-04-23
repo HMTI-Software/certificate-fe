@@ -91,7 +91,7 @@ export interface IEventData {
  * @property {string} position - Posisi atau jabatan pemangku kepentingan dalam event.
  * @property {string} photoPath - Path atau URL foto pemangku kepentingan.
  */
-interface IEventStakeholder {
+export interface IEventStakeholder {
   uid: string;
   eventId: string;
   name: string;

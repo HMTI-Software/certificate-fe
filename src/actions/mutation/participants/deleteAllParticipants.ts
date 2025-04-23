@@ -1,24 +1,37 @@
 "use server";
+import { auth } from "@/auth";
 import { IParticipantResponse } from "@/lib/types/Participants";
 import { revalidateTag } from "next/cache";
 
-export const deleteAllParticipants = async (
-  eventUid: string,
-  token: string,
-) => {
+export const deleteAllParticipants = async (eventUid: string) => {
   try {
-    if (!eventUid || !token) {
+    const session = await auth();
+    if (!session) {
+      return {
+        success: false,
+        message: "Session not found.",
+      };
+    }
+    const token = session.token;
+    if (!token) {
+      return {
+        success: false,
+        message: "Unauthorized",
+      };
+    }
+    if (!eventUid) {
       return {
         success: false,
         message: "Invalid event uid / user token.",
       };
     }
     const res = await fetch(
-      `${process.env.FRONTEND_URL}/api/events/${eventUid}/participants/delete?token=${token}`,
+      `${process.env.FRONTEND_URL}/api/events/${eventUid}/participants/delete`,
       {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       },
     );

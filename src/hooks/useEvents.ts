@@ -31,19 +31,16 @@ export const useEvents = (token?: string): UseEventsResult => {
     setErrorMessage(null);
 
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/events?token=${token}`,
-        {
-          method: "GET",
-          next: {
-            revalidate: 60, // Revalidate every 60 seconds
-            tags: ["events"],
-          },
-          headers: {
-            "Content-Type": "application/json",
-          },
+      const res = await fetch(`http://localhost:3000/api/events`, {
+        method: "GET",
+        next: {
+          revalidate: 60, // Revalidate every 60 seconds
+          tags: ["events"],
         },
-      );
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       const eventData: IEventResponse<IEventData[]> = await res.json();
 
@@ -54,9 +51,9 @@ export const useEvents = (token?: string): UseEventsResult => {
       }
 
       setEvents(eventData.data || []);
-    } catch (err: any) {
+    } catch (err) {
       setIsError(true);
-      setErrorMessage(err.message || "Unknown error occurred");
+      setErrorMessage("Unknown error occurred");
     } finally {
       setIsLoading(false);
     }

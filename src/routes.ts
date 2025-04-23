@@ -8,6 +8,7 @@ export const publicRoutes = [
   "/auth/forgot-password",
   "/auth/reset-password",
   "/auth/verify-email",
+  "/api/events",
 ];
 
 /**

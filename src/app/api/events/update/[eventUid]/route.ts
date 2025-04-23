@@ -9,9 +9,17 @@ export async function PATCH(
 ) {
   try {
     const { eventUid } = await params;
-    const searchParams = req.nextUrl.searchParams;
-    const token = searchParams.get("token");
-
+    const token = req.headers.get("Authorization")?.split(" ")[1];
+    if (!token) {
+      return NextResponse.json(
+        {
+          success: false,
+          status: 401,
+          message: "Unauthorized access",
+        },
+        { status: 401 },
+      );
+    }
     const payload = await req.json();
 
     const validatedFields = updateEventSchema.safeParse(payload);

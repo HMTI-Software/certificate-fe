@@ -7,17 +7,14 @@ import { Form } from "@/components/ui/form";
 import { InputFormField } from "@/components/forms/fields/CustomInputField";
 import { Button } from "@/components/ui/button";
 import { SelectFormField } from "@/components/forms/fields/CustomSelectField";
-import { useState } from "react";
 import { toast } from "sonner";
 import { signUpByAdmin } from "@/actions/mutation/auth/signUpByAdmin";
 
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  token: string;
 };
-export const AddAccountSheet = ({ open, setOpen, token }: Props) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+export const AddAccountSheet = ({ open, setOpen }: Props) => {
   const addAccountForm = useForm<z.infer<typeof addAccountFormSchema>>({
     resolver: zodResolver(addAccountFormSchema),
     defaultValues: {
@@ -29,16 +26,14 @@ export const AddAccountSheet = ({ open, setOpen, token }: Props) => {
     },
   });
   const handleSubmit = async (values: z.infer<typeof addAccountFormSchema>) => {
-    setIsLoading(true);
     setOpen(false);
     try {
       if (values.password !== values.confirmPassword) {
         toast.error("Password and confirm password must be same");
-        setIsLoading(false);
         addAccountForm.reset();
         return;
       }
-      toast.promise(signUpByAdmin(values, token), {
+      toast.promise(signUpByAdmin(values), {
         loading: "Creating account...",
         success: (data) => {
           if (data.success) {
@@ -51,7 +46,6 @@ export const AddAccountSheet = ({ open, setOpen, token }: Props) => {
           return error.message;
         },
         finally: () => {
-          setIsLoading(false);
           addAccountForm.reset();
         },
       });
@@ -59,7 +53,6 @@ export const AddAccountSheet = ({ open, setOpen, token }: Props) => {
       console.error("ERROR IN ADD ACCOUNT : ", error);
       toast.error("An unknown error occurred");
     } finally {
-      setIsLoading(false);
       addAccountForm.reset();
     }
   };

@@ -9,17 +9,16 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
 import { addParticipantsByExcel } from "@/actions/mutation/participants/addParticipantsExcel";
+import LoadingCircle from "@/components/animation/LoadingCircle";
 
 type Props = {
   open: boolean;
   setOpen: (value: boolean) => void;
-  token: string;
   eventUid: string;
 };
 export const AddParticantByExcelSheet = ({
   open,
   setOpen,
-  token,
   eventUid,
 }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,6 +32,8 @@ export const AddParticantByExcelSheet = ({
   const uploadHandler = async (
     data: z.infer<typeof uploadParticipantByExcelSchema>,
   ) => {
+    setIsLoading(true);
+    setOpen(false);
     try {
       const file = data.file[0];
       if (!file) {
@@ -40,7 +41,7 @@ export const AddParticantByExcelSheet = ({
         return;
       }
 
-      toast.promise(addParticipantsByExcel(file, token!, eventUid!), {
+      toast.promise(addParticipantsByExcel(file, eventUid!), {
         loading: "Uploading file...",
         success: (data) => {
           if (data.success) {
@@ -92,7 +93,14 @@ export const AddParticantByExcelSheet = ({
             disabled={isLoading}
             className="bordered bg-greenn hover:bg-greenn/90 border-b-4 hover:border-b-1 text-black w-full"
           >
-            submit file
+            {isLoading ? (
+              <div>
+                <LoadingCircle />
+                <span className="ml-2">uploading...</span>
+              </div>
+            ) : (
+              "upload file"
+            )}
           </Button>
         </form>
       </Form>

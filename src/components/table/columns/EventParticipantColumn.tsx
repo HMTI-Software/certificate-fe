@@ -6,17 +6,22 @@ import { ColumnDef } from "@tanstack/react-table";
 import { IParticipantDataTable } from "@/lib/types/Participants";
 import { QRCodeImage } from "@/components/image/QRCodeImage";
 import { ParticipantActionOption } from "@/components/options/ParticipantActionOption";
-
+import { useMemo } from "react";
 const EventParticipantColumn: ColumnDef<IParticipantDataTable>[] = [
   {
-    accessorKey: "id",
-    enableHiding: false,
+    id: "id",
     header: () => {
       return <div className="text-center text-xs md:text-sm">No</div>;
     },
-    cell: ({ row }) => (
-      <div className="text-center text-xs md:text-sm">{row.getValue("id")}</div>
-    ),
+    cell: ({ row, table }) => {
+      const pageIndex = table.getState().pagination.pageIndex;
+      const pageSize = table.getState().pagination.pageSize;
+      return (
+        <div className="text-center text-xs md:text-sm">
+          {pageIndex * pageSize + row.index + 1}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "name",
@@ -33,6 +38,11 @@ const EventParticipantColumn: ColumnDef<IParticipantDataTable>[] = [
         </div>
       );
     },
+  },
+  {
+    accessorKey: "suffix",
+    header: "Suffix",
+    enableHiding: true,
   },
   {
     accessorKey: "pathQr",
@@ -53,13 +63,7 @@ const EventParticipantColumn: ColumnDef<IParticipantDataTable>[] = [
     },
     cell: ({ row }) => {
       const data = row.original;
-      return (
-        <ParticipantActionOption
-          data={data}
-          eventUid={data.eventUid}
-          token={data.token}
-        />
-      );
+      return <ParticipantActionOption data={data} eventUid={data.eventUid} />;
     },
   },
 ];

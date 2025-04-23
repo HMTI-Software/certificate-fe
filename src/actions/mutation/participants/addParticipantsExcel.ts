@@ -1,13 +1,18 @@
 "use server";
 
+import { auth } from "@/auth";
 import { revalidateTag } from "next/cache";
 
-export const addParticipantsByExcel = async (
-  file: File,
-  token: string | undefined,
-  eventUid: string,
-) => {
+export const addParticipantsByExcel = async (file: File, eventUid: string) => {
   try {
+    const session = await auth();
+    if (!session) {
+      return {
+        success: false,
+        message: "Unauthorized access",
+      };
+    }
+    const token = session.token;
     if (!eventUid) {
       return {
         success: false,
@@ -33,9 +38,12 @@ export const addParticipantsByExcel = async (
     formData.append("excel", file);
 
     const res = await fetch(
-      `${process.env.FRONTEND_URL}/api/events/${eventUid}/participants/add-excel?token=${token}`,
+      `${process.env.FRONTEND_URL}/api/events/${eventUid}/participants/add-excel`,
       {
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         body: formData,
       },
     );

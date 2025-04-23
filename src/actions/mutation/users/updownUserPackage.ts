@@ -1,14 +1,28 @@
 "use server";
 
+import { auth } from "@/auth";
 import { updownPackageFormSchema } from "@/lib/types/General";
 import { revalidateTag } from "next/cache";
 import { z } from "zod";
 export const updownUserPackage = async (
-  token: string | undefined,
-  userUid: string,
   values: z.infer<typeof updownPackageFormSchema>,
+  userUid: string,
 ) => {
   try {
+    const session = await auth();
+    if (!session) {
+      return {
+        success: false,
+        message: "Session not found",
+      };
+    }
+    const token = session?.token;
+    if (!token) {
+      return {
+        success: false,
+        message: "Token not found",
+      };
+    }
     const validatedFields = updownPackageFormSchema.safeParse(values);
     if (!validatedFields.success) {
       return {
@@ -17,18 +31,19 @@ export const updownUserPackage = async (
       };
     }
     const { premiumPackage } = validatedFields.data;
-    if (!userUid || !token) {
+    if (!userUid) {
       return {
         success: false,
-        message: "Invalid user uid / user token.",
+        message: "Invalid user uid.",
       };
     }
     const res = await fetch(
-      `${process.env.FRONTEND_URL}/api/users/${userUid}/updown-package?token=${token}`,
+      `${process.env.FRONTEND_URL}/api/users/${userUid}/updown-package`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           premiumPackage,

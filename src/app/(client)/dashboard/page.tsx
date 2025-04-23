@@ -19,7 +19,7 @@ const DashboardPage = async () => {
   const session = await auth();
   const isPremium = session?.user.isPremium;
   const isVerifiedEmail = session?.user.isVerifiedEmail;
-  const eventData = session?.token ? await getAllEvents(session.token) : [];
+  const eventData = await getAllEvents();
   return (
     <div
       className={

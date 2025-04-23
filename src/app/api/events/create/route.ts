@@ -3,8 +3,17 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const searchParams = req.nextUrl.searchParams;
-    const token = searchParams.get("token");
+    const token = req.headers.get("Authorization")?.split(" ")[1];
+    if (!token) {
+      return NextResponse.json(
+        {
+          success: false,
+          status: 401,
+          message: "Authorization token not found",
+        },
+        { status: 401 },
+      );
+    }
     const {
       eventName,
       eventDescription,

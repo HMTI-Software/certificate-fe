@@ -14,7 +14,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { IEventData } from "@/lib/types/Event";
-import { updateEvent } from "@/actions/updateEvent";
+import { updateEvent } from "@/actions/mutation/events/updateEvent";
+import LoadingCircle from "../animation/LoadingCircle";
 
 const templateOptions = [
   { value: "DEFAULTDESIGN", label: "Default Design" },
@@ -27,11 +28,10 @@ const templateOptions = [
 ];
 
 interface CreateEventFormProps {
-  token: string | undefined;
   eventData: IEventData;
 }
 
-const UpdateEventForm = ({ token, eventData }: CreateEventFormProps) => {
+const UpdateEventForm = ({ eventData }: CreateEventFormProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof updateEventSchema>>({
@@ -51,7 +51,7 @@ const UpdateEventForm = ({ token, eventData }: CreateEventFormProps) => {
   const submitHandler = async (values: z.infer<typeof updateEventSchema>) => {
     setIsLoading(true);
     try {
-      toast.promise(updateEvent(values, token, eventData.uid), {
+      toast.promise(updateEvent(values, eventData.uid), {
         loading: "Updating event...",
         success: (data) => {
           if (data.success) {
@@ -136,10 +136,17 @@ const UpdateEventForm = ({ token, eventData }: CreateEventFormProps) => {
           />
           <Button
             type="submit"
-            disabled={form.formState.isSubmitting}
+            disabled={isLoading}
             className="md:col-span-2 min-h-10 mt-4 w-full bordered hover:bg-purplee/90 border-b-4 bg-purplee hover:border-b-1 text-black"
           >
-            {isLoading ? "Updating..." : "Update Event"}
+            {isLoading ? (
+              <div>
+                <LoadingCircle />
+                <span className="ml-2">updating...</span>
+              </div>
+            ) : (
+              "update event"
+            )}
           </Button>
         </div>
       </form>

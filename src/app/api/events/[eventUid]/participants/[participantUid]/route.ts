@@ -4,9 +4,8 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { eventUid: string; participantUid: string } },
 ) {
+  const token = req.headers.get("Authorization")?.split(" ")[1];
   const { eventUid, participantUid } = params;
-  const { searchParams } = req.nextUrl;
-  const token = searchParams.get("token");
 
   if (!token) {
     return NextResponse.json(

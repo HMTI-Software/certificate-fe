@@ -1,10 +1,8 @@
 import EventCard from "@/components/card/EventCard";
 import { auth } from "@/auth";
 import { getEventByEventId } from "@/actions/getEventByEventId";
-import getAllParticipanByEventUid from "@/actions/getAllParticipantByEventUid";
-import { GeneralTable } from "@/components/table/table";
-import { IParticipantDataTable } from "@/lib/types/Participants";
-import EventParticipantColumn from "@/components/table/columns/EventParticipantColumn";
+import getAllParticipanByEventUid from "@/actions/mutation/participants/getAllParticipantByEventUid";
+import { ParticipantsTable } from "@/components/table/ParticipantsTable";
 
 const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
   const { uid } = await params;
@@ -18,8 +16,8 @@ const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
       </div>
     );
   }
-  const eventData = await getEventByEventId(uid, token);
-  const participantData = await getAllParticipanByEventUid(uid, token);
+  const eventData = await getEventByEventId(uid);
+  const participantData = await getAllParticipanByEventUid(uid);
 
   if (!eventData) {
     return (
@@ -35,34 +33,16 @@ const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
       </div>
     );
   }
-  const filteredParticipantDataTable: IParticipantDataTable[] =
-    participantData.map((value) => {
-      return {
-        token: token,
-        eventUid: uid,
-        uid: value.uid,
-        id: parseInt(value.certificateNumber.slice(-3)),
-        name: value.name,
-        certificateNumber: value.certificateNumber,
-        pathQr: value.qrCodes[0].pathQr,
-        email: value.email,
-        position: value.position,
-      };
-    });
   return (
     <div className="w-full px-0 md:px-20 lg:px-40 2xl:px-60 pb-40">
       <div className="w-full">
-        <EventCard event={eventData} page="event" token={session?.token} />
+        <EventCard event={eventData} page="event" />
         <div className="flex w-full justify-between mt-10 items-center">
           <b className="text-xl">table of participants</b>
         </div>
-        <GeneralTable
-          columns={EventParticipantColumn}
-          data={filteredParticipantDataTable!}
-          page="event"
-          eventName={eventData.eventName}
-          eventUid={uid}
-          token={session?.token}
+        <ParticipantsTable
+          participants={participantData}
+          eventData={{ uid: eventData.uid, name: eventData.eventName }}
         />
       </div>
     </div>

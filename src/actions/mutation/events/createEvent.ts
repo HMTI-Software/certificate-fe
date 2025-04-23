@@ -4,13 +4,21 @@ import { createEventSchema } from "@/lib/types/General";
 import { z } from "zod";
 import { IEventCreate, IEventResponse } from "@/lib/types/Event";
 import { revalidateTag } from "next/cache";
+import { auth } from "@/auth";
 
 export const createEvent = async (
   values: z.infer<typeof createEventSchema>,
-  token: string | undefined,
 ) => {
   try {
     const validatedFields = createEventSchema.safeParse(values);
+    const session = await auth();
+    if (!session) {
+      return {
+        success: false,
+        message: "Session not valid.",
+      };
+    }
+    const token = session.token;
     if (!validatedFields.success || !token) {
       return {
         success: false,
@@ -42,16 +50,14 @@ export const createEvent = async (
       eventStakeholderName: eventStakeholderName,
       eventStakeholderPosition: eventStakeholderPosition,
     };
-    const res = await fetch(
-      `${process.env.FRONTEND_URL}/api/events/create?token=${token}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
+    const res = await fetch(`${process.env.FRONTEND_URL}/api/events/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-    );
+      body: JSON.stringify(requestBody),
+    });
     if (!res.ok) {
       const errorData: IEventResponse<IEventCreate> = await res.json();
       console.log("errorData", errorData);

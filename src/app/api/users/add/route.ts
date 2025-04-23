@@ -3,9 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const query = req.nextUrl.searchParams;
-    const token = query.get("token");
-    const { email, password, roles, packagePremium } = await req.json();
+    const token = req.headers.get("authorization")?.split(" ")[1];
     if (!token) {
       return NextResponse.json(
         {
@@ -16,6 +14,7 @@ export async function POST(req: NextRequest) {
         { status: 401 },
       );
     }
+    const { email, password, roles, packagePremium } = await req.json();
     if (!email || !password || !roles || !packagePremium) {
       return NextResponse.json(
         {

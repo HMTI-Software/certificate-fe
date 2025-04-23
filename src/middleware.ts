@@ -9,6 +9,7 @@ import { auth } from "./auth";
 
 export default auth((req) => {
   const { nextUrl } = req;
+
   if (nextUrl.pathname === "/events") {
     return Response.redirect(new URL("/dashboard", nextUrl));
   }
@@ -20,8 +21,16 @@ export default auth((req) => {
   const isPublicRoute: boolean = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute: boolean = authRoutes.includes(nextUrl.pathname);
 
+  // Untuk API auth routes (NextAuth), biarkan lewat
   if (isApiAuthRoute) return;
   if (isApiRoute) return;
+
+  if (nextUrl.pathname === "/api/events") {
+    if (!isLoggedIn) {
+      return Response.redirect(new URL("/auth/sign-in", nextUrl));
+    }
+    return;
+  }
 
   if (nextUrl.pathname === "/admin") {
     if (req.auth?.user.roles !== "SUPERADMIN") {

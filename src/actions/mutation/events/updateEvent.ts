@@ -4,15 +4,29 @@ import { updateEventSchema } from "@/lib/types/General";
 import { z } from "zod";
 import { IEventResponse } from "@/lib/types/Event";
 import { revalidateTag } from "next/cache";
+import { auth } from "@/auth";
 
 export const updateEvent = async (
   values: z.infer<typeof updateEventSchema>,
-  token: string | undefined,
   eventUid: string,
 ) => {
   try {
+    const session = await auth();
+    if (!session) {
+      return {
+        success: false,
+        message: "Session expired. Please log in again.",
+      };
+    }
+    const token = session.token;
+    if (!token) {
+      return {
+        success: false,
+        message: "Unauthorized access",
+      };
+    }
     const validatedFields = updateEventSchema.safeParse(values);
-    if (!validatedFields.success || !token) {
+    if (!validatedFields.success) {
       return {
         success: false,
         message: "Invalid event data.",
@@ -29,11 +43,12 @@ export const updateEvent = async (
       eventTheme,
     } = validatedFields.data;
     const res = await fetch(
-      `${process.env.FRONTEND_URL}/api/events/update/${eventUid}?token=${token}`,
+      `${process.env.FRONTEND_URL}/api/events/update/${eventUid}`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           eventName,
@@ -61,7 +76,7 @@ export const updateEvent = async (
         message: data.message,
       };
     } else {
-      revalidateTag(`events/${eventUid}`);
+      revalidateTag("events/" + eventUid);
       revalidateTag("participants");
       return {
         success: true,

@@ -21,14 +21,12 @@ type AddParticipantSheetProps = {
   open: boolean;
   setOpen: (value: boolean) => void;
   eventUid: string;
-  token: string;
 };
 
 export const AddParticipantSheet = ({
   open,
   setOpen,
   eventUid,
-  token,
 }: AddParticipantSheetProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [participantCount, setParticipantCount] = useState<number | null>(null);
@@ -62,11 +60,11 @@ export const AddParticipantSheet = ({
         ...participants,
         values,
       ]);
-      if (!validatedFields.success || !token) {
+      if (!validatedFields.success) {
         toast.error("Invalid participant data.");
         return;
       }
-      toast.promise(addParticipants(validatedFields.data, token, eventUid), {
+      toast.promise(addParticipants(validatedFields.data, eventUid), {
         loading: "Adding participants...",
         success: (data) => {
           if (data.success) {

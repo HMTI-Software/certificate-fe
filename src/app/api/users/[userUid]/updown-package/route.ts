@@ -5,17 +5,26 @@ export async function PATCH(
   { params }: { params: Promise<{ userUid: string }> },
 ) {
   try {
+    const token = req.headers.get("authorization")?.split(" ")[1];
+    if (!token) {
+      return NextResponse.json(
+        {
+          success: false,
+          status: 401,
+          message: "Unauthorized",
+        },
+        { status: 401 },
+      );
+    }
     const { premiumPackage } = await req.json();
     const { userUid } = await params;
-    const searchParams = req.nextUrl.searchParams;
-    const token = searchParams.get("token");
 
-    if (!userUid || !token) {
+    if (!userUid) {
       return NextResponse.json(
         {
           success: false,
           status: 400,
-          message: "Invalid user uid / user token.",
+          message: "Invalid user uid.",
         },
         { status: 400 },
       );

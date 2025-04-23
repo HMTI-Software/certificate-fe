@@ -34,7 +34,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           // Decode JWT
           try {
             const userData = jwt.verify(
-              data.data.token,
+              data.data?.token as string,
               process.env.JWT_SECRET as string,
             ) as IJWTPayload;
             console.log("userData", userData);

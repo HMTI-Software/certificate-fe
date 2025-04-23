@@ -9,17 +9,26 @@ export async function POST(
   { params }: { params: Promise<{ eventUid: string }> },
 ) {
   try {
+    const token = req.headers.get("Authorization")?.split(" ")[1];
     const { eventUid } = await params;
-    const query = req.nextUrl.searchParams;
-    const token = query.get("token") || null;
     const requestBody = await req.json();
 
-    if (!eventUid || !token) {
+    if (!token) {
+      return NextResponse.json(
+        {
+          success: false,
+          status: 401,
+          message: "Unauthorized",
+        },
+        { status: 401 },
+      );
+    }
+    if (!eventUid) {
       return NextResponse.json(
         {
           success: false,
           status: 400,
-          message: "Event UID / User Token is required",
+          message: "Event UID is required",
         },
         { status: 400 },
       );

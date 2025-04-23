@@ -1,9 +1,15 @@
 "use server";
-import { getAllEvents } from "./getAllEvents";
+import { auth } from "@/auth";
 import { IEventData, IEventResponse } from "@/lib/types/Event";
 
-export const getEventByEventId = async (eventUid: string, token: string) => {
+export const getEventByEventId = async (eventUid: string) => {
   try {
+    const session = await auth();
+    if (!session) {
+      console.error("Session not found");
+      return null;
+    }
+    const token = session.token;
     if (!eventUid) {
       console.error("Event UID is required");
       return null;
@@ -13,7 +19,7 @@ export const getEventByEventId = async (eventUid: string, token: string) => {
       return null;
     }
     const res = await fetch(
-      `${process.env.FRONTEND_URL}/api/events/${eventUid}?token=${token}`,
+      `${process.env.FRONTEND_URL}/api/events/${eventUid}`,
       {
         method: "GET",
         next: {
@@ -22,6 +28,7 @@ export const getEventByEventId = async (eventUid: string, token: string) => {
         },
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       },
     );

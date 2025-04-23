@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { IEventData, IEventResponse } from "@/lib/types/Event";
 import { IUserResponse, IUsersData } from "@/lib/types/User";
 
 export async function GET(req: NextRequest) {
   try {
-    const searchParams = req.nextUrl.searchParams;
-    const token = searchParams.get("token");
-
+    const token = req.headers.get("Authorization")?.split(" ")[1];
     if (!token) {
       return NextResponse.json(
         {
@@ -20,8 +17,8 @@ export async function GET(req: NextRequest) {
     const res = await fetch(`${process.env.BACKEND_URL}/api/users/all`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       next: {
         tags: ["users"],

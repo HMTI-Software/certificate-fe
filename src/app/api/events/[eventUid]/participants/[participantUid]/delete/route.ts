@@ -6,16 +6,25 @@ export async function DELETE(
   { params }: { params: Promise<{ eventUid: string; participantUid: string }> },
 ) {
   try {
-    const searchParams = req.nextUrl.searchParams;
-    const token = searchParams.get("token");
+    const token = req.headers.get("Authorization")?.split(" ")[1];
+    if (!token) {
+      return NextResponse.json(
+        {
+          success: false,
+          status: 401,
+          message: "Unauthorized",
+        },
+        { status: 401 },
+      );
+    }
     const { eventUid, participantUid } = await params;
 
-    if (!eventUid || !token || !participantUid) {
+    if (!eventUid || !participantUid) {
       return NextResponse.json(
         {
           success: false,
           status: 400,
-          message: "Invalid event uid / user token / participant uid.",
+          message: "Invalid event uid / participant uid.",
         },
         { status: 400 },
       );

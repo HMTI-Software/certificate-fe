@@ -6,8 +6,17 @@ export async function DELETE(
   { params }: { params: { eventUid: string } },
 ) {
   try {
-    const searchParams = req.nextUrl.searchParams;
-    const token = searchParams.get("token");
+    const token = req.headers.get("Authorization")?.split(" ")[1];
+    if (!token) {
+      return NextResponse.json(
+        {
+          success: false,
+          status: 401,
+          message: "Unauthorized access",
+        },
+        { status: 401 },
+      );
+    }
     const { eventUid } = params;
     if (!eventUid || !token) {
       return NextResponse.json(

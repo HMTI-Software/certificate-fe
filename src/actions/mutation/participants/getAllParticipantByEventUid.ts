@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@/auth";
 import {
   IParticipantResponse,
   IParticipantData,
@@ -7,18 +8,25 @@ import {
 
 const getAllParticipanByEventUid = async (
   eventUid: string,
-  token: string,
 ): Promise<IParticipantData[] | null | undefined> => {
   try {
-    if (!eventUid) {
-      console.error("Event UID is required");
+    const session = await auth();
+    if (!session) {
+      console.error("Session is required");
+      return null;
     }
+    const token = session?.token;
     if (!token) {
       console.error("Token is required");
+      return null;
+    }
+    if (!eventUid) {
+      console.error("Event UID is required");
+      return null;
     }
 
     const res = await fetch(
-      `${process.env.FRONTEND_URL}/api/events/${eventUid}/participants?token=${token}`,
+      `${process.env.FRONTEND_URL}/api/events/${eventUid}/participants`,
       {
         method: "GET",
         next: {
@@ -27,6 +35,7 @@ const getAllParticipanByEventUid = async (
         },
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       },
     );

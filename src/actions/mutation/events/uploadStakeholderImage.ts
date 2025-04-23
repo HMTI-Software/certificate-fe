@@ -1,24 +1,28 @@
 "use server";
 
+import { auth } from "@/auth";
 import { revalidateTag } from "next/cache";
 
-export const uploadStakeholderImage = async (
-  file: File,
-  token: string | undefined,
-  eventUid: string,
-) => {
+export const uploadStakeholderImage = async (file: File, eventUid: string) => {
   try {
+    const session = await auth();
+    if (!session) {
+      return {
+        success: false,
+        message: "Session not found.",
+      };
+    }
+    const token = session.token;
+    if (!token) {
+      return {
+        success: false,
+        message: "Unauthorized",
+      };
+    }
     if (!eventUid) {
       return {
         success: false,
         message: "Event UID is required",
-      };
-    }
-
-    if (!token) {
-      return {
-        success: false,
-        message: "Token is required",
       };
     }
 
@@ -32,6 +36,7 @@ export const uploadStakeholderImage = async (
     const formData = new FormData();
     formData.append("image", file);
 
+    //HIT ENDPOINT ROUTE FROM BACKEND API SERVICE
     const res = await fetch(
       `${process.env.BACKEND_URL}/api/events/${eventUid}/upload-stakeholder`,
       {
@@ -51,7 +56,7 @@ export const uploadStakeholderImage = async (
         message: responseData.message || "Failed to upload file image",
       };
     } else {
-      revalidateTag(`events/${eventUid}`);
+      revalidateTag("events/" + eventUid);
       return {
         success: true,
         message: "Stakeholder image uploaded successfully",

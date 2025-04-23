@@ -9,6 +9,7 @@ import {
   getSortedRowModel,
   useReactTable,
   SortingState,
+  VisibilityState,
 } from "@tanstack/react-table";
 
 //COMPONENTS
@@ -24,13 +25,7 @@ import {
 } from "@/components/ui/table";
 
 //ICONS
-import {
-  ChevronsLeft,
-  ChevronsRight,
-  Plus,
-  QrCode,
-  Trash2,
-} from "lucide-react";
+import { ChevronsLeft, ChevronsRight, QrCode, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { AddParticipantsButton } from "../button/AddParticipantsButton";
 import GeneralDialog from "../popup/GeneralDialog";
@@ -51,7 +46,6 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   page: "event" | "admin";
   eventUid?: string;
-  token?: string;
   eventName?: string;
 }
 
@@ -60,12 +54,14 @@ export function GeneralTable<TData, TValue>({
   data,
   page,
   eventUid,
-  token,
   eventName,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([
     { id: "id", desc: false },
   ]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+    suffix: false,
+  });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState<boolean>(false);
   const [openDownloadDialog, setOpenDownloadDialog] = useState<boolean>(false);
@@ -115,23 +111,28 @@ export function GeneralTable<TData, TValue>({
       toast.error("Error downloading QR code");
     }
   };
+  const memoColumns = React.useMemo(() => columns, [columns]);
+  const memoData = React.useMemo(() => data, [data]);
+
   const table = useReactTable({
-    data,
-    columns,
+    data: memoData,
+    columns: memoColumns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onSortingChange: setSorting,
+    onColumnVisibilityChange: setColumnVisibility,
     state: {
       sorting,
+      columnVisibility,
     },
   });
 
   const deleteEventHandler = () => {
     setIsLoading(true);
     try {
-      toast.promise(deleteAllParticipants(eventUid!, token!), {
+      toast.promise(deleteAllParticipants(eventUid!), {
         loading: "Deleting all participants...",
         success: (data) => {
           setOpenDeleteAlert(false);
@@ -178,10 +179,10 @@ export function GeneralTable<TData, TValue>({
         </div>
         {page === "event" ? (
           <>
-            <AddParticipantsButton eventUid={eventUid!} token={token!} />
+            <AddParticipantsButton eventUid={eventUid!} />
           </>
         ) : (
-          <AddAccountButton token={token!} />
+          <AddAccountButton />
         )}
       </div>
       <div>

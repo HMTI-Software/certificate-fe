@@ -3,15 +3,11 @@
 import {
   BookMarked,
   Mail,
-  MoreHorizontal,
   MoreVertical,
   Package,
-  QrCode,
   Rocket,
-  SquarePen,
   Tag,
   Trash2,
-  TrendingDown,
   UserCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -23,15 +19,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
-import { IParticipantDataTable } from "@/lib/types/Participants";
 import GeneralAlert from "../popup/GeneralAlert";
 import { useState } from "react";
 import { IUsersDataTable } from "@/lib/types/User";
@@ -66,20 +53,19 @@ export const UsersActionOption = ({ data }: UsersActionOptionProps) => {
     values: z.infer<typeof updownPackageFormSchema>,
   ) => {
     setOpenUpdownDialog(false);
+    if (openShowUserSheet) setOpenShowUserSheet(false);
     try {
-      toast.promise(updownUserPackage(data.token, data.uid, values), {
+      toast.promise(updownUserPackage(values, data.uid), {
         loading: "upgrading or downgrading package...",
         success: (data) => {
           if (data.success) {
             updownForm.reset();
-            setOpenUpdownDialog(false);
             return data.message;
           }
           throw new Error(data.message);
         },
         error: (error) => {
           updownForm.reset();
-          setOpenUpdownDialog(false);
           return error.message;
         },
         finally: () => {
