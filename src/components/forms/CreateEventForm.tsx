@@ -15,6 +15,9 @@ import { toast } from "sonner";
 import { createEvent } from "@/actions/mutation/events/createEvent";
 import { useRouter } from "next/navigation";
 import LoadingCircle from "../animation/LoadingCircle";
+import GeneralDialog from "../popup/GeneralDialog";
+import Image from "next/image";
+import { DefaultDesignTemplate } from "../template/DefaultDesignTemplate";
 
 const templateOptions = [
   { value: "DEFAULTDESIGN", label: "Default Design" },
@@ -27,6 +30,8 @@ const templateOptions = [
 ];
 const CreateEventForm = () => {
   const router = useRouter();
+  const [openTemplateDialog, setOpenTemplateDialog] = useState(false);
+  const [templateImage, setTemplateImage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof createEventSchema>>({
     resolver: zodResolver(createEventSchema),
@@ -70,90 +75,106 @@ const CreateEventForm = () => {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(submitHandler)}>
-        <div className="mt-4 grid w-full grid-cols-1 md:grid-cols-2 gap-4">
-          <InputFormField
-            form={form}
-            name="eventName"
-            label="Event Name"
-            description="The name of your event"
-            placeholder="SEMNASTI 2024"
-          />
-          <InputFormField
-            form={form}
-            name="eventDescription"
-            label="Event Description"
-            description="Provide a brief description of your event"
-            placeholder="SEMINAR NASIONAL TEKNOLOGI INFORMASI 2024"
-          />
-          <DatePickerFormField
-            form={form}
-            name="eventDate"
-            label="Event Date"
-            description="Activity date of your event"
-          />
-          <InputFormField
-            form={form}
-            name="eventCertificatePrefixCode"
-            label="Event Certificate Prefix Code"
-            description="Starting Serial of your certificate"
-            placeholder="001/HMTI/SEMNASTI/XI/2024"
-          />
-          <InputFormField
-            form={form}
-            name="eventCertificateSuffixCode"
-            label="Event Certificate Suffix Code"
-            description="The starting number for the certificate suffix"
-            placeholder="1"
-            type="number"
-          />
-          <InputFormField
-            form={form}
-            name="eventOrganizer"
-            label="Event Organizer"
-            description="Name a organizer for your event"
-            placeholder="Himpunan Mahasiswa Teknik Informatika"
-          />
-          <InputFormField
-            form={form}
-            name="eventTheme"
-            label="Event Theme"
-            description="Name a theme for your event"
-            placeholder="Technology"
-          />
-          <SelectFormField
-            form={form}
-            name="eventTemplate"
-            label="Event Template"
-            description="Choose a template for your event certificate"
-            placeholder="Select a certificate theme"
-            options={templateOptions}
-          />
-          <InputFormField
-            form={form}
-            name="eventStakeholderName"
-            label="Event Stakeholder Name"
-            description="Name of the stakeholder for the event"
-            placeholder="Mr. John Doe"
-          />
-          <InputFormField
-            form={form}
-            name="eventStakeholderPosition"
-            label="Event Stakeholder Position"
-            description="Position of the stakeholder for the event"
-            placeholder="Manager"
-          />
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className="md:col-span-2 min-h-10 mt-4 w-full bordered hover:bg-purplee/90 border-b-4 bg-purplee hover:border-b-1 text-black"
+    <>
+      <Form {...form}>
+        <form>
+          <div className="mt-4 grid w-full grid-cols-1 md:grid-cols-2 gap-4">
+            <InputFormField
+              form={form}
+              name="eventName"
+              label="Event Name"
+              description="The name of your event"
+              placeholder="SEMNASTI 2024"
+            />
+            <InputFormField
+              form={form}
+              name="eventDescription"
+              label="Event Description"
+              description="Provide a brief description of your event"
+              placeholder="SEMINAR NASIONAL TEKNOLOGI INFORMASI 2024"
+            />
+            <DatePickerFormField
+              form={form}
+              name="eventDate"
+              label="Event Date"
+              description="Activity date of your event"
+            />
+            <InputFormField
+              form={form}
+              name="eventCertificatePrefixCode"
+              label="Event Certificate Prefix Code"
+              description="Starting Serial of your certificate"
+              placeholder="001/HMTI/SEMNASTI/XI/2024"
+            />
+            <InputFormField
+              form={form}
+              name="eventCertificateSuffixCode"
+              label="Event Certificate Suffix Code"
+              description="The starting number for the certificate suffix"
+              placeholder="1"
+              type="number"
+            />
+            <InputFormField
+              form={form}
+              name="eventOrganizer"
+              label="Event Organizer"
+              description="Name a organizer for your event"
+              placeholder="Himpunan Mahasiswa Teknik Informatika"
+            />
+            <InputFormField
+              form={form}
+              name="eventTheme"
+              label="Event Theme"
+              description="Name a theme for your event"
+              placeholder="Technology"
+            />
+            <SelectFormField
+              form={form}
+              name="eventTemplate"
+              label="Event Template"
+              description="Choose a template for your event certificate"
+              placeholder="Select a certificate theme"
+              options={templateOptions}
+            />
+            <InputFormField
+              form={form}
+              name="eventStakeholderName"
+              label="Event Stakeholder Name"
+              description="Name of the stakeholder for the event"
+              placeholder="Mr. John Doe"
+            />
+            <InputFormField
+              form={form}
+              name="eventStakeholderPosition"
+              label="Event Stakeholder Position"
+              description="Position of the stakeholder for the event"
+              placeholder="Manager"
+            />
+            <Button
+              type="button"
+              disabled={isLoading}
+              className="md:col-span-2 min-h-10 mt-4 w-full bordered hover:bg-purplee/90 border-b-4 bg-purplee hover:border-b-1 text-black"
+              onClick={() => setOpenTemplateDialog(true)}
+            >
+              {isLoading ? <LoadingCircle /> : "preview template"}
+            </Button>
+          </div>
+          <GeneralDialog
+            open={openTemplateDialog}
+            setOpen={setOpenTemplateDialog}
+            title="Template Preview"
+            message="Preview the template before creating the event. If you want to change the template, please select another template."
+            onSuccess={() => {
+              setOpenTemplateDialog(false);
+              form.handleSubmit(submitHandler)();
+            }}
+            successText="create event"
           >
-            {isLoading ? <LoadingCircle /> : "create event"}
-          </Button>
-        </div>
-      </form>
-    </Form>
+            <DefaultDesignTemplate eventData={form.getValues()} />
+          </GeneralDialog>
+        </form>
+      </Form>
+    </>
   );
 };
 
