@@ -18,6 +18,12 @@ import LoadingCircle from "../animation/LoadingCircle";
 import GeneralDialog from "../popup/GeneralDialog";
 import Image from "next/image";
 import { DefaultDesignTemplate } from "../template/DefaultDesignTemplate";
+import { FormalDesign1Template } from "../template/FormalDesign1Template";
+import { FormalDesign2Template } from "../template/FormalDesign2Template";
+import { FormalDesign3Template } from "../template/FormalDesign3Template";
+import { TechnologyDesign1Template } from "../template/TechnologyDesign1Template";
+import { TechnologyDesign2Template } from "../template/TechnologyDesign2Template";
+import { TechnologyDesign3Template } from "../template/TechnologyDesign3Template";
 
 const templateOptions = [
   { value: "DEFAULTDESIGN", label: "Default Design" },
@@ -170,7 +176,21 @@ const CreateEventForm = () => {
             }}
             successText="create event"
           >
-            <DefaultDesignTemplate eventData={form.getValues()} />
+            {form.getValues().eventTemplate === "DEFAULTDESIGN" ? (
+              <DefaultDesignTemplate eventData={form.getValues()} />
+            ) : form.getValues().eventTemplate === "FORMALDESIGN_1" ? (
+              <FormalDesign1Template eventData={form.getValues()} />
+            ) : form.getValues().eventTemplate === "FORMALDESIGN_2" ? (
+              <FormalDesign2Template eventData={form.getValues()} />
+            ) : form.getValues().eventTemplate === "FORMALDESIGN_3" ? (
+              <FormalDesign3Template eventData={form.getValues()} />
+            ) : form.getValues().eventTemplate === "TECHNOLOGYDESIGN_1" ? (
+              <TechnologyDesign1Template eventData={form.getValues()} />
+            ) : form.getValues().eventTemplate === "TECHNOLOGYDESIGN_2" ? (
+              <TechnologyDesign2Template eventData={form.getValues()} />
+            ) : form.getValues().eventTemplate === "TECHNOLOGYDESIGN_3" ? (
+              <TechnologyDesign3Template eventData={form.getValues()} />
+            ) : null}
           </GeneralDialog>
         </form>
       </Form>
