@@ -6,7 +6,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { IParticipantDataTable } from "@/lib/types/Participants";
 import { QRCodeImage } from "@/components/image/QRCodeImage";
 import { ParticipantActionOption } from "@/components/options/ParticipantActionOption";
-import { useMemo } from "react";
 const EventParticipantColumn: ColumnDef<IParticipantDataTable>[] = [
   {
     id: "id",

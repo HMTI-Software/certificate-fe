@@ -36,6 +36,7 @@ export interface IParticipantAdd {
 }
 
 export interface IParticipantDataTable {
+  token: string;
   eventUid: string;
   uid: string;
   name: string;
