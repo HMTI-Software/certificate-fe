@@ -27,6 +27,7 @@ export interface IProfileCard {
   description: string;
   status: number | string;
   bgColor: string;
+  icon?: string;
 }
 
 export const signInFormSchema = z.object({
