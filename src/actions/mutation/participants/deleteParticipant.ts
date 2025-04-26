@@ -1,5 +1,6 @@
 "use server";
 import { auth } from "@/auth";
+import { useParticipants } from "@/hooks/useParticipants";
 import { IParticipantResponse } from "@/lib/types/Participants";
 import { revalidateTag } from "next/cache";
 

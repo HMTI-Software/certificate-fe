@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { addParticipants } from "@/actions/mutation/participants/addParticipants";
 import LoadingCircle from "@/components/animation/LoadingCircle";
+import { useParticipantsContext } from "@/context/ParticipantsContext";
 
 type AddParticipantSheetProps = {
   open: boolean;
@@ -28,6 +29,7 @@ export const AddParticipantSheet = ({
   setOpen,
   eventUid,
 }: AddParticipantSheetProps) => {
+  const { refreshParticipants } = useParticipantsContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [participantCount, setParticipantCount] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -68,6 +70,7 @@ export const AddParticipantSheet = ({
         loading: "Adding participants...",
         success: (data) => {
           if (data.success) {
+            refreshParticipants();
             return data.message;
           }
           throw new Error(data.message);

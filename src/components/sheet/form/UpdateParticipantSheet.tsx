@@ -11,8 +11,9 @@ import { toast } from "sonner";
 import { updateParticipant } from "@/actions/mutation/participants/updateParticipant";
 import { useRouter } from "next/navigation";
 import { IParticipantDataTable } from "@/lib/types/Participants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingCircle from "@/components/animation/LoadingCircle";
+import { useParticipantsContext } from "@/context/ParticipantsContext";
 
 type UpdateParticipantSheetProps = {
   open: boolean;
@@ -26,12 +27,18 @@ export const UpdateParticipantSheet = ({
 }: UpdateParticipantSheetProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [participantData, setParticipantData] =
+    useState<IParticipantDataTable>(data);
+  const { refreshParticipants } = useParticipantsContext();
+  useEffect(() => {
+    setParticipantData(data);
+  }, [data, open]);
   const form = useForm<z.infer<typeof updateParticipantSchema>>({
     resolver: zodResolver(updateParticipantSchema),
     defaultValues: {
-      name: data.name,
-      email: data.email,
-      position: data.position,
+      name: participantData.name,
+      email: participantData.email,
+      position: participantData.position,
     },
   });
 
@@ -41,25 +48,32 @@ export const UpdateParticipantSheet = ({
     setIsLoading(true);
     setOpen(false);
     try {
-      toast.promise(updateParticipant(values, data.eventUid, data.uid), {
-        loading: "Updating participant...",
-        success: (status) => {
-          if (status.success) {
-            router.push("/events/" + data.eventUid);
-            return "Participant updated successfully!";
-          }
-          throw new Error(status.message as string);
+      toast.promise(
+        updateParticipant(
+          values,
+          participantData.eventUid,
+          participantData.uid,
+        ),
+        {
+          loading: "Updating participant...",
+          success: (status) => {
+            if (status.success) {
+              refreshParticipants();
+              return "Participant updated successfully!";
+            }
+            throw new Error(status.message as string);
+          },
+          error: (error) => {
+            return error as string;
+          },
+          finally: () => {
+            setIsLoading(false);
+            form.reset();
+            setOpen(false);
+          },
+          duration: 3000,
         },
-        error: (error) => {
-          return error as string;
-        },
-        finally: () => {
-          setIsLoading(false);
-          form.reset();
-          setOpen(false);
-        },
-        duration: 3000,
-      });
+      );
     } catch (error) {
       setOpen(false);
       console.error("Error updating participant: ", error);

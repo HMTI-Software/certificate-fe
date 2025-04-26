@@ -10,6 +10,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { addParticipantsByExcel } from "@/actions/mutation/participants/addParticipantsExcel";
 import LoadingCircle from "@/components/animation/LoadingCircle";
+import { useParticipantsContext } from "@/context/ParticipantsContext";
 
 type Props = {
   open: boolean;
@@ -21,6 +22,7 @@ export const AddParticantByExcelSheet = ({
   setOpen,
   eventUid,
 }: Props) => {
+  const { refreshParticipants } = useParticipantsContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof uploadParticipantByExcelSchema>>({
     resolver: zodResolver(uploadParticipantByExcelSchema),
@@ -47,6 +49,7 @@ export const AddParticantByExcelSheet = ({
           if (data.success) {
             setOpen(false);
             form.reset();
+            refreshParticipants();
             return data?.message || "File uploaded successfully!";
           }
           throw new Error(

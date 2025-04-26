@@ -1,11 +1,14 @@
 import EventCard from "@/components/card/EventCard";
 import { auth } from "@/auth";
 import { getEventByEventId } from "@/actions/getEventByEventId";
-import getAllParticipanByEventUid from "@/actions/mutation/participants/getAllParticipantByEventUid";
 import { ParticipantsTable } from "@/components/table/ParticipantsTable";
 
-const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
-  const { uid } = await params;
+const EventPage = async ({
+  params,
+}: {
+  params: Promise<{ eventUid: string }>;
+}) => {
+  const { eventUid } = await params;
   const session = await auth();
 
   const token = session?.token;
@@ -16,20 +19,12 @@ const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
       </div>
     );
   }
-  const eventData = await getEventByEventId(uid);
-  const participantData = await getAllParticipanByEventUid(uid);
+  const eventData = await getEventByEventId(eventUid);
 
   if (!eventData) {
     return (
       <div className="w-full min-h-screen flex items-center justify-center">
         No event found
-      </div>
-    );
-  }
-  if (!participantData) {
-    return (
-      <div className="w-full min-h-screen flex items-center justify-center">
-        No participant found
       </div>
     );
   }
@@ -41,7 +36,7 @@ const EventPage = async ({ params }: { params: Promise<{ uid: string }> }) => {
           <b className="text-xl">table of participants</b>
         </div>
         <ParticipantsTable
-          participants={participantData}
+          token={token}
           eventData={{ uid: eventData.uid, name: eventData.eventName }}
         />
       </div>

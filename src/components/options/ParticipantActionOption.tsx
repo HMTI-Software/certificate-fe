@@ -20,28 +20,35 @@ import {
 
 import { IParticipantDataTable } from "@/lib/types/Participants";
 import GeneralAlert from "../popup/GeneralAlert";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { deleteParticipant } from "@/actions/mutation/participants/deleteParticipant";
 import { useRouter } from "next/navigation";
 import { UpdateParticipantSheet } from "../sheet/form/UpdateParticipantSheet";
 import GeneralDialog from "../popup/GeneralDialog";
 import LoadingCircle from "../animation/LoadingCircle";
-
 type ParticantActionOptionProps = {
   data: IParticipantDataTable;
   eventUid: string;
 };
+import { useParticipantsContext } from "@/context/ParticipantsContext";
 export const ParticipantActionOption = ({
   data,
   eventUid,
 }: ParticantActionOptionProps) => {
   const router = useRouter();
+  const { refreshParticipants } = useParticipantsContext();
   const [openDeleteAlert, setOpenDeleteAlert] = useState<boolean>(false);
   const [openUpdateSheet, setOpenUpdateSheet] = useState<boolean>(false);
   const [openDownloadDialog, setOpenDownloadDialog] = useState<boolean>(false);
   const [extensionSelected, setExtensionSelected] = useState<string>("webp");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [participantData, setParticipantData] =
+    useState<IParticipantDataTable>(data);
+
+  useEffect(() => {
+    setParticipantData(data);
+  }, [data, openUpdateSheet]);
 
   const handleDownload = () => {
     if (extensionSelected === "") {
@@ -51,7 +58,7 @@ export const ParticipantActionOption = ({
     const downloadFile = async () => {
       try {
         const url = new URL(
-          data.pathQr,
+          participantData.pathQr,
           "https://certificate-be-production.up.railway.app",
         );
         url.searchParams.set("download", "1");
@@ -91,11 +98,11 @@ export const ParticipantActionOption = ({
   const handleDelete = () => {
     setIsLoading(true);
     try {
-      toast.promise(deleteParticipant(eventUid, data.uid), {
+      toast.promise(deleteParticipant(eventUid, participantData.uid), {
         loading: "Deleting participant...",
         success: (data) => {
           if (data.success) {
-            router.push("/events/" + eventUid);
+            refreshParticipants();
             return "Participant deleted successfully";
           }
           throw new Error(data.message);
@@ -133,7 +140,10 @@ export const ParticipantActionOption = ({
         </Button>
         <Button
           className="bordered bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black"
-          onClick={() => setOpenUpdateSheet(true)}
+          onClick={() => {
+            setParticipantData(data);
+            setOpenUpdateSheet(true);
+          }}
         >
           update <SquarePen />
         </Button>
@@ -194,7 +204,7 @@ export const ParticipantActionOption = ({
       <UpdateParticipantSheet
         open={openUpdateSheet}
         setOpen={setOpenUpdateSheet}
-        data={data}
+        data={participantData}
       />
       <GeneralDialog
         open={openDownloadDialog}
@@ -207,7 +217,7 @@ export const ParticipantActionOption = ({
         <div className="inline-flex flex-row w-full">
           <div className=" bg-purplee bordered-nonhover rounded-lg rounded-r-none text-black flex w-full">
             <QrCode className="mr-2 my-auto" />
-            <span className="my-auto">{data.name}</span>
+            <span className="my-auto">{participantData.name}</span>
           </div>
           <Select onValueChange={(e) => setExtensionSelected(e)}>
             <SelectTrigger className="text-black bg-purplee bordered border-black rounded-lg rounded-l-none  border-b-4 hover:border-b-1 min-h-12 hover:cursor-pointer">

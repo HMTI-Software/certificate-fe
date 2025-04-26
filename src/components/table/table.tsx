@@ -41,6 +41,7 @@ import GeneralAlert from "../popup/GeneralAlert";
 import { deleteAllParticipants } from "@/actions/mutation/participants/deleteAllParticipants";
 import LoadingCircle from "../animation/LoadingCircle";
 import { AddAccountButton } from "../button/AddAccountButton";
+import { useParticipantsContext } from "@/context/ParticipantsContext";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -56,6 +57,7 @@ export function GeneralTable<TData, TValue>({
   eventUid,
   eventName,
 }: DataTableProps<TData, TValue>) {
+  const { refreshParticipants } = useParticipantsContext();
   const [sorting, setSorting] = useState<SortingState>([
     { id: "id", desc: false },
   ]);
@@ -66,6 +68,25 @@ export function GeneralTable<TData, TValue>({
   const [openDeleteAlert, setOpenDeleteAlert] = useState<boolean>(false);
   const [openDownloadDialog, setOpenDownloadDialog] = useState<boolean>(false);
   const [extensionSelected, setExtensionSelected] = useState<string>("webp");
+
+  const memoColumns = React.useMemo(() => columns, [columns]);
+  const memoData = React.useMemo(() => data, [data]);
+
+  const table = useReactTable({
+    data: memoData,
+    columns: memoColumns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onSortingChange: setSorting,
+    onColumnVisibilityChange: setColumnVisibility,
+    state: {
+      sorting,
+      columnVisibility,
+    },
+  });
+
   const handleDownload = () => {
     if (extensionSelected === "") {
       toast.error("Please select a format to download the QR code");
@@ -111,23 +132,6 @@ export function GeneralTable<TData, TValue>({
       toast.error("Error downloading QR code");
     }
   };
-  const memoColumns = React.useMemo(() => columns, [columns]);
-  const memoData = React.useMemo(() => data, [data]);
-
-  const table = useReactTable({
-    data: memoData,
-    columns: memoColumns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onSortingChange: setSorting,
-    onColumnVisibilityChange: setColumnVisibility,
-    state: {
-      sorting,
-      columnVisibility,
-    },
-  });
 
   const deleteEventHandler = () => {
     setIsLoading(true);
@@ -137,6 +141,7 @@ export function GeneralTable<TData, TValue>({
         success: (data) => {
           setOpenDeleteAlert(false);
           if (data.success) {
+            refreshParticipants();
             return data.message;
           }
           throw new Error(data.message as string);
@@ -225,7 +230,7 @@ export function GeneralTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  no results.
                 </TableCell>
               </TableRow>
             )}
