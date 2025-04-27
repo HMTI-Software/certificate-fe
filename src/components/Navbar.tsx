@@ -73,7 +73,14 @@ const Navbar = ({
         </div>
 
         <div className="flex items-center gap-5">
-          <AuthButton mode="signOut" />
+          {clickable ? (
+            <AuthButton mode="signOut" />
+          ) : (
+            <Button className="bordered w-full bg-redd hover:bg-redd/90 text-black">
+              log out
+              <LogOut />
+            </Button>
+          )}
           <button
             className="md:hidden flex flex-col space-y-1.5 p-2 "
             onClick={() => setIsOpen(!isOpen)}

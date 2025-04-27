@@ -40,11 +40,7 @@ export const TechnologyDesign3Template = ({ eventData }: Props) => {
             {eventData.eventTheme}
           </h1>
           <p className="text-[8px] font-light text-center mx-12 h-10">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam unde
-            error harum molestiae nulla voluptatibus neque blanditiis fuga
-            magnam, incidunt quasi odio quae quaerat saepe consequuntur sunt
-            illo vel sint maiores minima laudantium nesciunt ut deserunt totam.
-            Quae, voluptatem reiciendis!
+            {eventData.eventDescription}
           </p>
         </div>
       </div>
