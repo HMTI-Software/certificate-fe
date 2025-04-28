@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../../globals.css";
 import Navbar from "@/components/Navbar";
 import { auth } from "@/auth";
+import { ParticipantsProvider } from "@/context/ParticipantsContext";
 
 export const metadata: Metadata = {
   title: "Admin",
@@ -20,7 +21,9 @@ export default async function ProfileLayout({
         <Navbar clickable session={session!} />
       </header>
       <div className="px-4 md:px-20 lg:px-40">
-        <main>{children}</main>
+        <main>
+          <ParticipantsProvider>{children}</ParticipantsProvider>
+        </main>
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
 import ThreeCircleLoading from "@/components/animation/ThreeCircleLoading";
 
-const LoadingCertificatePage = () => {
+const LoadingEvent = () => {
   return (
-    <div>
+    <div className="w-full h-screen flex items-center justify-center">
       <ThreeCircleLoading />
     </div>
   );
 };
 
-export default LoadingCertificatePage;
+export default LoadingEvent;

@@ -38,17 +38,16 @@ export const EventStakeholderDetailSheet = ({
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
-
   const [stakeholderData, setStakeholderData] = useState<IEventStakeholder>({
     uid: eventData.stakeholders![0].uid,
     eventId: eventData.stakeholders![0].eventId,
     name: eventData.stakeholders![0].name,
     position: eventData.stakeholders![0].position,
-    photoPath:
-      "https://certificate-be-production.up.railway.app" +
-        eventData.stakeholders![0].photoPath || null,
+    photoPath: eventData.stakeholders![0].photoPath
+      ? "https://certificate-be-production.up.railway.app" +
+        eventData.stakeholders![0].photoPath
+      : "https://github.com/shadcn.png",
   });
-
   const form = useForm<z.infer<typeof updateStakeholderSchema>>({
     resolver: zodResolver(updateStakeholderSchema),
     defaultValues: {
@@ -142,9 +141,7 @@ export const EventStakeholderDetailSheet = ({
       eventId: eventData.stakeholders![0].eventId,
       name: eventData.stakeholders![0].name,
       position: eventData.stakeholders![0].position,
-      photoPath:
-        "https://certificate-be-production.up.railway.app" +
-          eventData.stakeholders![0].photoPath || null,
+      photoPath: eventData.stakeholders![0].photoPath,
     });
   }, [eventData]);
   return (
@@ -169,7 +166,12 @@ export const EventStakeholderDetailSheet = ({
                     </div>
                   ) : (
                     <Image
-                      src={stakeholderData.photoPath}
+                      src={
+                        stakeholderData.photoPath !== null
+                          ? "https://certificate-be-production.up.railway.app" +
+                            stakeholderData.photoPath
+                          : "https://github.com/shadcn.png"
+                      }
                       width={70}
                       height={70}
                       className="object-cover object-center"

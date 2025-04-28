@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Eye, EyeClosed } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import { submitResetPasswordForm } from "@/actions/submitResetPasswordForm";
+import { submitResetPasswordForm } from "@/actions/mutation/auth/submitResetPasswordForm";
 
 /**
  * @returns
@@ -50,8 +50,6 @@ const ResetPasswordForm = () => {
   });
 
   const submitHandler = (values: z.infer<typeof resetPasswordFormSchema>) => {
-    console.log("values", values);
-
     setIsLoading(true);
     try {
       toast.promise(submitResetPasswordForm(values, token), {

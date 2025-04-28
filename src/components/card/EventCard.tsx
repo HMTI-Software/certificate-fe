@@ -133,7 +133,7 @@ const EventCard = ({
                     className="text-xs"
                     onClick={() => {
                       setTimeout(() => {
-                        router.push(`/certificates/${event.uid}/preview`);
+                        router.push(`/events/${event.uid}/preview`);
                       }, 50);
                     }}
                   >

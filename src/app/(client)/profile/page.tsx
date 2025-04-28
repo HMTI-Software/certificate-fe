@@ -46,18 +46,18 @@ const ProfilePage = async () => {
     {
       title: "Created a new event: 'Tech Meetup 2025'",
       timestamp: "2 hours ago",
-      type: "Event"
+      type: "Event",
     },
     {
       title: "Added 3 new participants to 'Annual Conference'",
       timestamp: "Yesterday",
-      type: "Participants"
+      type: "Participants",
     },
     {
       title: "Updated your profile information",
       timestamp: "3 days ago",
-      type: "Profile"
-    }
+      type: "Profile",
+    },
   ];
 
   const upcomingEvents = [
@@ -66,22 +66,22 @@ const ProfilePage = async () => {
       date: "May 15, 2025",
       month: "May",
       day: "15",
-      participants: 120
+      participants: 120,
     },
     {
       title: "Team Building Workshop",
       date: "June 2, 2025",
       month: "Jun",
       day: "02",
-      participants: 45
+      participants: 45,
     },
     {
       title: "Team Building Workshop",
       date: "June 2, 2025",
       month: "Jun",
       day: "02",
-      participants: 45
-    }
+      participants: 45,
+    },
   ];
 
   return (
@@ -104,7 +104,8 @@ const ProfilePage = async () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="h-6 px-2 py-0 text-xs bg-green-50 text-green-700 border-green-200 hover:bg-green-100 hover:text-green-800">
+                  className="h-6 px-2 py-0 text-xs bg-green-50 text-green-700 border-green-200 hover:bg-green-100 hover:text-green-800"
+                >
                   <CheckCircle className="h-3 w-3 mr-1" />
                   Verified
                 </Button>

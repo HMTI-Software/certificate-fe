@@ -13,7 +13,6 @@ export default auth((req) => {
   if (nextUrl.pathname === "/events") {
     return Response.redirect(new URL("/dashboard", nextUrl));
   }
-
   const isLoggedIn: boolean = !!req.auth;
 
   const isApiRoute: boolean = nextUrl.pathname.startsWith(apiRoute);
@@ -31,7 +30,6 @@ export default auth((req) => {
     }
     return;
   }
-
   if (nextUrl.pathname === "/admin") {
     if (req.auth?.user.roles !== "SUPERADMIN") {
       return Response.redirect(new URL("/dashboard", nextUrl));

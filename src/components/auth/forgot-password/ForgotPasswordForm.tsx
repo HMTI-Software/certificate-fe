@@ -17,7 +17,7 @@ import AuthButton from "@/components/auth/AuthButton";
 import { forgotPasswordFormSchema } from "@/lib/types/General";
 import { useState } from "react";
 import { toast } from "sonner";
-import { submitForgotPasswordForm } from "@/actions/submitForgotPasswordForm";
+import { submitForgotPasswordForm } from "@/actions/mutation/auth/submitForgotPasswordForm";
 /**
  * @returns
  * Forgot Password component
