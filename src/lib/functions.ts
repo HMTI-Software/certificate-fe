@@ -37,7 +37,14 @@ export const textToQR = async (children: string) => {
   return `<img src=${qrCodeString} alt="QR Code" />`;
 };
 
-export const getCroppedImg = async (imageSrc: string, cropArea: any) => {
+interface CropArea {
+  width: number;
+  height: number;
+  x: number;
+  y: number;
+}
+
+export const getCroppedImg = async (imageSrc: string, cropArea: CropArea) => {
   const image = await createImage(imageSrc);
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d")!;

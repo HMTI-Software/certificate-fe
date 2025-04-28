@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
         status: data.status,
         message: "Sign up successful! Welcome aboard!",
         data: {
-          token: data.data.token,
+          token: data.data?.token || null,
         },
       },
       { status: data.status },

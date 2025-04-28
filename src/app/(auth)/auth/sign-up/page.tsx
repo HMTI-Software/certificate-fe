@@ -1,6 +1,5 @@
 "use client";
 
-import OAuthGoogle from "@/components/auth/OAuthGoogle";
 import SignUpForm from "@/components/auth/signup/SignUpForm";
 
 const SignupPage = () => {
@@ -12,12 +11,6 @@ const SignupPage = () => {
           <p>Please create an account to continue.</p>
         </div>
         <SignUpForm />
-        <div className="flex gap-2 w-full items-center max-w-sm py-6">
-          <div className="border border-black w-full"></div>
-          <p className="whitespace-nowrap">or sign up using</p>
-          <div className="border border-black w-full"></div>
-        </div>
-        <OAuthGoogle mode="signUp" />
       </div>
     </div>
   );

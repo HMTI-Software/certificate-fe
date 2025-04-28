@@ -8,7 +8,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { IAdminContact } from "@/lib/Interface";
+import { IAdminContact } from "@/lib/types/General";
 import Link from "next/link";
 
 interface ContactCardProps {

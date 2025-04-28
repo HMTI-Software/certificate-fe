@@ -9,7 +9,6 @@ import { Form } from "@/components/ui/form";
 import { InputFormField } from "@/components/forms/fields/CustomInputField";
 import { toast } from "sonner";
 import { updateParticipant } from "@/actions/mutation/participants/updateParticipant";
-import { useRouter } from "next/navigation";
 import { IParticipantDataTable } from "@/lib/types/Participants";
 import { useEffect, useState } from "react";
 import LoadingCircle from "@/components/animation/LoadingCircle";
@@ -25,7 +24,6 @@ export const UpdateParticipantSheet = ({
   setOpen,
   data,
 }: UpdateParticipantSheetProps) => {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [participantData, setParticipantData] =
     useState<IParticipantDataTable>(data);

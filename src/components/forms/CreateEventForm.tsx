@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { DatePickerFormField } from "./fields/CustomDatePickerField";
 import { InputFormField } from "./fields/CustomInputField";
 import { SelectFormField } from "./fields/CustomSelectField";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { createEvent } from "@/actions/mutation/events/createEvent";
 import { useRouter } from "next/navigation";

@@ -25,7 +25,7 @@ export const useParticipants = (
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const { refreshParticipants, isRefreshing } = useParticipantsContext();
+  const { isRefreshing } = useParticipantsContext();
 
   const fetchParticipants = useCallback(async () => {
     if (!token || !eventUid) {

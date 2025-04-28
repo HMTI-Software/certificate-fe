@@ -1,12 +1,10 @@
 "use client";
 
 import { FormatDate } from "@/lib/functions";
-import { IEventData, IEventParticipantCertificate } from "@/lib/types/Event";
-import { createEventSchema } from "@/lib/types/General";
+import { IEventParticipantCertificate } from "@/lib/types/Event";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { z } from "zod";
+import { useState } from "react";
 import { Card, CardContent } from "../ui/card";
 
 type Props = {
@@ -18,27 +16,32 @@ export const TechnologyDesign1Template = ({
   participantCertificateData,
   mode,
 }: Props) => {
-  if (!participantCertificateData) {
-    return <div>Certificate data not found</div>;
-  }
-  const [certificateData, setCertificateData] =
-    useState<IEventParticipantCertificate>(participantCertificateData);
+  const [certificateData] = useState<IEventParticipantCertificate | undefined>(participantCertificateData);
 
-  const [stakeholderData, setStakeholderData] = useState<{
+  const [stakeholderData] = useState<{
     name: string;
     photoPath: string | null;
     position: string;
-  }>({
-    name: participantCertificateData.stakeholders.name,
-    photoPath: participantCertificateData.stakeholders.photoPath,
-    position: participantCertificateData.stakeholders.position,
-  });
+  } | undefined>(
+    participantCertificateData
+      ? {
+          name: participantCertificateData.stakeholders.name,
+          photoPath: participantCertificateData.stakeholders.photoPath,
+          position: participantCertificateData.stakeholders.position,
+        }
+      : undefined
+  );
+
+  if (!participantCertificateData || !stakeholderData) {
+    return <div>Certificate data not found</div>;
+  }
+  
   return (
     <Card>
       <CardContent className="relative mx-auto overflow-hidden flex flex-col items-center justify-center w-full h-full ">
         {/* BACKGROUND IMAGE */}
         <Image
-          src={`/template/${certificateData.eventTemplate}.png`}
+          src={`/template/${certificateData?.eventTemplate || "default"}.png`}
           alt="Event Template"
           width={465}
           height={465}
@@ -71,8 +74,8 @@ export const TechnologyDesign1Template = ({
             >
               Nomor Sertifikat:{" "}
               {mode === "VIEW"
-                ? certificateData.certificateNumber
-                : certificateData.certificateNumber.slice(0, -1) + "PREVIEW"}
+                ? certificateData?.certificateNumber
+                : certificateData?.certificateNumber.slice(0, -1) + "PREVIEW"}
             </h1>
           </div>
           {/* END HEADER */}
@@ -146,7 +149,7 @@ export const TechnologyDesign1Template = ({
                     : "text-lg md:text-2xl",
                 )}
               >
-                {certificateData.eventName.toUpperCase()}
+                {certificateData?.eventName.toUpperCase()}
               </h1>
               <p
                 className={cn(
@@ -172,14 +175,18 @@ export const TechnologyDesign1Template = ({
           >
             <span>Diselenggarakan oleh : </span>
             <span className="mx-10 text-center">
-              {certificateData.organizer}
+              {certificateData?.organizer}
             </span>
             <span className="mx-10 text-center">
               Pada Tanggal{" "}
-              {FormatDate({
-                children: certificateData.activityAt,
-                withDay: false,
-              })}
+              {certificateData?.activityAt ? (
+                FormatDate({
+                  children: certificateData.activityAt,
+                  withDay: false,
+                })
+              ) : (
+                "Date not available"
+              )}
             </span>
           </div>
 

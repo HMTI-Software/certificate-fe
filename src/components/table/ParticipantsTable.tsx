@@ -1,10 +1,7 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
-import {
-  IParticipantData,
-  IParticipantDataTable,
-} from "@/lib/types/Participants";
+import { useMemo } from "react";
+import {IParticipantDataTable } from "@/lib/types/Participants";
 import { GeneralTable } from "./table";
 import EventParticipantColumn from "./columns/EventParticipantColumn";
 import { useParticipants } from "@/hooks/useParticipants";

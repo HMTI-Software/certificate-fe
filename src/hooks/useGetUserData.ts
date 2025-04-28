@@ -47,7 +47,10 @@ export const useGetUserData = (
         }
 
         const userData: IAuthResponse<IUserData> = await response.json();
-        setData({ ...userData.data });
+        if (!userData.data || !userData.data.email) {
+          throw new Error("Email is missing in user data");
+        }
+        setData({ ...userData.data } as IUserData);
       }
     } catch (err) {
       console.error("ERROR IN GET USER DATA (CUSTOM HOOKS):", err);

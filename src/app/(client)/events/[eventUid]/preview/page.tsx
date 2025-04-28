@@ -1,7 +1,7 @@
 import { getEventByEventId } from "@/actions/mutation/events/getEventByEventId";
 import { TechnologyDesign1Template } from "@/components/template/TechnologyDesign1Template";
 import { IEventParticipantCertificate } from "@/lib/types/Event";
-import { BadgeCheck, TriangleAlert } from "lucide-react";
+import { TriangleAlert } from "lucide-react";
 
 type Props = {
   params: Promise<{

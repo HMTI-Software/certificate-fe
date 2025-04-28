@@ -23,20 +23,20 @@ import GeneralAlert from "../popup/GeneralAlert";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { deleteParticipant } from "@/actions/mutation/participants/deleteParticipant";
-import { useRouter } from "next/navigation";
 import { UpdateParticipantSheet } from "../sheet/form/UpdateParticipantSheet";
 import GeneralDialog from "../popup/GeneralDialog";
 import LoadingCircle from "../animation/LoadingCircle";
+import { useParticipantsContext } from "@/context/ParticipantsContext";
+
 type ParticantActionOptionProps = {
   data: IParticipantDataTable;
   eventUid: string;
 };
-import { useParticipantsContext } from "@/context/ParticipantsContext";
+
 export const ParticipantActionOption = ({
   data,
   eventUid,
 }: ParticantActionOptionProps) => {
-  const router = useRouter();
   const { refreshParticipants } = useParticipantsContext();
   const [openDeleteAlert, setOpenDeleteAlert] = useState<boolean>(false);
   const [openUpdateSheet, setOpenUpdateSheet] = useState<boolean>(false);

@@ -51,7 +51,7 @@ export const useEvents = (token?: string): UseEventsResult => {
       }
 
       setEvents(eventData.data || []);
-    } catch (err) {
+    } catch {
       setIsError(true);
       setErrorMessage("Unknown error occurred");
     } finally {

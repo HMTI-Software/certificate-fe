@@ -2,7 +2,6 @@ import { FormatDate } from "@/lib/functions";
 import { createEventSchema } from "@/lib/types/General";
 import Image from "next/image";
 import { z } from "zod";
-import { Separator } from "../ui/separator";
 
 type Props = {
   eventData: z.infer<typeof createEventSchema>;

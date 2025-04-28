@@ -1,10 +1,6 @@
-import { getEventByEventId } from "@/actions/mutation/events/getEventByEventId";
-import { auth } from "@/auth";
-import Navbar from "@/components/Navbar";
 import { TechnologyDesign1Template } from "@/components/template/TechnologyDesign1Template";
 import { IEventParticipantCertificate } from "@/lib/types/Event";
 import { BadgeCheck, TriangleAlert } from "lucide-react";
-import { Session } from "next-auth";
 
 const getParticipantCertificateData = async (
   eventUid: string,
@@ -24,7 +20,6 @@ const getParticipantCertificateData = async (
       },
     );
     if (!res.ok) {
-      const error = await res.json();
       return null;
     }
     const data = await res.json();
