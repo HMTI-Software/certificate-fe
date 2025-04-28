@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: "certificate-be-production.up.railway.app",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "github.com",
+        pathname: "/**",
+      },
     ],
   },
   logging: {

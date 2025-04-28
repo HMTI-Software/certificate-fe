@@ -10,13 +10,12 @@ import { Button } from "@/components/ui/button";
 import { DatePickerFormField } from "./fields/CustomDatePickerField";
 import { InputFormField } from "./fields/CustomInputField";
 import { SelectFormField } from "./fields/CustomSelectField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { createEvent } from "@/actions/mutation/events/createEvent";
 import { useRouter } from "next/navigation";
 import LoadingCircle from "../animation/LoadingCircle";
 import GeneralDialog from "../popup/GeneralDialog";
-import Image from "next/image";
 import { DefaultDesignTemplate } from "../template/DefaultDesignTemplate";
 import { FormalDesign1Template } from "../template/FormalDesign1Template";
 import { FormalDesign2Template } from "../template/FormalDesign2Template";
@@ -24,6 +23,7 @@ import { FormalDesign3Template } from "../template/FormalDesign3Template";
 import { TechnologyDesign1Template } from "../template/TechnologyDesign1Template";
 import { TechnologyDesign2Template } from "../template/TechnologyDesign2Template";
 import { TechnologyDesign3Template } from "../template/TechnologyDesign3Template";
+import { IEventParticipantCertificate } from "@/lib/types/Event";
 
 const templateOptions = [
   { value: "DEFAULTDESIGN", label: "Default Design" },
@@ -37,7 +37,6 @@ const templateOptions = [
 const CreateEventForm = () => {
   const router = useRouter();
   const [openTemplateDialog, setOpenTemplateDialog] = useState(false);
-  const [templateImage, setTemplateImage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof createEventSchema>>({
     resolver: zodResolver(createEventSchema),
@@ -55,6 +54,34 @@ const CreateEventForm = () => {
     },
   });
 
+  const [participantCertificateData, setParticipantCertificateData] =
+    useState<IEventParticipantCertificate>({
+      eventName: form.getValues().eventName || "Name of the event",
+      eventDescription:
+        form.getValues().eventDescription || "Description of the event",
+      activityAt: form.getValues().eventDate,
+      eventTemplate: form.getValues().eventTemplate,
+      eventTheme: form.getValues().eventTheme || "Theme of the event",
+      organizer: form.getValues().eventOrganizer || "Organizer of the event",
+      logoFirst: null,
+      logoSecond: null,
+      name: null,
+      email: null,
+      position: null,
+      addedAt: null,
+      certificateNumber: `${form.getValues().eventCertificatePrefixCode}${
+        form.getValues().eventCertificateSuffixCode
+      }`,
+      stakeholders: {
+        name:
+          form.getValues().eventStakeholderName || "Name of the stakeholder",
+        position:
+          form.getValues().eventStakeholderPosition ||
+          "Position of the stakeholder",
+        photoPath: null,
+      },
+      qrCodes: null,
+    });
   const submitHandler = async (values: z.infer<typeof createEventSchema>) => {
     setIsLoading(true);
     try {
@@ -160,7 +187,26 @@ const CreateEventForm = () => {
               type="button"
               disabled={isLoading}
               className="md:col-span-2 min-h-10 mt-4 w-full bordered hover:bg-purplee/90 border-b-4 bg-purplee hover:border-b-1 text-black"
-              onClick={() => setOpenTemplateDialog(true)}
+              onClick={() => {
+                setOpenTemplateDialog(true);
+                setParticipantCertificateData({
+                  ...participantCertificateData,
+                  eventName: form.getValues().eventName || "rerer",
+                  eventDescription: form.getValues().eventDescription,
+                  activityAt: form.getValues().eventDate,
+                  eventTemplate: form.getValues().eventTemplate,
+                  eventTheme: form.getValues().eventTheme,
+                  organizer: form.getValues().eventOrganizer,
+                  stakeholders: {
+                    name: form.getValues().eventStakeholderName,
+                    position: form.getValues().eventStakeholderPosition,
+                    photoPath: null,
+                  },
+                  certificateNumber: `${
+                    form.getValues().eventCertificatePrefixCode
+                  }${form.getValues().eventCertificateSuffixCode}`,
+                });
+              }}
             >
               {isLoading ? <LoadingCircle /> : "preview template"}
             </Button>
@@ -185,9 +231,14 @@ const CreateEventForm = () => {
             ) : form.getValues().eventTemplate === "FORMALDESIGN_3" ? (
               <FormalDesign3Template eventData={form.getValues()} />
             ) : form.getValues().eventTemplate === "TECHNOLOGYDESIGN_1" ? (
-              <TechnologyDesign1Template eventData={form.getValues()} />
+              <TechnologyDesign1Template
+                mode="CREATE/EDIT"
+                participantCertificateData={participantCertificateData}
+              />
             ) : form.getValues().eventTemplate === "TECHNOLOGYDESIGN_2" ? (
-              <TechnologyDesign2Template eventData={form.getValues()} />
+              <div className="flex flex-col items-center justify-center">
+                <TechnologyDesign2Template eventData={form.getValues()} />
+              </div>
             ) : form.getValues().eventTemplate === "TECHNOLOGYDESIGN_3" ? (
               <TechnologyDesign3Template eventData={form.getValues()} />
             ) : null}

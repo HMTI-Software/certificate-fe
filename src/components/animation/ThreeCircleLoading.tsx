@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 const ThreeCircleLoading = ({
-  message = "Loading Data",
+  message = "loading data",
   className = "",
 }: {
   message?: string;

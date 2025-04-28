@@ -1,6 +1,6 @@
 "use client";
 
-import { userSignOut } from "@/actions/signOut";
+import { userSignOut } from "@/actions/mutation/auth/signOut";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";

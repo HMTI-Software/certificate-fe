@@ -27,11 +27,11 @@ const templateOptions = [
   { value: "FORMALDESIGN_3", label: "Formal Design 3" },
 ];
 
-interface CreateEventFormProps {
+interface Props {
   eventData: IEventData;
 }
 
-const UpdateEventForm = ({ eventData }: CreateEventFormProps) => {
+const UpdateEventForm = ({ eventData }: Props) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof updateEventSchema>>({

@@ -1,5 +1,5 @@
 import UpdateEventForm from "@/components/forms/UpdateEventForm";
-import { getEventByEventId } from "@/actions/getEventByEventId";
+import { getEventByEventId } from "@/actions/mutation/events/getEventByEventId";
 const UpdateEventPage = async ({
   params,
 }: {

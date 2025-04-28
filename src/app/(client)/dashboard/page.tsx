@@ -4,7 +4,7 @@ import { Frown, MailWarning, Plus } from "lucide-react";
 import Link from "next/link";
 import EventCard from "@/components/card/EventCard";
 import { auth } from "@/auth";
-import { getAllEvents } from "@/actions/getAllEvents";
+import { getAllEvents } from "@/actions/mutation/events/getAllEvents";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

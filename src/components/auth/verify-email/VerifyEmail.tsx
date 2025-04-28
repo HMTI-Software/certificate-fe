@@ -1,5 +1,5 @@
 "use client";
-import submitVerifyEmail from "@/actions/submitVerifyEmail";
+import submitVerifyEmail from "@/actions/mutation/auth/submitVerifyEmail";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IAuthSession } from "@/lib/types/Auth";

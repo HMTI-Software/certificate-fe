@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { submitRequestVerify } from "@/actions/submitRequestVerify";
-import { getAllEvents } from "@/actions/getAllEvents";
+import { submitRequestVerify } from "@/actions/mutation/auth/submitRequestVerify";
+import { getAllEvents } from "@/actions/mutation/events/getAllEvents";
 import { IProfileCard } from "@/lib/types/General";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
@@ -50,18 +50,18 @@ const ProfilePage = async () => {
     {
       title: "Created a new event: 'Tech Meetup 2025'",
       timestamp: "2 hours ago",
-      type: "Event"
+      type: "Event",
     },
     {
       title: "Added 3 new participants to 'Annual Conference'",
       timestamp: "Yesterday",
-      type: "Participants"
+      type: "Participants",
     },
     {
       title: "Updated your profile information",
       timestamp: "3 days ago",
-      type: "Profile"
-    }
+      type: "Profile",
+    },
   ];
 
   const upcomingEvents = [
@@ -70,22 +70,22 @@ const ProfilePage = async () => {
       date: "May 15, 2025",
       month: "May",
       day: "15",
-      participants: 120
+      participants: 120,
     },
     {
       title: "Team Building Workshop",
       date: "June 2, 2025",
       month: "Jun",
       day: "02",
-      participants: 45
+      participants: 45,
     },
     {
       title: "Team Building Workshop",
       date: "June 2, 2025",
       month: "Jun",
       day: "02",
-      participants: 45
-    }
+      participants: 45,
+    },
   ];
 
   return (
@@ -98,7 +98,9 @@ const ProfilePage = async () => {
               <AvatarFallback>NA</AvatarFallback>
             </Avatar>
             <div className="flex flex-col items-center justify-center gap-1">
-              <h1 className="text-lg sm:text-xl font-bold">{session?.user.email.split("@")[0] || "User"}</h1>
+              <h1 className="text-lg sm:text-xl font-bold">
+                {session?.user.email.split("@")[0] || "User"}
+              </h1>
               <div className="flex flex-row items-center gap-2">
                 <p className="text-xs sm:text-sm font-normal text-gray-400">
                   {session?.user.email || "Email User"}
@@ -116,7 +118,8 @@ const ProfilePage = async () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-6 px-2 py-0 text-xs bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100 hover:text-amber-800">
+                    className="h-6 px-2 py-0 text-xs bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100 hover:text-amber-800"
+                  >
                     <AlertCircle className="h-3 w-3 mr-1" />
                     Not Verified
                   </Button>
@@ -124,7 +127,7 @@ const ProfilePage = async () => {
               </div>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 w-full">
             {profileCard.map((item, index) => {
               return <ProfileCard key={index} profileData={item} />;

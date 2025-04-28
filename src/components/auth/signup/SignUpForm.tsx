@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { submitSignUpForm } from "@/actions/submitSignUpForm";
+import { submitSignUpForm } from "@/actions/mutation/auth/submitSignUpForm";
 
 //UI / COMPONENTS LIBRARY
 import { Form } from "@/components/ui/form";

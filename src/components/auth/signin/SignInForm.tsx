@@ -19,7 +19,7 @@ import AuthButton from "@/components/auth/AuthButton";
 //SCHEMA
 import { signInFormSchema } from "@/lib/types/General";
 import { toast } from "sonner";
-import { submitSignInForm } from "@/actions/submitSignInForm";
+import { submitSignInForm } from "@/actions/mutation/auth/submitSignInForm";
 
 /**
  * @returns

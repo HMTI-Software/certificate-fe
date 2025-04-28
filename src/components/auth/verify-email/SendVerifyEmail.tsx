@@ -1,4 +1,4 @@
-import { submitRequestVerify } from "@/actions/submitRequestVerify";
+import { submitRequestVerify } from "@/actions/mutation/auth/submitRequestVerify";
 import LoadingCircle from "@/components/animation/LoadingCircle";
 import { Button } from "@/components/ui/button";
 import { IAuthSession } from "@/lib/types/Auth";

@@ -1,6 +1,6 @@
 import EventCard from "@/components/card/EventCard";
 import { auth } from "@/auth";
-import { getEventByEventId } from "@/actions/getEventByEventId";
+import { getEventByEventId } from "@/actions/mutation/events/getEventByEventId";
 import { ParticipantsTable } from "@/components/table/ParticipantsTable";
 
 const EventPage = async ({

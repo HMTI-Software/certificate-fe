@@ -8,7 +8,9 @@
  * @property {string | string[]} message - Pesan yang menjelaskan hasil dari permintaan.
  * @property {T | [] | null} data - Data yang dikembalikan dalam respons. Bisa berupa data tipe `T`, array kosong, atau null.
  */
-export interface IEventResponse<T = IEventData | IEventCreate> {
+export interface IEventResponse<
+  T = IEventData | IEventCreate | IEventParticipantCertificate,
+> {
   success: boolean;
   status: number;
   message: string | string[];
@@ -138,4 +140,29 @@ export interface IEventParticipantsTable {
   id: number;
   name: string;
   qrcode: string;
+}
+
+export interface IEventParticipantCertificate {
+  eventName: string;
+  eventDescription: string;
+  activityAt: string;
+  eventTheme: string;
+  organizer: string;
+  logoFirst: string | null;
+  logoSecond: string | null;
+  eventTemplate: string;
+  name: string | null;
+  email: string | null;
+  position: string | null;
+  addedAt: string | null;
+  certificateNumber: string;
+  stakeholders: {
+    name: string;
+    position: string;
+    photoPath: string | null;
+  };
+  qrCodes: {
+    pathQr: string;
+    generatedAt: string;
+  } | null;
 }
