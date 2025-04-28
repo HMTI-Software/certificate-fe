@@ -2,6 +2,7 @@ import EventCard from "@/components/card/EventCard";
 import { auth } from "@/auth";
 import { getEventByEventId } from "@/actions/mutation/events/getEventByEventId";
 import { ParticipantsTable } from "@/components/table/ParticipantsTable";
+import { TriangleAlert } from "lucide-react";
 
 const EventPage = async ({
   params,
@@ -23,8 +24,13 @@ const EventPage = async ({
 
   if (!eventData) {
     return (
-      <div className="w-full min-h-screen flex items-center justify-center">
-        No event found
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <h1 className="inline-flex items-center font-bold text-2xl ">
+          <TriangleAlert className="mr-1" /> No Event Found
+        </h1>
+        <p className="mt-4 text-lg text-grayy font-medium">
+          The event you are looking for does not exist or has been deleted.
+        </p>
       </div>
     );
   }

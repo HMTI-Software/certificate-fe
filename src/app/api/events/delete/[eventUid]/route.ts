@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { eventUid: string } },
+  { params }: { params: Promise<{ eventUid: string }> },
 ) {
   try {
     const token = req.headers.get("Authorization")?.split(" ")[1];
@@ -17,7 +17,7 @@ export async function DELETE(
         { status: 401 },
       );
     }
-    const { eventUid } = params;
+    const { eventUid } = await params;
     if (!eventUid || !token) {
       return NextResponse.json(
         {
