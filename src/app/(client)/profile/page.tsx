@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { getAllEvents } from "@/actions/getAllEvents";
+import { getAllEvents } from "@/actions/mutation/events/getAllEvents";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
