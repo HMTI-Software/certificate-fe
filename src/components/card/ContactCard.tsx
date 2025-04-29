@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import { IAdminContact } from "@/lib/types/General";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface ContactCardProps {
   contacts: IAdminContact;
@@ -46,7 +47,12 @@ const ContactCard = ({ contacts, children }: ContactCardProps) => {
             <span className="text-sm">{contacts.noTelp}</span>
           </Link>
         </div>
-        <div className="inline-flex gap-1 items-center">
+        <div
+          className={cn(
+            "gap-1 items-center",
+            contacts.igUsername !== null ? "inline-flex" : "hidden",
+          )}
+        >
           <Image
             src={"/icon/instagram.svg"}
             width={18}

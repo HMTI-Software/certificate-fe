@@ -103,7 +103,7 @@ const EventCard = ({
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
-                  className="bordered bg-purplee hover:bg-purplee/90 hover:border-b-1 border-b-4 text-black"
+                  className="bordered bg-greenn hover:bg-greenn/90 hover:border-b-1 border-b-4 text-black"
                   variant={"outline"}
                 >
                   <MoreHorizontal size={16} />

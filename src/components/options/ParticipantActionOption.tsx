@@ -149,7 +149,11 @@ export const ParticipantActionOption = ({
         </Button>
         <Button
           className="bordered bg-yelloww hover:bg-yelloww/90 text-black"
-          onClick={() => setOpenDownloadDialog(true)}
+          onClick={() =>
+            setTimeout(() => {
+              setOpenDownloadDialog(true);
+            }, 50)
+          }
         >
           download <QrCode />
         </Button>
@@ -157,7 +161,7 @@ export const ParticipantActionOption = ({
       <DropdownMenu>
         <DropdownMenuTrigger asChild className="lg:hidden flex">
           <Button
-            className="bordered bg-purplee hover:bg-purplee/90 hover:border-b-1 border-b-4 text-black"
+            className="bordered bg-greenn hover:bg-greenn/90 hover:border-b-1 border-b-4 text-black"
             variant={"outline"}
           >
             <MoreHorizontal size={16} />
@@ -169,16 +173,32 @@ export const ParticipantActionOption = ({
         >
           <DropdownMenuLabel>Event Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setOpenDownloadDialog(true)}>
+          <DropdownMenuItem
+            onClick={() =>
+              setTimeout(() => {
+                setOpenDownloadDialog(true);
+              }, 50)
+            }
+          >
             <QrCode />
             download
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpenUpdateSheet(true)}>
+          <DropdownMenuItem
+            onClick={() =>
+              setTimeout(() => {
+                setOpenUpdateSheet(true);
+              }, 50)
+            }
+          >
             <SquarePen />
             update
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => setOpenDeleteAlert(true)}
+            onClick={() =>
+              setTimeout(() => {
+                setOpenDeleteAlert(true);
+              }, 50)
+            }
             disabled={isLoading}
           >
             {isLoading ? (

@@ -121,7 +121,7 @@ const Navbar = ({
             </Link>
           );
         })}
-        <Button className="mt-3 bordered w-full bg-redd hover:bg-redd/90">
+        <Button className="mt-3 bordered w-full bg-redd hover:bg-redd/90 text-black">
           log out
           <LogOut />
         </Button>

@@ -109,34 +109,24 @@ const LandingPage = async () => {
   ];
   const contacts: IAdminContact[] = [
     {
-      name: "Deris Firmansyah",
+      name: "Tegar Aji Pangestu",
       description: "contact person",
-      noTelp: 628123456789,
-      igUsername: "@derisfirmansyah",
+      noTelp: 6287721161214,
+      igUsername: null,
       adminImage: "/sheep-image.svg",
       cardStyle: "bg-[#99B2FF] snap-center",
       imageStyle:
         "absolute -top-[149px] left-[140px] transform -translate-x-1/2 w-52 h-auto",
     },
     {
-      name: "Alif Mahendra",
+      name: "M. Nabil Nazhmi Kurniali",
       description: "contact person",
-      noTelp: 628123456789,
-      igUsername: "@alifmahendra",
+      noTelp: 6282328591635,
+      igUsername: null,
       adminImage: "/dog-image.svg",
       cardStyle: "bg-[#59FFAC] snap-center",
       imageStyle:
         "absolute -top-[190px] left-[180px] transform -translate-x-1/2 w-64 h-auto",
-    },
-    {
-      name: "Fatih Attala",
-      description: "contact person",
-      noTelp: 628123456789,
-      igUsername: "@fatihattala",
-      adminImage: "/pig-image.svg",
-      cardStyle: "bg-[#FFFB86] snap-center",
-      imageStyle:
-        "absolute -top-[152px] left-[185px] transform -translate-x-1/2 w-64 h-auto",
     },
   ];
   return (
@@ -195,15 +185,27 @@ const LandingPage = async () => {
                 alt="logo-hmti-udinus"
               />
               <h1 className="font-bold text-4xl">About</h1>
-              <p className="font-normal text-lg md:text-lg text-center">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quisquam dolore officiis voluptatibus, veritatis minima delectus
-                velit? Officiis, aspernatur? Veniam deleniti quibusdam,
-                architecto aperiam velit expedita suscipit perferendis voluptate
-                at id in nesciunt nobis quaerat ab accusantium rerum quia quam
-                ad debitis fuga eius omnis quas animi. Ex repudiandae deserunt
-                quis.
-              </p>
+              <div className="flex flex-col gap-4 md:gap-10">
+                <p className="font-normal text-lg md:text-lg text-center">
+                  Selamat datang di Certify, aplikasi inovatif yang dikembangkan
+                  oleh Himpunan Mahasiswa Teknik Informatika (HMTI). Certify
+                  dirancang khusus untuk memenuhi kebutuhan organisasi dan
+                  individu dalam menghasilkan QR Code untuk sertifikat. Dengan
+                  kemudahan penggunaan dan efisiensi yang tinggi, aplikasi ini
+                  memungkinkan pengguna untuk dengan cepat dan mudah membuat QR
+                  Code yang dapat diintegrasikan ke dalam sertifikat berbagai
+                  kegiatan.
+                </p>
+                <p className="font-normal text-lg md:text-lg text-center">
+                  Certify hadir sebagai solusi praktis untuk mendukung kegiatan
+                  organisasi, seminar, pelatihan, dan acara-acara lainnya.
+                  Dengan hanya beberapa langkah sederhana, Anda dapat
+                  menghasilkan QR Code yang unik dan aman, yang dapat dipindai
+                  untuk verifikasi keaslian sertifikat. Aplikasi ini tidak hanya
+                  meningkatkan profesionalisme, tetapi juga memberikan kemudahan
+                  akses informasi bagi penerima sertifikat.
+                </p>
+              </div>
             </div>
           </section>
           {/* Pricing Section */}
@@ -239,7 +241,7 @@ const LandingPage = async () => {
                 </p>
               </div>
               {/* Contact Card Desktop*/}
-              <div className="hidden md:grid grid-cols-3 gap-5 md:gap-4 lg:gap-10">
+              <div className="hidden md:grid grid-cols-2 gap-5 md:gap-4 lg:gap-10 w-3/5 mx-auto">
                 {contacts.map((contact, index) => {
                   return (
                     <ContactCard key={index} contacts={contact}>
@@ -255,7 +257,7 @@ const LandingPage = async () => {
                 })}
               </div>
               {/* Contact Card Mobile */}
-              <div className="md:hidden flex flex-col gap-3.5 ">
+              <div className="md:hidden flex flex-col gap-3.5">
                 {contacts.map((contact, index) => (
                   <ContactCard contacts={contact} key={index}>
                     <Image

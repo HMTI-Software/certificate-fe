@@ -48,6 +48,10 @@ const UpdateEventForm = ({ eventData }: Props) => {
     },
   });
 
+  const previewHandler = async (
+    values: z.infer<typeof updateEventSchema>,
+  ) => {};
+
   const submitHandler = async (values: z.infer<typeof updateEventSchema>) => {
     setIsLoading(true);
     try {

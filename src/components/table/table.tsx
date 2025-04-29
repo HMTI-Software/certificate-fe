@@ -348,7 +348,9 @@ export function GeneralTable<TData, TValue>({
               <div className="inline-flex flex-row w-full">
                 <div className=" bg-purplee bordered-nonhover rounded-lg rounded-r-none text-black flex w-full">
                   <QrCode className="mr-2 my-auto" />
-                  <span className="my-auto">{eventName}</span>
+                  <span className="my-auto text-xs md:text-sm">
+                    {eventName}
+                  </span>
                 </div>
                 <Select onValueChange={(e) => setExtensionSelected(e)}>
                   <SelectTrigger className="text-black bg-purplee bordered border-black rounded-lg rounded-l-none  border-b-4 hover:border-b-1 min-h-12">

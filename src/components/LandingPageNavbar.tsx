@@ -113,7 +113,24 @@ const LandingPageNavbar = ({ session }: { session: IAuthSession }) => {
           className="bordered w-full bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black flex items-center gap-2"
           onClick={() => router.push("/auth/sign-in")}
         >
-          login <LogIn />
+          {session ? (
+            session.user ? (
+              <>
+                <span>dashboard</span>
+                <LayoutDashboard />
+              </>
+            ) : (
+              <>
+                <span>login</span>
+                <LogIn />
+              </>
+            )
+          ) : (
+            <>
+              <span>login</span>
+              <LogIn />
+            </>
+          )}
         </Button>
       </div>
     </nav>

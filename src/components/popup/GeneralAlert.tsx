@@ -35,7 +35,7 @@ const GeneralAlert = ({
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>{message}</AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="flex flex-row justify-end">
           <AlertDialogCancel
             className="bordered bg-red-400 hover:bg-red-400/90 border-b-4 hover:border-b-1 text-black hover:cursor-pointer"
             onClick={() => {

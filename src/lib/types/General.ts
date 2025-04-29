@@ -16,7 +16,7 @@ export interface IAdminContact {
   name: string;
   description: string;
   noTelp: number;
-  igUsername: string;
+  igUsername: string | null;
   adminImage: string;
   cardStyle?: string;
   imageStyle?: string;

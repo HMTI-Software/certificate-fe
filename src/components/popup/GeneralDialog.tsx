@@ -45,7 +45,7 @@ const GeneralDialog = ({
           </DialogDescription>
         </DialogHeader>
         {children}
-        <DialogFooter>
+        <DialogFooter className="flex flex-row justify-end">
           <Button
             className="bordered bg-red-400 hover:bg-red-400/90 border-b-4 hover:border-b-1 text-black"
             onClick={() => {

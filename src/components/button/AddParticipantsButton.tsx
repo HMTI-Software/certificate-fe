@@ -21,7 +21,7 @@ export const AddParticipantsButton = ({ eventUid }: Props) => {
           className="bordered rounded-r-none hover:bg-purplee/90 bg-purplee text-black hover:border-b-1"
           onClick={() => setOpenAddParticipantSheet(true)}
         >
-          add participants
+          <span className="hidden md:block">add participants</span>
           <Plus />
         </Button>
         <Button
