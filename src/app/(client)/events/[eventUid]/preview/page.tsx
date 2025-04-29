@@ -44,6 +44,7 @@ const PreviewPage = async ({ params }: Props) => {
     },
     qrCodes: null,
   };
+
   return (
     <>
       {eventData.eventTemplate === "DEFAULTDESIGN" ? (

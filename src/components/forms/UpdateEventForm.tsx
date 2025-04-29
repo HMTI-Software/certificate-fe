@@ -1,4 +1,3 @@
-// components/events/CreateEventForm.tsx
 "use client";
 
 import { updateEventSchema } from "@/lib/types/General";
@@ -13,9 +12,11 @@ import { SelectFormField } from "./fields/CustomSelectField";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { IEventData } from "@/lib/types/Event";
+import { IEventData, IEventParticipantCertificate } from "@/lib/types/Event";
 import { updateEvent } from "@/actions/mutation/events/updateEvent";
 import LoadingCircle from "../animation/LoadingCircle";
+import GeneralDialog from "../popup/GeneralDialog";
+import { TechnologyDesign1Template } from "../template/TechnologyDesign1Template";
 
 const templateOptions = [
   { value: "DEFAULTDESIGN", label: "Default Design" },
@@ -34,6 +35,7 @@ interface Props {
 const UpdateEventForm = ({ eventData }: Props) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [openTemplateDialog, setOpenTemplateDialog] = useState<boolean>(false);
   const form = useForm<z.infer<typeof updateEventSchema>>({
     resolver: zodResolver(updateEventSchema),
     defaultValues: {
@@ -47,10 +49,55 @@ const UpdateEventForm = ({ eventData }: Props) => {
       eventTemplate: eventData.eventTemplate,
     },
   });
+  const [participantCertificateData, setParticipantCertificateData] =
+    useState<IEventParticipantCertificate>({
+      eventName: eventData.eventName || "Name of the event",
+      eventDescription: eventData.description || "Description of the event",
+      activityAt: eventData.activityAt || "Activity at the event",
+      eventTemplate: eventData.eventTemplate || "Template of the event",
+      eventTheme: eventData.eventTheme || "Theme of the event",
+      organizer: eventData.organizer || "Organizer of the event",
+      logoFirst: null,
+      logoSecond: null,
+      name: null,
+      email: null,
+      position: null,
+      addedAt: null,
+      certificateNumber: `${eventData.prefixCode}${eventData.suffixCode}`,
+      stakeholders: {
+        name: eventData.stakeholders![0].name || "Name of the stakeholder",
+        position:
+          eventData.stakeholders![0].position || "Position of the stakeholder",
+        photoPath: eventData.stakeholders![0].photoPath,
+      },
+      qrCodes: null,
+    });
 
-  const previewHandler = async (
-    values: z.infer<typeof updateEventSchema>,
-  ) => {};
+  const previewHandler = async (values: z.infer<typeof updateEventSchema>) => {
+    setParticipantCertificateData({
+      eventName: values.eventName || "Name of the event",
+      eventDescription: values.description || "Description of the event",
+      activityAt: values.activityAt || "Activity at the event",
+      eventTemplate: values.eventTemplate || "Template of the event",
+      eventTheme: values.eventTheme || "Theme of the event",
+      organizer: values.organizer || "Organizer of the event",
+      logoFirst: null,
+      logoSecond: null,
+      name: null,
+      email: null,
+      position: null,
+      addedAt: null,
+      certificateNumber: `${values.prefixCode}${values.suffixCode}`,
+      stakeholders: {
+        name: eventData.stakeholders![0].name || "Name of the stakeholder",
+        position:
+          eventData.stakeholders![0].position || "Position of the stakeholder",
+        photoPath: eventData.stakeholders![0].photoPath,
+      },
+      qrCodes: null,
+    });
+    setOpenTemplateDialog(true);
+  };
 
   const submitHandler = async (values: z.infer<typeof updateEventSchema>) => {
     setIsLoading(true);
@@ -79,7 +126,7 @@ const UpdateEventForm = ({ eventData }: Props) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(submitHandler)}>
+      <form onSubmit={form.handleSubmit(previewHandler)}>
         <div className="mt-4 grid w-full grid-cols-1 md:grid-cols-2 gap-4">
           <InputFormField
             form={form}
@@ -149,10 +196,53 @@ const UpdateEventForm = ({ eventData }: Props) => {
                 <span className="ml-2">updating...</span>
               </div>
             ) : (
-              "update event"
+              "preview event"
             )}
           </Button>
         </div>
+        <GeneralDialog
+          open={openTemplateDialog}
+          setOpen={setOpenTemplateDialog}
+          title="Template Preview"
+          message="Preview the template before updating the event. If you want to change the template, please select another template."
+          onSuccess={() => {
+            setOpenTemplateDialog(false);
+            form.handleSubmit(submitHandler)();
+          }}
+          successText="update event"
+        >
+          {participantCertificateData !== null ||
+          participantCertificateData !== undefined ? (
+            participantCertificateData.eventTemplate === "DEFAULTDESIGN" ? (
+              ""
+            ) : participantCertificateData.eventTemplate ===
+              "FORMALDESIGN_1" ? (
+              ""
+            ) : participantCertificateData.eventTemplate ===
+              "FORMALDESIGN_2" ? (
+              ""
+            ) : participantCertificateData.eventTemplate ===
+              "FORMALDESIGN_3" ? (
+              ""
+            ) : participantCertificateData.eventTemplate ===
+              "TECHNOLOGYDESIGN_1" ? (
+              <div className="flex flex-col items-center justify-center">
+                <TechnologyDesign1Template
+                  mode="CREATE/EDIT"
+                  participantCertificateData={participantCertificateData}
+                />
+              </div>
+            ) : participantCertificateData.eventTemplate ===
+              "TECHNOLOGYDESIGN_2" ? (
+              <div className="flex flex-col items-center justify-center">
+                ""
+              </div>
+            ) : participantCertificateData.eventTemplate ===
+              "TECHNOLOGYDESIGN_3" ? (
+              ""
+            ) : null
+          ) : null}
+        </GeneralDialog>
       </form>
     </Form>
   );

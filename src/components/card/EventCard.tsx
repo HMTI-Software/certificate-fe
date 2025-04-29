@@ -20,6 +20,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import {
+  ImageUp,
   MoreHorizontal,
   Newspaper,
   SquarePen,
@@ -33,6 +34,7 @@ import { deleteEvent } from "@/actions/mutation/events/deleteEvent";
 import { useRouter } from "next/navigation";
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
 import { EventStakeholderDetailSheet } from "../sheet/form/EventStakeholderDetails";
+import { UploadLogoSheet } from "../sheet/form/UploadLogoSheet";
 
 const EventCard = ({
   event,
@@ -44,6 +46,8 @@ const EventCard = ({
   const router = useRouter();
   const [openDeleteAlert, setOpenDeleteAlert] = useState<boolean>(false);
   const [openStakeholderDetail, setOpenStakeholderDetail] =
+    useState<boolean>(false);
+  const [openUploadLogoSheet, setOpenUploadLogoSheet] =
     useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -122,6 +126,17 @@ const EventCard = ({
                     className="text-xs"
                     onClick={() => {
                       setTimeout(() => {
+                        setOpenUploadLogoSheet(true);
+                      }, 50);
+                    }}
+                  >
+                    <ImageUp />
+                    Upload Logo
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="text-xs"
+                    onClick={() => {
+                      setTimeout(() => {
                         setOpenStakeholderDetail(true);
                       }, 50);
                     }}
@@ -171,6 +186,11 @@ const EventCard = ({
           eventData={event}
           open={openStakeholderDetail}
           setOpen={setOpenStakeholderDetail}
+        />
+        <UploadLogoSheet
+          open={openUploadLogoSheet}
+          setOpen={setOpenUploadLogoSheet}
+          eventData={event}
         />
       </>
     );

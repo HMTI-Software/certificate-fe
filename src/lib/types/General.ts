@@ -197,6 +197,50 @@ export const uploadParticipantByExcelSchema = z.object({
     }),
 });
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024; //FILE SIZE 10 MB ONLY CUY
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/jpg",
+];
+
+export const uploadEventLogoFormSchema = z.object({
+  firstLogo: z
+    .any()
+    .optional()
+    .transform((val) =>
+      val instanceof FileList && val.length > 0 ? val : null,
+    )
+    .refine(
+      (files) => !files || (files instanceof FileList && files.length === 1),
+      { message: "Please upload exactly one file." },
+    )
+    .refine((files) => !files || ACCEPTED_IMAGE_TYPES.includes(files[0].type), {
+      message: "File must be an image (JPEG, JPG, PNG, or WEBP).",
+    })
+    .refine((files) => !files || files[0].size <= MAX_FILE_SIZE, {
+      message: "File must be smaller than 10MB.",
+    }),
+
+  secondLogo: z
+    .any()
+    .optional()
+    .transform((val) =>
+      val instanceof FileList && val.length > 0 ? val : null,
+    )
+    .refine(
+      (files) => !files || (files instanceof FileList && files.length === 1),
+      { message: "Please upload exactly one file." },
+    )
+    .refine((files) => !files || ACCEPTED_IMAGE_TYPES.includes(files[0].type), {
+      message: "File must be an image (JPEG, JPG, PNG, or WEBP).",
+    })
+    .refine((files) => !files || files[0].size <= MAX_FILE_SIZE, {
+      message: "File must be smaller than 10MB.",
+    }),
+});
+
 export const updateStakeholderSchema = z.object({
   eventStakeholderName: z
     .string()

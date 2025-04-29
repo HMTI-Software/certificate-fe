@@ -4,7 +4,7 @@ import { FormatDate } from "@/lib/functions";
 import { IEventParticipantCertificate } from "@/lib/types/Event";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "../ui/card";
 
 type Props = {
@@ -16,10 +16,6 @@ export const TechnologyDesign1Template = ({
   participantCertificateData,
   mode,
 }: Props) => {
-  const [certificateData] = useState<IEventParticipantCertificate | undefined>(
-    participantCertificateData,
-  );
-
   const [stakeholderData] = useState<
     | {
         name: string;
@@ -50,7 +46,9 @@ export const TechnologyDesign1Template = ({
       <CardContent className="relative mx-auto overflow-hidden flex flex-col items-center justify-center w-full h-full ">
         {/* BACKGROUND IMAGE */}
         <Image
-          src={`/template/${certificateData?.eventTemplate || "default"}.png`}
+          src={`/template/${
+            participantCertificateData.eventTemplate || "default"
+          }.png`}
           alt="Event Template"
           width={465}
           height={465}
@@ -66,26 +64,30 @@ export const TechnologyDesign1Template = ({
           )}
           priority
         />
-        <div className="absolute inset-0 flex flex-col justify-center py-5">
+        <div className="absolute inset-0 flex flex-col justify-center py-3 md:py-3 px-15">
           {/* HEADER */}
           <div
             className={cn(
-              "inline-flex justify-center",
+              "flex flex-col justify-center items-center gap-3",
               mode === "CREATE/EDIT"
-                ? "mb-21 md:mb-26"
+                ? participantCertificateData.logoFirst
+                  ? "mb-5 md:mb-5"
+                  : "mb-12"
                 : mode === "PREVIEW"
-                ? "mb-21 md:mb-26"
-                : "mb-21 md:mb-26",
+                ? participantCertificateData.logoFirst
+                  ? "mb-5 md:mb-10"
+                  : "mb-12"
+                : "mb-5 md:mb-10",
             )}
           >
             {/* CERTIFICATE NUMBER */}
             <h1
               className={cn(
                 mode === "CREATE/EDIT"
-                  ? "text-[6px] md:text-[8px]"
+                  ? "text-[6px] md:text-[7px]"
                   : mode === "PREVIEW"
                   ? "text-[8px] md:text-[10px]"
-                  : "text-[10px] md:text-xs",
+                  : "text-[9px] md:text-xs",
                 "font-medium",
                 "text-grayy",
                 "tracking-wider",
@@ -93,9 +95,84 @@ export const TechnologyDesign1Template = ({
             >
               Nomor Sertifikat:{" "}
               {mode === "VIEW"
-                ? certificateData?.certificateNumber
-                : certificateData?.certificateNumber.slice(0, -1) + "PREVIEW"}
+                ? participantCertificateData.certificateNumber
+                : participantCertificateData.certificateNumber.slice(0, -1) +
+                  "PREVIEW"}
             </h1>
+            <div className="flex flex-row justify-between items-center w-full">
+              <div
+                className={cn(
+                  mode === "CREATE/EDIT"
+                    ? "w-[50px] h-[50px]"
+                    : mode === "PREVIEW"
+                    ? "w-[60px] h-[60px]"
+                    : "w-[60px] h-[60px]",
+                )}
+              >
+                {participantCertificateData.logoFirst ? (
+                  <Image
+                    src={
+                      participantCertificateData.logoFirst instanceof FileList
+                        ? URL.createObjectURL(
+                            participantCertificateData.logoFirst[0] as Blob,
+                          )
+                        : "https://certificate-be-production.up.railway.app" +
+                          participantCertificateData.logoFirst
+                    }
+                    width={50}
+                    height={50}
+                    alt="Logo First"
+                    className={cn(
+                      "object-cover object-center  mx-auto",
+                      mode === "CREATE/EDIT"
+                        ? "w-[35px] h-auto md:w-[40px] md:h-auto"
+                        : mode === "PREVIEW"
+                        ? "w-[35px] h-auto md:w-[60px] md:h-auto"
+                        : "w-[50px] h-auto md:w-[60px] md:h-auto",
+                    )}
+                    priority
+                  />
+                ) : (
+                  <div className="w-[50px] h-[50px] invisible" />
+                )}
+              </div>
+              <div
+                className={cn(
+                  mode === "CREATE/EDIT"
+                    ? "w-[50px] h-[50px]"
+                    : mode === "PREVIEW"
+                    ? "w-[60px] h-[60px]"
+                    : "w-[60px] h-[60px]",
+                )}
+              >
+                {participantCertificateData.logoSecond ? (
+                  <Image
+                    src={
+                      participantCertificateData.logoSecond instanceof FileList
+                        ? URL.createObjectURL(
+                            participantCertificateData.logoSecond[0] as Blob,
+                          )
+                        : "https://certificate-be-production.up.railway.app" +
+                          participantCertificateData.logoFirst
+                    }
+                    width={50}
+                    height={50}
+                    alt="Logo Second"
+                    className={cn(
+                      "object-cover object-center  mx-auto",
+                      mode === "CREATE/EDIT"
+                        ? "w-[35px] h-auto md:w-[40px] md:h-auto"
+                        : mode === "PREVIEW"
+                        ? "w-[35px] h-auto md:w-[60px] md:h-auto"
+                        : "w-[50px] h-auto md:w-[60px] md:h-auto",
+                    )}
+                    priority
+                  />
+                ) : (
+                  <div className="w-[50px] h-[50px] invisible" />
+                )}
+              </div>
+            </div>
           </div>
           {/* END HEADER */}
 
@@ -137,7 +214,7 @@ export const TechnologyDesign1Template = ({
                 className={cn(
                   "flex items-center justify-center object-cover object-center rounded-full m-auto",
                   mode === "CREATE/EDIT"
-                    ? ""
+                    ? "w-21 h-21 md:w-20 md:h-20"
                     : mode === "PREVIEW"
                     ? "w-23 h-23 md:w-27 md:h-27"
                     : "w-22 h-22 md:w-27 md:h-27",
@@ -152,7 +229,7 @@ export const TechnologyDesign1Template = ({
                   ? mode === "CREATE/EDIT"
                     ? "mt-10"
                     : "mt-2"
-                  : "mt-10",
+                  : "mt-7",
               )}
             >
               {/* STAKEHOLDER NAME */}
@@ -195,12 +272,12 @@ export const TechnologyDesign1Template = ({
                     : "text-lg md:text-2xl",
                 )}
               >
-                {certificateData?.eventName.toUpperCase()}
+                {participantCertificateData.eventName.toUpperCase()}
               </h1>
               {/* EVENT THEME */}
               <p
                 className={cn(
-                  "font-medium text-center mx-12 h-10 max-w-sm",
+                  "font-medium text-center h-10 max-w-sm",
                   mode === "CREATE/EDIT"
                     ? "text-[9px] md:text-[9px]"
                     : mode === "PREVIEW"
@@ -208,7 +285,7 @@ export const TechnologyDesign1Template = ({
                     : "text-[9px] md:text-xs",
                 )}
               >
-                {certificateData?.eventTheme.toUpperCase()}
+                {participantCertificateData.eventTheme.toUpperCase()}
               </p>
             </div>
           </div>
@@ -217,7 +294,7 @@ export const TechnologyDesign1Template = ({
           {/* FOOTER */}
           <div
             className={cn(
-              "flex flex-col justify-end items-center w-full h-full space-y-1 text-white font-medium tracking-wider",
+              "flex flex-col justify-end items-center w-full h-full space-y-1 text-white font-light tracking-wider",
               mode === "CREATE/EDIT"
                 ? "text-[6px] md:text-[8px]"
                 : mode === "PREVIEW"
@@ -226,14 +303,14 @@ export const TechnologyDesign1Template = ({
             )}
           >
             <span>Diselenggarakan oleh : </span>
-            <span className="mx-10 text-center">
-              {certificateData?.organizer}
+            <span className="text-center">
+              {participantCertificateData.organizer}
             </span>
-            <span className="mx-10 text-center">
+            <span className="text-center">
               Pada Tanggal{" "}
-              {certificateData?.activityAt
+              {participantCertificateData.activityAt
                 ? FormatDate({
-                    children: certificateData.activityAt,
+                    children: participantCertificateData.activityAt,
                     withDay: false,
                   })
                 : "Date not available"}

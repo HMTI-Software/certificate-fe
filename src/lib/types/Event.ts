@@ -9,7 +9,11 @@
  * @property {T | [] | null} data - Data yang dikembalikan dalam respons. Bisa berupa data tipe `T`, array kosong, atau null.
  */
 export interface IEventResponse<
-  T = IEventData | IEventCreate | IEventParticipantCertificate,
+  T =
+    | IEventData
+    | IEventCreate
+    | IEventParticipantCertificate
+    | IEventUploadLogo,
 > {
   success: boolean;
   status: number;
@@ -101,6 +105,11 @@ export interface IEventStakeholder {
   photoPath: string | null;
 }
 
+export interface IEventUploadLogo {
+  logoType: "first" | "second";
+  logoPath: string;
+}
+
 /**
  * Interface untuk mendeskripsikan pemilik acara (event owner).
  *
@@ -148,8 +157,8 @@ export interface IEventParticipantCertificate {
   activityAt: string;
   eventTheme: string;
   organizer: string;
-  logoFirst: string | null;
-  logoSecond: string | null;
+  logoFirst: FileList | string | null;
+  logoSecond: FileList | string | null;
   eventTemplate: string;
   name: string | null;
   email: string | null;
