@@ -1,6 +1,7 @@
 "use client";
 
 import SignUpForm from "@/components/auth/signup/SignUpForm";
+import Link from "next/link";
 
 const SignupPage = () => {
   return (
@@ -11,6 +12,12 @@ const SignupPage = () => {
           <p>Please create an account to continue.</p>
         </div>
         <SignUpForm />
+        <div className="inline-flex text-sm justify-center mt-3 mx-auto">
+          <p>Already have a account?</p>
+          <Link href="/auth/sign-in" className="underline cursor-pointer ml-1">
+            Login Here!
+          </Link>
+        </div>
       </div>
     </div>
   );

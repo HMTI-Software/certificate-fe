@@ -18,7 +18,15 @@ export default auth((req) => {
   const isApiRoute: boolean = nextUrl.pathname.startsWith(apiRoute);
   const isApiAuthRoute: boolean = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute: boolean = publicRoutes.includes(nextUrl.pathname);
+  const isCertificateRoute: boolean =
+    nextUrl.pathname.startsWith("/certificates");
   const isAuthRoute: boolean = authRoutes.includes(nextUrl.pathname);
+
+  if (isCertificateRoute) {
+    if (!isLoggedIn) {
+      return;
+    }
+  }
 
   // Untuk API auth routes (NextAuth), biarkan lewat
   if (isApiAuthRoute) return;

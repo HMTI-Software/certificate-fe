@@ -47,7 +47,7 @@ export const VerifyEmail = ({ session }: { session: IAuthSession }) => {
       <div className="max-w-lg flex flex-col gap-1">
         <div className="flex flex-col text-2xl">
           {isLoading ? (
-            <ThreeCircleLoading message="waiting verification..." />
+            <ThreeCircleLoading message="waiting for verification..." />
           ) : (
             <>
               {isVerify ? (

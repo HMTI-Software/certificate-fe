@@ -4,7 +4,7 @@ import {
 } from "@/lib/types/Event";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(
+export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ eventUid: string; participantUid: string }> },
 ) {

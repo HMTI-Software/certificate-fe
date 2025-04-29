@@ -37,7 +37,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
               data.data?.token as string,
               process.env.JWT_SECRET as string,
             ) as IJWTPayload;
-            console.log("userData", userData);
 
             return {
               id: userData.idUser,
@@ -60,8 +59,17 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
       if (user) {
+        token = {
+          ...token,
+          ...user,
+          email: user.email ?? "",
+          isVerifiedEmail: user.isVerifiedEmail,
+        };
+      }
+      if (trigger === "update" && user) {
+        console.log("JWT Update Trigger:", user);
         token = {
           ...token,
           ...user,

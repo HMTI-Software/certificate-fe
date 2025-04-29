@@ -12,12 +12,6 @@ const SignInPage = () => {
           <p>Please sign in to continue</p>
         </div>
         <SignInForm />
-        <div className="flex gap-2 w-full items-center max-w-sm py-6">
-          <div className="border border-black w-full"></div>
-          <p className="whitespace-nowrap">or login using</p>
-          <div className="border border-black w-full"></div>
-        </div>
-        <OAuthGoogle />
         <div className="inline-flex text-sm justify-center mt-3">
           <p>Don&#39;t have an account yet?</p>
           <Link href="/auth/sign-up" className="underline cursor-pointer ml-1">

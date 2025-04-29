@@ -13,7 +13,7 @@ const getParticipantCertificateData = async (
     const res = await fetch(
       `${process.env.FRONTEND_URL}/api/events/${eventUid}/participants/${participantUid}`,
       {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
@@ -78,7 +78,7 @@ const CertificateStakeholderPage = async ({
       ) : participantCertificateData.eventTemplate === "FORMALDESIGN_3" ? (
         "FORMAL DESIGN 3"
       ) : participantCertificateData.eventTemplate === "TECHNOLOGYDESIGN_1" ? (
-        <div className="flex flex-col items-center justify-center min-h-screen ">
+        <div className="flex flex-col items-center justify-start mt-10 md:justify-center md:mt-8">
           <TechnologyDesign1Template
             participantCertificateData={participantCertificateData}
             mode="VIEW"

@@ -72,13 +72,13 @@ const AuthButton = ({
       {isLoading ? (
         <LoadingCircle />
       ) : mode == "signIn" ? (
-        "Sign In"
+        "sign in"
       ) : mode == "signUp" ? (
-        "Sign Up"
+        "sign up"
       ) : mode == "forgotPassword" ? (
-        "Send Email"
+        "send email"
       ) : (
-        "Reset Password"
+        "reset password"
       )}
     </button>
   );

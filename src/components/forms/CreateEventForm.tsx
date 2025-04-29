@@ -82,6 +82,24 @@ const CreateEventForm = () => {
       },
       qrCodes: null,
     });
+  const previewHandler = async (values: z.infer<typeof createEventSchema>) => {
+    setParticipantCertificateData({
+      ...participantCertificateData,
+      eventName: values.eventName,
+      eventDescription: values.eventDescription,
+      activityAt: values.eventDate,
+      eventTemplate: values.eventTemplate,
+      eventTheme: values.eventTheme,
+      organizer: values.eventOrganizer,
+      stakeholders: {
+        name: values.eventStakeholderName,
+        position: values.eventStakeholderPosition,
+        photoPath: null,
+      },
+      certificateNumber: `${values.eventCertificatePrefixCode}${values.eventCertificateSuffixCode}`,
+    });
+    setOpenTemplateDialog(true);
+  };
   const submitHandler = async (values: z.infer<typeof createEventSchema>) => {
     setIsLoading(true);
     try {
@@ -110,7 +128,7 @@ const CreateEventForm = () => {
   return (
     <>
       <Form {...form}>
-        <form>
+        <form onSubmit={form.handleSubmit(previewHandler)} className="w-full">
           <div className="mt-4 grid w-full grid-cols-1 md:grid-cols-2 gap-4">
             <InputFormField
               form={form}
@@ -184,29 +202,9 @@ const CreateEventForm = () => {
               placeholder="Manager"
             />
             <Button
-              type="button"
+              type="submit"
               disabled={isLoading}
               className="md:col-span-2 min-h-10 mt-4 w-full bordered hover:bg-purplee/90 border-b-4 bg-purplee hover:border-b-1 text-black"
-              onClick={() => {
-                setOpenTemplateDialog(true);
-                setParticipantCertificateData({
-                  ...participantCertificateData,
-                  eventName: form.getValues().eventName || "rerer",
-                  eventDescription: form.getValues().eventDescription,
-                  activityAt: form.getValues().eventDate,
-                  eventTemplate: form.getValues().eventTemplate,
-                  eventTheme: form.getValues().eventTheme,
-                  organizer: form.getValues().eventOrganizer,
-                  stakeholders: {
-                    name: form.getValues().eventStakeholderName,
-                    position: form.getValues().eventStakeholderPosition,
-                    photoPath: null,
-                  },
-                  certificateNumber: `${
-                    form.getValues().eventCertificatePrefixCode
-                  }${form.getValues().eventCertificateSuffixCode}`,
-                });
-              }}
             >
               {isLoading ? <LoadingCircle /> : "preview template"}
             </Button>
@@ -222,25 +220,35 @@ const CreateEventForm = () => {
             }}
             successText="create event"
           >
-            {form.getValues().eventTemplate === "DEFAULTDESIGN" ? (
-              <DefaultDesignTemplate eventData={form.getValues()} />
-            ) : form.getValues().eventTemplate === "FORMALDESIGN_1" ? (
-              <FormalDesign1Template eventData={form.getValues()} />
-            ) : form.getValues().eventTemplate === "FORMALDESIGN_2" ? (
-              <FormalDesign2Template eventData={form.getValues()} />
-            ) : form.getValues().eventTemplate === "FORMALDESIGN_3" ? (
-              <FormalDesign3Template eventData={form.getValues()} />
-            ) : form.getValues().eventTemplate === "TECHNOLOGYDESIGN_1" ? (
-              <TechnologyDesign1Template
-                mode="CREATE/EDIT"
-                participantCertificateData={participantCertificateData}
-              />
-            ) : form.getValues().eventTemplate === "TECHNOLOGYDESIGN_2" ? (
-              <div className="flex flex-col items-center justify-center">
-                <TechnologyDesign2Template eventData={form.getValues()} />
-              </div>
-            ) : form.getValues().eventTemplate === "TECHNOLOGYDESIGN_3" ? (
-              <TechnologyDesign3Template eventData={form.getValues()} />
+            {participantCertificateData !== null ? (
+              participantCertificateData.eventTemplate === "DEFAULTDESIGN" ? (
+                <DefaultDesignTemplate eventData={form.getValues()} />
+              ) : participantCertificateData.eventTemplate ===
+                "FORMALDESIGN_1" ? (
+                <FormalDesign1Template eventData={form.getValues()} />
+              ) : participantCertificateData.eventTemplate ===
+                "FORMALDESIGN_2" ? (
+                <FormalDesign2Template eventData={form.getValues()} />
+              ) : participantCertificateData.eventTemplate ===
+                "FORMALDESIGN_3" ? (
+                <FormalDesign3Template eventData={form.getValues()} />
+              ) : participantCertificateData.eventTemplate ===
+                "TECHNOLOGYDESIGN_1" ? (
+                <div className="flex flex-col items-center justify-center">
+                  <TechnologyDesign1Template
+                    mode="CREATE/EDIT"
+                    participantCertificateData={participantCertificateData}
+                  />
+                </div>
+              ) : participantCertificateData.eventTemplate ===
+                "TECHNOLOGYDESIGN_2" ? (
+                <div className="flex flex-col items-center justify-center">
+                  <TechnologyDesign2Template eventData={form.getValues()} />
+                </div>
+              ) : participantCertificateData.eventTemplate ===
+                "TECHNOLOGYDESIGN_3" ? (
+                <TechnologyDesign3Template eventData={form.getValues()} />
+              ) : null
             ) : null}
           </GeneralDialog>
         </form>
