@@ -51,7 +51,6 @@ export function FileUploadField<T extends FieldValues>({
               className={`bordered placeholder:text-grayy rounded-md min-h-10 border-b-4 border-black hover:border-1 w-full ${
                 form.formState.errors[name] ? "border-redd" : ""
               } ${className}`}
-              required
             />
           </FormControl>
           <FormDescription className="text-xs">{description}</FormDescription>

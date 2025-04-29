@@ -55,6 +55,7 @@ const CertificateStakeholderPage = async ({
     eventUid,
     participantUid,
   );
+
   if (!participantCertificateData || participantCertificateData === null) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
