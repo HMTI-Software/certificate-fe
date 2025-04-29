@@ -1,0 +1,175 @@
+[
+  {
+    "page": "Create Event",
+    "id": "create-event",
+    "url": "/docs/create-event",
+    "desc": "create your frist event using this tutorial",
+    "content" : [
+      {
+        "content": "Login or Sign up to get started"
+      },
+      {
+        "content": "Sellect the packages and pay the bill to get acces on our dashboard"
+      },
+      {
+        "content": "After you pay the bill, you can add your first event on the dashbord, and fill all of the field required"
+      },
+      {
+        "content": "Check your preview after you finishing the form, if you want to change you can just close it and change it from field labeled 'event tamplate' "
+      },
+      {
+        "content": "click create event and wait until the event created by the server"
+      },
+      {
+        "content": "after the event ready you can see through the event dashboard"
+      }
+    ]
+  },
+  {
+    "page": "Manage Participant",
+    "id": "manage-participant",
+    "url": "/docs/manage-participant",
+    "desc": "manage your participants using this tutorial",
+    "content" : [
+      {
+        "content": "enter your event you want to manage your participant"
+      },
+      {
+        "content": "look down into the table labeled 'participants table' and search for the participant you want to manage",
+        "span": {
+          "color": "purplee",
+          "content": "if you dont see the participant it means you havent added any participant yet"
+        }
+      },
+      {
+        "content": "theres two ways for you to add participant, you can add it manually or import an exle file into the web",
+        "span": {
+          "color": "purplee",
+          "content": "look at the button labeled 'add participant', if you click this button you will be the add the participant manually, but if you click another button with paper icon it would be making you import an excel file"
+        },
+        "section": [
+          {
+            "title": "Add manually",
+            "id": "manage-participant-add-manually",
+            "content": [
+              {
+                "content": "enter the number you want make your own participant",
+                "span": {
+                  "color": "yelloww",
+                  "content": "you still can add the participant later, but this is the first step" 
+                }
+              },
+              {
+                "content": "fill the field require until you finished, and the wait untill server throwing a success message"
+              }
+            ]
+          },
+          {
+            "title": "Add by Excel File",
+            "id": "manage-participant-add-by-excel-file",
+            "content": [
+              {
+                "content": "you should make a excel file with these columns with header format like this 'name', 'email', 'position' ",
+                "span": {
+                  "color": "yelloww",
+                  "content": "if your format not like this, the server will throw an error" 
+                }
+              },
+              {
+                "content": "once you done with that, just wait until server throwing a success message, and heres our participant in participants table"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "page": "Download QR Code",
+    "id": "qr-code",
+    "url": "/docs/qr-code",
+    "desc": "donwload your qr code using this tutorial",
+    "content" : [
+      {
+        "content": "pick the user you want to download the qr code or you can just download all of them"
+      },
+      {
+        "content": "click the button you want to download the qr code"
+      },
+      {
+        "content": "after you click the button dialog bar will appear to your screen and ask you for the file ext you want",
+        "span": { 
+          "content": "click download as, and choose the file extension you want to download it",
+          "color": "purplee"
+        }
+      }
+    ]
+  },
+  {
+    "page": "Manage your Event",
+    "id": "manage-event",
+    "url": "/docs/manage-event",
+    "desc": "mannage your event more easy with this tutorial",
+    "content" : [
+      {
+        "content": "enter the event you want to manage"
+      },
+      {
+        "content": "click the small button in the left button of the event banner"
+      },
+      {
+        "content": "theres a menu you can choose to manage the event"
+      },
+      {
+        "content": "after you click the button dialog bar will appear to your screen and ask you for the file ext you want",
+        "span": { 
+          "content": "click download as, and choose the file extension you want to download it",
+          "color": "purplee"
+        },
+        "section": [
+          {
+            "title": "SteakHolder Management",
+            "id": "manage-event-steakholder",
+            "content": [
+              {
+                "content": "click the button says steakholder details"
+              },
+              {
+                "content": "you can edit the steak holder and add the photo or do somethings to manage your event steakholder",
+                "span": {
+                  "color": "yelloww",
+                  "content": "dont forget to click update data button after you make any changes here"
+                }
+              }
+            ]
+          },
+          {
+            "title": "Tampalte Preview",
+            "id": "manage-event-preview",
+            "content": [
+              {
+                "content": "theres you can edit your tamplate of your event"
+              }
+            ]
+          },
+          {
+            "title": "Edit Event",
+            "id": "manage-event-edit",
+            "content": [
+              {
+                "content": "click the button 'edit' in the menu you click before"
+              },
+              {
+                "content": "edit the data you want to make changes",
+                "span": {
+                  "color": "yelloww",
+                  "content" : "dont forget to click update data button after you make any changes here"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
