@@ -4,7 +4,7 @@ import { FormatDate } from "@/lib/functions";
 import { IEventParticipantCertificate } from "@/lib/types/Event";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Card, CardContent } from "../ui/card";
 
 type Props = {

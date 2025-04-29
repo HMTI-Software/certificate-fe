@@ -214,7 +214,7 @@ export const UploadLogoSheet = ({ open, setOpen, eventData }: Props) => {
             </div>
           ) : participantCertificateData.eventTemplate ===
             "TECHNOLOGYDESIGN_2" ? (
-            <div className="flex flex-col items-center justify-center">""</div>
+            ""
           ) : participantCertificateData.eventTemplate ===
             "TECHNOLOGYDESIGN_3" ? (
             ""
