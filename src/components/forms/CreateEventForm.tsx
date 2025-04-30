@@ -213,7 +213,7 @@ const CreateEventForm = () => {
             open={openTemplateDialog}
             setOpen={setOpenTemplateDialog}
             title="Template Preview"
-            message="Preview the template before creating the event. If you want to change the template, please select another template."
+            message="Preview the template before creating the event."
             onSuccess={() => {
               setOpenTemplateDialog(false);
               form.handleSubmit(submitHandler)();

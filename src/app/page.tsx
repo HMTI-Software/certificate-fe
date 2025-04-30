@@ -4,11 +4,11 @@ import PricingButton from "@/components/button/PricingButton";
 import ContactCard from "@/components/card/ContactCard";
 import PricingCard from "@/components/card/PricingCard";
 import DashboardView from "@/components/DashboardView";
+import Footer from "@/components/Footer";
 import LandingPageNavbar from "@/components/LandingPageNavbar";
 import { IAdminContact, IPricingPackage } from "@/lib/types/General";
-import { BadgeCheck, SquareCheckBig } from "lucide-react";
+import { SquareCheckBig } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 /*
   This is the Landing Page Component
@@ -137,7 +137,7 @@ const LandingPage = async () => {
           {/* Hero Section */}
           <section
             id="hero"
-            className="relative w-full h-auto md:h-auto lg:h-[700px] px-10 md:px-20 lg:px-40 flex flex-col items-center gap-8 pt-28"
+            className="relative w-full h-auto md:h-auto lg:h-[700px] px-10 md:px-20 lg:px-40 flex flex-col items-center gap-8 pt-10 md:pt-28"
           >
             <div className="inline-flex border-1 border-black rounded-lg p-1 px-4 gap-1 items-center">
               <Image
@@ -185,25 +185,21 @@ const LandingPage = async () => {
                 alt="logo-hmti-udinus"
               />
               <h1 className="font-bold text-4xl">About</h1>
-              <div className="flex flex-col gap-4 md:gap-10">
+              <div className="flex flex-col gap-4 md:gap-3">
                 <p className="font-normal text-lg md:text-lg text-center">
-                  Selamat datang di Certify, aplikasi inovatif yang dikembangkan
-                  oleh Himpunan Mahasiswa Teknik Informatika (HMTI). Certify
-                  dirancang khusus untuk memenuhi kebutuhan organisasi dan
-                  individu dalam menghasilkan QR Code untuk sertifikat. Dengan
-                  kemudahan penggunaan dan efisiensi yang tinggi, aplikasi ini
-                  memungkinkan pengguna untuk dengan cepat dan mudah membuat QR
-                  Code yang dapat diintegrasikan ke dalam sertifikat berbagai
-                  kegiatan.
+                  Welcome to Certify – a smart and easy-to-use tool developed by
+                  the Informatics Student Association (HMTI) to help you
+                  generate QR Codes for certificates in just a few clicks.
                 </p>
                 <p className="font-normal text-lg md:text-lg text-center">
-                  Certify hadir sebagai solusi praktis untuk mendukung kegiatan
-                  organisasi, seminar, pelatihan, dan acara-acara lainnya.
-                  Dengan hanya beberapa langkah sederhana, Anda dapat
-                  menghasilkan QR Code yang unik dan aman, yang dapat dipindai
-                  untuk verifikasi keaslian sertifikat. Aplikasi ini tidak hanya
-                  meningkatkan profesionalisme, tetapi juga memberikan kemudahan
-                  akses informasi bagi penerima sertifikat.
+                  Whether you&#39;re handling a seminar, training, or any kind
+                  of organizational event, Certify lets you create secure,
+                  unique QR Codes that link directly to certificate data. This
+                  makes it easier to verify authenticity, track participants,
+                  and maintain a professional standard without the hassle of
+                  manual work. Certify was built with practicality and
+                  user-friendliness in mind – no steep learning curve, no
+                  complicated setup, just quick results.
                 </p>
               </div>
             </div>
@@ -216,14 +212,24 @@ const LandingPage = async () => {
             <div className="flex flex-col items-center gap-4">
               <h1 className="font-bold text-4xl text-center">Pricing</h1>
               <p className="text-center text-lg md:text-lg font-normal pb-7">
-                Discover our competitive pricing packages, each designed to
-                offer unique features that cater to your event&#39;s specific
-                needs. Explore the benefits and find the perfect fit for your
-                budget and requirements.
+                Customize your event needs with our competitive and benefit-rich
+                pricing packages.
               </p>
-              <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-1 md:gap-4">
+              <div className="w-full hidden md:grid grid-cols-1 md:grid-cols-3 gap-1 md:gap-4">
                 {pricingPackage.map((packageData, index) => {
                   return <PricingCard key={index} packageData={packageData} />;
+                })}
+              </div>
+              <div className="md:hidden flex flex-row gap-2 w-full overflow-x-auto snap-x snap-mandatory scrollbar-hide py-2 px-4">
+                {pricingPackage.map((packageData, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="flex-none w-[290px] snap-center"
+                    >
+                      <PricingCard packageData={packageData} />
+                    </div>
+                  );
                 })}
               </div>
             </div>
@@ -237,7 +243,8 @@ const LandingPage = async () => {
               <div className="flex flex-col items-center gap-2">
                 <h1 className="font-bold text-4xl">Contact</h1>
                 <p className="font-normal text-lg text-center">
-                  Contact us to get Something Special from Us
+                  Contact us now and get special offers not available anywhere
+                  else.
                 </p>
               </div>
               {/* Contact Card Desktop*/}
@@ -275,64 +282,7 @@ const LandingPage = async () => {
         </div>
       </main>
       {/* Footer Section */}
-      <footer className="w-full bg-black text-white px-6 md:px-40 pt-20 pb-5">
-        <div className="flex flex-col items-center md:items-start gap-6">
-          {/* Logo */}
-          <div className="flex flex-row items-center gap-2">
-            <BadgeCheck className="mt-[2px]" />
-            <h1 className="font-bold text-lg">CertifiedCertification</h1>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 w-full text-center md:text-left">
-            {/* Menu */}
-            <div className="flex flex-row md:items-start md:justify-normal justify-center gap-2">
-              <Link href="/#about" className="text-sm hover:underline">
-                About
-              </Link>
-              <Link href="/#price" className="text-sm hover:underline">
-                Price
-              </Link>
-              <Link href="/#contact" className="text-sm hover:underline">
-                Contact
-              </Link>
-            </div>
-            {/* Contact */}
-            <div className="flex flex-col gap-2">
-              <h1 className="font-bold text-xl">Contact</h1>
-              <Link href="/#contact" className="text-sm hover:underline">
-                Contact Us (HMTI)
-              </Link>
-              <Link href="/#contact" className="text-sm hover:underline">
-                Contact Person
-              </Link>
-            </div>
-            {/* Social Media */}
-            <div className="flex flex-col gap-2">
-              <h1 className="font-bold text-xl">Social Media</h1>
-              <Link href="/#contact" className="text-sm hover:underline">
-                Instagram
-              </Link>
-              <Link href="/#contact" className="text-sm hover:underline">
-                WhatsApp
-              </Link>
-            </div>
-            {/* Docs */}
-            <div className="flex flex-col gap-2">
-              <h1 className="font-bold text-xl">Docs</h1>
-              <Link href="/docs" className="text-sm hover:underline">
-                Docs
-              </Link>
-              <Link href="/docs" className="text-sm hover:underline">
-                API
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="flex justify-center items-center pt-8">
-          <h1 className="text-sm text-center mt-4">
-            ©2025 HMTI Software Team. All rights reserved.
-          </h1>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 };

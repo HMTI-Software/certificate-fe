@@ -39,7 +39,7 @@ const DashboardPage = async () => {
             })}
             <Link
               href="/events/create"
-              className="py-20 rounded-md bordered border-b-4 hover:border-b cursor-pointer"
+              className="-order-1 md:order-none py-20 rounded-md bordered border-b-4 hover:border-b cursor-pointer"
             >
               <CardContent className="flex flex-col items-center justify-center h-full">
                 <Plus className="text-center" />

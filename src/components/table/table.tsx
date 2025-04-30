@@ -320,7 +320,8 @@ export function GeneralTable<TData, TValue>({
                 className="bordered  rounded-md bg-yelloww hover:bg-yelloww text-black"
                 onClick={() => setOpenDownloadDialog(true)}
               >
-                download all <QrCode size={16} />
+                <span className="hidden md:block">download all</span>
+                <QrCode size={16} />
               </Button>
               <Button
                 className="bordered  rounded-md bg-redd hover:bg-redd/90 text-black"
@@ -331,7 +332,7 @@ export function GeneralTable<TData, TValue>({
                   <LoadingCircle />
                 ) : (
                   <>
-                    <span>delete all</span>
+                    <span className="hidden md:block">delete all</span>
                     <Trash2 size={16} />
                   </>
                 )}
@@ -340,14 +341,14 @@ export function GeneralTable<TData, TValue>({
             <GeneralDialog
               open={openDownloadDialog}
               setOpen={setOpenDownloadDialog}
-              message="This action will download All QR code for the event participant. Please select the format you want to download."
+              message="Please select the format you want to download."
               title="Download All QR Code"
               onSuccess={handleDownload}
               successText="download"
             >
               <div className="inline-flex flex-row w-full">
                 <div className=" bg-purplee bordered-nonhover rounded-lg rounded-r-none text-black flex w-full">
-                  <QrCode className="mr-2 my-auto" />
+                  <QrCode className="mr-2 my-auto w-6 " />
                   <span className="my-auto text-xs md:text-sm">
                     {eventName}
                   </span>

@@ -16,7 +16,7 @@ const EventParticipantColumn: ColumnDef<IParticipantDataTable>[] = [
       const pageIndex = table.getState().pagination.pageIndex;
       const pageSize = table.getState().pagination.pageSize;
       return (
-        <div className="text-center text-xs md:text-sm">
+        <div className="text-center text-sm ">
           {pageIndex * pageSize + row.index + 1}
         </div>
       );
@@ -32,7 +32,7 @@ const EventParticipantColumn: ColumnDef<IParticipantDataTable>[] = [
       const { certificateNumber } = data;
       return (
         <div className="text-center text-xs md:text-sm flex flex-col items-start">
-          <h1>{row.getValue("name")}</h1>
+          <h1 className="text-sm">{row.getValue("name")}</h1>
           <p className="text-[10px] md:text-xs">{certificateNumber}</p>
         </div>
       );

@@ -30,10 +30,14 @@ const GeneralAlert = ({
 }: GeneralAlertProps) => {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogContent className="bordered-nonhover">
+      <AlertDialogContent className="bordered-nonhover p-5 md:p-6">
         <AlertDialogHeader>
-          <AlertDialogTitle>{title}</AlertDialogTitle>
-          <AlertDialogDescription>{message}</AlertDialogDescription>
+          <AlertDialogTitle className="text-sm md:text-lg">
+            {title}
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-xs md:text-sm">
+            {message}
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="flex flex-row justify-end">
           <AlertDialogCancel

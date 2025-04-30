@@ -44,7 +44,9 @@ interface ISidebarLink {
 const DocsPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("");
-  const [filteredSidebarLinks, setFilteredSidebarLinks] = useState<ISidebarLink[]>([]);
+  const [filteredSidebarLinks, setFilteredSidebarLinks] = useState<
+    ISidebarLink[]
+  >([]);
   const [copied, setCopied] = useState<string | boolean>(false);
   const [rawData, setRawData] = useState<IContent[]>([]);
 
@@ -53,55 +55,55 @@ const DocsPage = () => {
       name: "Create Event",
       url: "/docs/#create-event",
       id: "create-event",
-      type: "main"
+      type: "main",
     },
     {
       name: "Manage Participant",
       url: "/docs/#manage-participant",
       id: "manage-participant",
-      type: "main"
+      type: "main",
     },
     {
       name: "Add Participant Manually",
       type: "sub",
       url: "/docs/#manage-participant-add-manually",
-      id: "manage-participant-add-manually"
+      id: "manage-participant-add-manually",
     },
     {
       name: "Add Participant by Excel File",
       type: "sub",
       url: "/docs/#manage-participant-add-by-excel-file",
-      id: "manage-participant-add-by-excel-file"
+      id: "manage-participant-add-by-excel-file",
     },
     {
       name: "Download QR Code",
       url: "/docs/#qr-code",
       id: "qr-code",
-      type: "main"
+      type: "main",
     },
     {
       name: "Manage Event",
       url: "/docs/#manage-event",
       id: "manage-event",
-      type: "main"
+      type: "main",
     },
     {
       name: "Manage Event Steakholder",
       type: "sub",
       url: "/docs/#manage-event-steakholder",
-      id: "manage-event-steakholder"
+      id: "manage-event-steakholder",
     },
     {
       name: "Manage Event Preview",
       type: "sub",
       url: "/docs/#manage-event-preview",
-      id: "manage-event-preview"
+      id: "manage-event-preview",
     },
     {
       name: "Edit Event",
       type: "sub",
       url: "/docs/#manage-event-edit",
-      id: "manage-event-edit"
+      id: "manage-event-edit",
     },
   ];
 
@@ -109,14 +111,14 @@ const DocsPage = () => {
     const handleScroll = (): void => {
       const sections = document.querySelectorAll<HTMLElement>("[data-section]");
       let currentActiveSection = "";
-      
+
       sections.forEach((section) => {
         const sectionTop = section.getBoundingClientRect().top;
         if (sectionTop < 200) {
           currentActiveSection = section.id;
         }
       });
-      
+
       setActiveSection(currentActiveSection);
     };
 
@@ -130,21 +132,21 @@ const DocsPage = () => {
 
   const copyToClipboard = (id: string): void => {
     const url = `${window.location.origin}/docs/#${id}`;
-    navigator.clipboard.writeText(url).catch(err => {
-      console.error('Failed to copy URL:', err);
+    navigator.clipboard.writeText(url).catch((err) => {
+      console.error("Failed to copy URL:", err);
     });
     setCopied(id);
-    
+
     setTimeout(() => {
       setCopied(false);
     }, 2000);
   };
 
   useEffect(() => {
-    fetch('/static/Docs.json')
+    fetch("/static/Docs.json")
       .then((res) => res.json())
       .then((json) => setRawData(json))
-      .catch((err) => console.error('Error loading documentation data:', err));
+      .catch((err) => console.error("Error loading documentation data:", err));
   }, []);
 
   if (!rawData) return null;
@@ -164,8 +166,8 @@ const DocsPage = () => {
       </div>
 
       {/* "Back to top" button */}
-      <Link 
-        href="#" 
+      <Link
+        href="#"
         className="rounded-full bg-yelloww p-3 right-6 bottom-6 fixed shadow-lg border border-black hover:bg-yellow-200 transition-all duration-300"
         aria-label="Back to top"
       >
@@ -175,7 +177,6 @@ const DocsPage = () => {
       <div className="flex mt-20 items-stretch lg:px-20 xl:px-40 2xl:px-80 md:px-12 px-4">
         {/* Sidebar - desktop */}
         <div className="hidden lg:flex flex-col w-64 pr-8 sticky top-20 self-start h-screen overflow-y-auto pb-20 border-r border-gray-200">
-        
           <nav aria-label="Documentation navigation">
             <ul className="flex flex-col gap-3 list-none m-0 p-0">
               {filteredSidebarLinks.map((link, index) => (
@@ -183,12 +184,22 @@ const DocsPage = () => {
                   <Link
                     className={`
                       ${link.type === "sub" ? "pl-4 text-sm" : "font-medium"} 
-                      ${activeSection === link.id ? "text-blue-600 font-semibold" : "text-gray-700"} 
+                      ${
+                        activeSection === link.id
+                          ? "text-blue-600 font-semibold"
+                          : "text-gray-700"
+                      } 
                       py-1.5 pr-5 block whitespace-nowrap border-l-2 duration-300 hover:text-blue-600
-                      ${activeSection === link.id ? "border-l-blue-600" : "border-l-transparent hover:border-l-gray-300"}
+                      ${
+                        activeSection === link.id
+                          ? "border-l-blue-600"
+                          : "border-l-transparent hover:border-l-gray-300"
+                      }
                     `}
                     href={link.url}
-                    aria-current={activeSection === link.id ? "page" : undefined}
+                    aria-current={
+                      activeSection === link.id ? "page" : undefined
+                    }
                   >
                     {link.name}
                   </Link>
@@ -199,7 +210,7 @@ const DocsPage = () => {
         </div>
 
         {/* Sidebar - mobile */}
-        <div 
+        <div
           className={`
             fixed z-40 top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:hidden
             ${isOpen ? "translate-x-0" : "-translate-x-full"}
@@ -207,7 +218,6 @@ const DocsPage = () => {
           aria-hidden={!isOpen}
         >
           <div className="p-4 h-full overflow-y-auto">
-
             <nav aria-label="Mobile documentation navigation">
               <ul className="flex flex-col gap-3 list-none m-0 p-0">
                 {filteredSidebarLinks.map((link, index) => (
@@ -215,13 +225,23 @@ const DocsPage = () => {
                     <Link
                       className={`
                         ${link.type === "sub" ? "pl-4 text-sm" : "font-medium"} 
-                        ${activeSection === link.id ? "text-blue-600 font-semibold" : "text-gray-700"} 
+                        ${
+                          activeSection === link.id
+                            ? "text-blue-600 font-semibold"
+                            : "text-gray-700"
+                        } 
                         py-1.5 pr-5 block whitespace-nowrap border-l-2 duration-300 hover:text-blue-600
-                        ${activeSection === link.id ? "border-l-blue-600" : "border-l-transparent hover:border-l-gray-300"}
+                        ${
+                          activeSection === link.id
+                            ? "border-l-blue-600"
+                            : "border-l-transparent hover:border-l-gray-300"
+                        }
                       `}
                       href={link.url}
                       onClick={() => setIsOpen(false)}
-                      aria-current={activeSection === link.id ? "page" : undefined}
+                      aria-current={
+                        activeSection === link.id ? "page" : undefined
+                      }
                     >
                       {link.name}
                     </Link>
@@ -234,7 +254,7 @@ const DocsPage = () => {
 
         {/* Overlay for mobile sidebar */}
         {isOpen && (
-          <div 
+          <div
             className="fixed inset-0 bg-black bg-opacity-30 z-30 lg:hidden"
             onClick={() => setIsOpen(false)}
             role="presentation"
@@ -244,10 +264,10 @@ const DocsPage = () => {
         {/* Main content */}
         <main className="flex-1 lg:pl-10 md:pl-6 pl-2">
           {rawData.map((item, index) => (
-            <article 
-              key={index} 
-              id={item.id} 
-              data-section={item.id} 
+            <article
+              key={index}
+              id={item.id}
+              data-section={item.id}
               className="mb-24"
             >
               <header className="mb-10">
@@ -255,7 +275,7 @@ const DocsPage = () => {
                   <h1 className="font-bold text-3xl text-gray-900">
                     {item.page}
                   </h1>
-                  <button 
+                  <button
                     onClick={() => copyToClipboard(item.id)}
                     className="opacity-0 group-hover:opacity-100 transition-opacity"
                     aria-label={`Copy link to ${item.page}`}
@@ -263,7 +283,10 @@ const DocsPage = () => {
                     {copied === item.id ? (
                       <Check size={18} className="text-green-500" />
                     ) : (
-                      <Copy size={18} className="text-gray-500 hover:text-gray-700" />
+                      <Copy
+                        size={18}
+                        className="text-gray-500 hover:text-gray-700"
+                      />
                     )}
                   </button>
                 </div>
@@ -282,7 +305,7 @@ const DocsPage = () => {
                       <p className="text-gray-800">{doc.content}</p>
                       {doc.span && (
                         <div className="mt-4 mb-2">
-                          <span 
+                          <span
                             className={`bg-${doc.span.color} p-4 block rounded-md border border-gray-300 shadow-sm hover:shadow-md transition-all duration-300`}
                           >
                             {doc.span.content}
@@ -292,37 +315,50 @@ const DocsPage = () => {
                       {doc.section && (
                         <div className="flex flex-col gap-6 mt-8">
                           {doc.section.map((section, sectionIdx) => (
-                            <section 
-                              className="flex flex-col gap-4 text-gray-700 hover:text-gray-900 duration-300" 
-                              key={sectionIdx} 
+                            <section
+                              className="flex flex-col gap-4 text-gray-700 hover:text-gray-900 duration-300"
+                              key={sectionIdx}
                               id={section.id}
                               data-section={section.id}
                             >
                               <hr className="border-b my-6 border-gray-200 w-full" />
                               <div className="flex items-center gap-2 group">
-                                <h2 className="font-bold text-2xl">{section.title}</h2>
-                                <button 
+                                <h2 className="font-bold text-2xl">
+                                  {section.title}
+                                </h2>
+                                <button
                                   onClick={() => copyToClipboard(section.id)}
                                   className="opacity-0 group-hover:opacity-100 transition-opacity"
                                   aria-label={`Copy link to ${section.title}`}
                                 >
                                   {copied === section.id ? (
-                                    <Check size={16} className="text-green-500" />
+                                    <Check
+                                      size={16}
+                                      className="text-green-500"
+                                    />
                                   ) : (
-                                    <Copy size={16} className="text-gray-500 hover:text-gray-700" />
+                                    <Copy
+                                      size={16}
+                                      className="text-gray-500 hover:text-gray-700"
+                                    />
                                   )}
                                 </button>
                               </div>
                               {section.content.map((content, contentIdx) => (
-                                <div className="flex gap-3 mt-2" key={contentIdx}>
+                                <div
+                                  className="flex gap-3 mt-2"
+                                  key={contentIdx}
+                                >
                                   <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center font-medium">
                                     {contentIdx + 1}
                                   </div>
                                   <div className="flex flex-col">
-                                    <p className="text-gray-700">{content.content}</p>
+                                    <p className="text-gray-700">
+                                      {content.content}
+                                    </p>
                                     {content.span && (
                                       <div className="mt-4 mb-2">
-                                        <span 
+                                        <span
                                           className={`bg-${content.span.color} p-4 block rounded-md border border-gray-300 shadow-sm hover:shadow-md transition-all duration-300`}
                                         >
                                           {content.span.content}
