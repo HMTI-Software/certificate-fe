@@ -11,6 +11,7 @@ export interface INavMenu {
   id: number;
   title: string;
   link: string;
+  icon?: React.ReactNode;
 }
 
 const Navbar = ({
@@ -40,7 +41,7 @@ const Navbar = ({
       >
         <div className="flex flex-col">
           <div className="text-black text-lg font-bold">Dashboard</div>
-          <div className="text-gray-500 text-sm">
+          <div className="text-gray-500 text-xs md:text-sm">
             hi {name}, such a nice day to see you
           </div>
         </div>
@@ -105,22 +106,25 @@ const Navbar = ({
       </div>
 
       <div
-        className={`space-y-4 bg-white px-4 rounded-lg shadow-lg  transition-all duration-300 ${
-          isOpen ? "h-auto opacity-100 py-4" : "h-0 opacity-0 overflow-hidden"
+        className={`absolute top-[70px] left-0 w-full z-50 bg-white px-4 shadow-lg rounded-b-lg transition-all duration-300 ${
+          isOpen ? "opacity-100 py-4" : "opacity-0 pointer-events-none"
         }`}
       >
-        {NavMenu.map((item) => {
-          if (role !== "SUPERADMIN" && item.title === "admin") return null;
-          return (
-            <Link
-              key={item.id}
-              href={item.link}
-              className="block text-sm text-black py-1 hover:bg-gray-200 rounded-md transition-all"
-            >
-              {item.title}
-            </Link>
-          );
-        })}
+        <div className="flex flex-col gap-3">
+          {NavMenu.map((item) => {
+            if (role !== "SUPERADMIN" && item.title === "admin") return null;
+            return (
+              <Link
+                key={item.id}
+                href={item.link}
+                className="block text-sm text-black py-1 hover:bg-gray-200 rounded-md transition-all"
+              >
+                {item.title}
+              </Link>
+            );
+          })}
+        </div>
+
         <Button className="mt-3 bordered w-full bg-redd hover:bg-redd/90 text-black">
           log out
           <LogOut />

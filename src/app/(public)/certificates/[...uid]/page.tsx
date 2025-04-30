@@ -79,7 +79,7 @@ const CertificateStakeholderPage = async ({
       ) : participantCertificateData.eventTemplate === "FORMALDESIGN_3" ? (
         "FORMAL DESIGN 3"
       ) : participantCertificateData.eventTemplate === "TECHNOLOGYDESIGN_1" ? (
-        <div className="flex flex-col items-center justify-start mt-10 md:justify-center md:mt-8">
+        <div className="flex flex-col items-center justify-start md:justify-start min-h-screen">
           <TechnologyDesign1Template
             participantCertificateData={participantCertificateData}
             mode="VIEW"

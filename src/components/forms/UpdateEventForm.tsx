@@ -57,8 +57,8 @@ const UpdateEventForm = ({ eventData }: Props) => {
       eventTemplate: eventData.eventTemplate || "Template of the event",
       eventTheme: eventData.eventTheme || "Theme of the event",
       organizer: eventData.organizer || "Organizer of the event",
-      logoFirst: null,
-      logoSecond: null,
+      logoFirst: eventData.logoFirstPath || null,
+      logoSecond: eventData.logoSecondPath || null,
       name: null,
       email: null,
       position: null,
@@ -81,8 +81,8 @@ const UpdateEventForm = ({ eventData }: Props) => {
       eventTemplate: values.eventTemplate || "Template of the event",
       eventTheme: values.eventTheme || "Theme of the event",
       organizer: values.organizer || "Organizer of the event",
-      logoFirst: null,
-      logoSecond: null,
+      logoFirst: eventData.logoFirstPath || null,
+      logoSecond: eventData.logoSecondPath || null,
       name: null,
       email: null,
       position: null,
@@ -204,7 +204,7 @@ const UpdateEventForm = ({ eventData }: Props) => {
           open={openTemplateDialog}
           setOpen={setOpenTemplateDialog}
           title="Template Preview"
-          message="Preview the template before updating the event. If you want to change the template, please select another template."
+          message="Preview the template before updating the event."
           onSuccess={() => {
             setOpenTemplateDialog(false);
             form.handleSubmit(submitHandler)();

@@ -229,14 +229,14 @@ export const ParticipantActionOption = ({
       <GeneralDialog
         open={openDownloadDialog}
         setOpen={setOpenDownloadDialog}
-        message="This action will download the QR code for the participant. Please select the format you want to download."
+        message="Please select the format you want to download."
         title="Download QR Code"
         onSuccess={handleDownload}
         successText="download"
       >
         <div className="inline-flex flex-row w-full">
           <div className=" bg-purplee bordered-nonhover rounded-lg rounded-r-none text-black flex w-full">
-            <QrCode className="mr-2 my-auto" />
+            <QrCode className="mr-2 my-auto w-6 " />
             <span className="my-auto">{participantData.name}</span>
           </div>
           <Select onValueChange={(e) => setExtensionSelected(e)}>

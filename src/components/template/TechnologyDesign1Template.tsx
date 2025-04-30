@@ -5,8 +5,6 @@ import { IEventParticipantCertificate } from "@/lib/types/Event";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useState } from "react";
-import { Card, CardContent } from "../ui/card";
-
 type Props = {
   participantCertificateData?: IEventParticipantCertificate;
   mode: "CREATE/EDIT" | "PREVIEW" | "VIEW";
@@ -42,8 +40,16 @@ export const TechnologyDesign1Template = ({
   }
 
   return (
-    <Card>
-      <CardContent className="relative mx-auto overflow-hidden flex flex-col items-center justify-center w-full h-full ">
+    <div
+      className={cn(
+        mode === "CREATE/EDIT"
+          ? "w-[280px] h-[400px] md:w-[300px] md:h-[450px]"
+          : mode === "PREVIEW"
+          ? "w-[300px] h-[450px] md:w-[500px] md:h-[750px]"
+          : "w-[350px] h-[500px] md:w-[490px] md:h-[700px]",
+      )}
+    >
+      <div className="relative mx-auto overflow-hidden flex flex-col items-center justify-center w-full h-full">
         {/* BACKGROUND IMAGE */}
         <Image
           src={`/template/${
@@ -56,37 +62,59 @@ export const TechnologyDesign1Template = ({
             "object-center",
             "object-cover",
             "mx-auto",
-            mode === "CREATE/EDIT"
-              ? "w-[300px] h-[450px]"
-              : mode === "PREVIEW"
-              ? "w-[300px] h-[500px] md:w-[400px] md:h-[600px]"
-              : "w-[300px] h-[500px] md:w-[400px] md:h-[600px]",
+            "w-full h-full",
           )}
           priority
         />
-        <div className="absolute inset-0 flex flex-col justify-center py-3 md:py-3 px-15">
+        <div
+          className={cn(
+            "absolute inset-0 flex flex-col justify-center",
+            mode === "CREATE/EDIT"
+              ? "py-3 md:py-3 px-10 md:px-10"
+              : mode === "PREVIEW"
+              ? "py-3 md:py-3 px-6 md:px-15"
+              : "py-3 md:py-3 px-10 md:px-15",
+          )}
+        >
           {/* HEADER */}
           <div
             className={cn(
               "flex flex-col justify-center items-center gap-3",
               mode === "CREATE/EDIT"
-                ? participantCertificateData.logoFirst
-                  ? "mb-5 md:mb-5"
-                  : "mb-12"
+                ? participantCertificateData.logoFirst ||
+                  participantCertificateData.logoSecond
+                  ? stakeholderData.photoPath
+                    ? "mb-5 md:mb-8"
+                    : "mb-0 md:mb-4"
+                  : stakeholderData.photoPath
+                  ? "mb-7 md:mb-12"
+                  : "mb-0 md:mb-5"
                 : mode === "PREVIEW"
-                ? participantCertificateData.logoFirst
-                  ? "mb-5 md:mb-10"
-                  : "mb-12"
-                : "mb-5 md:mb-10",
+                ? participantCertificateData.logoFirst ||
+                  participantCertificateData.logoSecond
+                  ? stakeholderData.photoPath
+                    ? "mb-5 md:mb-16"
+                    : "mb-5 md:mb-16"
+                  : stakeholderData.photoPath
+                  ? "mb-12 md:mb-12"
+                  : "mb-4 md:mb-20"
+                : participantCertificateData.logoFirst ||
+                  participantCertificateData.logoSecond
+                ? stakeholderData.photoPath
+                  ? "mb-6 md:mb-11"
+                  : "mb-5 md:mb-16"
+                : stakeholderData.photoPath
+                ? "mb-12 md:mb-12"
+                : "mb-7 md:mb-20",
             )}
           >
             {/* CERTIFICATE NUMBER */}
             <h1
               className={cn(
                 mode === "CREATE/EDIT"
-                  ? "text-[6px] md:text-[7px]"
+                  ? "text-[0.4rem] md:text-[7px]"
                   : mode === "PREVIEW"
-                  ? "text-[8px] md:text-[10px]"
+                  ? "text-[8px] md:text-xs"
                   : "text-[9px] md:text-xs",
                 "font-medium",
                 "text-grayy",
@@ -100,35 +128,31 @@ export const TechnologyDesign1Template = ({
                   "PREVIEW"}
             </h1>
             <div className="flex flex-row justify-between items-center w-full">
+              {/* LOGO FIRST */}
               <div
                 className={cn(
                   mode === "CREATE/EDIT"
-                    ? "w-[50px] h-[50px]"
+                    ? "w-[35px] h-auto md:w-[40px] md:h-auto"
                     : mode === "PREVIEW"
-                    ? "w-[60px] h-[60px]"
-                    : "w-[60px] h-[60px]",
+                    ? "w-[45px] h-auto md:w-[70px] md:h-auto"
+                    : "w-[50px] h-auto md:w-[70px] md:h-auto",
                 )}
               >
                 {participantCertificateData.logoFirst ? (
                   <Image
                     src={
-                      participantCertificateData.logoFirst instanceof FileList
-                        ? URL.createObjectURL(
+                      typeof participantCertificateData.logoFirst === "string"
+                        ? "https://certificate-be-production.up.railway.app" +
+                          participantCertificateData.logoFirst
+                        : URL.createObjectURL(
                             participantCertificateData.logoFirst[0] as Blob,
                           )
-                        : "https://certificate-be-production.up.railway.app" +
-                          participantCertificateData.logoFirst
                     }
                     width={50}
                     height={50}
                     alt="Logo First"
                     className={cn(
-                      "object-cover object-center  mx-auto",
-                      mode === "CREATE/EDIT"
-                        ? "w-[35px] h-auto md:w-[40px] md:h-auto"
-                        : mode === "PREVIEW"
-                        ? "w-[35px] h-auto md:w-[60px] md:h-auto"
-                        : "w-[50px] h-auto md:w-[60px] md:h-auto",
+                      "object-cover object-center mx-auto w-full h-full",
                     )}
                     priority
                   />
@@ -136,35 +160,31 @@ export const TechnologyDesign1Template = ({
                   <div className="w-[50px] h-[50px] invisible" />
                 )}
               </div>
+              {/* LOGO SECOND */}
               <div
                 className={cn(
                   mode === "CREATE/EDIT"
-                    ? "w-[50px] h-[50px]"
+                    ? "w-[35px] h-auto md:w-[40px] md:h-auto"
                     : mode === "PREVIEW"
-                    ? "w-[60px] h-[60px]"
-                    : "w-[60px] h-[60px]",
+                    ? "w-[45px] h-auto md:w-[70px] md:h-auto"
+                    : "w-[50px] h-auto md:w-[70px] md:h-auto",
                 )}
               >
                 {participantCertificateData.logoSecond ? (
                   <Image
                     src={
-                      participantCertificateData.logoSecond instanceof FileList
-                        ? URL.createObjectURL(
+                      typeof participantCertificateData.logoSecond === "string"
+                        ? "https://certificate-be-production.up.railway.app" +
+                          participantCertificateData.logoSecond
+                        : URL.createObjectURL(
                             participantCertificateData.logoSecond[0] as Blob,
                           )
-                        : "https://certificate-be-production.up.railway.app" +
-                          participantCertificateData.logoFirst
                     }
                     width={50}
                     height={50}
                     alt="Logo Second"
                     className={cn(
-                      "object-cover object-center  mx-auto",
-                      mode === "CREATE/EDIT"
-                        ? "w-[35px] h-auto md:w-[40px] md:h-auto"
-                        : mode === "PREVIEW"
-                        ? "w-[35px] h-auto md:w-[60px] md:h-auto"
-                        : "w-[50px] h-auto md:w-[60px] md:h-auto",
+                      "object-cover object-center  mx-auto w-full h-full",
                     )}
                     priority
                   />
@@ -183,7 +203,7 @@ export const TechnologyDesign1Template = ({
               mode === "CREATE/EDIT"
                 ? "space-y-4"
                 : mode === "PREVIEW"
-                ? "space-y-6"
+                ? "space-y-3"
                 : "space-y-6",
             )}
           >
@@ -193,13 +213,13 @@ export const TechnologyDesign1Template = ({
                 className={cn(
                   "flex items-center justify-center  text-gray-500 font-bold rounded-full bg-transparent",
                   mode === "CREATE/EDIT"
-                    ? ""
+                    ? "w-21 h-21 md:w-20 md:h-20"
                     : mode === "PREVIEW"
-                    ? "w-23 h-23 md:w-27 md:h-27"
+                    ? "w-21 h-21 md:w-34 md:h-34"
                     : "w-22 h-22 md:w-27 md:h-27",
                 )}
               >
-                <span className="text-white">
+                <span className="text-white text-lg md:text-4xl">
                   {stakeholderData.name.slice(0, 2).toUpperCase()}
                 </span>
               </div>
@@ -214,33 +234,35 @@ export const TechnologyDesign1Template = ({
                 className={cn(
                   "flex items-center justify-center object-cover object-center rounded-full m-auto",
                   mode === "CREATE/EDIT"
-                    ? "w-21 h-21 md:w-20 md:h-20"
+                    ? "w-19 h-19 md:w-20 md:h-20"
                     : mode === "PREVIEW"
-                    ? "w-23 h-23 md:w-27 md:h-27"
-                    : "w-22 h-22 md:w-27 md:h-27",
+                    ? "w-21 h-21 md:w-34 md:h-34"
+                    : "w-24 h-24 md:w-34 md:h-34",
                 )}
                 alt={stakeholderData.name.slice(0, 2)}
               />
             )}
             <div
               className={cn(
-                "flex flex-col items-center space-y-1",
+                "flex flex-col items-center space-y-2",
                 stakeholderData.photoPath === null
                   ? mode === "CREATE/EDIT"
-                    ? "mt-10"
-                    : "mt-2"
-                  : "mt-7",
+                    ? stakeholderData.photoPath
+                      ? "mt-10 md:mt-3"
+                      : "mt-2 md:mt-3"
+                    : "mt-3 md:mt-8"
+                  : "mt-7 md:mt-8",
               )}
             >
               {/* STAKEHOLDER NAME */}
               <h1
                 className={cn(
-                  "font-bold text-[#62FFFD] tracking-wider",
+                  "font-bold text-[#62FFFD] tracking-widest text-center",
                   mode === "CREATE/EDIT"
-                    ? "text-xs md:text-xs"
+                    ? "text-[10px] md:text-[9px]"
                     : mode === "PREVIEW"
-                    ? "text-xs md:text-sm"
-                    : "text-xs md:text-sm",
+                    ? "text-xs md:text-lg"
+                    : "text-xs md:text-lg",
                 )}
               >
                 {stakeholderData.name.toUpperCase()}
@@ -250,7 +272,7 @@ export const TechnologyDesign1Template = ({
                   "font-light",
                   "text-gray-300",
                   mode === "CREATE/EDIT"
-                    ? "text-[9px] md:text-[9px]"
+                    ? "text-[9px] md:text-[7px]"
                     : mode === "PREVIEW"
                     ? "text-[9px] md:text-[10px]"
                     : "text-[9px] md:text-xs",
@@ -294,7 +316,7 @@ export const TechnologyDesign1Template = ({
           {/* FOOTER */}
           <div
             className={cn(
-              "flex flex-col justify-end items-center w-full h-full space-y-1 text-white font-light tracking-wider",
+              "flex flex-col justify-end items-center w-full h-full space-y-1 text-white font-light tracking-wider mb-5",
               mode === "CREATE/EDIT"
                 ? "text-[6px] md:text-[8px]"
                 : mode === "PREVIEW"
@@ -319,7 +341,7 @@ export const TechnologyDesign1Template = ({
 
           {/* END FOOTER */}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };

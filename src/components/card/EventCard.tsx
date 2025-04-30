@@ -100,9 +100,9 @@ const EventCard = ({
               {event.organizer}
             </div>
             <h1 className="font-bold text-xl ">{event.eventName}</h1>
-            <p className="text-sm text-grayy">{event.description}</p>
+            <p className="text-xs md:text-sm text-grayy">{event.description}</p>
           </CardContent>
-          <CardFooter className="flex flex-row justify-between p-0 m-0 text-gray-700 text-sm">
+          <CardFooter className="flex flex-row justify-between p-0 m-0 text-gray-700 text-xs md:text-sm">
             <FormatDate>{event.activityAt}</FormatDate>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -209,7 +209,9 @@ const EventCard = ({
           />
         </CardHeader>
         <CardContent className="flex flex-col items-start p-0 m-0">
-          <div className="badge mb-2 flex">{event.organizer}</div>
+          <div className="badge mb-2 flex text-[10.5px] md:text-xs">
+            {event.organizer}
+          </div>
           <h1 className="font-bold text-xl mb-4">{event.eventName}</h1>
         </CardContent>
         <CardFooter className="flex flex-row justify-between p-0 m-0 text-gray-700 text-sm">

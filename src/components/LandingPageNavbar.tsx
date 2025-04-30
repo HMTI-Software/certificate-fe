@@ -1,6 +1,15 @@
 "use client";
 import { useState } from "react";
-import { ArrowUpRight, BadgeCheck, LayoutDashboard, LogIn } from "lucide-react";
+import {
+  ArrowUpRight,
+  BadgeCheck,
+  BadgePercent,
+  BookMarked,
+  BookOpenText,
+  Contact,
+  LayoutDashboard,
+  LogIn,
+} from "lucide-react";
 import { Button } from "./ui/button";
 import { INavMenu } from "./Navbar";
 import Link from "next/link";
@@ -12,10 +21,30 @@ const LandingPageNavbar = ({ session }: { session: IAuthSession }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const NavMenu: INavMenu[] = [
-    { id: 1, title: "about", link: "/#about" },
-    { id: 2, title: "price", link: "/#price" },
-    { id: 3, title: "contact", link: "/#contact" },
-    { id: 4, title: "docs", link: "/docs" },
+    {
+      id: 1,
+      title: "about",
+      link: "/#about",
+      icon: <BookOpenText className="w-5" />,
+    },
+    {
+      id: 2,
+      title: "price",
+      link: "/#price",
+      icon: <BadgePercent className="w-5" />,
+    },
+    {
+      id: 3,
+      title: "contact",
+      link: "/#contact",
+      icon: <Contact className="w-5" />,
+    },
+    {
+      id: 4,
+      title: "docs",
+      link: "/docs",
+      icon: <BookMarked className="w-5" />,
+    },
   ];
 
   return (
@@ -93,45 +122,47 @@ const LandingPageNavbar = ({ session }: { session: IAuthSession }) => {
 
       {/* Mobile Menu */}
       <div
-        className={`transition-all duration-300 ${
-          isOpen ? "h-auto opacity-100 py-3" : "h-0 opacity-0 overflow-hidden"
-        } md:hidden mt-4 space-y-4 bg-white p-4 rounded-lg shadow-lg `}
+        className={`absolute top-[70px] left-0 w-full z-50 bg-white px-4 shadow-lg rounded-b-lg transition-all duration-300 ${
+          isOpen ? "opacity-100 py-4" : "opacity-0 pointer-events-none"
+        }`}
       >
-        {NavMenu.map((item) => (
-          <Link
-            key={item.id}
-            href={item.link}
-            className="block text-sm text-black px-2 py-1 hover:bg-gray-200 rounded-md transition-all"
+        <div className="flex flex-col gap-3">
+          {NavMenu.map((item) => (
+            <Link
+              key={item.id}
+              href={item.link}
+              className="block text-sm text-black px-2 py-1 hover:bg-gray-200 rounded-md transition-all"
+            >
+              <span className="inline-flex items-center gap-2">
+                {item.icon} {item.title}
+                {item.title === "docs" && <ArrowUpRight className="w-4" />}
+              </span>
+            </Link>
+          ))}
+          <Button
+            className="bordered w-full bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black flex items-center gap-2"
+            onClick={() => router.push("/auth/sign-in")}
           >
-            {item.title}
-            {item.title === "docs" && (
-              <ArrowUpRight className="inline-flex w-4" />
-            )}
-          </Link>
-        ))}
-        <Button
-          className="bordered w-full bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black flex items-center gap-2"
-          onClick={() => router.push("/auth/sign-in")}
-        >
-          {session ? (
-            session.user ? (
-              <>
-                <span>dashboard</span>
-                <LayoutDashboard />
-              </>
+            {session ? (
+              session.user ? (
+                <>
+                  <span>dashboard</span>
+                  <LayoutDashboard />
+                </>
+              ) : (
+                <>
+                  <span>login</span>
+                  <LogIn />
+                </>
+              )
             ) : (
               <>
                 <span>login</span>
                 <LogIn />
               </>
-            )
-          ) : (
-            <>
-              <span>login</span>
-              <LogIn />
-            </>
-          )}
-        </Button>
+            )}
+          </Button>
+        </div>
       </div>
     </nav>
   );

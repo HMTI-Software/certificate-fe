@@ -8,7 +8,7 @@ import { FileUploadField } from "@/components/forms/fields/CustomFileUpload";
 import { Button } from "@/components/ui/button";
 import GeneralDialog from "@/components/popup/GeneralDialog";
 import { TechnologyDesign1Template } from "@/components/template/TechnologyDesign1Template";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IEventData, IEventParticipantCertificate } from "@/lib/types/Event";
 import { toast } from "sonner";
 import { uploadEventLogo } from "@/actions/mutation/events/uploadEventLogo";
@@ -147,11 +147,19 @@ export const UploadLogoSheet = ({ open, setOpen, eventData }: Props) => {
       setOpen(false);
     }
   };
+  useEffect(() => {
+    if (open) {
+      uploadEventLogoForm.reset({
+        firstLogo: null,
+        secondLogo: null,
+      });
+    }
+  }, [open, participantCertificateData, uploadEventLogoForm]);
   return (
     <>
       <GeneralSheet
-        title="Upload Logo"
-        description="Upload your event logo here"
+        title="Upload Event Logo"
+        description="Upload the logos for your event"
         open={open}
         setOpen={setOpen}
       >
