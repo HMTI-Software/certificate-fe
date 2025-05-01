@@ -10,6 +10,7 @@ export const publicRoutes = [
   "/auth/verify-email",
   "/api/events",
   "/certificates",
+  "/static",
 ];
 
 /**

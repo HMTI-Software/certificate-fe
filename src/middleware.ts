@@ -20,9 +20,15 @@ export default auth((req) => {
   const isPublicRoute: boolean = publicRoutes.includes(nextUrl.pathname);
   const isCertificateRoute: boolean =
     nextUrl.pathname.startsWith("/certificates");
+  const isStaticRoute: boolean = nextUrl.pathname.startsWith("/static");
   const isAuthRoute: boolean = authRoutes.includes(nextUrl.pathname);
 
   if (isCertificateRoute) {
+    if (!isLoggedIn) {
+      return;
+    }
+  }
+  if (isStaticRoute) {
     if (!isLoggedIn) {
       return;
     }

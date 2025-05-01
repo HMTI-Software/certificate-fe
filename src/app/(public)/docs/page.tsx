@@ -44,7 +44,9 @@ interface ISidebarLink {
 const DocsPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("");
-  const [filteredSidebarLinks, setFilteredSidebarLinks] = useState<ISidebarLink[]>([]);
+  const [filteredSidebarLinks, setFilteredSidebarLinks] = useState<
+    ISidebarLink[]
+  >([]);
   const [copied, setCopied] = useState<string | boolean>(false);
   const [rawData, setRawData] = useState<IContent[]>([]);
 
@@ -141,8 +143,15 @@ const DocsPage = () => {
   };
 
   useEffect(() => {
-    fetch("/static/Docs.json")
-      .then((res) => res.json())
+    fetch("/static/Docs.json", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
       .then((json) => setRawData(json))
       .catch((err) => console.error("Error loading documentation data:", err));
   }, []);
