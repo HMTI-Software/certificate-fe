@@ -44,9 +44,7 @@ interface ISidebarLink {
 const DocsPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("");
-  const [filteredSidebarLinks, setFilteredSidebarLinks] = useState<
-    ISidebarLink[]
-  >([]);
+  const [filteredSidebarLinks, setFilteredSidebarLinks] = useState<ISidebarLink[]>([]);
   const [copied, setCopied] = useState<string | boolean>(false);
   const [rawData, setRawData] = useState<IContent[]>([]);
 
@@ -154,7 +152,7 @@ const DocsPage = () => {
   return (
     <div className="min-h-screen bg-white pb-20">
       {/* Mobile menu button */}
-      <div className="fixed top-4 left-4 z-50 lg:hidden">
+      <div className="fixed top-20 left-4 z-50 lg:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="p-2 rounded-md bg-white shadow-md border border-gray-200"
@@ -174,9 +172,9 @@ const DocsPage = () => {
         <ChevronUp size={24} />
       </Link>
 
-      <div className="flex mt-20 items-stretch lg:px-20 xl:px-40 2xl:px-80 md:px-12 px-4">
+      <div className="flex mt-16 items-stretch">
         {/* Sidebar - desktop */}
-        <div className="hidden lg:flex flex-col w-64 pr-8 sticky top-20 self-start h-screen overflow-y-auto pb-20 border-r border-gray-200">
+        <div className="hidden lg:flex flex-col w-64 pr-8 sticky top-24 self-start h-[calc(100vh-6rem)] overflow-y-auto pb-20 border-r border-gray-200">
           <nav aria-label="Documentation navigation">
             <ul className="flex flex-col gap-3 list-none m-0 p-0">
               {filteredSidebarLinks.map((link, index) => (
@@ -217,7 +215,7 @@ const DocsPage = () => {
           `}
           aria-hidden={!isOpen}
         >
-          <div className="p-4 h-full overflow-y-auto">
+          <div className="p-4 pt-20 h-full overflow-y-auto">
             <nav aria-label="Mobile documentation navigation">
               <ul className="flex flex-col gap-3 list-none m-0 p-0">
                 {filteredSidebarLinks.map((link, index) => (
