@@ -1,3 +1,4 @@
+import { IParticipantResponse } from "@/lib/types/Participants";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
@@ -17,6 +18,8 @@ export async function POST(
         { status: 401 },
       );
     }
+    console.log("Token:", token);
+
     if (!eventUid) {
       return NextResponse.json(
         {
@@ -27,11 +30,13 @@ export async function POST(
         { status: 400 },
       );
     }
+    console.log("Event UID:", eventUid);
 
     const formData = await req.formData();
+    console.log("Form Data:", formData);
 
     const file = formData.get("excel") as File;
-
+    console.log("File:", file);
     if (!file) {
       return NextResponse.json(
         {
@@ -46,7 +51,7 @@ export async function POST(
     // Forward to backend API
     const backendFormData = new FormData();
     backendFormData.append("excel", file);
-
+    console.log("Backend Form Data:", backendFormData);
     const res = await fetch(
       `${process.env.BACKEND_URL}/api/events/participants/${eventUid}/add-excel`,
       {
@@ -58,24 +63,31 @@ export async function POST(
       },
     );
 
-    const responseData = await res.json();
+    const responseData: IParticipantResponse = await res.json();
 
     if (!res.ok || !responseData.success) {
+      console.error(
+        "Error in POST /api/events/[eventUid]/participants/add-excel:",
+        responseData.message || res.statusText,
+      );
       return NextResponse.json(
         {
           success: false,
           status: res.status,
-          message: responseData?.message || "Failed to upload participant file",
+          message: "Failed to upload participant file",
         },
         { status: res.status },
       );
     } else {
-      return NextResponse.json({
-        success: true,
-        status: 200,
-        message: "Participant file uploaded successfully",
-        data: responseData.data,
-      });
+      return NextResponse.json(
+        {
+          success: true,
+          status: 200,
+          message: "Participant file uploaded successfully",
+          data: responseData.data,
+        },
+        { status: 200 },
+      );
     }
   } catch (error) {
     console.error(

@@ -59,7 +59,7 @@ export const addParticipantsByExcel = async (file: File, eventUid: string) => {
       revalidateTag("participants");
       return {
         success: true,
-        message: "Excel uploaded and participants added successfully",
+        message: "Added Participants by excel successfully",
       };
     }
   } catch (error) {

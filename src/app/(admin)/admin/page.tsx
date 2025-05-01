@@ -1,8 +1,7 @@
 import { auth } from "@/auth";
 //COMPOMENTS
-import { columns } from "@/components/table/columns/UsersColumn";
-import { GeneralTable } from "@/components/table/table";
-import { IUserResponse, IUsersData, IUsersDataTable } from "@/lib/types/User";
+import { UsersTable } from "@/components/table/UsersTable";
+import { IUserResponse, IUsersData } from "@/lib/types/User";
 
 const getUsersData = async () => {
   try {
@@ -64,30 +63,11 @@ const AdminPage = async () => {
     return <div>No users data available</div>;
   }
 
-  const filteredUsersDataTable: IUsersDataTable[] = usersData?.data!.map(
-    (value, index) => {
-      return {
-        id: index + 1,
-        token: token,
-        uid: value.uid,
-        email: value.email.split("@")[0],
-        fullEmail: value.email,
-        isPremium: value.isPremium,
-        premiumAt: value.premiumAt,
-        premiumPackage: value.premiumPackage,
-        role: value.role,
-      };
-    },
-  );
   return (
     <>
       <div className=" mx-auto py-10">
         <h1 className="text-lg font-bold">Profile</h1>
-        <GeneralTable
-          columns={columns}
-          data={filteredUsersDataTable}
-          page={"admin"}
-        />
+        <UsersTable usersData={usersData.data!} token={token} />
       </div>
     </>
   );

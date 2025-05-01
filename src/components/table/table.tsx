@@ -63,10 +63,12 @@ export function GeneralTable<TData, TValue>({
   ]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
     suffix: false,
+    certificateNumber: false,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState<boolean>(false);
   const [openDownloadDialog, setOpenDownloadDialog] = useState<boolean>(false);
+  const [searchInput, setSearchInput] = useState<string>("");
   const [extensionSelected, setExtensionSelected] = useState<string>("webp");
 
   const memoColumns = React.useMemo(() => columns, [columns]);
@@ -167,16 +169,16 @@ export function GeneralTable<TData, TValue>({
             placeholder={
               page === "event" ? "search by name" : "search by email"
             }
-            value={
-              page === "event"
-                ? (table.getColumn("name")?.getFilterValue() as string) ?? ""
-                : (table.getColumn("email")?.getFilterValue() as string) ?? ""
-            }
-            onChange={(event) =>
-              page === "event"
-                ? table.getColumn("name")?.setFilterValue(event.target.value)
-                : table.getColumn("email")?.setFilterValue(event.target.value)
-            }
+            value={searchInput}
+            onChange={(event) => {
+              const value = event.target.value;
+              setSearchInput(value);
+              if (page === "event") {
+                table.getColumn("name")?.setFilterValue(value);
+              } else {
+                table.getColumn("email")?.setFilterValue(value);
+              }
+            }}
             className={`border-black ${
               page === "event" ? "max-w-4xl" : "max-w-xs"
             } bordered border-b-4 hover:border-b-1`}
@@ -348,7 +350,7 @@ export function GeneralTable<TData, TValue>({
             >
               <div className="inline-flex flex-row w-full">
                 <div className=" bg-purplee bordered-nonhover rounded-lg rounded-r-none text-black flex w-full">
-                  <QrCode className="mr-2 my-auto w-6 " />
+                  <QrCode className="mr-1 md:mr-2 my-auto w-4 md:w-6 " />
                   <span className="my-auto text-xs md:text-sm">
                     {eventName}
                   </span>

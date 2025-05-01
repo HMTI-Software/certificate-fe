@@ -12,14 +12,8 @@ const EventParticipantColumn: ColumnDef<IParticipantDataTable>[] = [
     header: () => {
       return <div className="text-center text-xs md:text-sm">No</div>;
     },
-    cell: ({ row, table }) => {
-      const pageIndex = table.getState().pagination.pageIndex;
-      const pageSize = table.getState().pagination.pageSize;
-      return (
-        <div className="text-center text-sm ">
-          {pageIndex * pageSize + row.index + 1}
-        </div>
-      );
+    cell: ({ row }) => {
+      return <div className="text-center text-sm ">{row.index + 1}</div>;
     },
   },
   {

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import LoadingCircle from "../animation/LoadingCircle";
 import { LogOut } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 /**
  * AuthButton component for sign in and sign up button.
@@ -28,9 +29,11 @@ import { LogOut } from "lucide-react";
 const AuthButton = ({
   isLoading,
   mode,
+  className,
 }: {
   isLoading?: boolean;
   mode: "signIn" | "signUp" | "forgotPassword" | "resetPassword" | "signOut";
+  className?: string;
 }) => {
   const router = useRouter();
   const handleSignOut = () => {
@@ -46,7 +49,10 @@ const AuthButton = ({
   if (mode === "signOut") {
     return (
       <Button
-        className="bordered w-full bg-redd hover:bg-redd/90 hidden md:block text-black"
+        className={cn(
+          "bordered w-full bg-redd hover:bg-redd/90 text-black",
+          className,
+        )}
         onClick={() => handleSignOut()}
         disabled={isLoading}
       >

@@ -44,7 +44,7 @@ export const AddParticantByExcelSheet = ({
       }
 
       toast.promise(addParticipantsByExcel(file, eventUid!), {
-        loading: "Uploading file...",
+        loading: "It will take a few seconds...",
         success: (data) => {
           if (data.success) {
             setOpen(false);

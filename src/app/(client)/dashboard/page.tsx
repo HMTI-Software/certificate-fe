@@ -25,13 +25,13 @@ const DashboardPage = async () => {
       className={
         isPremium
           ? "pt-0"
-          : "pt-40 w-full flex flex-col items-center justify-center "
+          : "pt-40 w-full flex flex-col items-center justify-center"
       }
     >
       {" "}
       {isVerifiedEmail ? (
         isPremium ? (
-          <div className="w-full grid grid-rows-1 md:grid-cols-3 pt-4 md:pt-8 gap-4">
+          <div className="w-full grid grid-rows-1 md:grid-cols-2 lg:grid-cols-3 pt-4 md:pt-8 gap-4 pb-5">
             {eventData?.map((event: IEventData) => {
               return (
                 <EventCard event={event} key={event.uid} page="dashboard" />
@@ -41,7 +41,7 @@ const DashboardPage = async () => {
               href="/events/create"
               className="-order-1 md:order-none py-20 rounded-md bordered border-b-4 hover:border-b cursor-pointer"
             >
-              <CardContent className="flex flex-col items-center justify-center h-full">
+              <CardContent className="flex flex-col items-center justify-center h-full py-4">
                 <Plus className="text-center" />
                 <p>Add event</p>
               </CardContent>
@@ -51,8 +51,7 @@ const DashboardPage = async () => {
           <div className="flex flex-col items-center text-grayy  justify-center gap-4">
             <Frown size={100} />
             <p className="text-sm md:text-lg text-center ">
-              Upgrade to our premium package to unlock this feature. Check out
-              the details on our homepage!
+              Upgrade to our premium package to unlock this feature.
             </p>
           </div>
         )

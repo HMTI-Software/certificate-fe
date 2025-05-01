@@ -2,7 +2,6 @@
 import { useState } from "react";
 import {
   ArrowUpRight,
-  BadgeCheck,
   BadgePercent,
   BookMarked,
   BookOpenText,
@@ -15,6 +14,7 @@ import { INavMenu } from "./Navbar";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { IAuthSession } from "@/lib/types/Auth";
+import Image from "next/image";
 
 const LandingPageNavbar = ({ session }: { session: IAuthSession }) => {
   const router = useRouter();
@@ -53,8 +53,15 @@ const LandingPageNavbar = ({ session }: { session: IAuthSession }) => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex flex-row justify-start items-center gap-2">
-            <BadgeCheck className="mt-[2px]" />
-            <h1 className="font-bold text-lg">CertifiedCertification</h1>
+            <Image
+              priority
+              src="/certify-logo-only-black.png"
+              alt="Certify Logo"
+              width={40}
+              height={40}
+              className="w-5 h-5"
+            />
+            <h1 className="font-bold text-lg uppercase">Certify</h1>
           </div>
           {/* Desktop Menu */}
           <div className="hidden md:flex flex-row justify-end items-center gap-10">

@@ -12,8 +12,9 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Certified Certification",
-  description: "CertifiedCertification",
+  title: "Certify",
+  description:
+    "Certify is a platform for managing events and generating QR Code certificates.",
 };
 
 export default async function RootLayout({

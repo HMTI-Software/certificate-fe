@@ -16,17 +16,17 @@ const DashboardView = ({ session }: { session: IAuthSession }) => {
     {
       owner: "Sindu",
       eventName: "SEMNASTI",
-      eventTimestamp: "2023-04-19T14:00:00Z",
-    },
-    {
-      owner: "Ulya",
-      eventName: "IT Competition",
-      eventTimestamp: "2024-07-15T14:00:00Z",
+      eventTimestamp: "2024-11-30T14:00:00Z",
     },
     {
       owner: "Alvin",
       eventName: "HI-TECH",
-      eventTimestamp: "2025-12-12T14:00:00Z",
+      eventTimestamp: "2025-05-15T14:00:00Z",
+    },
+    {
+      owner: "Ulya",
+      eventName: "IT Competition",
+      eventTimestamp: "2025-01-23T14:00:00Z",
     },
   ];
   return (
@@ -35,7 +35,6 @@ const DashboardView = ({ session }: { session: IAuthSession }) => {
         <div className="w-full md:px-10 lg:px-24 pt-4 pb-24 min-h-screen">
           <Navbar clickable={false} session={session} />
           <div className="flex flex-col pt-14">
-            <h1 className="font-bold text-lg">Events</h1>
             <div className="pt-4">
               <div className="w-full grid grid-cols-3 gap-4">
                 {dummyEvent.map((event) => {

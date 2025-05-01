@@ -26,10 +26,11 @@ const Navbar = ({
 
   const [isOpen, setIsOpen] = useState(false);
   const NavMenu: INavMenu[] = [
-    { id: 1, title: "event", link: "/dashboard" },
+    { id: 1, title: "events", link: "/dashboard" },
     { id: 2, title: "profile", link: "/profile" },
-    { id: 3, title: "subscription", link: "/#price" },
-    { id: 4, title: "admin", link: "/admin" },
+    { id: 3, title: "price", link: "/#price" },
+    { id: 4, title: "docs", link: "/docs" },
+    { id: 5, title: "admin", link: "/admin" },
   ];
 
   return (
@@ -65,6 +66,7 @@ const Navbar = ({
                 key={item.id}
                 href={item.link}
                 className="text-sm group relative"
+                onClick={() => setIsOpen(false)}
               >
                 <span>{item.title}</span>
                 <span className="absolute -bottom-2 left-0 w-0 transition-all h-[2px] bg-black group-hover:w-full"></span>
@@ -75,7 +77,7 @@ const Navbar = ({
 
         <div className="flex items-center gap-5">
           {clickable ? (
-            <AuthButton mode="signOut" />
+            <AuthButton mode="signOut" className="hidden md:block" />
           ) : (
             <Button className="bordered w-full bg-redd hover:bg-redd/90 text-black">
               log out
@@ -118,17 +120,14 @@ const Navbar = ({
                 key={item.id}
                 href={item.link}
                 className="block text-sm text-black py-1 hover:bg-gray-200 rounded-md transition-all"
+                onClick={() => setIsOpen(false)}
               >
                 {item.title}
               </Link>
             );
           })}
         </div>
-
-        <Button className="mt-3 bordered w-full bg-redd hover:bg-redd/90 text-black">
-          log out
-          <LogOut />
-        </Button>
+        <AuthButton mode="signOut" className="mt-2" />
       </div>
     </div>
   );

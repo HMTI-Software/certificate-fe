@@ -137,7 +137,7 @@ const LandingPage = async () => {
           {/* Hero Section */}
           <section
             id="hero"
-            className="relative w-full h-auto md:h-auto lg:h-[700px] px-10 md:px-20 lg:px-40 flex flex-col items-center gap-8 pt-10 md:pt-28"
+            className="relative w-full h-auto md:h-auto lg:h-[700px] px-10 md:px-20 lg:px-40 flex flex-col items-center gap-8 pt-20 pb-20 md:pt-28"
           >
             <div className="inline-flex border-1 border-black rounded-lg p-1 px-4 gap-1 items-center">
               <Image
@@ -162,7 +162,7 @@ const LandingPage = async () => {
           </section>
           {/* Dashboard Section */}
           <section className="relative w-full h-auto justify-center items-center hidden lg:flex">
-            <div className="absolute z-10 px-40">
+            <div className="absolute z-10 px-40 w-[1400px]">
               <DashboardView session={session!} />
             </div>
             <Image
@@ -174,11 +174,11 @@ const LandingPage = async () => {
             />
           </section>
           {/* About Section */}
-          <section className="w-full px-10 md:px-40 pb-20 pt-36 md:pt-52">
+          <section className="w-full px-10 md:px-40 pb-20 pt-20 md:pt-52">
             <div className="flex flex-col items-center gap-12">
               <span id="about"></span>
               <Image
-                src={"/logo-hmti.png"}
+                src={"/certify-logo-highlight-black.png"}
                 className="object-cover object-center"
                 width={130}
                 height={130}

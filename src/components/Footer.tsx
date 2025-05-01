@@ -8,7 +8,7 @@ const Footer = () => {
         {/* Logo */}
         <div className="flex flex-row items-center gap-2">
           <BadgeCheck className="mt-[2px]" />
-          <h1 className="font-bold text-lg">CertifiedCertification</h1>
+          <h1 className="font-bold text-lg uppercase">Certify</h1>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 w-full text-center md:text-left">
           {/* Menu */}

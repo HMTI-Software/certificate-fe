@@ -4,7 +4,7 @@
     "id": "create-event",
     "url": "/docs/create-event",
     "desc": "create your frist event using this tutorial",
-    "content" : [
+    "content": [
       {
         "content": "Login or Sign up to get started"
       },
@@ -30,7 +30,7 @@
     "id": "manage-participant",
     "url": "/docs/manage-participant",
     "desc": "manage your participants using this tutorial",
-    "content" : [
+    "content": [
       {
         "content": "enter your event you want to manage your participant"
       },
@@ -56,7 +56,7 @@
                 "content": "enter the number you want make your own participant",
                 "span": {
                   "color": "yelloww",
-                  "content": "you still can add the participant later, but this is the first step" 
+                  "content": "you still can add the participant later, but this is the first step"
                 }
               },
               {
@@ -72,7 +72,7 @@
                 "content": "you should make a excel file with these columns with header format like this 'name', 'email', 'position' ",
                 "span": {
                   "color": "yelloww",
-                  "content": "if your format not like this, the server will throw an error" 
+                  "content": "if your format not like this, the server will throw an error"
                 }
               },
               {
@@ -89,7 +89,7 @@
     "id": "qr-code",
     "url": "/docs/qr-code",
     "desc": "donwload your qr code using this tutorial",
-    "content" : [
+    "content": [
       {
         "content": "pick the user you want to download the qr code or you can just download all of them"
       },
@@ -98,7 +98,7 @@
       },
       {
         "content": "after you click the button dialog bar will appear to your screen and ask you for the file ext you want",
-        "span": { 
+        "span": {
           "content": "click download as, and choose the file extension you want to download it",
           "color": "purplee"
         }
@@ -110,7 +110,7 @@
     "id": "manage-event",
     "url": "/docs/manage-event",
     "desc": "mannage your event more easy with this tutorial",
-    "content" : [
+    "content": [
       {
         "content": "enter the event you want to manage"
       },
@@ -122,7 +122,7 @@
       },
       {
         "content": "after you click the button dialog bar will appear to your screen and ask you for the file ext you want",
-        "span": { 
+        "span": {
           "content": "click download as, and choose the file extension you want to download it",
           "color": "purplee"
         },
@@ -144,7 +144,7 @@
             ]
           },
           {
-            "title": "Tampalte Preview",
+            "title": "Template Preview",
             "id": "manage-event-preview",
             "content": [
               {
@@ -163,7 +163,7 @@
                 "content": "edit the data you want to make changes",
                 "span": {
                   "color": "yelloww",
-                  "content" : "dont forget to click update data button after you make any changes here"
+                  "content": "dont forget to click update data button after you make any changes here"
                 }
               }
             ]

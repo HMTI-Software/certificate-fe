@@ -44,13 +44,7 @@ interface ISidebarLink {
 const DocsPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("");
-  const [filteredSidebarLinks, setFilteredSidebarLinks] = useState<
-    ISidebarLink[]
-  >([]);
-  const [copied, setCopied] = useState<string | boolean>(false);
-  const [rawData, setRawData] = useState<IContent[]>([]);
-
-  const sideBarLinks: ISidebarLink[] = [
+  const [filteredSidebarLinks] = useState<ISidebarLink[]>([
     {
       name: "Create Event",
       url: "/docs/#create-event",
@@ -105,7 +99,9 @@ const DocsPage = () => {
       url: "/docs/#manage-event-edit",
       id: "manage-event-edit",
     },
-  ];
+  ]);
+  const [copied, setCopied] = useState<string | boolean>(false);
+  const [rawData, setRawData] = useState<IContent[]>([]);
 
   useEffect(() => {
     const handleScroll = (): void => {
@@ -124,10 +120,6 @@ const DocsPage = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    setFilteredSidebarLinks(sideBarLinks);
   }, []);
 
   const copyToClipboard = (id: string): void => {
@@ -190,13 +182,13 @@ const DocsPage = () => {
                 <li key={index}>
                   <Link
                     className={`
-                      ${link.type === "sub" ? "pl-4 text-sm" : "font-medium"} 
+                      ${link.type === "sub" ? "pl-7 text-sm" : "font-medium"} 
                       ${
                         activeSection === link.id
                           ? "text-blue-600 font-semibold"
                           : "text-gray-700"
                       } 
-                      py-1.5 pr-5 block whitespace-nowrap border-l-2 duration-300 hover:text-blue-600
+                      py-1.5 pr-5 pl-2 block whitespace-nowrap border-l-2 duration-300 hover:text-blue-600
                       ${
                         activeSection === link.id
                           ? "border-l-blue-600"
@@ -269,7 +261,7 @@ const DocsPage = () => {
         )}
 
         {/* Main content */}
-        <main className="flex-1 lg:pl-10 md:pl-6 pl-2">
+        <main className="flex-1 lg:pl-10  pl-2">
           {rawData.map((item, index) => (
             <article
               key={index}
@@ -313,7 +305,7 @@ const DocsPage = () => {
                       {doc.span && (
                         <div className="mt-4 mb-2">
                           <span
-                            className={`bg-${doc.span.color} p-4 block rounded-md border border-gray-300 shadow-sm hover:shadow-md transition-all duration-300`}
+                            className={`bordered border-b-4 hover:border-b-1 border-black bg-${doc.span.color} p-4 block rounded-md border  shadow-sm hover:shadow-md`}
                           >
                             {doc.span.content}
                           </span>
@@ -366,7 +358,7 @@ const DocsPage = () => {
                                     {content.span && (
                                       <div className="mt-4 mb-2">
                                         <span
-                                          className={`bg-${content.span.color} p-4 block rounded-md border border-gray-300 shadow-sm hover:shadow-md transition-all duration-300`}
+                                          className={`bordered border-b-4 hover:border-b-1 border-black bg-${content.span.color} p-4 block rounded-md shadow-sm hover:shadow-md`}
                                         >
                                           {content.span.content}
                                         </span>

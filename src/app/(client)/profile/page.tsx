@@ -92,7 +92,7 @@ const ProfilePage = async () => {
             <AvatarImage src={(avatars[0] as StaticImageData).src} />
             <AvatarFallback>NA</AvatarFallback>
           </Avatar>
-          <div className="flex flex-col items-center justify-center gap-1">
+          <div className="flex flex-col items-start  justify-center md:justify-start gap-1">
             <h1 className="text-lg sm:text-xl font-bold">
               {session?.user.email.split("@")[0] || "User"}
             </h1>
@@ -106,8 +106,8 @@ const ProfilePage = async () => {
                   size="sm"
                   className="h-6 px-2 py-0 text-xs bg-green-50 text-green-700 border-green-200 hover:bg-green-100 hover:text-green-800"
                 >
-                  <CheckCircle className="h-3 w-3 mr-1" />
-                  Verified
+                  <CheckCircle className="h-3 w-3 md:mr-1" />
+                  <span className="hidden md:inline-block">Verified</span>
                 </Button>
               ) : (
                 <ResendEmailButton token={session?.token as string} />
@@ -116,7 +116,7 @@ const ProfilePage = async () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3 sm:gap-4 w-full">
           {profileCard.map((item, index) => (
             <ProfileCard key={index} profileData={item} />
           ))}

@@ -3,9 +3,10 @@ import submitVerifyEmail from "@/actions/mutation/auth/submitVerifyEmail";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IAuthSession } from "@/lib/types/Auth";
-import { MailCheck, MailX } from "lucide-react";
+import { LayoutDashboard, MailCheck, MailX } from "lucide-react";
 import ThreeCircleLoading from "@/components/animation/ThreeCircleLoading";
 import { SendVerifyEmail } from "./SendVerifyEmail";
+import Link from "next/link";
 
 export const VerifyEmail = ({ session }: { session: IAuthSession }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -43,11 +44,14 @@ export const VerifyEmail = ({ session }: { session: IAuthSession }) => {
     return <SendVerifyEmail session={session} />;
   }
   return (
-    <div className="min-w-sm flex flex-col border-black p-4 rounded-lg items-center justify-center">
+    <div className="min-w-sm flex flex-col border-black p-4 rounded-lg items-center justify-center pt-10">
       <div className="max-w-lg flex flex-col gap-1">
-        <div className="flex flex-col text-2xl">
+        <div className="flex flex-col text-lg md:text-2xl">
           {isLoading ? (
-            <ThreeCircleLoading message="waiting for verification..." />
+            <ThreeCircleLoading
+              message="waiting for verification..."
+              className="flex items-center justify-center min-h-screen"
+            />
           ) : (
             <>
               {isVerify ? (
@@ -62,6 +66,14 @@ export const VerifyEmail = ({ session }: { session: IAuthSession }) => {
                     You can now return to the sign-in page and log in to your
                     account.
                   </p>
+                  <div className="flex items-center gap-2 mt-4 ">
+                    <LayoutDashboard />
+                    <Link href={"/dashboard"}>
+                      <span className="underline text-sm md:text-lg">
+                        Back to Dashboard
+                      </span>
+                    </Link>
+                  </div>
                 </div>
               ) : (
                 <div className="flex flex-col gap-3 items-center justify-center">
@@ -76,6 +88,14 @@ export const VerifyEmail = ({ session }: { session: IAuthSession }) => {
                       ? "Please double check the URL or maybe the account has been successfully verified."
                       : "Please check your email inbox and click on the verification link to confirm your email address."}
                   </p>
+                  <div className="flex items-center gap-2 mt-4 ">
+                    <LayoutDashboard />
+                    <Link href={"/dashboard"}>
+                      <span className="underline text-sm md:text-lg">
+                        Back to Dashboard
+                      </span>
+                    </Link>
+                  </div>
                 </div>
               )}
             </>

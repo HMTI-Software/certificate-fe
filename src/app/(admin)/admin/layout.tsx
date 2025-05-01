@@ -6,7 +6,7 @@ import { ParticipantsProvider } from "@/context/ParticipantsContext";
 
 export const metadata: Metadata = {
   title: "Admin",
-  description: "Certified Certification Admin Dashboard",
+  description: "Certify Admin Dashboard",
 };
 
 export default async function ProfileLayout({
