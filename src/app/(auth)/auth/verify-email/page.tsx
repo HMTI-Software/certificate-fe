@@ -3,7 +3,6 @@ import { VerifyEmail } from "@/components/auth/verify-email/VerifyEmail";
 import { IAuthSession } from "@/lib/types/Auth";
 import { LayoutDashboard, MailCheck } from "lucide-react";
 import Link from "next/link";
-
 const VerifyEmailPage = async () => {
   const session: IAuthSession | null = await auth();
   return (

@@ -9,6 +9,7 @@ import { auth } from "./auth";
 
 export default auth((req) => {
   const { nextUrl } = req;
+  console.log(req.headers.get("x-forwarded-for"));
 
   if (nextUrl.pathname === "/events") {
     return Response.redirect(new URL("/dashboard", nextUrl));
