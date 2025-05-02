@@ -243,7 +243,10 @@ const CreateEventForm = () => {
               ) : participantCertificateData.eventTemplate ===
                 "TECHNOLOGYDESIGN_2" ? (
                 <div className="flex flex-col items-center justify-center">
-                  <TechnologyDesign2Template eventData={form.getValues()} />
+                  <TechnologyDesign2Template
+                    mode="CREATE/EDIT"
+                    participantCertificateData={participantCertificateData}
+                  />
                 </div>
               ) : participantCertificateData.eventTemplate ===
                 "TECHNOLOGYDESIGN_3" ? (

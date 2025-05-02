@@ -17,6 +17,7 @@ import { updateEvent } from "@/actions/mutation/events/updateEvent";
 import LoadingCircle from "../animation/LoadingCircle";
 import GeneralDialog from "../popup/GeneralDialog";
 import { TechnologyDesign1Template } from "../template/TechnologyDesign1Template";
+import { TechnologyDesign2Template } from "../template/TechnologyDesign2Template";
 
 const templateOptions = [
   { value: "DEFAULTDESIGN", label: "Default Design" },
@@ -234,7 +235,12 @@ const UpdateEventForm = ({ eventData }: Props) => {
               </div>
             ) : participantCertificateData.eventTemplate ===
               "TECHNOLOGYDESIGN_2" ? (
-              ""
+              <div className="flex flex-col items-center justify-center">
+                <TechnologyDesign2Template
+                  participantCertificateData={participantCertificateData}
+                  mode="CREATE/EDIT"
+                />
+              </div>
             ) : participantCertificateData.eventTemplate ===
               "TECHNOLOGYDESIGN_3" ? (
               ""

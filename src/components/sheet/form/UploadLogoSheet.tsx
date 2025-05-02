@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { IEventData, IEventParticipantCertificate } from "@/lib/types/Event";
 import { toast } from "sonner";
 import { uploadEventLogo } from "@/actions/mutation/events/uploadEventLogo";
+import { TechnologyDesign2Template } from "@/components/template/TechnologyDesign2Template";
 
 type Props = {
   open: boolean;
@@ -38,8 +39,8 @@ export const UploadLogoSheet = ({ open, setOpen, eventData }: Props) => {
       eventTemplate: eventData.eventTemplate,
       eventTheme: eventData.eventTheme || "Theme of the event",
       organizer: eventData.organizer || "Organizer of the event",
-      logoFirst: uploadEventLogoForm.getValues().firstLogo || null,
-      logoSecond: uploadEventLogoForm.getValues().secondLogo || null,
+      logoFirst: eventData.logoFirstPath || null,
+      logoSecond: eventData.logoSecondPath || null,
       name: null,
       email: null,
       position: null,
@@ -69,8 +70,8 @@ export const UploadLogoSheet = ({ open, setOpen, eventData }: Props) => {
       eventTemplate: eventData.eventTemplate,
       eventTheme: eventData.eventTheme || "Theme of the event",
       organizer: eventData.organizer || "Organizer of the event",
-      logoFirst: values.firstLogo || null,
-      logoSecond: values.secondLogo || null,
+      logoFirst: values.firstLogo || eventData.logoFirstPath || null,
+      logoSecond: values.secondLogo || eventData.logoSecondPath || null,
       name: null,
       email: null,
       position: null,
@@ -148,13 +149,13 @@ export const UploadLogoSheet = ({ open, setOpen, eventData }: Props) => {
     }
   };
   useEffect(() => {
-    if (open) {
+    if (!open) {
       uploadEventLogoForm.reset({
         firstLogo: null,
         secondLogo: null,
       });
     }
-  }, [open, participantCertificateData, uploadEventLogoForm]);
+  }, [open, uploadEventLogoForm]);
   return (
     <>
       <GeneralSheet
@@ -222,7 +223,12 @@ export const UploadLogoSheet = ({ open, setOpen, eventData }: Props) => {
             </div>
           ) : participantCertificateData.eventTemplate ===
             "TECHNOLOGYDESIGN_2" ? (
-            ""
+            <div className="flex flex-col items-center justify-center">
+              <TechnologyDesign2Template
+                mode="CREATE/EDIT"
+                participantCertificateData={participantCertificateData}
+              />
+            </div>
           ) : participantCertificateData.eventTemplate ===
             "TECHNOLOGYDESIGN_3" ? (
             ""

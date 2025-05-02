@@ -60,7 +60,12 @@ export const createEvent = async (
     });
     if (!res.ok) {
       const errorData: IEventResponse<IEventCreate> = await res.json();
-      console.log("errorData", errorData);
+      if (errorData.status === 403) {
+        return {
+          success: false,
+          message: "You've met the maximum limit for creating events",
+        };
+      }
       return {
         success: false,
         message: errorData.message,

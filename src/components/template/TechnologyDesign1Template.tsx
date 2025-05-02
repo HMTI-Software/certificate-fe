@@ -5,6 +5,16 @@ import { IEventParticipantCertificate } from "@/lib/types/Event";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useState } from "react";
+import { TemplateHeader } from "./components/TemplateHeader";
+import { TemplateCertificateNumber } from "./components/TemplateCertificateNumber";
+import { TemplateEventLogo } from "./components/TemplateEventLogo";
+import { TemplateContent } from "./components/TemplateContent";
+import { TemplateStakeholderImage } from "./components/TemplateStakeholderImage";
+import { TemplateStakeholderName } from "./components/TemplateStakeholderName";
+import { TemplateEventName } from "./components/TemplateEventName";
+import { TemplateEventTheme } from "./components/TemplateEventTheme";
+import { TemplateFooter } from "./components/TemplateFooter";
+
 type Props = {
   participantCertificateData?: IEventParticipantCertificate;
   mode: "CREATE/EDIT" | "PREVIEW" | "VIEW";
@@ -77,15 +87,14 @@ export const TechnologyDesign1Template = ({
           )}
         >
           {/* HEADER */}
-          <div
-            className={cn(
-              "flex flex-col justify-center items-center gap-3",
+          <TemplateHeader
+            className={
               mode === "CREATE/EDIT"
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                   ? stakeholderData.photoPath
                     ? "mb-5 md:mb-8"
-                    : "mb-0 md:mb-4"
+                    : "mb-0 md:mb-7"
                   : stakeholderData.photoPath
                   ? "mb-7 md:mb-12"
                   : "mb-0 md:mb-5"
@@ -105,11 +114,12 @@ export const TechnologyDesign1Template = ({
                   : "mb-5 md:mb-16"
                 : stakeholderData.photoPath
                 ? "mb-12 md:mb-12"
-                : "mb-7 md:mb-20",
-            )}
+                : "mb-7 md:mb-20"
+            }
           >
-            {/* CERTIFICATE NUMBER */}
-            <h1
+            <TemplateCertificateNumber
+              participantCertificateData={participantCertificateData}
+              mode={mode}
               className={cn(
                 mode === "CREATE/EDIT"
                   ? "text-[0.4rem] md:text-[7px]"
@@ -120,128 +130,65 @@ export const TechnologyDesign1Template = ({
                 "text-grayy",
                 "tracking-wider",
               )}
-            >
-              Nomor Sertifikat:{" "}
-              {mode === "VIEW"
-                ? participantCertificateData.certificateNumber
-                : participantCertificateData.certificateNumber.slice(0, -1) +
-                  "PREVIEW"}
-            </h1>
+            />
             <div className="flex flex-row justify-between items-center w-full">
-              {/* LOGO FIRST */}
-              <div
-                className={cn(
+              <TemplateEventLogo
+                participantCertificateData={participantCertificateData}
+                className={
                   mode === "CREATE/EDIT"
-                    ? "w-[35px] h-auto md:w-[40px] md:h-auto"
+                    ? "w-[35px] h-[35px] md:w-[40px] md:h-[40px]"
                     : mode === "PREVIEW"
-                    ? "w-[45px] h-auto md:w-[70px] md:h-auto"
-                    : "w-[50px] h-auto md:w-[70px] md:h-auto",
-                )}
-              >
-                {participantCertificateData.logoFirst ? (
-                  <Image
-                    src={
-                      typeof participantCertificateData.logoFirst === "string"
-                        ? "https://certificate-be-production.up.railway.app" +
-                          participantCertificateData.logoFirst
-                        : URL.createObjectURL(
-                            participantCertificateData.logoFirst[0] as Blob,
-                          )
-                    }
-                    width={50}
-                    height={50}
-                    alt="Logo First"
-                    className={cn(
-                      "object-cover object-center mx-auto w-full h-full",
-                    )}
-                    priority
-                  />
-                ) : (
-                  <div className="w-[50px] h-[50px] invisible" />
-                )}
-              </div>
-              {/* LOGO SECOND */}
-              <div
-                className={cn(
+                    ? "w-[45px] h-[45px] md:w-[70px] md:h-[70px]"
+                    : "w-[50px] h-[50px] md:w-[70px] md:h-[70px]"
+                }
+                logo="first"
+              />
+              <TemplateEventLogo
+                participantCertificateData={participantCertificateData}
+                className={
                   mode === "CREATE/EDIT"
-                    ? "w-[35px] h-auto md:w-[40px] md:h-auto"
+                    ? "w-[35px] h-[35px] md:w-[40px] md:h-[40px]"
                     : mode === "PREVIEW"
-                    ? "w-[45px] h-auto md:w-[70px] md:h-auto"
-                    : "w-[50px] h-auto md:w-[70px] md:h-auto",
-                )}
-              >
-                {participantCertificateData.logoSecond ? (
-                  <Image
-                    src={
-                      typeof participantCertificateData.logoSecond === "string"
-                        ? "https://certificate-be-production.up.railway.app" +
-                          participantCertificateData.logoSecond
-                        : URL.createObjectURL(
-                            participantCertificateData.logoSecond[0] as Blob,
-                          )
-                    }
-                    width={50}
-                    height={50}
-                    alt="Logo Second"
-                    className={cn(
-                      "object-cover object-center  mx-auto w-full h-full",
-                    )}
-                    priority
-                  />
-                ) : (
-                  <div className="w-[50px] h-[50px] invisible" />
-                )}
-              </div>
+                    ? "w-[45px] h-[45px] md:w-[70px] md:h-[70px]"
+                    : "w-[50px] h-[50px] md:w-[70px] md:h-[70px]"
+                }
+                logo="second"
+              />
             </div>
-          </div>
+          </TemplateHeader>
           {/* END HEADER */}
 
           {/* CONTENT */}
-          <div
-            className={cn(
-              "flex flex-col justify-center items-center w-full h-full  text-white",
+          <TemplateContent
+            participantCertificateData={participantCertificateData}
+            className={
               mode === "CREATE/EDIT"
                 ? "space-y-4"
                 : mode === "PREVIEW"
                 ? "space-y-3"
-                : "space-y-6",
-            )}
+                : "space-y-6"
+            }
           >
             {/* STAKEHOLDER IMAGE */}
-            {stakeholderData.photoPath === null || undefined ? (
-              <div
-                className={cn(
-                  "flex items-center justify-center  text-gray-500 font-bold rounded-full bg-transparent",
-                  mode === "CREATE/EDIT"
-                    ? "w-21 h-21 md:w-20 md:h-20"
-                    : mode === "PREVIEW"
-                    ? "w-21 h-21 md:w-34 md:h-34"
-                    : "w-22 h-22 md:w-27 md:h-27",
-                )}
-              >
-                <span className="text-white text-lg md:text-4xl">
-                  {stakeholderData.name.slice(0, 2).toUpperCase()}
-                </span>
-              </div>
-            ) : (
-              <Image
-                src={
-                  "https://certificate-be-production.up.railway.app" +
-                  stakeholderData.photoPath
-                }
-                width={108}
-                height={108}
-                className={cn(
-                  "flex items-center justify-center object-cover object-center rounded-full m-auto",
-                  mode === "CREATE/EDIT"
-                    ? "w-19 h-19 md:w-20 md:h-20"
-                    : mode === "PREVIEW"
-                    ? "w-21 h-21 md:w-34 md:h-34"
-                    : "w-24 h-24 md:w-34 md:h-34",
-                )}
-                alt={stakeholderData.name.slice(0, 2)}
-              />
-            )}
+            <TemplateStakeholderImage
+              stakeholderData={stakeholderData}
+              classNameNoPhotoPath={
+                mode === "CREATE/EDIT"
+                  ? "w-21 h-21 md:w-20 md:h-20"
+                  : mode === "PREVIEW"
+                  ? "w-21 h-21 md:w-34 md:h-34"
+                  : "w-22 h-22 md:w-27 md:h-27"
+              }
+              classNamePhotoPath={
+                mode === "CREATE/EDIT"
+                  ? "w-19 h-19 md:w-20 md:h-20"
+                  : mode === "PREVIEW"
+                  ? "w-21 h-21 md:w-34 md:h-34"
+                  : "w-24 h-24 md:w-34 md:h-34"
+              }
+            />
+            {/* END STAKEHOLDER IMAGE */}
+            {/* STAKEHOLDER DATA */}
             <div
               className={cn(
                 "flex flex-col items-center space-y-2",
@@ -255,18 +202,18 @@ export const TechnologyDesign1Template = ({
               )}
             >
               {/* STAKEHOLDER NAME */}
-              <h1
+              <TemplateStakeholderName
+                stakeholderData={stakeholderData}
                 className={cn(
-                  "font-bold text-[#62FFFD] tracking-widest text-center",
                   mode === "CREATE/EDIT"
                     ? "text-[10px] md:text-[9px]"
                     : mode === "PREVIEW"
                     ? "text-xs md:text-lg"
                     : "text-xs md:text-lg",
+                  "text-[#62FFFD]",
                 )}
-              >
-                {stakeholderData.name.toUpperCase()}
-              </h1>
+              />
+              {/* END STAKEHOLDER NAME */}
               <span
                 className={cn(
                   "font-light",
@@ -282,46 +229,47 @@ export const TechnologyDesign1Template = ({
                 PENANDATANGAN
               </span>
             </div>
+            {/* END STAKEHOLDER DATA */}
+            {/* EVENT DATA */}
             <div className="flex flex-col items-center space-y-2">
               {/* EVENT NAME */}
-              <h1
-                className={cn(
-                  "font-extrabold",
+              <TemplateEventName
+                participantCertificateData={participantCertificateData}
+                className={
                   mode === "CREATE/EDIT"
                     ? "text-xs md:text-sm"
                     : mode === "PREVIEW"
                     ? "text-lg md:text-2xl"
-                    : "text-lg md:text-2xl",
-                )}
-              >
-                {participantCertificateData.eventName.toUpperCase()}
-              </h1>
+                    : "text-lg md:text-2xl"
+                }
+              />
+              {/* END EVENT NAME */}
               {/* EVENT THEME */}
-              <p
-                className={cn(
-                  "font-medium text-center h-10 max-w-sm",
+              <TemplateEventTheme
+                participantCertificateData={participantCertificateData}
+                className={
                   mode === "CREATE/EDIT"
                     ? "text-[9px] md:text-[9px]"
                     : mode === "PREVIEW"
                     ? "text-[9px] md:text-xs"
-                    : "text-[9px] md:text-xs",
-                )}
-              >
-                {participantCertificateData.eventTheme.toUpperCase()}
-              </p>
+                    : "text-[9px] md:text-xs"
+                }
+              />
+              {/* END EVENT THEME */}
             </div>
-          </div>
+            {/* END EVENT DATA */}
+          </TemplateContent>
           {/* END CONTENT */}
 
           {/* FOOTER */}
-          <div
+          <TemplateFooter
             className={cn(
-              "flex flex-col justify-end items-center w-full h-full space-y-1 text-white font-light tracking-wider mb-5",
               mode === "CREATE/EDIT"
                 ? "text-[6px] md:text-[8px]"
                 : mode === "PREVIEW"
                 ? "text-[9px] md:text-xs"
                 : "text-[9px] md:text-xs",
+              "mb-5",
             )}
           >
             <span>Diselenggarakan oleh : </span>
@@ -337,8 +285,7 @@ export const TechnologyDesign1Template = ({
                   })
                 : "Date not available"}
             </span>
-          </div>
-
+          </TemplateFooter>
           {/* END FOOTER */}
         </div>
       </div>

@@ -3,22 +3,15 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   participantCertificateData: IEventParticipantCertificate;
-  children: React.ReactNode;
   className?: string;
 };
-export const TemplateContent = ({
+export const TemplateEventTheme = ({
   participantCertificateData,
   className,
-  children,
 }: Props) => {
   return (
-    <div
-      className={cn(
-        "flex flex-col justify-center items-center w-full h-full  text-white",
-        className,
-      )}
-    >
-      {children}
-    </div>
+    <p className={cn("font-medium text-center h-10 max-w-sm", className)}>
+      {participantCertificateData.eventTheme.toUpperCase()}
+    </p>
   );
 };
