@@ -1,4 +1,3 @@
-import { IEventParticipantCertificate } from "@/lib/types/Event";
 import { cn } from "@/lib/utils";
 import React from "react";
 

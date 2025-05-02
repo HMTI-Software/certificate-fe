@@ -35,12 +35,14 @@ import { SelectFormField } from "../forms/fields/CustomSelectField";
 import { Form } from "../ui/form";
 import { toast } from "sonner";
 import { updownUserPackage } from "@/actions/mutation/users/updownUserPackage";
+import { deleteUser } from "@/actions/mutation/users/deleteUser";
 
 type UsersActionOptionProps = {
   data: IUsersDataTable;
 };
 export const UsersActionOption = ({ data }: UsersActionOptionProps) => {
   const [openDeactiveAlert, setOpenDeactiveAlert] = useState<boolean>(false);
+  const [openDeleteAlert, setOpenDeleteAlert] = useState<boolean>(false);
   const [openActivateAlert, setOpenActivateAlert] = useState<boolean>(false);
   const [openShowUserSheet, setOpenShowUserSheet] = useState<boolean>(false);
   const [openUpdownDialog, setOpenUpdownDialog] = useState<boolean>(false);
@@ -76,6 +78,32 @@ export const UsersActionOption = ({ data }: UsersActionOptionProps) => {
     } catch (error) {
       console.error("ERROR IN UPDOWN PACKAGE HANDLER : ", error);
       toast.error("An unknown error occurred while upgrading the package.");
+    }
+  };
+  const deleteUserHandler = async (data: IUsersDataTable) => {
+    if (openShowUserSheet) setOpenShowUserSheet(false);
+    try {
+      toast.promise(deleteUser(data.uid), {
+        loading: "deleting user...",
+        success: (data) => {
+          if (data.success) {
+            setOpenDeleteAlert(false);
+            return data.message;
+          }
+          throw new Error(data.message);
+        },
+        error: (error) => {
+          setOpenDeleteAlert(false);
+          return error.message;
+        },
+        finally: () => {
+          setOpenDeleteAlert(false);
+          setOpenShowUserSheet(false);
+        },
+      });
+    } catch (error) {
+      console.error("ERROR IN DELETE USER HANDLER : ", error);
+      toast.error("An unknown error occurred while deleting the user.");
     }
   };
   const updownPackageOptions = [
@@ -121,7 +149,10 @@ export const UsersActionOption = ({ data }: UsersActionOptionProps) => {
               >
                 <Rocket /> Upgrade
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-sm">
+              <DropdownMenuItem
+                className="text-sm"
+                onClick={() => setOpenDeleteAlert(true)}
+              >
                 <Trash2 /> Delete
               </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -264,6 +295,15 @@ export const UsersActionOption = ({ data }: UsersActionOptionProps) => {
           </form>
         </Form>
       </GeneralDialog>
+      <GeneralAlert
+        open={openDeleteAlert}
+        setOpen={setOpenDeleteAlert}
+        title={`Are you sure you want to delete ${data.email}?`}
+        message={"This action cannot be undone."}
+        onSuccess={() => {
+          deleteUserHandler(data);
+        }}
+      />
     </>
   );
 };

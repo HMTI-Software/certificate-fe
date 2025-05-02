@@ -1,16 +1,10 @@
-import { IEventParticipantCertificate } from "@/lib/types/Event";
 import { cn } from "@/lib/utils";
 
 type Props = {
-  participantCertificateData: IEventParticipantCertificate;
   children: React.ReactNode;
   className?: string;
 };
-export const TemplateContent = ({
-  participantCertificateData,
-  className,
-  children,
-}: Props) => {
+export const TemplateContent = ({ className, children }: Props) => {
   return (
     <div
       className={cn(

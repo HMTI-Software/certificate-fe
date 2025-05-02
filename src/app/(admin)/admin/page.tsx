@@ -25,6 +25,10 @@ const getUsersData = async () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      next: {
+        revalidate: 0,
+        tags: ["users"],
+      },
     });
     if (!res.ok) {
       return {

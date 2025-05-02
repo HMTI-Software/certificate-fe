@@ -160,7 +160,6 @@ export const TechnologyDesign1Template = ({
 
           {/* CONTENT */}
           <TemplateContent
-            participantCertificateData={participantCertificateData}
             className={
               mode === "CREATE/EDIT"
                 ? "space-y-4"
