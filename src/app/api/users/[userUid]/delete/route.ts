@@ -1,4 +1,3 @@
-import { IEventResponse } from "@/lib/types/Event";
 import { IUserResponse } from "@/lib/types/User";
 import { NextRequest, NextResponse } from "next/server";
 

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { ChevronUp, Menu, X, Copy, Check } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface ISpan {
   content: string;
@@ -153,7 +154,12 @@ const DocsPage = () => {
   return (
     <div className="min-h-screen bg-white pb-20">
       {/* Mobile menu button */}
-      <div className="fixed top-20 left-4 z-50 lg:hidden">
+      <div
+        className={cn(
+          "fixed  left-4 z-50 lg:hidden",
+          isOpen ? "top-4" : "top-20",
+        )}
+      >
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="p-2 rounded-md bg-white shadow-md border border-gray-200"
@@ -185,10 +191,10 @@ const DocsPage = () => {
                       ${link.type === "sub" ? "pl-7 text-sm" : "font-medium"} 
                       ${
                         activeSection === link.id
-                          ? "text-blue-600 font-semibold"
+                          ? "text-black font-semibold"
                           : "text-gray-700"
                       } 
-                      py-1.5 pr-5 pl-2 block whitespace-nowrap border-l-2 duration-300 hover:text-blue-600
+                      py-1.5 pr-5 block whitespace-nowrap relative group
                       ${
                         activeSection === link.id
                           ? "border-l-blue-600"
@@ -201,6 +207,11 @@ const DocsPage = () => {
                     }
                   >
                     {link.name}
+                    <span
+                      className={cn(
+                        "absolute -bottom-2 left-0 w-0 transition-all h-[2px] bg-black group-hover:w-full",
+                      )}
+                    ></span>
                   </Link>
                 </li>
               ))}
@@ -226,10 +237,10 @@ const DocsPage = () => {
                         ${link.type === "sub" ? "pl-4 text-sm" : "font-medium"} 
                         ${
                           activeSection === link.id
-                            ? "text-blue-600 font-semibold"
+                            ? "text-black font-semibold"
                             : "text-gray-700"
                         } 
-                        py-1.5 pr-5 block whitespace-nowrap border-l-2 duration-300 hover:text-blue-600
+                        py-1.5 pr-5 block whitespace-nowrap relative group
                         ${
                           activeSection === link.id
                             ? "border-l-blue-600"
@@ -243,6 +254,11 @@ const DocsPage = () => {
                       }
                     >
                       {link.name}
+                      <span
+                        className={cn(
+                          "absolute -bottom-2 left-0 w-0 transition-all h-[2px] bg-black group-hover:w-full",
+                        )}
+                      ></span>
                     </Link>
                   </li>
                 ))}
@@ -254,7 +270,7 @@ const DocsPage = () => {
         {/* Overlay for mobile sidebar */}
         {isOpen && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-30 z-30 lg:hidden"
+            className="fixed inset-0 bg-white/70 bg-opacity-30 z-30 lg:hidden"
             onClick={() => setIsOpen(false)}
             role="presentation"
           />
