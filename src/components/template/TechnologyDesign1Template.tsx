@@ -102,10 +102,10 @@ export const TechnologyDesign1Template = ({
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                   ? stakeholderData.photoPath
-                    ? "mb-5 md:mb-16"
+                    ? "mb-6 md:mb-16"
                     : "mb-5 md:mb-16"
                   : stakeholderData.photoPath
-                  ? "mb-12 md:mb-12"
+                  ? "mb-6 md:mb-16"
                   : "mb-4 md:mb-20"
                 : participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
@@ -238,7 +238,7 @@ export const TechnologyDesign1Template = ({
                   mode === "CREATE/EDIT"
                     ? "text-xs md:text-sm"
                     : mode === "PREVIEW"
-                    ? "text-lg md:text-2xl"
+                    ? "text-sm md:text-2xl"
                     : "text-lg md:text-2xl"
                 }
               />

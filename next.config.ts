@@ -1,6 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {
+      allowedOrigins: [
+        "localhost:3000",
+        "certificate-be-production.up.railway.app",
+        "certificate-fe.vercel.app",
+      ],
+      bodySizeLimit: "3mb",
+    },
+  },
   images: {
     remotePatterns: [
       {
