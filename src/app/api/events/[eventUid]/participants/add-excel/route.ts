@@ -18,7 +18,6 @@ export async function POST(
         { status: 401 },
       );
     }
-    console.log("Token:", token);
 
     if (!eventUid) {
       return NextResponse.json(
@@ -30,13 +29,10 @@ export async function POST(
         { status: 400 },
       );
     }
-    console.log("Event UID:", eventUid);
 
     const formData = await req.formData();
-    console.log("Form Data:", formData);
 
     const file = formData.get("excel") as File;
-    console.log("File:", file);
     if (!file) {
       return NextResponse.json(
         {
@@ -51,7 +47,6 @@ export async function POST(
     // Forward to backend API
     const backendFormData = new FormData();
     backendFormData.append("excel", file);
-    console.log("Backend Form Data:", backendFormData);
     const res = await fetch(
       `${process.env.BACKEND_URL}/api/events/participants/${eventUid}/add-excel`,
       {
