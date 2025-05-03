@@ -21,6 +21,7 @@ import { uploadStakeholderImage } from "@/actions/mutation/events/uploadStakehol
 import ImageCropper from "@/components/image/ImageCropper";
 import { useRouter } from "next/navigation";
 import { Image as Img } from "lucide-react";
+import { UploadStakeholderImageDialog } from "@/components/popup/form/UploadStakeholderImageDialog";
 
 type EventStakeholderDetailSheetProps = {
   open: boolean;
@@ -101,6 +102,8 @@ export const EventStakeholderDetailSheet = ({
     values: z.infer<typeof uploadStakeholderImageSchema>,
   ) => {
     const file = values.file[0];
+    console.log(file);
+
     if (file) {
       const url = URL.createObjectURL(file);
       setSelectedImage(url);
@@ -110,6 +113,8 @@ export const EventStakeholderDetailSheet = ({
   };
   const handleImageUploadSubmit = (file: File) => {
     setOpen(false);
+    console.log(file);
+
     try {
       toast.promise(uploadStakeholderImage(file, eventData.uid), {
         loading: "Uploading stakeholder image...",
@@ -228,75 +233,10 @@ export const EventStakeholderDetailSheet = ({
           </Form>
         </div>
       </GeneralSheet>
-      <GeneralDialog
-        title="Upload Image"
-        message="Upload a new image for the stakeholder."
-        open={openDialog}
-        setOpen={setOpenDialog}
-        successText="upload"
-        onSuccess={() => {
-          handleImageUploadSubmit(uploadStakeholderImageForm.getValues("file"));
-          setOpenDialog(false);
-          setSelectedImage(null);
-          setCroppedImage(null);
-        }}
-        onCancel={() => {
-          setOpenDialog(false);
-          setSelectedImage(null);
-          setCroppedImage(null);
-        }}
-      >
-        <Form {...uploadStakeholderImageForm}>
-          <form
-            onSubmit={uploadStakeholderImageForm.handleSubmit(handleFileChange)}
-          >
-            <FileUploadField
-              form={uploadStakeholderImageForm}
-              name="file"
-              label="Upload Image"
-              placeholder="Upload Image"
-              type="file"
-              description="Upload an image for the stakeholder."
-              accept="image/*"
-            />
-            <Button
-              type="submit"
-              className={`bordered bg-greenn hover:bg-greenn/90 border-b-4 hover:border-b-1 text-black w-full mt-3 ${
-                !selectedImage ? "" : "hidden"
-              }`}
-            >
-              resize image
-            </Button>
-          </form>
-        </Form>
-        {selectedImage && !croppedImage && (
-          <ImageCropper
-            imageSrc={selectedImage!}
-            onCropDone={(blob: Blob, previewUrl: string) => {
-              setCroppedImage(previewUrl);
-              setSelectedImage(null);
-              uploadStakeholderImageForm.setValue(
-                "file",
-                new File([blob], previewUrl, {
-                  type: blob.type,
-                }),
-              );
-            }}
-          />
-        )}
-        {croppedImage && (
-          <div className="flex flex-col items-center justify-center">
-            <p className="mb-2 text-sm font-medium">Cropped Image Preview: </p>
-            <Image
-              src={croppedImage}
-              alt="Cropped Avatar"
-              className="w-32 h-32 rounded-full object-cover"
-              width={100}
-              height={100}
-            />
-          </div>
-        )}
-      </GeneralDialog>
+      <UploadStakeholderImageDialog
+        openDialog={openDialog}
+        setOpenDialog={setOpenDialog}
+      />
     </>
   );
 };

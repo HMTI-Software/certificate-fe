@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
         "localhost:3000",
         "certificate-be-production.up.railway.app",
         "certificate-fe.vercel.app",
+        "certify.hmtiudinus.org",
       ],
       bodySizeLimit: "3mb",
     },

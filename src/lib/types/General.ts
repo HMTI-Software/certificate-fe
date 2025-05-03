@@ -197,7 +197,7 @@ export const uploadParticipantByExcelSchema = z.object({
     }),
 });
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024; //FILE SIZE 10 MB ONLY CUY
+const MAX_FILE_SIZE = 3 * 1024 * 1024; //FILE SIZE 3 MB ONLY CUY
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
   "image/png",
@@ -220,7 +220,7 @@ export const uploadEventLogoFormSchema = z.object({
       message: "File must be an image (JPEG, JPG, PNG, or WEBP).",
     })
     .refine((files) => !files || files[0].size <= MAX_FILE_SIZE, {
-      message: "File must be smaller than 10MB.",
+      message: "File must be smaller than 3MB.",
     }),
 
   secondLogo: z
@@ -237,7 +237,7 @@ export const uploadEventLogoFormSchema = z.object({
       message: "File must be an image (JPEG, JPG, PNG, or WEBP).",
     })
     .refine((files) => !files || files[0].size <= MAX_FILE_SIZE, {
-      message: "File must be smaller than 10MB.",
+      message: "File must be smaller than 3MB.",
     }),
 });
 
@@ -259,7 +259,7 @@ export const uploadStakeholderImageSchema = z.object({
     .refine((files) => files?.[0]?.type.startsWith("image/"), {
       message: "File must be an image (e.g., png, jpg, jpeg, webp).",
     })
-    .refine((files) => files?.[0]?.size <= 5 * 1024 * 1024, {
+    .refine((files) => files?.[0]?.size <= 3 * 1024 * 1024, {
       message: "File must be smaller than 5MB.",
     }),
 });

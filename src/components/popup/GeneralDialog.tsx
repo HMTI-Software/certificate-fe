@@ -9,6 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 type GeneralDialogProps = {
   title: string;
@@ -21,6 +22,9 @@ type GeneralDialogProps = {
   cancelText?: string;
   children?: React.ReactNode;
   autoClose?: boolean;
+  additionalButton?: boolean;
+  additionalButtonText?: string;
+  additionalButtonOnClick?: () => void;
 };
 
 const GeneralDialog = ({
@@ -34,6 +38,9 @@ const GeneralDialog = ({
   successText = "continue",
   cancelText = "cancel",
   autoClose = true,
+  additionalButton = false,
+  additionalButtonText,
+  additionalButtonOnClick = () => {},
 }: GeneralDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -45,7 +52,7 @@ const GeneralDialog = ({
           </DialogDescription>
         </DialogHeader>
         {children}
-        <DialogFooter className="flex flex-row justify-end">
+        <DialogFooter className={cn("flex flex-row justify-end")}>
           <Button
             className="bordered bg-red-400 hover:bg-red-400/90 border-b-4 hover:border-b-1 text-black"
             onClick={() => {

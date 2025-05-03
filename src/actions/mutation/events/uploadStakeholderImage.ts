@@ -57,6 +57,7 @@ export const uploadStakeholderImage = async (file: File, eventUid: string) => {
       };
     } else {
       revalidateTag("events/" + eventUid);
+      revalidateTag("events");
       return {
         success: true,
         message: "Stakeholder image uploaded successfully",
