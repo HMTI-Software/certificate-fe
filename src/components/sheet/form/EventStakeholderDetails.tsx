@@ -4,10 +4,7 @@ import { IEventData, IEventStakeholder } from "@/lib/types/Event";
 import { Separator } from "@/components/ui/separator";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {
-  updateStakeholderSchema,
-  uploadStakeholderImageSchema,
-} from "@/lib/types/General";
+import { updateStakeholderSchema } from "@/lib/types/General";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { InputFormField } from "@/components/forms/fields/CustomInputField";
@@ -15,10 +12,6 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { toast } from "sonner";
 import { updateStakeholderData } from "@/actions/mutation/events/updateStakeholderData";
-import GeneralDialog from "@/components/popup/GeneralDialog";
-import { FileUploadField } from "@/components/forms/fields/CustomFileUpload";
-import { uploadStakeholderImage } from "@/actions/mutation/events/uploadStakeholderImage";
-import ImageCropper from "@/components/image/ImageCropper";
 import { useRouter } from "next/navigation";
 import { Image as Img } from "lucide-react";
 import { UploadStakeholderImageDialog } from "@/components/popup/form/UploadStakeholderImageDialog";
@@ -38,8 +31,6 @@ export const EventStakeholderDetailSheet = ({
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [croppedImage, setCroppedImage] = useState<string | null>(null);
   const [stakeholderData, setStakeholderData] = useState<IEventStakeholder>({
     uid: eventData.stakeholders![0].uid,
     eventId: eventData.stakeholders![0].eventId,
@@ -58,14 +49,6 @@ export const EventStakeholderDetailSheet = ({
     },
   });
 
-  const uploadStakeholderImageForm = useForm<
-    z.infer<typeof uploadStakeholderImageSchema>
-  >({
-    resolver: zodResolver(uploadStakeholderImageSchema),
-    defaultValues: {
-      file: null,
-    },
-  });
   const handleSubmitStakeholderData = (
     values: z.infer<typeof updateStakeholderSchema>,
   ) => {
@@ -99,48 +82,6 @@ export const EventStakeholderDetailSheet = ({
     }
   };
 
-  const handleFileChange = (
-    values: z.infer<typeof uploadStakeholderImageSchema>,
-  ) => {
-    const file = values.file[0];
-    console.log(file);
-
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setSelectedImage(url);
-    } else {
-      setSelectedImage(null);
-    }
-  };
-  const handleImageUploadSubmit = (file: File) => {
-    setOpen(false);
-    console.log(file);
-
-    try {
-      toast.promise(uploadStakeholderImage(file, eventData.uid), {
-        loading: "Uploading stakeholder image...",
-        success: (data) => {
-          if (data.success) {
-            setOpenDialog(false);
-            setOpen(false);
-            router.push("/events/" + eventData.uid);
-            return data.message;
-          }
-          throw new Error(data.message);
-        },
-        error: (error) => {
-          console.error("Error uploading image:", error);
-          return error.message;
-        },
-        finally: () => {
-          setIsLoading(false);
-        },
-      });
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      toast.error("Failed to upload image. Please try again.");
-    }
-  };
   useEffect(() => {
     setStakeholderData({
       uid: eventData.stakeholders![0].uid,

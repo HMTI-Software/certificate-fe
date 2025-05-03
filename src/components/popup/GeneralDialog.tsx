@@ -22,9 +22,6 @@ type GeneralDialogProps = {
   cancelText?: string;
   children?: React.ReactNode;
   autoClose?: boolean;
-  additionalButton?: boolean;
-  additionalButtonText?: string;
-  additionalButtonOnClick?: () => void;
 };
 
 const GeneralDialog = ({
@@ -38,9 +35,6 @@ const GeneralDialog = ({
   successText = "continue",
   cancelText = "cancel",
   autoClose = true,
-  additionalButton = false,
-  additionalButtonText,
-  additionalButtonOnClick = () => {},
 }: GeneralDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
