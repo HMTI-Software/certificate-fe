@@ -182,7 +182,7 @@ export const TechnologyDesign1Template = ({
                 mode === "CREATE/EDIT"
                   ? "w-19 h-19 md:w-20 md:h-20"
                   : mode === "PREVIEW"
-                  ? "w-21 h-21 md:w-34 md:h-34"
+                  ? "w-20 h-20 md:w-34 md:h-34"
                   : "w-24 h-24 md:w-34 md:h-34"
               }
             />
@@ -266,9 +266,9 @@ export const TechnologyDesign1Template = ({
               mode === "CREATE/EDIT"
                 ? "text-[6px] md:text-[8px]"
                 : mode === "PREVIEW"
-                ? "text-[9px] md:text-xs"
+                ? "text-[7px] md:text-xs"
                 : "text-[9px] md:text-xs",
-              "mb-5",
+              "mb-3 md:mb-5",
             )}
           >
             <span>Diselenggarakan oleh : </span>

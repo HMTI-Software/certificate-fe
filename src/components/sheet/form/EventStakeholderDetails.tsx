@@ -22,6 +22,7 @@ import ImageCropper from "@/components/image/ImageCropper";
 import { useRouter } from "next/navigation";
 import { Image as Img } from "lucide-react";
 import { UploadStakeholderImageDialog } from "@/components/popup/form/UploadStakeholderImageDialog";
+import LoadingCircle from "@/components/animation/LoadingCircle";
 
 type EventStakeholderDetailSheetProps = {
   open: boolean;
@@ -181,6 +182,9 @@ export const EventStakeholderDetailSheet = ({
                       height={70}
                       className="object-cover object-center"
                       alt={stakeholderData.name.slice(0, 2)}
+                      onLoad={() => {
+                        return <LoadingCircle />;
+                      }}
                     />
                   )}
                 </div>

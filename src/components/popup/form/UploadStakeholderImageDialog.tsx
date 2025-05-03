@@ -19,8 +19,8 @@ export const UploadStakeholderImageDialog = ({
   openDialog,
   setOpenDialog,
 }: Props) => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [croppedImage, setCroppedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [croppedImage, setCroppedImage] = useState<File | null>(null);
 
   const uploadStakeholderImageForm = useForm<
     z.infer<typeof uploadStakeholderImageSchema>
@@ -80,9 +80,13 @@ export const UploadStakeholderImageDialog = ({
       </Form>
       {selectedImage && !croppedImage && (
         <ImageCropper
-          imageSrc={selectedImage!}
+          imageSrc={URL.createObjectURL(selectedImage!)}
           onCropDone={(blob: Blob, previewUrl: string) => {
-            setCroppedImage(previewUrl);
+            setCroppedImage(
+              new File([blob], previewUrl, {
+                type: blob.type,
+              }),
+            );
             setSelectedImage(null);
             uploadStakeholderImageForm.setValue(
               "file",
@@ -97,7 +101,7 @@ export const UploadStakeholderImageDialog = ({
         <div className="flex flex-col items-center justify-center">
           <p className="mb-2 text-sm font-medium">Cropped Image Preview: </p>
           <Image
-            src={croppedImage}
+            src={URL.createObjectURL(croppedImage)}
             alt="Cropped Avatar"
             className="w-32 h-32 rounded-full object-cover"
             width={100}
