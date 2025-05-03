@@ -10,14 +10,18 @@ import { useState } from "react";
 import ImageCropper from "@/components/image/ImageCropper";
 import Image from "next/image";
 import { Crop } from "lucide-react";
+import { toast } from "sonner";
+import { uploadStakeholderImage } from "@/actions/mutation/events/uploadStakeholderImage";
 
 type Props = {
   openDialog: boolean;
   setOpenDialog: (open: boolean) => void;
+  eventUid: string;
 };
 export const UploadStakeholderImageDialog = ({
   openDialog,
   setOpenDialog,
+  eventUid,
 }: Props) => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [croppedImage, setCroppedImage] = useState<File | null>(null);
@@ -30,15 +34,74 @@ export const UploadStakeholderImageDialog = ({
       file: null,
     },
   });
-  const uploadStakeholderImage = async (
+  const handleDirectUpload = async (
     values: z.infer<typeof uploadStakeholderImageSchema>,
   ) => {
-    console.log("values : ", values.file[0]);
+    const file = values.file[0];
+    try {
+      toast.promise(uploadStakeholderImage(file, eventUid), {
+        loading: "Uploading stakeholder image...",
+        success: (data) => {
+          if (data.success) {
+            setOpenDialog(false);
+            uploadStakeholderImageForm.reset();
+            return "Stakeholder image uploaded successfully!";
+          }
+          throw new Error(data.message);
+        },
+        error: (err) => {
+          setOpenDialog(false);
+          uploadStakeholderImageForm.reset();
+          return err.message;
+        },
+        finally: () => {
+          setSelectedImage(null);
+          setCroppedImage(null);
+          uploadStakeholderImageForm.reset();
+        },
+      });
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      toast.error("Failed to upload image. Please try again.");
+    }
   };
+
+  const handleCroppedUpload = async (
+    values: z.infer<typeof uploadStakeholderImageSchema>,
+  ) => {
+    const file = values.file[0];
+    try {
+      toast.promise(uploadStakeholderImage(file, eventUid), {
+        loading: "Uploading stakeholder image...",
+        success: (data) => {
+          if (data.success) {
+            setOpenDialog(false);
+            uploadStakeholderImageForm.reset();
+            return "Stakeholder image uploaded successfully!";
+          }
+          throw new Error(data.message);
+        },
+        error: (err) => {
+          setOpenDialog(false);
+          uploadStakeholderImageForm.reset();
+          return err.message;
+        },
+        finally: () => {
+          setSelectedImage(null);
+          setCroppedImage(null);
+          uploadStakeholderImageForm.reset();
+        },
+      });
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      toast.error("Failed to upload image. Please try again.");
+    }
+  };
+
   const cropStakeholderImage = async (
     values: z.infer<typeof uploadStakeholderImageSchema>,
   ) => {
-    console.log("cropped values : ", values.file[0]);
+    setSelectedImage(values.file[0]);
   };
   return (
     <GeneralDialog
@@ -48,10 +111,17 @@ export const UploadStakeholderImageDialog = ({
       setOpen={setOpenDialog}
       successText="upload"
       onSuccess={() => {
-        uploadStakeholderImageForm.handleSubmit(uploadStakeholderImage)();
+        if (croppedImage) {
+          uploadStakeholderImageForm.handleSubmit(handleCroppedUpload)();
+        } else {
+          uploadStakeholderImageForm.handleSubmit(handleDirectUpload)();
+        }
+        setSelectedImage(null);
       }}
       onCancel={() => {
         uploadStakeholderImageForm.reset();
+        setCroppedImage(null);
+        setSelectedImage(null);
       }}
     >
       <Form {...uploadStakeholderImageForm}>
@@ -78,22 +148,20 @@ export const UploadStakeholderImageDialog = ({
           </Button>
         </form>
       </Form>
-      {selectedImage && !croppedImage && (
+      {selectedImage && (
         <ImageCropper
-          imageSrc={URL.createObjectURL(selectedImage!)}
+          imageSrc={URL.createObjectURL(selectedImage)}
           onCropDone={(blob: Blob, previewUrl: string) => {
-            setCroppedImage(
-              new File([blob], previewUrl, {
-                type: blob.type,
-              }),
-            );
+            const file = new File([blob], previewUrl, {
+              type: blob.type,
+            });
+            setCroppedImage(file);
+
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            uploadStakeholderImageForm.setValue("file", dataTransfer.files);
+
             setSelectedImage(null);
-            uploadStakeholderImageForm.setValue(
-              "file",
-              new File([blob], previewUrl, {
-                type: blob.type,
-              }),
-            );
           }}
         />
       )}

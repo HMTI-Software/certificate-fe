@@ -179,6 +179,7 @@ export const EventStakeholderDetailSheet = ({
         </div>
       </GeneralSheet>
       <UploadStakeholderImageDialog
+        eventUid={eventData.uid}
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
       />
