@@ -41,7 +41,7 @@ const LandingPageNavbar = ({
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [mode]);
 
   const NavMenu: INavMenu[] = [
     {
