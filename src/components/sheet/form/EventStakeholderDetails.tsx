@@ -126,6 +126,7 @@ export const EventStakeholderDetailSheet = ({
                       onLoad={() => {
                         return <LoadingCircle />;
                       }}
+                      priority
                     />
                   )}
                 </div>

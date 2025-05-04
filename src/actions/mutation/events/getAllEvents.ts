@@ -1,5 +1,3 @@
-"use server";
-
 import { IEventData, IEventResponse } from "@/lib/types/Event";
 import { auth } from "@/auth";
 
