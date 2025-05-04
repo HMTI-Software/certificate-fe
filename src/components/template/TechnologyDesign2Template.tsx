@@ -93,7 +93,7 @@ export const TechnologyDesign2Template = ({
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                   ? stakeholderData.photoPath
-                    ? "mb-5 md:mb-12"
+                    ? "mb-11 md:mb-12"
                     : "mb-0 md:mb-11"
                   : stakeholderData.photoPath
                   ? "mb-7 md:mb-12"
@@ -105,7 +105,7 @@ export const TechnologyDesign2Template = ({
                     ? "mb-11 md:mb-24"
                     : "mb-5 md:mb-16"
                   : stakeholderData.photoPath
-                  ? "mb-12 md:mb-12"
+                  ? "mb-12 md:mb-24"
                   : "mb-4 md:mb-20"
                 : participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
@@ -180,7 +180,7 @@ export const TechnologyDesign2Template = ({
               }
               classNamePhotoPath={
                 mode === "CREATE/EDIT"
-                  ? "w-19 h-19 md:w-18 md:h-18"
+                  ? "w-16 h-16 md:w-18 md:h-18"
                   : mode === "PREVIEW"
                   ? "w-18 h-18 md:w-29 md:h-29"
                   : "w-20 h-20 md:w-28 md:h-28"
@@ -194,14 +194,29 @@ export const TechnologyDesign2Template = ({
                 stakeholderData.photoPath === null
                   ? mode === "CREATE/EDIT"
                     ? stakeholderData.photoPath
-                      ? "mt-10 md:mt-3"
+                      ? "mt-8 md:mt-9"
                       : "mt-2 md:mt-5"
-                    : "mt-3 md:mt-8"
+                    : mode === "PREVIEW"
+                    ? "mt-12 md:mt-11"
+                    : ""
+                  : mode === "CREATE/EDIT"
+                  ? "mt-8 md:mt-9"
                   : mode === "PREVIEW"
-                  ? "mt-10 md:mt-17"
+                  ? "mt-9 md:mt-17"
                   : "mt-11 md:mt-15",
               )}
             >
+              {
+                // stakeholderData.photoPath === null
+                // ? mode === "CREATE/EDIT"
+                //   ? stakeholderData.photoPath
+                //     ? "mt-10 md:mt-3"
+                //     : "mt-2 md:mt-5"
+                //   : "mt-3 md:mt-8"
+                // : mode === "PREVIEW"
+                // ? "mt-10 md:mt-17"
+                // : "mt-11 md:mt-15"
+              }
               {/* STAKEHOLDER NAME */}
               <TemplateStakeholderName
                 stakeholderData={stakeholderData}

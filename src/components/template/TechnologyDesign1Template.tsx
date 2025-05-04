@@ -106,7 +106,7 @@ export const TechnologyDesign1Template = ({
                     : "mb-5 md:mb-16"
                   : stakeholderData.photoPath
                   ? "mb-6 md:mb-16"
-                  : "mb-4 md:mb-20"
+                  : "mb-6 md:mb-16"
                 : participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                 ? stakeholderData.photoPath
