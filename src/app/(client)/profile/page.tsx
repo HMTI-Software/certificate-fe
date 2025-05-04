@@ -92,7 +92,7 @@ const ProfilePage = async () => {
             <AvatarImage src={(avatars[0] as StaticImageData).src} />
             <AvatarFallback>NA</AvatarFallback>
           </Avatar>
-          <div className="flex flex-col items-start  justify-center md:justify-start gap-1">
+          <div className="flex flex-col items-start md:items-center justify-center md:justify-start gap-1">
             <h1 className="text-lg sm:text-xl font-bold">
               {session?.user.email.split("@")[0] || "User"}
             </h1>

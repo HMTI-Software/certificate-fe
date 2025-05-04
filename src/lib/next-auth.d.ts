@@ -12,6 +12,7 @@ declare module "next-auth" {
       roles: "USER" | "SUPERADMIN";
       isVerifiedEmail: boolean;
     } & DefaultSession["user"];
+    expires: string;
     token: string;
   }
 
@@ -33,7 +34,7 @@ declare module "next-auth/jwt" {
     isPremium: boolean;
     premiumPackage: "FREEPLAN" | "SILVER" | "GOLD" | "PLATINUM";
     roles: "USER" | "SUPERADMIN";
-    token?: string;
     isVerifiedEmail: boolean;
+    token?: string;
   }
 }

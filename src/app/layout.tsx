@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -38,7 +39,7 @@ export default async function RootLayout({
             duration: 3000,
           }}
         />
-        {children}
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );

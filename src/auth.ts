@@ -61,6 +61,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   callbacks: {
     async jwt({ token, user, trigger, session }) {
       if (user) {
+        // Saat sign in
         token = {
           ...token,
           ...user,
@@ -68,15 +69,18 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           isVerifiedEmail: user.isVerifiedEmail,
         };
       }
-      if (trigger === "update" && user) {
-        console.log("JWT Update Trigger:", user);
-        token = {
-          ...token,
-          ...user,
-          email: user.email ?? "",
-          isVerifiedEmail: user.isVerifiedEmail,
-        };
+
+      if (trigger === "update" && session) {
+        console.log("update session", session);
+
+        token.email = session.email ?? token.email;
+        token.isPremium = session.isPremium ?? token.isPremium;
+        token.premiumPackage = session.premiumPackage ?? token.premiumPackage;
+        token.isVerifiedEmail =
+          session.isVerifiedEmail ?? token.isVerifiedEmail;
+        token.roles = session.roles ?? token.roles;
       }
+
       return token;
     },
     async session({ session, token }) {

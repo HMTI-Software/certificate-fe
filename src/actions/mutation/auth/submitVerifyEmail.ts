@@ -1,6 +1,5 @@
 "use server";
 
-import { signOut } from "@/auth";
 import { IAuthResponse } from "@/lib/types/Auth";
 
 const submitVerifyEmail = async (token: string) => {
@@ -39,9 +38,6 @@ const submitVerifyEmail = async (token: string) => {
       };
     } else {
       try {
-        await signOut({
-          redirect: false,
-        });
         return {
           success: true,
           message: "Email verified successfully",

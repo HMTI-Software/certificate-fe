@@ -25,7 +25,7 @@ const DashboardPage = async () => {
       className={
         isPremium
           ? "pt-0"
-          : "pt-40 w-full flex flex-col items-center justify-center"
+          : "pt-60 w-full flex flex-col items-center justify-center"
       }
     >
       {" "}
@@ -56,7 +56,7 @@ const DashboardPage = async () => {
           </div>
         )
       ) : (
-        <div className="flex flex-col items-center text-grayy justify-center gap-4">
+        <div className="flex flex-col items-center text-grayy justify-center gap-4 pt-60">
           <MailWarning size={100} />
           <p className="text-sm md:text-lg text-center">
             Please verify your email address to access this feature.
