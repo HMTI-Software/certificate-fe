@@ -156,13 +156,13 @@ const DocsPage = () => {
       {/* Mobile menu button */}
       <div
         className={cn(
-          "fixed  left-4 z-50 lg:hidden",
-          isOpen ? "top-4" : "top-20",
+          "fixed  left-4 z-30 lg:hidden",
+          isOpen ? "top-4" : "top-18",
         )}
       >
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-md bg-white shadow-md border border-gray-200"
+          className="p-2 rounded-md bg-purplee shadow-md border border-gray-200"
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
         >
@@ -222,7 +222,7 @@ const DocsPage = () => {
         {/* Sidebar - mobile */}
         <div
           className={`
-            fixed z-40 top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:hidden
+            fixed z-20 top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:hidden
             ${isOpen ? "translate-x-0" : "-translate-x-full"}
           `}
           aria-hidden={!isOpen}
@@ -270,7 +270,7 @@ const DocsPage = () => {
         {/* Overlay for mobile sidebar */}
         {isOpen && (
           <div
-            className="fixed inset-0 bg-white/70 bg-opacity-30 z-30 lg:hidden"
+            className="fixed inset-0 bg-white/70 bg-opacity-30 z-10 lg:hidden"
             onClick={() => setIsOpen(false)}
             role="presentation"
           />

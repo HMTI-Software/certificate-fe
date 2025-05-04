@@ -133,7 +133,7 @@ const LandingPage = async () => {
     <>
       <main>
         <div className="w-full min-h-screen">
-          <LandingPageNavbar session={session!} />
+          <LandingPageNavbar session={session!} mode="landingpage" />
           {/* Hero Section */}
           <section
             id="hero"

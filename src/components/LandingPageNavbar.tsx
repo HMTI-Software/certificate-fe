@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   BadgePercent,
@@ -15,10 +15,33 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { IAuthSession } from "@/lib/types/Auth";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
-const LandingPageNavbar = ({ session }: { session: IAuthSession }) => {
+const LandingPageNavbar = ({
+  session,
+  mode = "landingpage",
+}: {
+  session: IAuthSession;
+  mode?: "landingpage" | "documentation";
+}) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const MAX_SCROLL_LANDING_PAGE = 1000;
+  const MAX_SCROLL_DOCUMENTATION_PAGE = 500;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(
+        window.scrollY >
+          (mode === "landingpage"
+            ? MAX_SCROLL_LANDING_PAGE
+            : MAX_SCROLL_DOCUMENTATION_PAGE),
+      );
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const NavMenu: INavMenu[] = [
     {
@@ -48,7 +71,12 @@ const LandingPageNavbar = ({ session }: { session: IAuthSession }) => {
   ];
 
   return (
-    <nav className="w-full py-4 bg-white  ">
+    <nav
+      className={cn(
+        "w-full py-4 bg-white z-50 transition-all duration-300",
+        isScrolled && "fixed -top-1 shadow-md",
+      )}
+    >
       <div className="px-6 md:px-20 lg:px-40">
         <div className="flex justify-between items-center">
           {/* Logo */}
@@ -126,10 +154,11 @@ const LandingPageNavbar = ({ session }: { session: IAuthSession }) => {
           </button>
         </div>
       </div>
-
       {/* Mobile Menu */}
       <div
-        className={`absolute top-[70px] left-0 w-full z-50 bg-white px-4 shadow-lg rounded-b-lg transition-all duration-300 ${
+        className={`absolute ${
+          isScrolled ? "top-[64px]" : "top-[70px]"
+        } left-0 w-full z-50 bg-white px-4 shadow-lg rounded-b-lg transition-all duration-300 ${
           isOpen ? "opacity-100 py-4" : "opacity-0 pointer-events-none"
         }`}
       >

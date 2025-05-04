@@ -97,7 +97,7 @@ export const TechnologyDesign1Template = ({
                     : "mb-0 md:mb-7"
                   : stakeholderData.photoPath
                   ? "mb-7 md:mb-12"
-                  : "mb-0 md:mb-5"
+                  : "mb-0 md:mb-7"
                 : mode === "PREVIEW"
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
@@ -268,7 +268,7 @@ export const TechnologyDesign1Template = ({
                 : mode === "PREVIEW"
                 ? "text-[7px] md:text-xs"
                 : "text-[9px] md:text-xs",
-              "mb-3 md:mb-5",
+              "mb-3 md:mb-3",
             )}
           >
             <span>Diselenggarakan oleh : </span>

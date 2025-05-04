@@ -12,7 +12,7 @@ export default async function DocumentationLayout({
   return (
     <div className="w-full min-h-screen">
       <header>
-        <LandingPageNavbar session={session!} />
+        <LandingPageNavbar session={session!} mode="documentation" />
       </header>
       <div className="px-4 md:px-20 lg:px-40">
         <main>{children}</main>
