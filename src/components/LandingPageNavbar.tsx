@@ -80,7 +80,10 @@ const LandingPageNavbar = ({
       <div className="px-6 md:px-20 lg:px-40">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="flex flex-row justify-start items-center gap-2">
+          <div
+            className="flex flex-row justify-start items-center gap-2 hover:cursor-pointer"
+            onClick={() => router.push("/")}
+          >
             <Image
               priority
               src="/certify-logo-only-black.png"
@@ -107,8 +110,8 @@ const LandingPageNavbar = ({
               </Link>
             ))}
             <Button
-              className="bordered bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black flex items-center gap-2"
-              onClick={() => router.push("/auth/sign-in")}
+              className="bordered bg-yelloww hover:bg-yelloww/90 text-black flex items-center gap-2"
+              onClick={() => router.push("/auth/sign-up")}
             >
               {session ? (
                 session.user ? (
@@ -118,13 +121,13 @@ const LandingPageNavbar = ({
                   </>
                 ) : (
                   <>
-                    <span>login</span>
+                    <span>Register</span>
                     <LogIn />
                   </>
                 )
               ) : (
                 <>
-                  <span>login</span>
+                  <span>Register</span>
                   <LogIn />
                 </>
               )}

@@ -1,174 +1,324 @@
 [
   {
-    "page": "Create Event",
-    "id": "create-event",
-    "url": "/docs/create-event",
-    "desc": "create your frist event using this tutorial",
+    "title": "Introduction",
+    "id": "introduction",
+    "description": "welcome to the Certify documentation.",
     "content": [
       {
-        "content": "Login or Sign up to get started"
-      },
-      {
-        "content": "Sellect the packages and pay the bill to get acces on our dashboard"
-      },
-      {
-        "content": "After you pay the bill, you can add your first event on the dashbord, and fill all of the field required"
-      },
-      {
-        "content": "Check your preview after you finishing the form, if you want to change you can just close it and change it from field labeled 'event tamplate' "
-      },
-      {
-        "content": "click create event and wait until the event created by the server"
-      },
-      {
-        "content": "after the event ready you can see through the event dashboard"
-      }
-    ]
-  },
-  {
-    "page": "Manage Participant",
-    "id": "manage-participant",
-    "url": "/docs/manage-participant",
-    "desc": "manage your participants using this tutorial",
-    "content": [
-      {
-        "content": "enter your event you want to manage your participant"
-      },
-      {
-        "content": "look down into the table labeled 'participants table' and search for the participant you want to manage",
-        "span": {
-          "color": "purplee",
-          "content": "if you dont see the participant it means you havent added any participant yet"
+        "type": "main",
+        "description": "<div class=''>Certify helps you create and manage secure, QR code-enabled certificates for events and trainings—fast, professional, and verifiable.<div>",
+        "image": {
+          "url": "/certify-logo-black.png",
+          "alt": "image alt",
+          "className": "w-70 md:w-100 h-auto mx-auto mt-5",
+          "bordered": false
         }
       },
       {
-        "content": "theres two ways for you to add participant, you can add it manually or import an exle file into the web",
-        "span": {
-          "color": "purplee",
-          "content": "look at the button labeled 'add participant', if you click this button you will be the add the participant manually, but if you click another button with paper icon it would be making you import an excel file"
-        },
-        "section": [
+        "title": "What is Certify?",
+        "id": "what-is-certify",
+        "type": "sub",
+        "description": "<div class='indent-15'><strong>Certify</strong> is an innovative web application developed by the <strong>Informatics Engineering Student Association (HMTI) UDINUS</strong>. Designed to meet the needs of both organizations and individuals, <strong>Certify simplifies the process of generating QR codes for certificates with a strong focus on usability and efficiency.</strong></div><div class='indent-15'>Whether it's for organizational events, seminars, workshops, or training programs, Certify provides a seamless solution for <strong>creating secure and verifiable QR codes</strong> that can be embedded directly into certificates. <strong>With just a few simple steps, users can generate unique QR codes that allow for instant authenticity verification.</strong></div><div class='indent-15'>By enhancing both professionalism and information accessibility, Certify helps streamline certificate management and builds trust between organizers and recipients.</div>"
+      },
+      {
+        "title": "Key Features",
+        "id": "key-features",
+        "type": "sub",
+        "description": "A brief overview of the key features provided by Certify.",
+        "list": [
           {
-            "title": "Add manually",
-            "id": "manage-participant-add-manually",
-            "content": [
-              {
-                "content": "enter the number you want make your own participant",
-                "span": {
-                  "color": "yelloww",
-                  "content": "you still can add the participant later, but this is the first step"
-                }
-              },
-              {
-                "content": "fill the field require until you finished, and the wait untill server throwing a success message"
-              }
-            ]
+            "description": "Generate QR Codes"
           },
           {
-            "title": "Add by Excel File",
-            "id": "manage-participant-add-by-excel-file",
-            "content": [
-              {
-                "content": "you should make a excel file with these columns with header format like this 'name', 'email', 'position' ",
-                "span": {
-                  "color": "yelloww",
-                  "content": "if your format not like this, the server will throw an error"
-                }
-              },
-              {
-                "content": "once you done with that, just wait until server throwing a success message, and heres our participant in participants table"
-              }
-            ]
+            "description": "Certificate Management"
+          },
+          {
+            "description": "User-Friendly Interface"
+          },
+          {
+            "description": "Secure and Verifiable"
+          },
+          {
+            "description": "Customizable Templates"
+          }
+        ]
+      },
+      {
+        "title": "Who is it for?",
+        "id": "who-is-it-for",
+        "type": "sub",
+        "description": "Certify is designed for a wide range of users, including:",
+        "list": [
+          {
+            "description": "Organizations and Institutions"
+          },
+          {
+            "description": "Event Organizers"
+          },
+          {
+            "description": "Educational Institutions"
+          },
+          {
+            "description": "Individuals"
           }
         ]
       }
     ]
   },
   {
-    "page": "Download QR Code",
-    "id": "qr-code",
-    "url": "/docs/qr-code",
-    "desc": "donwload your qr code using this tutorial",
+    "title": "Getting Started",
+    "id": "getting-started",
+    "description": "Getting started with Certify is easy. Follow these steps to create your first certificate:",
     "content": [
       {
-        "content": "pick the user you want to download the qr code or you can just download all of them"
+        "type": "main",
+        "list": [
+          {
+            "description": "Create an Account"
+          },
+          {
+            "description": "Email Verification"
+          },
+          {
+            "description": "Login & Logout"
+          },
+          {
+            "description": "Upgrade Subscription Plan"
+          },
+          {
+            "description": "Dashboard Overview"
+          }
+        ]
       },
       {
-        "content": "click the button you want to download the qr code"
+        "title": "Create an Account",
+        "id": "create-account",
+        "type": "sub",
+        "description": "To begin using Certify, you need to create an account. Visit our website and click on the 'Sign Up' button. Fill in the required information and verify your email address.",
+        "list": [
+          {
+            "description": "Organizations and Institutions"
+          },
+          {
+            "description": "Event Organizers"
+          },
+          {
+            "description": "Educational Institutions"
+          },
+          {
+            "description": "Individuals"
+          }
+        ]
       },
       {
-        "content": "after you click the button dialog bar will appear to your screen and ask you for the file ext you want",
-        "span": {
-          "content": "click download as, and choose the file extension you want to download it",
-          "color": "purplee"
-        }
+        "title": "Email Verification",
+        "id": "email-verification",
+        "type": "sub",
+        "description": "After signing up, you will receive a verification email. Click on the link in the email to verify your account."
+      },
+      {
+        "title": "Login & Logout",
+        "id": "login-logout",
+        "type": "sub",
+        "description": "To log in to your account, visit the Certify website and click on the 'Login' button. Enter your credentials and click 'Login'. To log out, click on your profile icon and select 'Logout' from the dropdown menu."
+      },
+      {
+        "title": "Upgrade Subscription Plan",
+        "id": "upgrade-subscription",
+        "type": "sub",
+        "description": "Certify offers various subscription plans to suit your needs. To upgrade your plan, log in to your account and navigate to the 'Subscription' section. Choose the plan that best fits your requirements and follow the prompts to complete the upgrade process."
+      },
+      {
+        "title": "Dashboard Overview",
+        "id": "dashboard-overview",
+        "type": "sub",
+        "description": "Once logged in, you will be directed to your dashboard. Here, you can view your certificates, manage your account settings, and access various features of Certify."
       }
     ]
   },
   {
-    "page": "Manage your Event",
-    "id": "manage-event",
-    "url": "/docs/manage-event",
-    "desc": "mannage your event more easy with this tutorial",
+    "title": "Plan & Subscription",
+    "id": "plan-subscription",
+    "description": "Certify offers various subscription plans to suit your needs.",
     "content": [
       {
-        "content": "enter the event you want to manage"
+        "type": "main",
+        "description": "lorem ipsum dolor sit amet consectetur adipiscing elit. "
       },
       {
-        "content": "click the small button in the left button of the event banner"
+        "title": "Avaliable Plans",
+        "id": "avaliable-plans",
+        "type": "sub",
+        "description": "sub description"
       },
       {
-        "content": "theres a menu you can choose to manage the event"
+        "title": "Payment Methods",
+        "id": "payment-methods",
+        "type": "sub",
+        "description": "sub description"
       },
       {
-        "content": "after you click the button dialog bar will appear to your screen and ask you for the file ext you want",
-        "span": {
-          "content": "click download as, and choose the file extension you want to download it",
-          "color": "purplee"
-        },
-        "section": [
-          {
-            "title": "SteakHolder Management",
-            "id": "manage-event-steakholder",
-            "content": [
-              {
-                "content": "click the button says steakholder details"
-              },
-              {
-                "content": "you can edit the steak holder and add the photo or do somethings to manage your event steakholder",
-                "span": {
-                  "color": "yelloww",
-                  "content": "dont forget to click update data button after you make any changes here"
-                }
-              }
-            ]
-          },
-          {
-            "title": "Template Preview",
-            "id": "manage-event-preview",
-            "content": [
-              {
-                "content": "theres you can edit your tamplate of your event"
-              }
-            ]
-          },
-          {
-            "title": "Edit Event",
-            "id": "manage-event-edit",
-            "content": [
-              {
-                "content": "click the button 'edit' in the menu you click before"
-              },
-              {
-                "content": "edit the data you want to make changes",
-                "span": {
-                  "color": "yelloww",
-                  "content": "dont forget to click update data button after you make any changes here"
-                }
-              }
-            ]
-          }
-        ]
+        "title": "Billing & Invoices",
+        "id": "billing-invoices",
+        "type": "sub",
+        "description": "sub description"
+      },
+      {
+        "title": "Cancel Subscription Plan",
+        "id": "cancel-subscription",
+        "type": "sub",
+        "description": "sub description"
+      }
+    ]
+  },
+  {
+    "title": "Event Management",
+    "id": "event-management",
+    "description": "Event management is a crucial aspect of using Certify. This section will guide you through the process of creating and managing events.",
+    "content": [
+      {
+        "type": "main",
+        "description": "lorem ipsum dolor sit amet consectetur adipiscing elit. "
+      },
+      {
+        "title": "Create a New Event",
+        "id": "create-event",
+        "type": "sub",
+        "description": "sub description"
+      },
+      {
+        "title": "Event Details Explained",
+        "id": "event-details",
+        "type": "sub",
+        "description": "sub description"
+      },
+      {
+        "title": "Edit Event Information",
+        "id": "edit-event",
+        "type": "sub",
+        "description": "sub description"
+      },
+      {
+        "title": "Delete an Event",
+        "id": "delete-event",
+        "type": "sub",
+        "description": "sub description"
+      }
+    ]
+  },
+  {
+    "title": "Participants Management",
+    "id": "participants-management",
+    "description": "Participants management is a crucial aspect of using Certify. This section will guide you through the process of creating and managing participants.",
+    "content": [
+      {
+        "type": "main",
+        "description": "lorem ipsum dolor sit amet consectetur adipiscing elit. "
+      },
+      {
+        "title": "Add Participants Manually",
+        "id": "add-participants",
+        "type": "sub",
+        "description": "sub description"
+      },
+      {
+        "title": "Import Participants (XLSX File)",
+        "id": "import-participants",
+        "type": "sub",
+        "description": "sub description"
+      },
+      {
+        "title": "Edit Particpants Information",
+        "id": "edit-participants",
+        "type": "sub",
+        "description": "sub description"
+      },
+      {
+        "title": "Remove Participant",
+        "id": "remove-participant",
+        "type": "sub",
+        "description": "sub description"
+      }
+    ]
+  },
+  {
+    "title": "Security & Privacy",
+    "id": "security-privacy",
+    "description": "Security and privacy are paramount when it comes to managing certificates and participants. This section will guide you through the security features of Certify.",
+    "content": [
+      {
+        "type": "main",
+        "description": "lorem ipsum dolor sit amet consectetur adipiscing elit. "
+      },
+      {
+        "title": "Data Encryption",
+        "id": "data-encryption",
+        "type": "sub",
+        "description": "sub description"
+      },
+      {
+        "title": "How We Handle Personal Data",
+        "id": "handle-personal-data",
+        "type": "sub",
+        "description": "sub description"
+      },
+      {
+        "title": "User Control Over Data",
+        "id": "user-control-data",
+        "type": "sub",
+        "description": "sub description"
+      }
+    ]
+  },
+  {
+    "title": "Frequently Asked Questions",
+    "id": "faq",
+    "description": "Frequently Asked Questions",
+    "content": [
+      {
+        "type": "main",
+        "description": "lorem ipsum dolor sit amet consectetur adipiscing elit. "
+      },
+      {
+        "title": "Common Issues",
+        "id": "common-issues",
+        "type": "sub",
+        "description": "sub description"
+      },
+      {
+        "title": "Troubleshooting",
+        "id": "troubleshooting",
+        "type": "sub",
+        "description": "sub description"
+      }
+    ]
+  },
+  {
+    "title": "Support",
+    "id": "support",
+    "description": "Support for Certify",
+    "content": [
+      {
+        "type": "main",
+        "description": "lorem ipsum dolor sit amet consectetur adipiscing elit. "
+      },
+      {
+        "title": "Contact Support",
+        "id": "contact-support",
+        "type": "sub",
+        "description": "sub description"
+      },
+      {
+        "title": "Report a Bug",
+        "id": "report-bug",
+        "type": "sub",
+        "description": "sub description"
+      },
+      {
+        "title": "Feature Requests",
+        "id": "feature-requests",
+        "type": "sub",
+        "description": "sub description"
       }
     ]
   }

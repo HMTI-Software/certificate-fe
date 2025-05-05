@@ -12,7 +12,7 @@ import { IPricingPackage } from "@/lib/types/General";
 const PricingCard = ({ packageData }: { packageData: IPricingPackage }) => {
   return (
     <Card
-      className={`bordered h-full border-b-4 hover:border-b-1 ${
+      className={`bordered h-full border-b-4 border-r-4 hover:border-b-1 ${
         packageData.packageStyle
       } py-5 ${packageData.id === 2 ? "" : "scale-90"}`}
     >
