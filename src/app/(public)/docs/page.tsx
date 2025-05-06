@@ -1,3 +1,5 @@
+"use client";
+import React, { useEffect } from "react";
 import parse from "html-react-parser";
 import { ChevronUp } from "lucide-react";
 import Link from "next/link";
@@ -9,17 +11,25 @@ import {
 } from "@/lib/types/Documentation";
 import Image from "next/image";
 import { DocumentationSidebar } from "@/components/DocumentationSidebar";
-import path from "path";
-import fs from "fs/promises";
+import { useState } from "react";
 
-const getDocsData = async (): Promise<IDocumentationSection[]> => {
-  const filePath = path.join(process.cwd(), "public", "static", "docs.json");
-  const jsonData = await fs.readFile(filePath, "utf-8");
-  return JSON.parse(jsonData);
-};
+const DocsPage = () => {
+  const [documentationData, setDocumentationData] = useState<
+    IDocumentationSection[]
+  >([]);
 
-const DocsPage = async () => {
-  const documentationData: IDocumentationSection[] = await getDocsData();
+  useEffect(() => {
+    const fetchDocs = async () => {
+      const res = await fetch("/static/Docs.json");
+      if (!res.ok) {
+        console.error("Failed to fetch documentation");
+        return;
+      }
+      const data = await res.json();
+      setDocumentationData(data);
+    };
+    fetchDocs();
+  }, []);
 
   const sideBar: IDocumentationSidebar[] = documentationData.flatMap((item) => {
     const result: IDocumentationSidebar[] = [
