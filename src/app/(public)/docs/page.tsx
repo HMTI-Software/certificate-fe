@@ -9,11 +9,13 @@ import {
 } from "@/lib/types/Documentation";
 import Image from "next/image";
 import { DocumentationSidebar } from "@/components/DocumentationSidebar";
+import path from "path";
+import fs from "fs/promises";
 
 const getDocsData = async (): Promise<IDocumentationSection[]> => {
-  const res = await fetch(process.env.FRONTEND_URL + "/static/docs.json");
-  if (!res.ok) throw new Error("Failed to fetch documentation data");
-  return res.json();
+  const filePath = path.join(process.cwd(), "public", "static", "docs.json");
+  const jsonData = await fs.readFile(filePath, "utf-8");
+  return JSON.parse(jsonData);
 };
 
 const DocsPage = async () => {
