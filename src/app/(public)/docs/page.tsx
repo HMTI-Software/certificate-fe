@@ -16,7 +16,6 @@ const getDocsData = async (): Promise<IDocumentationSection[]> => {
   return res.json();
 };
 
-export const dynamic = "force-static";
 const DocsPage = async () => {
   const documentationData: IDocumentationSection[] = await getDocsData();
 
