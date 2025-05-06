@@ -23,9 +23,11 @@ export interface IDocumentationSectionContent {
     bordered?: boolean;
   };
   list?: IDocumentationSectionContentList[];
+  span?: IDocumentationSpan[];
 }
 
 export interface IDocumentationSectionContentList {
+  title?: string;
   description?: string;
   image?: {
     url: string;

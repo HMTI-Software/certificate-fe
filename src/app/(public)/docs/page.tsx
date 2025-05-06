@@ -1,100 +1,97 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
 import parse from "html-react-parser";
-import { ChevronUp, Menu, X } from "lucide-react";
+import { ChevronUp } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import {
   IDocumentationSection,
+  IDocumentationSectionContent,
   IDocumentationSidebar,
 } from "@/lib/types/Documentation";
 import Image from "next/image";
+import { DocumentationSidebar } from "@/components/DocumentationSidebar";
 
-const DocsPage = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [activeSection, setActiveSection] = useState<string>("");
-  const [sideBar, setSideBar] = useState<IDocumentationSidebar[]>([]);
-  const [documentationData, setDocumentationData] = useState<
-    IDocumentationSection[]
-  >([]);
+const getDocsData = async (): Promise<IDocumentationSection[]> => {
+  const res = await fetch(process.env.FRONTEND_URL + "/static/docs.json");
+  if (!res.ok) throw new Error("Failed to fetch documentation data");
+  return res.json();
+};
 
-  useEffect(() => {
-    const handleScroll = (): void => {
-      const sections = document.querySelectorAll<HTMLElement>("[data-section]");
-      let currentActiveSection = "";
+export const dynamic = "force-static";
+const DocsPage = async () => {
+  const documentationData: IDocumentationSection[] = await getDocsData();
 
-      sections.forEach((section) => {
-        const sectionTop = section.getBoundingClientRect().top;
-        if (sectionTop < 200) {
-          currentActiveSection = section.id;
-        }
-      });
+  const sideBar: IDocumentationSidebar[] = documentationData.flatMap((item) => {
+    const result: IDocumentationSidebar[] = [
+      { id: item.id, name: item.title, type: "heading" as const },
+    ];
 
-      setActiveSection(currentActiveSection);
-    };
+    const subheadings =
+      item.content
+        ?.filter((contentItem) => contentItem.type === "sub")
+        .map((subItem) => ({
+          id: subItem.id || "",
+          name: subItem.title || "Untitled",
+          type: "subheading" as const,
+        })) || [];
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-  useEffect(() => {
-    fetch("/static/Docs.json", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((json: IDocumentationSection[]) => {
-        const sideBar: IDocumentationSidebar[] = json.flatMap((item) => {
-          const result: IDocumentationSidebar[] = [
-            {
-              id: item.id,
-              name: item.title,
-              type: "heading",
-            },
-          ];
-
-          const subheadings: IDocumentationSidebar[] = item
-            .content!.filter((contentItem) => contentItem.type === "sub")
-            .map((subItem) => ({
-              id: subItem.id || "",
-              name: subItem.title || "Untitled",
-              type: "subheading",
-            }));
-
-          return [...result, ...subheadings];
-        });
-
-        setDocumentationData(json);
-        setSideBar(sideBar);
-      })
-      .catch((err) => console.error("Error loading documentation data:", err));
-  }, []);
+    return [...result, ...subheadings];
+  });
 
   if (!documentationData) return null;
+  const renderListItem = (
+    list: IDocumentationSectionContent["list"],
+    level = 0,
+  ) => {
+    if (!list) return null;
+
+    return list.map((item, idx) => (
+      <div className="flex gap-3" key={`${item.title}-${idx}`}>
+        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-medium">
+          {idx + 1}
+        </div>
+        <div className="flex flex-col gap-1">
+          <p className="text-gray-900 text-sm font-semibold">{item.title}</p>
+
+          {item.description && (
+            <p
+              className={cn(
+                "text-gray-800 text-sm",
+                item.list || item.span || item.image ? "mb-2" : "",
+              )}
+            >
+              {parse(item.description, {
+                replace: (domNode) => {
+                  if (domNode.type === "tag") {
+                    const { attribs } = domNode;
+                    if (attribs?.class?.includes("target-class")) {
+                      attribs.class = attribs.class.trim();
+                    }
+                  }
+                },
+              })}
+            </p>
+          )}
+
+          {/* Rekursi ke dalam list anak */}
+          {item.list && renderListItem(item.list, level + 1)}
+
+          {item.span &&
+            item.span.map((span, spanIdx) => (
+              <div className="mt-4 mb-2" key={spanIdx}>
+                <span
+                  className={`bordered border-b-4 hover:border-b-1 border-black bg-${span.color} p-4 block rounded-md border  shadow-sm hover:shadow-md`}
+                >
+                  {span.description}
+                </span>
+              </div>
+            ))}
+        </div>
+      </div>
+    ));
+  };
+
   return (
     <div className="min-h-screen bg-white pb-20">
-      {/* Mobile menu button */}
-      <div
-        className={cn(
-          "fixed  left-4 z-30 lg:hidden",
-          isOpen ? "top-4" : "top-18",
-        )}
-      >
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-md bg-purplee shadow-md border border-gray-200"
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isOpen}
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {/* "Back to top" button */}
       <Link
         href="#"
         className="rounded-full bg-yelloww p-3 right-6 bottom-6 fixed shadow-lg border border-black hover:bg-yellow-200 transition-all duration-300"
@@ -104,117 +101,10 @@ const DocsPage = () => {
       </Link>
 
       <div className="flex mt-16 items-stretch">
-        {/* Sidebar - desktop */}
-        <div
-          className="hidden lg:flex flex-col w-64 pr-8 sticky top-24 self-start h-[calc(100vh-6rem)] overflow-y-auto
-  [&::-webkit-scrollbar]:w-2
-  [&::-webkit-scrollbar-track]:rounded-full
-  [&::-webkit-scrollbar-track]:bg-gray-100
-  [&::-webkit-scrollbar-thumb]:rounded-full
-  [&::-webkit-scrollbar-thumb]:bg-gray-300 pb-20 border-r border-gray-200"
-        >
-          <nav aria-label="Documentation navigation">
-            <ul className="flex flex-col gap-3 list-none m-0 p-0">
-              {sideBar.map((link, index) => (
-                <li key={index}>
-                  <Link
-                    className={`
-                      ${
-                        link.type === "subheading"
-                          ? "pl-7 text-sm"
-                          : "font-medium"
-                      } 
-                      ${
-                        activeSection === link.id
-                          ? "text-black font-semibold "
-                          : "text-gray-700"
-                      } 
-                      py-1.5 pr-5 block whitespace-nowrap relative group
-                    `}
-                    href={"/docs/#" + link.id}
-                    aria-current={
-                      activeSection === link.id ? "page" : undefined
-                    }
-                  >
-                    {link.name}
-                    <span
-                      className={cn(
-                        "absolute -bottom-2 left-0 w-0 transition-all h-[2px] bg-black ",
-                        activeSection === link.id
-                          ? "w-full"
-                          : "group-hover:w-full",
-                      )}
-                    ></span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-
-        {/* Sidebar - mobile */}
-        <div
-          className={`
-            fixed z-20 top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:hidden
-            ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          `}
-          aria-hidden={!isOpen}
-        >
-          <div className="p-4 pt-20 h-full overflow-y-auto">
-            <nav aria-label="Mobile documentation navigation">
-              <ul className="flex flex-col gap-3 list-none m-0 p-0">
-                {sideBar.map((link, index) => (
-                  <li key={index}>
-                    <Link
-                      className={`
-                        ${
-                          link.type === "subheading"
-                            ? "pl-4 text-sm"
-                            : "font-medium"
-                        } 
-                        ${
-                          activeSection === link.id
-                            ? "text-black font-semibold"
-                            : "text-gray-700"
-                        } 
-                        py-1.5 pr-5 block whitespace-nowrap relative group
-                        ${
-                          activeSection === link.id
-                            ? "border-l-blue-600"
-                            : "border-l-transparent hover:border-l-gray-300"
-                        }
-                      `}
-                      href={"/docs/#" + link.id}
-                      onClick={() => setIsOpen(false)}
-                      aria-current={
-                        activeSection === link.id ? "page" : undefined
-                      }
-                    >
-                      {link.name}
-                      <span
-                        className={cn(
-                          "absolute -bottom-2 left-0 w-0 transition-all h-[2px] bg-black group-hover:w-full",
-                        )}
-                      ></span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-        </div>
-
-        {/* Overlay for mobile sidebar */}
-        {isOpen && (
-          <div
-            className="fixed inset-0 bg-white/70 bg-opacity-30 z-10 lg:hidden"
-            onClick={() => setIsOpen(false)}
-            role="presentation"
-          />
-        )}
-
+        {/* Sidebar */}
+        <DocumentationSidebar sideBar={sideBar} />
         {/* Main content */}
-        <main className="flex-1 lg:pl-10  pl-2">
+        <main className="flex-1 lg:pl-10  pl-2  ">
           {documentationData.map((item, index) => (
             <article
               key={index}
@@ -259,7 +149,7 @@ const DocsPage = () => {
                         <div
                           className={cn(
                             content.description ? "mt-0" : "mt-5",
-                            "text-justify",
+                            "md:text-justify",
                           )}
                         >
                           {parse(content.description || "", {
@@ -267,14 +157,10 @@ const DocsPage = () => {
                               if (domNode.type === "tag") {
                                 const { attribs } = domNode;
 
-                                // Cek jika memiliki ID atau class tertentu
-                                const targetId =
-                                  attribs?.id === "inject-class-target";
                                 const targetClass =
                                   attribs?.class?.includes("target-class");
 
-                                if (targetId || targetClass) {
-                                  // Tambahkan class Tailwind ke elemen yang cocok
+                                if (targetClass) {
                                   const existingClass = attribs.class || "";
                                   attribs.class = `${existingClass}`.trim();
                                 }
@@ -296,33 +182,16 @@ const DocsPage = () => {
                             )}
                           />
                         )}
-                        {content?.list &&
-                          content.list.map((list, listIdx) => {
+                        {content?.list && renderListItem(content.list)}
+                        {content.span &&
+                          content.span.map((span, spanIdx) => {
                             return (
-                              <div className="flex gap-3" key={listIdx}>
-                                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-medium">
-                                  {listIdx + 1}
-                                </div>
-                                <div className="flex flex-col">
-                                  <p className="text-gray-800">
-                                    {list.description}
-                                  </p>
-                                  {list.span &&
-                                    list.span.map((span, spanIdx) => {
-                                      return (
-                                        <div
-                                          className="mt-4 mb-2"
-                                          key={spanIdx}
-                                        >
-                                          <span
-                                            className={`bordered border-b-4 hover:border-b-1 border-black bg-${span.color} p-4 block rounded-md border  shadow-sm hover:shadow-md`}
-                                          >
-                                            {span.description}
-                                          </span>
-                                        </div>
-                                      );
-                                    })}
-                                </div>
+                              <div className="mt-4 mb-2" key={spanIdx}>
+                                <span
+                                  className={`bordered border-b-4 hover:border-b-1 border-black bg-${span.color} p-4 block rounded-md border  shadow-sm hover:shadow-md`}
+                                >
+                                  {span.description}
+                                </span>
                               </div>
                             );
                           })}

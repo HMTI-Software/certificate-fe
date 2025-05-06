@@ -6,7 +6,7 @@
     "content": [
       {
         "type": "main",
-        "description": "<div class=''>Certify helps you create and manage secure, QR code-enabled certificates for events and trainings—fast, professional, and verifiable.<div>",
+        "description": "<div class=''>Certify helps you create and manage secure, QR code-enabled certificates for events, professional, and verifiable.<div>",
         "image": {
           "url": "/certify-logo-black.png",
           "alt": "image alt",
@@ -94,19 +94,38 @@
         "title": "Create an Account",
         "id": "create-account",
         "type": "sub",
-        "description": "To begin using Certify, you need to create an account. Visit our website and click on the 'Sign Up' button. Fill in the required information and verify your email address.",
+        "description": "To start using Certify, you'll first need to create an account. The registration process is quick and straightforward. Follow these steps:",
         "list": [
           {
-            "description": "Organizations and Institutions"
+            "title": "Go to the registration page on the Certify website.",
+            "description": "Visit <a href='/auth/sign-up' className='text-blue-600'>Register Page</a> or click the “Register” button on the homepage."
           },
           {
-            "description": "Event Organizers"
+            "title": "Fill in your details.",
+            "description": "Enter Your :",
+            "list": [
+              {
+                "title": "Email Address",
+                "description": "Enter a valid email address that you have access to. This will be used for account verification and communication."
+              },
+              {
+                "title": "Password",
+                "description": "Create a strong password for your account. It should be at least 8 characters long and include a mix of letters, and numbers"
+              },
+              {
+                "title": "Confirm Password",
+                "description": "Re-enter the password to confirm it."
+              }
+            ]
           },
           {
-            "description": "Educational Institutions"
-          },
-          {
-            "description": "Individuals"
+            "title": "Click the 'Sign Up' button to submit your registration.",
+            "span": [
+              {
+                "description": "you will receive a confirmation email. Check your inbox or spam folder and click on the link provided to verify your email address.",
+                "color": "purplee"
+              }
+            ]
           }
         ]
       },
@@ -114,159 +133,1105 @@
         "title": "Email Verification",
         "id": "email-verification",
         "type": "sub",
-        "description": "After signing up, you will receive a verification email. Click on the link in the email to verify your account."
+        "description": "After creating your account, we’ll send a verification email to the address you registered with. To Verify your email address, follow these steps:",
+        "list": [
+          {
+            "description": "Open the email with subject: 'Verifikasi Email Anda'"
+          },
+          {
+            "description": "Click the 'Verifikasi Email' button or link inside the email."
+          },
+          {
+            "description": "You will be redirected, and your account will be automatically verified"
+          }
+        ]
       },
       {
         "title": "Login & Logout",
         "id": "login-logout",
         "type": "sub",
-        "description": "To log in to your account, visit the Certify website and click on the 'Login' button. Enter your credentials and click 'Login'. To log out, click on your profile icon and select 'Logout' from the dropdown menu."
+        "list": [
+          {
+            "title": "Login",
+            "description": "To access Certify and start using its features, you need to log in to your account. Here's how :",
+            "list": [
+              {
+                "description": "Go to the Certify <a href='/auth/sign-in' className='text-blue-600'>Login Page</a>"
+              },
+              {
+                "description": "Enter your <strong>registered email address</strong> and <strong>password.</strong>"
+              },
+              {
+                "description": "Click the 'sign-in' button."
+              },
+              {
+                "description": "If your credentials are correct, you will be redirected to your dashboard."
+              }
+            ],
+            "span": [
+              {
+                "description": "If you forget your password, click on the 'Forgot Password?' link on the login page. Follow the instructions to reset your password.",
+                "color": "purplee"
+              }
+            ]
+          },
+          {
+            "title": "Logout",
+            "description": "To keep your account secure, always log out when you're done using Certify — especially on shared devices. Here's how to log out:",
+            "list": [
+              {
+                "description": "Click 'logout' on your navbar menu, which is located at the top right corner of the page."
+              },
+              {
+                "description": "You will be logged out and redirected to the login page."
+              }
+            ]
+          }
+        ]
       },
       {
         "title": "Upgrade Subscription Plan",
         "id": "upgrade-subscription",
         "type": "sub",
-        "description": "Certify offers various subscription plans to suit your needs. To upgrade your plan, log in to your account and navigate to the 'Subscription' section. Choose the plan that best fits your requirements and follow the prompts to complete the upgrade process."
+        "description": "To unlock more features and higher usage limits in Certify, you can upgrade your subscription plan by following these steps:",
+        "list": [
+          {
+            "title": "Contact Us",
+            "description": "To upgrade your plan, please reach out to our support team using the contact information provided on the <a href='/#contact' className='text-blue-600'>Contact Section </a> in the homepage."
+          },
+          {
+            "title": "Choose Your Plan",
+            "description": "Let us know which subscription plan you’d like to upgrade to. We’ll guide you through the available options and pricing."
+          },
+          {
+            "title": "Make Payment",
+            "description": "Follow the payment instructions provided by our team. Once payment is completed, let us know for confirmation."
+          },
+          {
+            "title": "Confirmation & Activation",
+            "description": "After we verify your payment, your subscription will be upgraded manually by our admin."
+          },
+          {
+            "title": "Check Your Status",
+            "description": "Log out and log back in, or simply refresh the website, to see your updated subscription status and access the new features."
+          }
+        ]
       },
       {
         "title": "Dashboard Overview",
         "id": "dashboard-overview",
         "type": "sub",
-        "description": "Once logged in, you will be directed to your dashboard. Here, you can view your certificates, manage your account settings, and access various features of Certify."
+        "description": "Once you successfully log into your Certify account, you will be directed to the Dashboard. Here’s what you’ll find on the dashboard:",
+        "list": [
+          {
+            "title": "Your Event List",
+            "description": "All the events you have created are displayed here in a list format. You can quickly view basic information for each of your events."
+          },
+          {
+            "title": "Create a New Event",
+            "description": "At the top or center of the page, you will see a “Create Event” button presented as a card. Clicking this card will redirect you to the event creation page, where you can input details for your new event."
+          },
+          {
+            "title": "Quick Navigation via Navbar",
+            "description": "The top navigation bar helps you move through the platform easily. It includes:",
+            "list": [
+              {
+                "description": "<strong>Dashboard / Events</strong> - return to your main dashboard view."
+              },
+              {
+                "description": "<strong>Profile</strong> - manage your account information."
+              },
+              {
+                "description": "<strong>Pricing Plan</strong> - view or compare available subscription packages."
+              },
+              {
+                "description": "<strong>Documentation</strong> - access help and user guides."
+              },
+              {
+                "description": "<strong>Logout </strong> - sign out of your account."
+              }
+            ]
+          }
+        ]
       }
     ]
   },
   {
     "title": "Plan & Subscription",
     "id": "plan-subscription",
-    "description": "Certify offers various subscription plans to suit your needs.",
+    "description": "Certify offers several subscription plans to fit different event needs and sizes. Each plan includes a one-time payment and comes with specific limits and features. Choose the plan that best matches your event scale — whether it's small, medium, or large.",
     "content": [
-      {
-        "type": "main",
-        "description": "lorem ipsum dolor sit amet consectetur adipiscing elit. "
-      },
       {
         "title": "Avaliable Plans",
         "id": "avaliable-plans",
         "type": "sub",
-        "description": "sub description"
+        "description": "Certify provides three subscription plans tailored for different event sizes and feature needs. All plans are one-time payments and come with specific limits. Below is a breakdown of each plan :",
+        "list": [
+          {
+            "title": "Silver Package",
+            "description": "Perfect for small events, Includes : ",
+            "list": [
+              {
+                "description": "Create up to <strong>2 Events</strong>"
+              },
+              {
+                "description": "Maximum of <strong>150 Participants</strong> per Event"
+              },
+              {
+                "description": "<strong>QR Code generator</strong> for each event"
+              }
+            ],
+            "span": [
+              {
+                "description": "Price : Rp. 150.000,00 (One-time payment)",
+                "color": "yelloww"
+              }
+            ]
+          },
+          {
+            "title": "Platinum Package",
+            "description": "Ideal for Medium-Sized Events, Includes : ",
+            "list": [
+              {
+                "description": "Create up to <strong>4 events</strong>"
+              },
+              {
+                "description": "Maximum of <strong>150 Participants</strong> per Event"
+              },
+              {
+                "description": "<strong>QR Code generator</strong> for each event"
+              },
+              {
+                "description": "<strong>Priority Support</strong> (admin help, lag issues, tutorials)"
+              }
+            ],
+            "span": [
+              {
+                "description": "Price : Rp. 300.000,00 (One-time payment)",
+                "color": "purplee"
+              }
+            ]
+          },
+          {
+            "title": "Gold Package",
+            "description": "Best for Large-Scale Events, Includes : ",
+            "list": [
+              {
+                "description": "Create up to <strong>6 Events</strong>"
+              },
+              {
+                "description": "Maximum of <strong>600 Participants</strong> per Event"
+              },
+              {
+                "description": "<strong>QR Code generator</strong> for each event"
+              },
+              {
+                "description": "<strong>Priority Support</strong> (admin help, lag issues, tutorials)"
+              },
+              {
+                "description": "<strong>Exclusive Email Sending</strong> via an external app"
+              }
+            ],
+            "span": [
+              {
+                "description": "Price : Rp. 500.000,00 (One-time payment)",
+                "color": "greenn"
+              }
+            ]
+          }
+        ]
       },
       {
         "title": "Payment Methods",
         "id": "payment-methods",
         "type": "sub",
-        "description": "sub description"
-      },
-      {
-        "title": "Billing & Invoices",
-        "id": "billing-invoices",
-        "type": "sub",
-        "description": "sub description"
+        "description": "We offer flexible payment methods that are widely used and trusted by users in Indonesia. After selecting your desired subscription package, you can complete the payment manually using one of the available channels.",
+        "list": [
+          {
+            "title": "Bank Transfer",
+            "description": "You can make a direct transfer to the official account number provided during checkout. Make sure to : ",
+            "list": [
+              {
+                "description": "<strong>Transfer the exact amount</strong> based on your selected package (e.g., Rp. 150,000 for the Silver Package)."
+              },
+              {
+                "description": "<strong>Use the correct account name</strong> as displayed during the payment step."
+              },
+              {
+                "description": "Complete the transfer via <strong>BCA</strong>, <strong>BRI</strong>, or other supported Indonesian banks."
+              },
+              {
+                "description": "After the transfer, you may be asked to upload proof of payment (e.g., transaction receipt) for verification."
+              }
+            ]
+          },
+          {
+            "title": "E-Wallet",
+            "description": "We also support payments through popular e-wallets :",
+            "list": [
+              {
+                "description": "GoPay"
+              },
+              {
+                "description": "DANA"
+              }
+            ]
+          }
+        ]
       },
       {
         "title": "Cancel Subscription Plan",
         "id": "cancel-subscription",
         "type": "sub",
-        "description": "sub description"
+        "description": "Currently, subscription cancellations are handled manually to ensure user verification and a secure process.<br>If you wish to cancel your subscription, please follow these steps :",
+        "list": [
+          {
+            "description": "<strong>Contact our support team</strong> through the available contact methods (WhatsApp, email, or in-app chat)."
+          },
+          {
+            "description": "Provide the following information : ",
+            "list": [
+              {
+                "description": "Your registered email address"
+              },
+              {
+                "description": "The active subscription package you want to cancel"
+              },
+              {
+                "description": "A short reason for cancellation (optional)"
+              }
+            ]
+          },
+          {
+            "description": "Our team will verify your request and proceed with the cancellation within <strong>1×24 hours.</strong>"
+          }
+        ],
+        "span": [
+          {
+            "description": "Since all of our subscription plans are one-time payments (no auto-renewals), canceling a plan does not include refunds. However, your access to features will remain active until the end of your package limit.",
+            "color": "purplee"
+          }
+        ]
       }
     ]
   },
   {
     "title": "Event Management",
     "id": "event-management",
-    "description": "Event management is a crucial aspect of using Certify. This section will guide you through the process of creating and managing events.",
+    "description": "The Event Management feature allows you to easily create, manage, and delete your events in one place. Whether you’re organizing a small gathering or a large-scale event, this feature gives you full control over your events.",
     "content": [
       {
         "type": "main",
-        "description": "lorem ipsum dolor sit amet consectetur adipiscing elit. "
+        "description": "You can :",
+        "list": [
+          {
+            "description": "<strong>Create a new event</strong> through a simple form"
+          },
+          {
+            "description": "<strong>View detailed event information</strong>"
+          },
+          {
+            "description": "<strong>Event Preview with Event Template</strong> to see how it looks before finalizing"
+          },
+          {
+            "description": "<strong>Edit existing events</strong> if there are changes"
+          },
+          {
+            "description": "<strong>Delete events</strong> you no longer need"
+          }
+        ],
+        "span": [
+          {
+            "description": "Each user has a limit on how many events they can create, based on the subscription package they chose. For example, if your package allows up to 4 events, you won’t be able to create a new one unless you delete an existing event or upgrade your plan.",
+            "color": "purplee"
+          }
+        ]
       },
       {
         "title": "Create a New Event",
         "id": "create-event",
         "type": "sub",
-        "description": "sub description"
+        "description": "<strong>Welcome to the event creation page!</strong> Please fill in the information below completely and accurately to create an event and automatically generate participant certificates.",
+        "list": [
+          {
+            "description": "Fill Out Event Details",
+            "list": [
+              {
+                "description": "<strong>Event Name:</strong> Full title of your event."
+              },
+              {
+                "description": "<strong>Event Description:</strong> A brief summary or goal of the event"
+              },
+              {
+                "description": "<strong>Event Date:</strong> The date when the event will take place."
+              },
+              {
+                "description": "<strong>Event Certificate Prefix Code:</strong> The prefix format of the certificate code <strong>(e.g., 001/HMTI/SEMNATSI/XI/2024)</strong>."
+              },
+              {
+                "description": "<strong>Event Certificate Suffix Code:</strong> Starting number for the certificate sequence <strong>(e.g., 1)</strong>."
+              },
+              {
+                "description": "<strong>Event Organizer:</strong> The name of the organizing team or institution."
+              },
+              {
+                "description": "<strong>Event Theme:</strong> The main topic or category of the event."
+              },
+              {
+                "description": "<strong>Event Template:</strong> Choose a certificate template from the available designs."
+              },
+              {
+                "description": "<strong>Event Stakeholder Name:</strong> Full name of the person signing the certificate."
+              },
+              {
+                "description": "<strong>Event Stakeholder Position:</strong> Official position or title of the stakeholder."
+              }
+            ]
+          },
+          {
+            "description": "Preview Template",
+            "list": [
+              {
+                "description": "After filling in all fields, click '<strong>Preview Template.</strong>'"
+              },
+              {
+                "description": "A <strong>live preview</strong> of the certificate will appear based on your input and selected template."
+              },
+              {
+                "description": "Make sure all the details are correct and well-placed."
+              }
+            ]
+          },
+          {
+            "description": "Finalize Event",
+            "list": [
+              {
+                "title": "Once you confirm everything looks good:",
+                "description": "Click '<strong>Create Event</strong>' to save and publish your event."
+              },
+              {
+                "title": "If you need to change anything before saving:",
+                "description": "Click '<strong>Cancel</strong>' to go back and edit the form."
+              }
+            ]
+          }
+        ],
+        "span": [
+          {
+            "description": "All fields are required to enable the template preview.",
+            "color": "greenn"
+          }
+        ]
       },
       {
         "title": "Event Details Explained",
         "id": "event-details",
         "type": "sub",
-        "description": "sub description"
+        "description": "On this page, users can view and manage detailed information about each event, along with a list of participants. Here's a breakdown of the two main sections :",
+        "list": [
+          {
+            "title": "Event Detail",
+            "description": "This section displays the key details of an event, including :",
+            "list": [
+              {
+                "title": "Event Name & Date",
+                "description": "Clearly shows the event title and scheduled date."
+              },
+              {
+                "title": "Organizer Tag",
+                "description": "Displays which organization is responsible for the event."
+              },
+              {
+                "title": "Event Actions Dropdown",
+                "description": "Located on the bottom right corner of the event card (three-dot icon). This dropdown contains several actions you can perform :",
+                "list": [
+                  {
+                    "title": "Upload Event Logo (max 2 logo)",
+                    "description": "You can upload up to two logos to represent the event. Adding logos is optional — you may upload none, one, or two. Uploaded logos can be replaced or deleted anytime. <strong>Recommended image ratio: 1:1, max file size: 3MB.</strong>"
+                  },
+                  {
+                    "title": "Stakeholder Details",
+                    "description": "View key information about event stakeholders, including their name, position, and photo. You can also update their details directly here. Like the logo, <strong>the stakeholder image must be in image format (JPG, PNG, etc), max 3MB, and ideally 1:1 ratio.</strong>"
+                  },
+                  {
+                    "title": "Preview Event",
+                    "description": "Allows you to preview how the event page will look using the preset template. This preview opens in a new page and is view-only (cannot be downloaded)."
+                  },
+                  {
+                    "title": "Edit Event",
+                    "description": "Update the event information such as name, description, and date."
+                  },
+                  {
+                    "title": "Delete Event",
+                    "description": "Permanently remove the event and its associated data."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "title": "Table of Participants",
+            "description": "Below the event card is a dynamic table showing a list of participants who have joined the event.",
+            "list": [
+              {
+                "title": "Participant Information",
+                "description": "Displays the participant's name, registration number, and a QR Code for each individual."
+              },
+              {
+                "title": "Actions for Each Participant",
+                "description": "You can perform the following actions for each participant :",
+                "list": [
+                  {
+                    "description": "<strong>Delete :</strong> Remove the participant from the list."
+                  },
+                  {
+                    "description": "<strong>Update :</strong> Modify the participant’s details."
+                  },
+                  {
+                    "description": "<strong>Download QRCode :</strong> Download the individual QR code of the participant."
+                  }
+                ]
+              },
+              {
+                "title": "Bulk Actions",
+                "description": "At the bottom of the table, you can :",
+                "list": [
+                  {
+                    "description": "<strong>Download All QR Codes :</strong> Download all participant QR codes at once."
+                  },
+                  {
+                    "description": "<strong>Delete All : </strong> Remove all participants from the event in one click."
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "span": [
+          {
+            "description": "This setup is designed to make event and participant management as easy and flexible as possible.",
+            "color": "redd"
+          }
+        ]
+      },
+      {
+        "title": "Event Stakeholders",
+        "id": "event-stakeholders",
+        "type": "sub",
+        "description": "The Event Stakeholder feature allows you to view and manage stakeholder information for a specific event. Each event can have only one stakeholder, and their information will be displayed on the event’s document template.",
+        "list": [
+          {
+            "title": "How to Access",
+            "description": "To open the stakeholder details panel:",
+            "list": [
+              {
+                "description": "Click the three dots (...) in the bottom right corner of the event card."
+              },
+              {
+                "description": "Select Stakeholder Details."
+              },
+              {
+                "description": "A side panel will appear, showing editable stakeholder information."
+              }
+            ]
+          },
+          {
+            "title": "Editable Information",
+            "list": [
+              {
+                "title": "Stakeholder Name",
+                "description": "Enter the full name of the stakeholder (e.g., Dr. John Doe, M.T.)."
+              },
+              {
+                "title": "Stakeholder Position",
+                "description": "Enter the stakeholder’s role or title (e.g., Rector of UDINUS)."
+              }
+            ],
+            "span": [
+              {
+                "description": "After editing the fields, click 'update data' to save the changes. A toast notification will appear at the top right of the screen confirming the update.",
+                "color": "greenn"
+              }
+            ]
+          },
+          {
+            "title": "Upload Stakeholder Image",
+            "description": "To add or replace the stakeholder's photo :",
+            "list": [
+              {
+                "description": "Click the 'Upload Stakeholder Image' button."
+              },
+              {
+                "description": "Select an image file from your device."
+              },
+              {
+                "description": "(Optional) Use the crop tool to adjust the image."
+              },
+              {
+                "description": "Click Upload to save the new image."
+              }
+            ],
+            "span": [
+              {
+                "description": "The uploaded image will immediately appear and be used in the event's document template.",
+                "color": "yelloww"
+              }
+            ]
+          }
+        ]
       },
       {
         "title": "Edit Event Information",
         "id": "edit-event",
         "type": "sub",
-        "description": "sub description"
+        "description": "The Edit Event Information page allows you to modify key details of an event. However, please note that you cannot change the stakeholder data from this page.",
+        "list": [
+          {
+            "title": "How to Access",
+            "description": "To edit event data :",
+            "list": [
+              {
+                "description": "Go to the event list."
+              },
+              {
+                "description": "Click the three-dot icon (⋮) on the desired event card."
+              },
+              {
+                "description": "Choose Edit from the dropdown menu."
+              },
+              {
+                "description": "You'll be redirected to the Edit Event Information page, which looks similar to the Create a New Event page."
+              }
+            ]
+          },
+          {
+            "title": "Editable Fields",
+            "description": "You can edit any of the following event fields :",
+            "list": [
+              {
+                "description": "<strong>Event Name:</strong> Full title of your event."
+              },
+              {
+                "description": "<strong>Event Description:</strong> A brief summary or goal of the event"
+              },
+              {
+                "description": "<strong>Event Date:</strong> The date when the event will take place."
+              },
+              {
+                "description": "<strong>Event Certificate Prefix Code:</strong> The prefix format of the certificate code <strong>(e.g., 001/HMTI/SEMNATSI/XI/2024)</strong>."
+              },
+              {
+                "description": "<strong>Event Certificate Suffix Code:</strong> Starting number for the certificate sequence <strong>(e.g., 1)</strong>."
+              },
+              {
+                "description": "<strong>Event Organizer:</strong> The name of the organizing team or institution."
+              },
+              {
+                "description": "<strong>Event Theme:</strong> The main topic or category of the event."
+              },
+              {
+                "description": "<strong>Event Template:</strong> Choose a certificate template from the available designs."
+              }
+            ],
+            "span": [
+              {
+                "description": "For detailed explanations of each field, refer to the 'Create a New Event' section.",
+                "color": "greenn"
+              }
+            ]
+          },
+          {
+            "title": "Preview Changes Before Updating",
+            "description": "After editing, you must click the “Preview Event” button to see a live preview of your changes. A dialog will appear showing :",
+            "list": [
+              {
+                "description": "The updated event data"
+              },
+              {
+                "description": "The selected certificate template with the new content"
+              }
+            ],
+            "span": [
+              {
+                "description": "To save the changes, click the Update button inside the preview dialog.Changes will not be saved unless you confirm them in this step.",
+                "color": "purplee"
+              }
+            ]
+          }
+        ]
       },
       {
         "title": "Delete an Event",
         "id": "delete-event",
         "type": "sub",
-        "description": "sub description"
+        "description": "If you no longer need an event, you can delete it permanently.",
+        "list": [
+          {
+            "title": "How to Delete an Event",
+            "list": [
+              {
+                "description": "Go to the event list."
+              },
+              {
+                "description": "Click the three-dot icon (⋮) on the event card you want to delete."
+              },
+              {
+                "description": "Select Delete from the dropdown menu."
+              },
+              {
+                "description": "A confirmation dialog will appear."
+              },
+              {
+                "description": "If you confirm, the event will be permanently deleted and cannot be recovered."
+              }
+            ],
+            "span": [
+              {
+                "description": "Deleted events cannot be restored. All data linked to the event (like participants) will be removed. Make sure to back up any important information before deleting an event.",
+                "color": "redd"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
   {
     "title": "Participants Management",
     "id": "participants-management",
-    "description": "Participants management is a crucial aspect of using Certify. This section will guide you through the process of creating and managing participants.",
+    "description": "Participants Management allows you to view, add, update, and manage all participants involved in your event.",
     "content": [
       {
         "type": "main",
-        "description": "lorem ipsum dolor sit amet consectetur adipiscing elit. "
+        "list": [
+          {
+            "title": "How to Add Participants",
+            "description": "There are two ways to add participants : ",
+            "list": [
+              {
+                "title": "Add Manually",
+                "description": "Fill out a form with participant details one by one."
+              },
+              {
+                "title": "Import from Excel",
+                "description": "Upload an Excel file (.xlsx) that contains the list of participants using the provided format."
+              }
+            ],
+            "span": [
+              {
+                "description": "Tip: Use the sample Excel format to avoid upload errors.",
+                "color": "redd"
+              }
+            ]
+          },
+          {
+            "title": "Participants Table Features",
+            "description": "Inside the event page, you’ll see a table listing all participants. From here, you can :",
+            "list": [
+              {
+                "description": "Update participant information."
+              },
+              {
+                "description": "Delete a participant."
+              },
+              {
+                "description": "Download a single participant’s QR code."
+              }
+            ],
+            "span": [
+              {
+                "description": "Each action is available per row in the table for quick access.",
+                "color": "yelloww"
+              }
+            ]
+          }
+        ]
       },
       {
         "title": "Add Participants Manually",
         "id": "add-participants",
         "type": "sub",
-        "description": "sub description"
+        "description": "To manually add participants to your event :",
+        "list": [
+          {
+            "title": "Click 'Add Participants Manually'",
+            "description": "This button is located above the participants table. When clicked, a sheet (sidebar form) will appear."
+          },
+          {
+            "title": "Step 1 – Set Total Participants",
+            "description": "Enter how many participants you want to add in total, then click Next."
+          },
+          {
+            "title": "Step 2 – Fill Participant Details One by One",
+            "description": "For each participant, fill in the following fields :",
+            "list": [
+              {
+                "description": "Participant Name"
+              },
+              {
+                "description": "Participant Email"
+              },
+              {
+                "description": "Participant Position"
+              }
+            ],
+            "span": [
+              {
+                "description": "Use the Next button to go to the next participant’s form until you've filled all.",
+                "color": "purplee"
+              }
+            ]
+          },
+          {
+            "title": "Step 3 – Submit All Data",
+            "description": "On the final participant form, the button changes to Submit All. Click it to send all your input data."
+          },
+          {
+            "title": "Confirmation",
+            "description": "Once submitted, a success toast notification will appear confirming that your participants have been added."
+          }
+        ],
+        "span": [
+          {
+            "description": "This step-by-step approach helps reduce user error and improves the overall experience, especially when adding multiple participants manually.",
+            "color": "greenn"
+          }
+        ]
       },
       {
         "title": "Import Participants (XLSX File)",
         "id": "import-participants",
         "type": "sub",
-        "description": "sub description"
+        "description": "To add participants in bulk using an Excel file, follow these steps :",
+        "list": [
+          {
+            "title": "Click 'Import Participants'",
+            "description": "This button is located near the 'Add Participants Manually' button. When clicked, a sheet (sidebar form) will open."
+          },
+          {
+            "title": "Upload Your Excel File",
+            "list": [
+              {
+                "description": "Click the Select File input to choose your .xlsx file."
+              },
+              {
+                "description": "The file must be in Excel format (.xlsx) and must not exceed 10MB."
+              },
+              {
+                "description": "Make sure to check your event’s maximum participant limit before uploading."
+              }
+            ]
+          },
+          {
+            "title": "Required Excel Structure",
+            "description": "Your Excel file must include exactly three columns, in this order :",
+            "list": [
+              {
+                "description": "name"
+              },
+              {
+                "description": "email"
+              },
+              {
+                "description": "position"
+              }
+            ],
+            "span": [
+              {
+                "description": "The first row must contain these headers. Data should start from row 2 onward.",
+                "color": "redd"
+              }
+            ]
+          },
+          {
+            "title": "Upload Process",
+            "description": "After selecting the file, click the Upload button.",
+            "list": [
+              {
+                "description": "A toast notification will appear to show the upload progress."
+              },
+              {
+                "description": "Once the upload is complete, the participants table will automatically update with the imported data."
+              }
+            ],
+            "span": [
+              {
+                "description": "Each row must contain valid data for all three required columns — incomplete rows may cause upload errors.",
+                "color": "yelloww"
+              }
+            ]
+          }
+        ]
       },
       {
-        "title": "Edit Particpants Information",
+        "title": "Edit Participants Information",
         "id": "edit-participants",
         "type": "sub",
-        "description": "sub description"
+        "description": "To update a participant's details, follow these steps :",
+        "list": [
+          {
+            "title": "Find the Participant",
+            "description": "In the participants table, locate the row that matches the participant you want to edit."
+          },
+          {
+            "title": "Click the 'Update' Button",
+            "description": "You’ll see an Update button on the same row as the selected participant. Click it to open a side sheet (update panel)."
+          },
+          {
+            "title": "Edit Participant Data",
+            "description": "Inside the sheet, you’ll see 3 input fields :",
+            "list": [
+              {
+                "description": "Name"
+              },
+              {
+                "description": "Email"
+              },
+              {
+                "description": "Position"
+              }
+            ],
+            "span": [
+              {
+                "description": "Make your changes in these fields.",
+                "color": "purplee"
+              }
+            ]
+          },
+          {
+            "title": "Save Changes",
+            "description": "Click the Save Changes button to submit your updates."
+          },
+          {
+            "title": "Confirmation Toast",
+            "description": "A toast notification will appear to confirm whether the data update was successful or not."
+          }
+        ],
+        "span": [
+          {
+            "description": "Only the fields you edit will be updated — no need to change everything if it’s not necessary.",
+            "color": "greenn"
+          }
+        ]
+      },
+      {
+        "title": "Download QR Code",
+        "id": "download-qrcode",
+        "type": "sub",
+        "description": "To download a QR code for a specific participant or all participants :",
+        "list": [
+          {
+            "title": "Download Single QR Code",
+            "description": "To download a QR code for a specific participant :",
+            "list": [
+              {
+                "title": "Select the Participant",
+                "description": "In the participants table, find the row for the participant whose QR code you want to download."
+              },
+              {
+                "title": "Click the 'Download' Button",
+                "description": "On that row, click the Download button. <br> A popup dialog will appear."
+              },
+              {
+                "title": "Choose Image Format",
+                "description": "Select the desired image format from the options :",
+                "list": [
+                  {
+                    "description": ".webp (default)"
+                  },
+                  {
+                    "description": ".jpeg"
+                  },
+                  {
+                    "description": ".jpg"
+                  },
+                  {
+                    "description": ".png"
+                  }
+                ]
+              },
+              {
+                "title": "Download the QR Code",
+                "description": "Click Download to save the QR code image in the selected format. Or click Cancel if you change your mind."
+              }
+            ]
+          },
+          {
+            "title": "Download All QR Code",
+            "description": "To download all QR codes from the event :",
+            "list": [
+              {
+                "title": "Locate the Download Button",
+                "description": "Scroll to the bottom of the Participants Table. You’ll find a button labeled Download All QR Codes."
+              },
+              {
+                "title": "Click to Download",
+                "description": "On that row, click the Download button. <br> A popup dialog will appear."
+              },
+              {
+                "title": "Choose Image Format",
+                "description": "Select the desired image format from the options :",
+                "list": [
+                  {
+                    "description": ".webp (default)"
+                  },
+                  {
+                    "description": ".jpeg"
+                  },
+                  {
+                    "description": ".jpg"
+                  },
+                  {
+                    "description": ".png"
+                  }
+                ]
+              },
+              {
+                "title": "Save the File",
+                "description": "Your browser will prompt you to download the ZIP file. Save it to your device."
+              }
+            ]
+          }
+        ],
+        "span": [
+          {
+            "description": "Tip: The QR code will be automatically generated using the selected format, ready for use in certificates or event check-ins.",
+            "color": "yelloww"
+          }
+        ]
       },
       {
         "title": "Remove Participant",
         "id": "remove-participant",
         "type": "sub",
-        "description": "sub description"
+        "description": "You can delete a single participant or all participants from an event.",
+        "list": [
+          {
+            "title": "Delete a Single Participant",
+            "list": [
+              {
+                "description": "Go to the Participants Table."
+              },
+              {
+                "description": "Find the row of the participant you want to remove."
+              },
+              {
+                "description": "Click the Delete button on the corresponding row."
+              },
+              {
+                "description": "A confirmation popup will appear asking if you’re sure to delete this participant."
+              },
+              {
+                "description": "Click Confirm to delete."
+              }
+            ],
+            "span": [
+              {
+                "description": "Deleted participant data cannot be recovered.",
+                "color": "redd"
+              }
+            ]
+          },
+          {
+            "title": "Delete All Participants",
+            "list": [
+              {
+                "description": "Scroll to the bottom of the Participants Table."
+              },
+              {
+                "description": "Click the Delete All Participants button."
+              },
+              {
+                "description": "A confirmation popup will ask if you're sure to remove all participant data from this event."
+              },
+              {
+                "description": "Click Confirm to proceed."
+              }
+            ],
+            "span": [
+              {
+                "description": "This action will permanently remove all participants from the event.",
+                "color": "yelloww"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
   {
     "title": "Security & Privacy",
     "id": "security-privacy",
-    "description": "Security and privacy are paramount when it comes to managing certificates and participants. This section will guide you through the security features of Certify.",
+    "description": "We care about the safety and privacy of your data. Our system is designed with built-in security to protect your personal information at every step.",
     "content": [
-      {
-        "type": "main",
-        "description": "lorem ipsum dolor sit amet consectetur adipiscing elit. "
-      },
       {
         "title": "Data Encryption",
         "id": "data-encryption",
         "type": "sub",
-        "description": "sub description"
+        "description": "We use encryption to keep your sensitive information safe :",
+        "list": [
+          {
+            "description": "Passwords are encrypted using bcrypt and cannot be read or recovered in their original form."
+          },
+          {
+            "description": "All communication between your browser and our server is secured using HTTPS."
+          },
+          {
+            "description": "Other data like event names, participant names, positions, and emails are stored using unique IDs, so each event and participant has their own secure reference."
+          },
+          {
+            "description": "Other data like event names, participant names, positions, and emails are stored using unique IDs, so each event and participant has their own secure reference."
+          }
+        ]
       },
       {
         "title": "How We Handle Personal Data",
         "id": "handle-personal-data",
         "type": "sub",
-        "description": "sub description"
+        "description": "Here’s how we handle and protect your data :",
+        "list": [
+          {
+            "description": "We store only the data needed for the system to function: your account info (encrypted email & password), event data, and participant data (name, email, and position)."
+          },
+          {
+            "description": "Only developers can access this data, and they do not have access to decrypted passwords."
+          },
+          {
+            "description": "We do not share or sell your data to any third party."
+          },
+          {
+            "description": "We collect your public IP address during email verification to help confirm that it's you using the same device."
+          },
+          {
+            "description": "Our system has an automatic backup feature to prevent data loss."
+          },
+          {
+            "description": "When you delete your data, it is soft-deleted first and then permanently deleted after some time."
+          }
+        ]
       },
       {
         "title": "User Control Over Data",
         "id": "user-control-data",
         "type": "sub",
-        "description": "sub description"
+        "description": "You have control over your own data :",
+        "list": [
+          {
+            "description": "You can edit event and participant details at any time."
+          },
+          {
+            "description": "You can delete individual or all participants within an event."
+          },
+          {
+            "description": "You can request to delete your account or personal data at any time."
+          },
+          {
+            "description": "At the moment, you cannot download a full copy of your data."
+          },
+          {
+            "description": "Only event owners can access the data they created; others cannot view it."
+          }
+        ]
       }
     ]
   },
