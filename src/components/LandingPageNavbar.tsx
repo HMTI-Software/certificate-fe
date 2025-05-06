@@ -179,24 +179,24 @@ const LandingPageNavbar = ({
             </Link>
           ))}
           <Button
-            className="bordered w-full bg-[#99B2FF] hover:bg-[#99B2FF]/90 text-black flex items-center gap-2"
-            onClick={() => router.push("/auth/sign-in")}
+            className="bordered w-full bg-yelloww hover:bg-yelloww/90 text-black flex items-center gap-2"
+            onClick={() => router.push("/auth/sign-up")}
           >
             {session ? (
               session.user ? (
                 <>
-                  <span>dashboard</span>
+                  <span>Dashboard</span>
                   <LayoutDashboard />
                 </>
               ) : (
                 <>
-                  <span>login</span>
+                  <span>Register</span>
                   <LogIn />
                 </>
               )
             ) : (
               <>
-                <span>login</span>
+                <span>register</span>
                 <LogIn />
               </>
             )}
