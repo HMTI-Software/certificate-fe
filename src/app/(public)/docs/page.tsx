@@ -1,5 +1,5 @@
-"use client";
-import React, { useEffect } from "react";
+import fs from "fs";
+import path from "path";
 import parse from "html-react-parser";
 import { ChevronUp } from "lucide-react";
 import Link from "next/link";
@@ -11,25 +11,13 @@ import {
 } from "@/lib/types/Documentation";
 import Image from "next/image";
 import { DocumentationSidebar } from "@/components/DocumentationSidebar";
-import { useState } from "react";
 
-const DocsPage = () => {
-  const [documentationData, setDocumentationData] = useState<
-    IDocumentationSection[]
-  >([]);
+export const dynamic = "force-static";
 
-  useEffect(() => {
-    const fetchDocs = async () => {
-      const res = await fetch("/static/Docs.json");
-      if (!res.ok) {
-        console.error("Failed to fetch documentation");
-        return;
-      }
-      const data = await res.json();
-      setDocumentationData(data);
-    };
-    fetchDocs();
-  }, []);
+const DocsPage = async () => {
+  const filePath = path.join(process.cwd(), "/public/Docs.json");
+  const fileContents = fs.readFileSync(filePath, "utf-8");
+  const documentationData: IDocumentationSection[] = JSON.parse(fileContents);
 
   const sideBar: IDocumentationSidebar[] = documentationData.flatMap((item) => {
     const result: IDocumentationSidebar[] = [
@@ -83,7 +71,6 @@ const DocsPage = () => {
             </p>
           )}
 
-          {/* Rekursi ke dalam list anak */}
           {item.list && renderListItem(item.list, level + 1)}
 
           {item.span &&
@@ -180,18 +167,40 @@ const DocsPage = () => {
                           })}
                         </div>
                         {content?.image && (
-                          <Image
-                            src={content.image.url}
-                            alt={content.image.alt}
-                            width={500}
-                            height={500}
+                          <div
                             className={cn(
-                              content.image.bordered
-                                ? "bordered-nonhover rounded-md"
-                                : "",
-                              content.image.className,
+                              content.image.length === 1
+                                ? "justify-items-center"
+                                : "grid grid-cols-2 md:grid-cols-3 gap-4 mt-5",
                             )}
-                          />
+                          >
+                            {content.image.map((image, imageIdx) => {
+                              return (
+                                <div
+                                  key={imageIdx}
+                                  className="flex flex-col gap-2"
+                                >
+                                  <Image
+                                    key={imageIdx}
+                                    src={image.url}
+                                    alt={image.alt}
+                                    className={cn(
+                                      image.className,
+                                      image.bordered ? "bordered-nonhover" : "",
+                                      "mx-auto md:mx-0",
+                                    )}
+                                    width={500}
+                                    height={500}
+                                  />
+                                  {image.description && (
+                                    <p className="text-xs md:text-sm text-gray-600 mt-2">
+                                      {image.description}
+                                    </p>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
                         )}
                         {content?.list && renderListItem(content.list)}
                         {content.span &&

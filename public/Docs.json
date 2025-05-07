@@ -7,12 +7,14 @@
       {
         "type": "main",
         "description": "<div class=''>Certify helps you create and manage secure, QR code-enabled certificates for events, professional, and verifiable.<div>",
-        "image": {
-          "url": "/certify-logo-black.png",
-          "alt": "image alt",
-          "className": "w-70 md:w-100 h-auto mx-auto mt-5",
-          "bordered": false
-        }
+        "image": [
+          {
+            "url": "/certify-logo-black.png",
+            "alt": "image alt",
+            "className": "w-70 md:w-100 h-auto mx-auto mt-5",
+            "bordered": false
+          }
+        ]
       },
       {
         "title": "What is Certify?",
@@ -611,6 +613,56 @@
           {
             "description": "This setup is designed to make event and participant management as easy and flexible as possible.",
             "color": "redd"
+          }
+        ]
+      },
+      {
+        "title": "Event Template",
+        "id": "event-template",
+        "type": "sub",
+        "description": "The Event Template feature allows you to choose a design for your event certificate. Certify offers a variety of templates to suit different themes and styles. Below is the template design provided by Certify : ",
+        "image": [
+          {
+            "url": "/template/FORMALDESIGN_1.png",
+            "alt": "formal design 1 template",
+            "className": "w-35 md:w-50 h-auto mt-5",
+            "bordered": false,
+            "description": "Formal Design 1 Template"
+          },
+          {
+            "url": "/template/FORMALDESIGN_2.png",
+            "alt": "formal design 2 template",
+            "className": "w-35 md:w-50 h-auto mt-5",
+            "bordered": false,
+            "description": "Formal Design 2 Template"
+          },
+          {
+            "url": "/template/FORMALDESIGN_3.png",
+            "alt": "formal design 3 template",
+            "className": "w-35 md:w-50 h-auto mt-5",
+            "bordered": false,
+            "description": "Formal Design 3 Template"
+          },
+          {
+            "url": "/template/TECHNOLOGYDESIGN_1.png",
+            "alt": "technology design 1 template",
+            "className": "w-35 md:w-50 h-auto mt-5",
+            "bordered": false,
+            "description": "Technology Design 1 Template"
+          },
+          {
+            "url": "/template/TECHNOLOGYDESIGN_2.png",
+            "alt": "technology design 2 template",
+            "className": "w-35 md:w-50 h-auto mt-5",
+            "bordered": false,
+            "description": "Technology Design 2 Template"
+          },
+          {
+            "url": "/template/TECHNOLOGYDESIGN_3.png",
+            "alt": "technology design 3 template",
+            "className": "w-35 md:w-50 h-auto mt-5",
+            "bordered": false,
+            "description": "Technology Design 3 Template"
           }
         ]
       },
@@ -1238,52 +1290,313 @@
   {
     "title": "Frequently Asked Questions",
     "id": "faq",
-    "description": "Frequently Asked Questions",
+    "description": "Everyday issues you might face and how to resolve them.",
     "content": [
       {
         "type": "main",
-        "description": "lorem ipsum dolor sit amet consectetur adipiscing elit. "
+        "description": "General Questions about the system and its features.",
+        "list": [
+          {
+            "title": "Do I need to log in to use the website?",
+            "description": "Yes, but you can use the website for up to <strong>3 days without re-login</strong>. After that, you’ll be asked to log in again."
+          },
+          {
+            "title": "Can I delete my account and data?",
+            "description": "Yes. You can <strong>request to delete your account and data</strong> through the contact or settings page."
+          },
+          {
+            "title": "Can I download all my data from the system?",
+            "description": "Currently, the system <strong>does not support bulk data export</strong>."
+          },
+          {
+            "title": "Who can see my email and password?",
+            "description": "Only the system stores them securely. <strong>Even developers cannot decrypt</strong> or view your password."
+          },
+          {
+            "title": "Why do I see a QR code next to each participant?",
+            "description": "It’s used to identify each participant during event check-ins. You can <strong>download</strong> it per participant or in bulk."
+          },
+          {
+            "title": "What happens when I upload a file?",
+            "description": "The system will <strong>read the data</strong> (not store the actual file) and import participants into the event."
+          },
+          {
+            "title": "Is my data encrypted?",
+            "description": "Critical personal data like email and password are encrypted. Other data like events and participants are stored using <strong>unique IDs.</strong>"
+          }
+        ]
       },
       {
-        "title": "Common Issues",
-        "id": "common-issues",
-        "type": "sub",
-        "description": "sub description"
-      },
-      {
-        "title": "Troubleshooting",
+        "title": "Troubleshooting Guide",
         "id": "troubleshooting",
         "type": "sub",
-        "description": "sub description"
+        "description": "Everyday issues you might face and how to resolve them.<br>This guide covers the most common problems that users may encounter while using the website and how to fix them easily.",
+        "list": [
+          {
+            "title": "File Upload Fails",
+            "description": "<strong>Problem:</strong> The Excel (.xlsx) file upload doesn't work.<br><strong>Solution:</strong>",
+            "list": [
+              {
+                "description": "Make sure the file is less than 10MB."
+              },
+              {
+                "description": "Ensure the file has the required columns: name, email, and position in the first row."
+              },
+              {
+                "description": "If the upload still fails, re-upload the file. A toast notification will show whether the upload was successful or failed."
+              }
+            ]
+          },
+          {
+            "title": "Participants Limit Reached",
+            "description": "<strong>Problem:</strong> You can't add more participants to an event.<br><strong>Solution:</strong>",
+            "list": [
+              {
+                "description": "Each user has a participant limit. Make sure your current total doesn't exceed your plan's limit."
+              },
+              {
+                "description": "A toast notification will inform you when the limit has been reached."
+              }
+            ]
+          },
+          {
+            "title": "QR Code Doesn't Show",
+            "description": "<strong>Problem:</strong>  The QR code is not visible inside the table row.<br><strong>Solution:</strong>",
+            "list": [
+              {
+                "description": "QR codes are loaded per row. If you see a blank space, it’s likely still loading."
+              },
+              {
+                "description": "Wait a few seconds or scroll to trigger lazy loading."
+              },
+              {
+                "description": "This is not an error—QR data exists but is still rendering."
+              }
+            ]
+          },
+          {
+            "title": "Toast Says Action Failed",
+            "description": "<strong>Problem:</strong> After performing an action (update, import, delete), the toast shows a failure.<br><strong>Solution:</strong>",
+            "list": [
+              {
+                "description": "Read the detailed error message inside the toast."
+              },
+              {
+                "description": "Most failures are due to expired sessions, file errors, or invalid form data."
+              },
+              {
+                "description": "If your session expired, you'll be asked to re-login for security."
+              }
+            ]
+          },
+          {
+            "title": "Session Expired",
+            "description": "<strong>Problem:</strong> You're logged in but actions suddenly fail.<br><strong>Solution:</strong>",
+            "list": [
+              {
+                "description": "Session tokens expire after 3 days of inactivity."
+              },
+              {
+                "description": "Re-login to continue using protected features."
+              }
+            ]
+          },
+          {
+            "title": "Form Won’t Submit",
+            "description": "<strong>Problem:</strong> You can't update or submit a form.<br><strong>Solution:</strong>",
+            "list": [
+              {
+                "description": "Check all required fields—name, email, and position must be filled correctly."
+              },
+              {
+                "description": "Real-time form validation will show messages below each field."
+              },
+              {
+                "description": "No toast will appear until the form is sent to the server."
+              }
+            ]
+          },
+          {
+            "title": "Can't Download QR Code",
+            "description": "<strong>Problem:</strong> QR Code download doesn’t work or opens wrong format.<br><strong>Solution:</strong>",
+            "list": [
+              {
+                "description": "Choose a valid format: .webp (default), .jpeg, .jpg, or .png."
+              },
+              {
+                "description": "Ensure that you have selected a participant before clicking download."
+              },
+              {
+                "description": "Use the dialog box to confirm and press Download."
+              }
+            ]
+          },
+          {
+            "title": "Can't Download All QR Codes",
+            "description": "<strong>Problem:</strong> Bulk QR Code zip file won't download.<br><strong>Solution:</strong>",
+            "list": [
+              {
+                "description": "Make sure participants exist in the event."
+              },
+              {
+                "description": "This button only appears below the table when there's at least one participant."
+              }
+            ]
+          },
+          {
+            "title": "Error While Editing Participant",
+            "description": "<strong>Problem:</strong> Nothing happens when updating a participant.<br><strong>Solution:</strong>",
+            "list": [
+              {
+                "description": "Click the Update button on the correct row."
+              },
+              {
+                "description": "Make sure all three fields are filled."
+              },
+              {
+                "description": "Press Save Changes inside the sheet and wait for toast confirmation."
+              }
+            ]
+          },
+          {
+            "title": "Unable to Delete Participant",
+            "description": "<strong>Problem:</strong> You tried to delete a participant but nothing changes.<br><strong>Solution:</strong>",
+            "list": [
+              {
+                "description": "Check the confirmation popup—you must confirm before deletion."
+              },
+              {
+                "description": "Toast will confirm deletion. If it fails, the system will cancel the process."
+              }
+            ]
+          },
+          {
+            "title": "Table Feels Slow",
+            "description": "<strong>Problem:</strong> The participant table is slow to load.<br><strong>Solution:</strong>",
+            "list": [
+              {
+                "description": "Each page is limited to 10 participants with pagination."
+              },
+              {
+                "description": "QR codes are loaded with each row, which may cause a short delay."
+              },
+              {
+                "description": "Wait for the loading indicator to complete."
+              }
+            ],
+            "span": [
+              {
+                "description": "Need help beyond this guide? Feel free to contact the support team or submit a bug report via the help section.",
+                "color": "purplee"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
   {
     "title": "Support",
     "id": "support",
-    "description": "Support for Certify",
+    "description": "Need help using the platform or have something to report? You're in the right place.",
     "content": [
       {
         "type": "main",
-        "description": "lorem ipsum dolor sit amet consectetur adipiscing elit. "
+        "description": "This section provides information on how to reach our support team, report technical issues, and suggest new features to improve your experience."
       },
       {
         "title": "Contact Support",
         "id": "contact-support",
         "type": "sub",
-        "description": "sub description"
+        "description": "If you're experiencing an issue or simply need help navigating the platform, our support team is here to assist you.<br><strong>What you’ll find here :</strong>",
+        "list": [
+          {
+            "description": "Contact email for support (e.g., support@yourdomain.com)"
+          },
+          {
+            "description": "Any additional support channels (e.g., live chat, WhatsApp, Telegram)"
+          },
+          {
+            "description": "Estimated response time (e.g., 24–48 hours)"
+          },
+          {
+            "description": "Supported languages (e.g., Bahasa Indonesia & English)"
+          }
+        ],
+        "span": [
+          {
+            "description": "We usually respond within 1–2 business days. Please include clear details about your issue to help us assist you faster.",
+            "color": "greenn"
+          }
+        ]
       },
       {
         "title": "Report a Bug",
         "id": "report-bug",
         "type": "sub",
-        "description": "sub description"
+        "description": "Help us improve the platform by reporting bugs you encounter. Accurate and complete reports help us fix issues faster and keep things running smoothly for everyone.",
+        "list": [
+          {
+            "title": "When to report a bug:",
+            "list": [
+              {
+                "description": "If a feature doesn’t work as expected"
+              },
+              {
+                "description": "If you see error messages or crashes"
+              },
+              {
+                "description": "If something feels broken or inconsistent"
+              }
+            ]
+          },
+          {
+            "title": "What to include in your report:",
+            "list": [
+              {
+                "description": "Steps to reproduce the issue"
+              },
+              {
+                "description": "Screenshot(s), if available"
+              },
+              {
+                "description": "Date/time of occurrence"
+              },
+              {
+                "description": "Browser or device used"
+              }
+            ],
+            "span": [
+              {
+                "description": "You can report bugs by emailing us or submitting a detailed report via our bug report form.",
+                "color": "redd"
+              }
+            ]
+          }
+        ]
       },
       {
         "title": "Feature Requests",
         "id": "feature-requests",
         "type": "sub",
-        "description": "sub description"
+        "description": "We’re always looking to improve. If you have a suggestion that could make the platform better, we’d love to hear from you.<br><strong>How to submit a request :</strong>",
+        "list": [
+          {
+            "description": "Describe the feature clearly"
+          },
+          {
+            "description": "Explain the problem it solves or the value it adds"
+          },
+          {
+            "description": "If possible, provide examples of how you would use it"
+          }
+        ],
+        "span": [
+          {
+            "description": "While we can’t guarantee every feature will be implemented, we carefully review all feedback and prioritize based on user impact and feasibility.",
+            "color": "purplee"
+          }
+        ]
       }
     ]
   }

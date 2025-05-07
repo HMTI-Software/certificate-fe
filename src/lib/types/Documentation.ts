@@ -16,12 +16,7 @@ export interface IDocumentationSectionContent {
   id?: string;
   type: "main" | "sub";
   description?: string;
-  image?: {
-    url: string;
-    alt: string;
-    className?: string;
-    bordered?: boolean;
-  };
+  image?: IDocumentationImage[];
   list?: IDocumentationSectionContentList[];
   span?: IDocumentationSpan[];
 }
@@ -29,14 +24,17 @@ export interface IDocumentationSectionContent {
 export interface IDocumentationSectionContentList {
   title?: string;
   description?: string;
-  image?: {
-    url: string;
-    alt: string;
-    className?: string;
-    bordered?: boolean;
-  };
+  image?: IDocumentationImage[];
   list?: IDocumentationSectionContentList[];
   span?: IDocumentationSpan[];
+}
+
+export interface IDocumentationImage {
+  url: string;
+  alt: string;
+  className?: string;
+  bordered?: boolean;
+  description?: string;
 }
 
 export interface IDocumentationSpan {
