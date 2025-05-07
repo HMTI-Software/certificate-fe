@@ -20,6 +20,7 @@ export const ParticipantsTable = ({ token, eventData }: Props) => {
     token,
     eventData.uid,
   );
+
   const participantData = useMemo<IParticipantDataTable[]>(
     () =>
       participants.map((participant) => ({

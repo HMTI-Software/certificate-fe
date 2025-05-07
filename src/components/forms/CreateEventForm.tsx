@@ -250,7 +250,12 @@ const CreateEventForm = () => {
                 </div>
               ) : participantCertificateData.eventTemplate ===
                 "TECHNOLOGYDESIGN_3" ? (
-                <TechnologyDesign3Template eventData={form.getValues()} />
+                <div className="flex flex-col items-center justify-center">
+                  <TechnologyDesign3Template
+                    mode="CREATE/EDIT"
+                    participantCertificateData={participantCertificateData}
+                  />
+                </div>
               ) : null
             ) : null}
           </GeneralDialog>

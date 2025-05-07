@@ -1,6 +1,7 @@
 import { getEventByEventId } from "@/actions/mutation/events/getEventByEventId";
 import { TechnologyDesign1Template } from "@/components/template/TechnologyDesign1Template";
 import { TechnologyDesign2Template } from "@/components/template/TechnologyDesign2Template";
+import { TechnologyDesign3Template } from "@/components/template/TechnologyDesign3Template";
 import { IEventParticipantCertificate } from "@/lib/types/Event";
 import { TriangleAlert } from "lucide-react";
 
@@ -71,7 +72,12 @@ const PreviewPage = async ({ params }: Props) => {
           />
         </div>
       ) : (
-        "TECHNOLOGY DESIGN 3"
+        <div className="flex flex-col items-center justify-center">
+          <TechnologyDesign3Template
+            mode="PREVIEW"
+            participantCertificateData={participantCertificateData}
+          />
+        </div>
       )}
     </>
   );

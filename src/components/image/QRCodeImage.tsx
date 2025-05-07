@@ -7,20 +7,33 @@ type QRCodeProps = {
   qrCodeSource: string;
   alt: string;
 };
+
 export const QRCodeImage = ({ qrCodeSource, alt }: QRCodeProps) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
+  const src = `https://certificate-be-production.up.railway.app${qrCodeSource}`;
+
+  if (hasError) {
+    return <div className="text-red-500 text-sm">Reload</div>;
+  }
   return (
-    <div className="w-full h-full flex items-center justify-center">
+    <div className="relative w-[60px] h-[60px] flex items-center justify-center">
       {isLoading && <LoadingCircle />}
       <Image
-        src={"https://certificate-be-production.up.railway.app" + qrCodeSource}
+        src={src}
         alt={alt}
-        width={60}
-        height={60}
-        className={`rounded-md transition-opacity duration-300 ${
+        fill
+        sizes="60px"
+        className={`object-contain rounded-md transition-opacity duration-300 ${
           isLoading ? "opacity-0" : "opacity-100"
         }`}
         onLoad={() => setIsLoading(false)}
+        onError={(error) => {
+          setIsLoading(false);
+          setHasError(true);
+          console.log(error);
+        }}
         loading="lazy"
       />
     </div>

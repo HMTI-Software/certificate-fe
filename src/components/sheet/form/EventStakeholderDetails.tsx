@@ -106,7 +106,7 @@ export const EventStakeholderDetailSheet = ({
               className="w-full flex flex-col justify-center gap-4 px-4"
             >
               <div className="flex flex-row items-start justify-start">
-                <div className="w-[70px] h-[70px] mr-4 rounded-full overflow-hidden border-2 border-black">
+                <div className="w-[70px] h-[70px] mr-4 rounded-full overflow-hidden border-2 border-black ">
                   {stakeholderData.photoPath === null || undefined ? (
                     <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500 font-bold">
                       {stakeholderData.name.slice(0, 2)}
@@ -121,7 +121,7 @@ export const EventStakeholderDetailSheet = ({
                       }
                       width={70}
                       height={70}
-                      className="object-cover object-center"
+                      className="object-cover object-center w-full h-full"
                       alt={stakeholderData.name.slice(0, 2)}
                       onLoad={() => {
                         return <LoadingCircle />;

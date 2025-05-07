@@ -1,5 +1,6 @@
 import { TechnologyDesign1Template } from "@/components/template/TechnologyDesign1Template";
 import { TechnologyDesign2Template } from "@/components/template/TechnologyDesign2Template";
+import { TechnologyDesign3Template } from "@/components/template/TechnologyDesign3Template";
 import { IEventParticipantCertificate } from "@/lib/types/Event";
 import { BadgeCheck, TriangleAlert } from "lucide-react";
 
@@ -94,7 +95,12 @@ const CertificateStakeholderPage = async ({
           />
         </div>
       ) : (
-        "TECHNOLOGY DESIGN 3"
+        <div className="flex flex-col items-center justify-start md:justify-start min-h-screen">
+          <TechnologyDesign3Template
+            participantCertificateData={participantCertificateData}
+            mode="VIEW"
+          />
+        </div>
       )}
     </>
   );
