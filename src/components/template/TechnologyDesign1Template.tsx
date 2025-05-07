@@ -94,10 +94,10 @@ export const TechnologyDesign1Template = ({
                   participantCertificateData.logoSecond
                   ? stakeholderData.photoPath
                     ? "mb-5 md:mb-8"
-                    : "mb-0 md:mb-7"
+                    : "mb-4 md:mb-7"
                   : stakeholderData.photoPath
                   ? "mb-7 md:mb-12"
-                  : "mb-0 md:mb-7"
+                  : "mb-4 md:mb-7"
                 : mode === "PREVIEW"
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond

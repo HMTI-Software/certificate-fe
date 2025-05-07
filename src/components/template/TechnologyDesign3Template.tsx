@@ -93,11 +93,11 @@ export const TechnologyDesign3Template = ({
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                   ? stakeholderData.photoPath
-                    ? "mb-11 md:mb-5"
+                    ? "mb-3 md:mb-5"
                     : "mb-4 md:mb-6"
                   : stakeholderData.photoPath
                   ? "mb-7 md:mb-12"
-                  : "mb-7 md:mb-8"
+                  : "mb-4 md:mb-7"
                 : mode === "PREVIEW"
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
@@ -106,12 +106,12 @@ export const TechnologyDesign3Template = ({
                     : "mb-7 md:mb-12"
                   : stakeholderData.photoPath
                   ? "mb-12 md:mb-24"
-                  : "mb-4 md:mb-20"
+                  : "mb-7 md:mb-13"
                 : participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                 ? stakeholderData.photoPath
                   ? "mb-4 md:mb-5"
-                  : "mb-5 md:mb-16"
+                  : "mb-7 md:mb-12"
                 : stakeholderData.photoPath
                 ? "mb-12 md:mb-12"
                 : "mb-7 md:mb-20",
@@ -186,7 +186,7 @@ export const TechnologyDesign3Template = ({
               }
               classNamePhotoPath={
                 mode === "CREATE/EDIT"
-                  ? "w-16 h-16 md:w-24 md:h-24"
+                  ? "w-21 h-21 md:w-24 md:h-24"
                   : mode === "PREVIEW"
                   ? "w-24 h-24 md:w-41 md:h-41"
                   : "w-27 h-27 md:w-38 md:h-38"
@@ -201,12 +201,12 @@ export const TechnologyDesign3Template = ({
                   ? mode === "CREATE/EDIT"
                     ? stakeholderData.photoPath
                       ? "mt-8 md:mt-9"
-                      : "mt-1 md:mt-5"
+                      : "mt-1 md:mt-4"
                     : mode === "PREVIEW"
-                    ? "mt-4 md:mt-8"
-                    : ""
+                    ? "mt-4 md:mt-7"
+                    : "mt-6 md:mt-7"
                   : mode === "CREATE/EDIT"
-                  ? "mt-8 md:mt-5"
+                  ? "mt-5 md:mt-5"
                   : mode === "PREVIEW"
                   ? "mt-5 md:mt-9"
                   : "mt-7 md:mt-9",
@@ -248,7 +248,7 @@ export const TechnologyDesign3Template = ({
                   "font-medium",
                   "text-white",
                   mode === "CREATE/EDIT"
-                    ? "text-[9px] md:text-xs"
+                    ? "text-[9px] md:text-[9px]"
                     : mode === "PREVIEW"
                     ? "text-[9px] md:text-[18px]"
                     : "text-[10px] md:text-sm",

@@ -103,15 +103,15 @@ export const TechnologyDesign2Template = ({
                   participantCertificateData.logoSecond
                   ? stakeholderData.photoPath
                     ? "mb-11 md:mb-24"
-                    : "mb-5 md:mb-16"
+                    : "mb-10 md:mb-21"
                   : stakeholderData.photoPath
                   ? "mb-12 md:mb-24"
-                  : "mb-4 md:mb-20"
+                  : "mb-10 md:mb-20"
                 : participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                 ? stakeholderData.photoPath
                   ? "mb-13 md:mb-20"
-                  : "mb-5 md:mb-16"
+                  : "mb-12 md:mb-21"
                 : stakeholderData.photoPath
                 ? "mb-12 md:mb-12"
                 : "mb-7 md:mb-20"
@@ -197,8 +197,8 @@ export const TechnologyDesign2Template = ({
                       ? "mt-8 md:mt-9"
                       : "mt-2 md:mt-5"
                     : mode === "PREVIEW"
-                    ? "mt-12 md:mt-11"
-                    : ""
+                    ? "mt-6 md:mt-10"
+                    : "mt-8 md:mt-9"
                   : mode === "CREATE/EDIT"
                   ? "mt-8 md:mt-9"
                   : mode === "PREVIEW"
