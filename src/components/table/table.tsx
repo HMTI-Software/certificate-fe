@@ -338,7 +338,10 @@ export function GeneralTable<TData, TValue>({
                 disabled={isLoading}
               >
                 {isLoading ? (
-                  <LoadingCircle />
+                  <>
+                    <span className="hidden md:block">delete all</span>
+                    <LoadingCircle />
+                  </>
                 ) : (
                   <>
                     <span className="hidden md:block">delete all</span>
