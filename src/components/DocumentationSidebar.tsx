@@ -49,7 +49,6 @@ export const DocumentationSidebar = ({ sideBar }: Props) => {
         </button>
       </div>
 
-      {/* "Back to top" button
       {/* Sidebar - desktop */}
       <div
         className="hidden lg:flex flex-col w-64 pr-8 sticky top-24 self-start h-[calc(100vh-6rem)] overflow-y-auto

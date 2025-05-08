@@ -25,7 +25,13 @@ import {
 } from "@/components/ui/table";
 
 //ICONS
-import { ChevronsLeft, ChevronsRight, QrCode, Trash2 } from "lucide-react";
+import {
+  ChevronsLeft,
+  ChevronsRight,
+  QrCode,
+  RefreshCw,
+  Trash2,
+} from "lucide-react";
 import { useState } from "react";
 import { AddParticipantsButton } from "../button/AddParticipantsButton";
 import GeneralDialog from "../popup/GeneralDialog";
@@ -42,6 +48,7 @@ import { deleteAllParticipants } from "@/actions/mutation/participants/deleteAll
 import LoadingCircle from "../animation/LoadingCircle";
 import { AddAccountButton } from "../button/AddAccountButton";
 import { useParticipantsContext } from "@/context/ParticipantsContext";
+import { refreshParticipantsData } from "@/actions/refreshParticipantsData";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -338,6 +345,16 @@ export function GeneralTable<TData, TValue>({
                     <Trash2 size={16} />
                   </>
                 )}
+              </Button>
+              <Button
+                className="bordered  rounded-md bg-greenn hover:bg-greenn/90 text-black"
+                onClick={async () => {
+                  await refreshParticipantsData().then(() => {
+                    refreshParticipants();
+                  });
+                }}
+              >
+                <RefreshCw />
               </Button>
             </div>
             <GeneralDialog

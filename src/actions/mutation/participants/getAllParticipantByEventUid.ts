@@ -28,7 +28,7 @@ const getAllParticipanByEventUid = async (
       {
         method: "GET",
         next: {
-          revalidate: 60, // 1 minute
+          revalidate: 60,
           tags: ["participants"],
         },
         headers: {

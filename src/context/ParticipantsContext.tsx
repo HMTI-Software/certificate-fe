@@ -1,4 +1,3 @@
-// context/ParticipantsContext.tsx
 "use client";
 
 import { createContext, useContext, useCallback, useState } from "react";
