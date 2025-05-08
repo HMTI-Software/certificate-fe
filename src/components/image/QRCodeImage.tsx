@@ -15,7 +15,7 @@ export const QRCodeImage = ({ qrCodeSource, alt }: QRCodeProps) => {
   const src = `https://certificate-be-production.up.railway.app${qrCodeSource}`;
 
   if (hasError) {
-    return <div className="text-red-500 text-sm">Reload</div>;
+    return <div className="text-red-500 text-sm">Generate</div>;
   }
   return (
     <div className="relative w-[60px] h-[60px] flex items-center justify-center">

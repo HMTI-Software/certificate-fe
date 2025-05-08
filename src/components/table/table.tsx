@@ -168,6 +168,24 @@ export function GeneralTable<TData, TValue>({
       setIsLoading(false);
     }
   };
+  const refreshDataHandler = () => {
+    try {
+      toast.promise(refreshParticipantsData(), {
+        loading: "Refreshing participants data...",
+        success: () => {
+          refreshParticipants();
+          return "Participants data refreshed successfully";
+        },
+        error: (error) => {
+          console.error("Error refreshing participants data:", error);
+          return error.message as string;
+        },
+      });
+    } catch (error) {
+      console.error("Error refreshing participants data:", error);
+      toast.error("Error refreshing participants data");
+    }
+  };
   return (
     <div className="w-full">
       <div className="flex flex-row justify-start py-4 gap-3">
@@ -351,10 +369,8 @@ export function GeneralTable<TData, TValue>({
               </Button>
               <Button
                 className="bordered  rounded-md bg-greenn hover:bg-greenn/90 text-black"
-                onClick={async () => {
-                  await refreshParticipantsData().then(() => {
-                    refreshParticipants();
-                  });
+                onClick={() => {
+                  refreshDataHandler();
                 }}
               >
                 <RefreshCw />
