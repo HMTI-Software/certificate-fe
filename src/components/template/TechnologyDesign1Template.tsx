@@ -57,6 +57,7 @@ export const TechnologyDesign1Template = ({
           : mode === "PREVIEW"
           ? "w-[300px] h-[450px] md:w-[500px] md:h-[750px]"
           : "w-[350px] h-[500px] md:w-[490px] md:h-[700px]",
+        "font-roboto-condensed",
       )}
     >
       <div className="relative mx-auto overflow-hidden flex flex-col items-center justify-center w-full h-full">
@@ -80,7 +81,7 @@ export const TechnologyDesign1Template = ({
           className={cn(
             "absolute inset-0 flex flex-col justify-center",
             mode === "CREATE/EDIT"
-              ? "py-3 md:py-3 px-10 md:px-10"
+              ? "py-3 md:py-3 px-10 md:px-8"
               : mode === "PREVIEW"
               ? "py-3 md:py-3 px-6 md:px-15"
               : "py-3 md:py-3 px-10 md:px-15",
@@ -122,13 +123,14 @@ export const TechnologyDesign1Template = ({
               mode={mode}
               className={cn(
                 mode === "CREATE/EDIT"
-                  ? "text-[0.4rem] md:text-[7px]"
+                  ? "text-[0.4rem] md:text-[8px]"
                   : mode === "PREVIEW"
                   ? "text-[8px] md:text-xs"
                   : "text-[9px] md:text-xs",
                 "font-medium",
                 "text-grayy",
-                "tracking-wider",
+                "tracking-[1px]",
+                "font-roboto-condensed",
               )}
             />
             <div className="flex flex-row justify-between items-center w-full">

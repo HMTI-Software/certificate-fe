@@ -35,7 +35,7 @@ const EventPage = async ({
     );
   }
   return (
-    <div className="w-full px-0 md:px-0 lg:px-40 2xl:px-60 pb-40">
+    <div className="w-full px-0 md:px-0 lg:px-0 2xl:px-60 pb-40">
       <div className="w-full">
         <EventCard event={eventData} page="event" />
         <div className="flex w-full justify-between mt-10 items-center">

@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:200,300,regular,500,600,700,800,200italic,300italic,italic,500italic,600italic,700italic,800italic);
+@import url(https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap);
 
 @import "tailwindcss";
 @plugin "tailwindcss-animate";
@@ -8,30 +9,12 @@ body {
   font-family: 'Plus jakarta sans', sans-serif;
 }
 
-/* globals.css */
-.custom-scroll::-webkit-scrollbar {
-  width: 6px;
-}
-
-.custom-scroll::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-.custom-scroll::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 8px;
-}
-
-.custom-scroll::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-roboto-condensed: 'Roboto Condensed', sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

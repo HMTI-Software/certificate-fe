@@ -88,8 +88,19 @@ export const createEventSchema = z.object({
       message: "Prefixes must end with ‘/’ and not begin with '/'",
     }),
   eventCertificateSuffixCode: z
-    .number({ message: "Suffix must be a number" })
-    .refine((val) => val !== null, { message: "Suffix cannot be empty" }),
+    .string()
+    .refine((val) => val !== null, {
+      message: "Suffix cannot be empty",
+    })
+    .refine(
+      (val) => {
+        const parsedNumber = Number(val);
+        return !isNaN(parsedNumber) && parsedNumber > 0;
+      },
+      {
+        message: "Suffix must be a positive number",
+      },
+    ),
   eventOrganizer: z
     .string()
     .min(2, { message: "Organizer Name of at least 2 characters" }),
@@ -136,9 +147,19 @@ export const updateEventSchema = z
       })
       .optional(),
     suffixCode: z
-      .number({ message: "Suffix must be a number" })
-      .refine((val) => val !== null, { message: "Suffix cannot be empty" })
-      .optional(),
+      .string()
+      .refine((val) => val !== null, {
+        message: "Suffix cannot be empty",
+      })
+      .refine(
+        (val) => {
+          const parsedNumber = Number(val);
+          return !isNaN(parsedNumber) && parsedNumber > 0;
+        },
+        {
+          message: "Suffix must be a positive number",
+        },
+      ),
     organizer: z
       .string()
       .min(2, { message: "Organizer Name of at least 2 characters" })
@@ -164,7 +185,7 @@ export const updateEventSchema = z
       )
       .optional(),
   })
-  .strict(); // <- menolak field asing
+  .strict();
 
 export const addParticipantSchema = z.object({
   name: z.string().min(1, { message: "Name must not be empty" }),

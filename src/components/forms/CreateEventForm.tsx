@@ -45,7 +45,7 @@ const CreateEventForm = () => {
       eventDescription: "",
       eventDate: new Date().toISOString(),
       eventCertificatePrefixCode: "",
-      eventCertificateSuffixCode: 1,
+      eventCertificateSuffixCode: "",
       eventOrganizer: "",
       eventTheme: "",
       eventStakeholderName: "",
@@ -83,8 +83,10 @@ const CreateEventForm = () => {
       qrCodes: null,
     });
   const previewHandler = async (values: z.infer<typeof createEventSchema>) => {
-    setParticipantCertificateData({
-      ...participantCertificateData,
+    console.log("Preview values: ", values);
+
+    setParticipantCertificateData((prev) => ({
+      ...prev,
       eventName: values.eventName,
       eventDescription: values.eventDescription,
       activityAt: values.eventDate,
@@ -97,7 +99,7 @@ const CreateEventForm = () => {
         photoPath: null,
       },
       certificateNumber: `${values.eventCertificatePrefixCode}${values.eventCertificateSuffixCode}`,
-    });
+    }));
     setOpenTemplateDialog(true);
   };
   const submitHandler = async (values: z.infer<typeof createEventSchema>) => {

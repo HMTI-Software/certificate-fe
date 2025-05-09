@@ -53,7 +53,7 @@ export const addParticipantsByExcel = async (file: File, eventUid: string) => {
     if (!res.ok || !responseData.success) {
       return {
         success: false,
-        message: responseData.message || "Failed to upload file",
+        message: responseData.message,
       };
     } else {
       revalidateTag("participants");
@@ -63,7 +63,7 @@ export const addParticipantsByExcel = async (file: File, eventUid: string) => {
       };
     }
   } catch (error) {
-    console.error("ERROR IN PARTICIPANTS ADD BY EXCEL (SERVER ACTION):", error);
+    console.log("ERROR IN PARTICIPANTS ADD BY EXCEL (SERVER ACTION):", error);
     return {
       success: false,
       message: "An unknown error occurred while uploading Excel file",

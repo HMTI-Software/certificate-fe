@@ -61,10 +61,29 @@ export async function POST(
     const responseData: IParticipantResponse = await res.json();
 
     if (!res.ok || !responseData.success) {
-      console.error(
+      console.log(
         "Error in POST /api/events/[eventUid]/participants/add-excel:",
         responseData.message || res.statusText,
       );
+      if (responseData.status === 401) {
+        return NextResponse.json(
+          {
+            success: false,
+            status: 401,
+            message: "You are not authorized to perform this action",
+          },
+          { status: 401 },
+        );
+      } else if (responseData.status === 403) {
+        return NextResponse.json(
+          {
+            success: false,
+            status: 403,
+            message: "You reached the limit of participants for this event",
+          },
+          { status: 403 },
+        );
+      }
       return NextResponse.json(
         {
           success: false,

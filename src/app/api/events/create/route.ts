@@ -37,8 +37,7 @@ export async function POST(req: NextRequest) {
       !eventTheme ||
       !eventTemplate ||
       !eventStakeholderName ||
-      !eventStakeholderPosition ||
-      !token
+      !eventStakeholderPosition
     ) {
       return NextResponse.json(
         {

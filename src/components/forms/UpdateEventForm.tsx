@@ -45,7 +45,7 @@ const UpdateEventForm = ({ eventData }: Props) => {
       description: eventData.description,
       activityAt: eventData.activityAt,
       prefixCode: eventData.prefixCode,
-      suffixCode: eventData.suffixCode,
+      suffixCode: eventData.suffixCode.toString(),
       organizer: eventData.organizer,
       eventTheme: eventData.eventTheme,
       eventTemplate: eventData.eventTemplate,
@@ -89,7 +89,7 @@ const UpdateEventForm = ({ eventData }: Props) => {
       email: null,
       position: null,
       addedAt: null,
-      certificateNumber: `${values.prefixCode}${values.suffixCode}`,
+      certificateNumber: `${values.prefixCode}/`,
       stakeholders: {
         name: eventData.stakeholders![0].name || "Name of the stakeholder",
         position:

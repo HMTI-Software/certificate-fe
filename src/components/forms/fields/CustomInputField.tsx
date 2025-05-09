@@ -42,6 +42,7 @@ export function InputFormField<T extends FieldValues>({
             <Input
               placeholder={placeholder}
               type={type}
+              inputMode={type === "number" ? "numeric" : "text"}
               {...field}
               className={`bordered placeholder:text-grayy rounded-md min-h-12 border-b-4 border-black hover:border-1 w-full ${
                 form.formState.errors[name] ? "border-redd" : ""
