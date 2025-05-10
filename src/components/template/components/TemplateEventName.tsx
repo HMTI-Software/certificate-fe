@@ -10,7 +10,7 @@ export const TemplateEventName = ({
   participantCertificateData,
 }: Props) => {
   return (
-    <h1 className={cn("font-extrabold", className)}>
+    <h1 className={cn("font-bold", className)}>
       {participantCertificateData.eventName.toUpperCase()}
     </h1>
   );

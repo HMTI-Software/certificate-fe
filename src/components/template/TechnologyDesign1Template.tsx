@@ -94,10 +94,10 @@ export const TechnologyDesign1Template = ({
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                   ? stakeholderData.photoPath
-                    ? "mb-5 md:mb-8"
+                    ? "mb-5 md:mb-7"
                     : "mb-4 md:mb-7"
                   : stakeholderData.photoPath
-                  ? "mb-7 md:mb-12"
+                  ? "mb-5 md:mb-7"
                   : "mb-4 md:mb-7"
                 : mode === "PREVIEW"
                 ? participantCertificateData.logoFirst ||
@@ -114,7 +114,7 @@ export const TechnologyDesign1Template = ({
                   ? "mb-6 md:mb-11"
                   : "mb-5 md:mb-16"
                 : stakeholderData.photoPath
-                ? "mb-12 md:mb-12"
+                ? "mb-6 md:mb-10"
                 : "mb-7 md:mb-20"
             }
           >
@@ -123,13 +123,12 @@ export const TechnologyDesign1Template = ({
               mode={mode}
               className={cn(
                 mode === "CREATE/EDIT"
-                  ? "text-[0.4rem] md:text-[8px]"
+                  ? "text-[0.4rem] md:text-[8px] tracking-[1px]"
                   : mode === "PREVIEW"
-                  ? "text-[8px] md:text-xs"
-                  : "text-[9px] md:text-xs",
+                  ? "text-[8px] md:text-[12px] tracking-widest md:tracking-[1.5px]"
+                  : "text-[9px] md:text-[13px] tracking-widest md:tracking-[1.5px]",
                 "font-medium",
                 "text-grayy",
-                "tracking-[1px]",
                 "font-roboto-condensed",
               )}
             />
@@ -167,7 +166,7 @@ export const TechnologyDesign1Template = ({
                 ? "space-y-4"
                 : mode === "PREVIEW"
                 ? "space-y-3"
-                : "space-y-6"
+                : "space-y-3 md:space-y-6"
             }
           >
             {/* STAKEHOLDER IMAGE */}
@@ -198,7 +197,15 @@ export const TechnologyDesign1Template = ({
                     ? stakeholderData.photoPath
                       ? "mt-10 md:mt-3"
                       : "mt-2 md:mt-3"
+                    : mode === "PREVIEW"
+                    ? "mt-3 md:mt-8"
                     : "mt-3 md:mt-8"
+                  : mode === "CREATE/EDIT"
+                  ? stakeholderData.photoPath
+                    ? "mt-6 md:mt-7"
+                    : "mt-2 md:mt-3"
+                  : mode === "PREVIEW"
+                  ? "mt-7 md:mt-8"
                   : "mt-7 md:mt-8",
               )}
             >
@@ -207,9 +214,9 @@ export const TechnologyDesign1Template = ({
                 stakeholderData={stakeholderData}
                 className={cn(
                   mode === "CREATE/EDIT"
-                    ? "text-[10px] md:text-[9px]"
+                    ? "text-[10px] md:text-[10px]"
                     : mode === "PREVIEW"
-                    ? "text-xs md:text-lg"
+                    ? "text-xs md:text-lg tracking-[2px]"
                     : "text-xs md:text-lg",
                   "text-[#62FFFD]",
                 )}
@@ -222,7 +229,7 @@ export const TechnologyDesign1Template = ({
                   mode === "CREATE/EDIT"
                     ? "text-[9px] md:text-[7px]"
                     : mode === "PREVIEW"
-                    ? "text-[9px] md:text-[10px]"
+                    ? "text-[9px] md:text-[12px]"
                     : "text-[9px] md:text-xs",
                   "tracking-widest",
                 )}
@@ -236,25 +243,27 @@ export const TechnologyDesign1Template = ({
               {/* EVENT NAME */}
               <TemplateEventName
                 participantCertificateData={participantCertificateData}
-                className={
+                className={cn(
                   mode === "CREATE/EDIT"
-                    ? "text-xs md:text-sm"
+                    ? "text-xs md:text-[16px]"
                     : mode === "PREVIEW"
                     ? "text-sm md:text-2xl"
-                    : "text-lg md:text-2xl"
-                }
+                    : "text-lg md:text-2xl",
+                  "tracking-wider text-white/90",
+                )}
               />
               {/* END EVENT NAME */}
               {/* EVENT THEME */}
               <TemplateEventTheme
                 participantCertificateData={participantCertificateData}
-                className={
+                className={cn(
                   mode === "CREATE/EDIT"
-                    ? "text-[9px] md:text-[9px]"
+                    ? "text-[9px] md:text-[10px]"
                     : mode === "PREVIEW"
-                    ? "text-[9px] md:text-xs"
-                    : "text-[9px] md:text-xs"
-                }
+                    ? "text-[9px] md:text-sm"
+                    : "text-[11px] md:text-sm",
+                  "text-white/90",
+                )}
               />
               {/* END EVENT THEME */}
             </div>
@@ -266,11 +275,11 @@ export const TechnologyDesign1Template = ({
           <TemplateFooter
             className={cn(
               mode === "CREATE/EDIT"
-                ? "text-[6px] md:text-[8px]"
+                ? "text-[8px] md:text-[9px]"
                 : mode === "PREVIEW"
-                ? "text-[7px] md:text-xs"
-                : "text-[9px] md:text-xs",
-              "mb-3 md:mb-3",
+                ? "text-[9px] md:text-sm"
+                : "text-[10px] md:text-sm",
+              "mb-3 md:mb-3 text-white/90",
             )}
           >
             <span>Diselenggarakan oleh : </span>

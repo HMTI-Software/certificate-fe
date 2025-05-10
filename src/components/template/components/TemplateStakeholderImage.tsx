@@ -23,11 +23,7 @@ export const TemplateStakeholderImage = ({
             "flex items-center justify-center  text-gray-500 font-bold rounded-full bg-transparent",
             classNameNoPhotoPath,
           )}
-        >
-          <span className="text-white text-lg md:text-4xl">
-            {stakeholderData.name.slice(0, 2).toUpperCase()}
-          </span>
-        </div>
+        ></div>
       ) : (
         <Image
           src={

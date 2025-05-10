@@ -8,7 +8,7 @@ export const TemplateFooter = ({ className, children }: Props) => {
   return (
     <div
       className={cn(
-        "flex flex-col justify-end items-center w-full h-full space-y-1 text-white font-light tracking-wider",
+        "flex flex-col justify-end items-center w-full h-full space-y-1 text-white font-light tracking-wider text-center",
         className,
       )}
     >

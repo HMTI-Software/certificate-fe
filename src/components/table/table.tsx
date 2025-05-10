@@ -298,7 +298,7 @@ export function GeneralTable<TData, TValue>({
                 <Button
                   size="sm"
                   onClick={() => table.previousPage()}
-                  className={`bordered bg-red-400 hover:bg-red/90 text-black ${
+                  className={`bordered bg-purplee hover:bg-purplee/90 text-black ${
                     currentPage === 1 ? "hidden" : ""
                   }`}
                 >
@@ -311,10 +311,8 @@ export function GeneralTable<TData, TValue>({
                     onClick={() =>
                       typeof page === "number" && table.setPageIndex(page - 1)
                     }
-                    className={`bordered bg-white hover:bg-white/90 text-black ${
-                      currentPage === page
-                        ? "bg-[#59FFAC] hover:bg-[#59FFAC]/90"
-                        : ""
+                    className={`hidden md:flex bordered bg-white hover:bg-white/90 text-black ${
+                      currentPage === page ? "bg-greenn hover:bg-greenn/90" : ""
                     }`}
                     disabled={page === "..."}
                   >
@@ -324,7 +322,7 @@ export function GeneralTable<TData, TValue>({
                 <Button
                   size="sm"
                   onClick={() => table.nextPage()}
-                  className={`bordered bg-red-400 hover:bg-red/90 text-black ${
+                  className={`bordered bg-purplee hover:bg-purplee/90 text-black ${
                     currentPage === totalPages ? "hidden" : ""
                   }`}
                 >

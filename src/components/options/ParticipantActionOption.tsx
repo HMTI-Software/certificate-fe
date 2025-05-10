@@ -171,7 +171,7 @@ export const ParticipantActionOption = ({
           align="end"
           className="bordered border-b-4 hover:border-b-1"
         >
-          <DropdownMenuLabel>Event Actions</DropdownMenuLabel>
+          <DropdownMenuLabel>Participant Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() =>
