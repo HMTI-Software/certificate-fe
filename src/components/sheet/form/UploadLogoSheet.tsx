@@ -13,6 +13,7 @@ import { IEventData, IEventParticipantCertificate } from "@/lib/types/Event";
 import { toast } from "sonner";
 import { uploadEventLogo } from "@/actions/mutation/events/uploadEventLogo";
 import { TechnologyDesign2Template } from "@/components/template/TechnologyDesign2Template";
+import { Crop, Trash2 } from "lucide-react";
 
 type Props = {
   open: boolean;
@@ -175,14 +176,48 @@ export const UploadLogoSheet = ({ open, setOpen, eventData }: Props) => {
               label="First Logo"
               description="Upload the first logo for your event"
               accept="image/*"
-            />
+            >
+              <Button
+                type="button"
+                variant="outline"
+                className="bordered bg-purplee hover:bg-purplee/90 border-b-4 hover:border-b-1 text-black flex-1 mt-[6px]"
+                size={"lg"}
+              >
+                <Crop />
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="bordered bg-redd hover:bg-redd/90 border-b-4 hover:border-b-1 text-black flex-1 mt-[6px]"
+                size={"lg"}
+              >
+                <Trash2 />
+              </Button>
+            </FileUploadField>
             <FileUploadField
               form={uploadEventLogoForm}
               name="secondLogo"
               label="Second Logo"
               description="Upload the second logo for your event"
               accept="image/*"
-            />
+            >
+              <Button
+                type="button"
+                variant="outline"
+                className="bordered bg-purplee hover:bg-purplee/90 border-b-4 hover:border-b-1 text-black flex-1 mt-[6px]"
+                size={"lg"}
+              >
+                <Crop />
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="bordered bg-redd hover:bg-redd/90 border-b-4 hover:border-b-1 text-black flex-1 mt-[6px]"
+                size={"lg"}
+              >
+                <Trash2 />
+              </Button>
+            </FileUploadField>
             <Button
               type="submit"
               className="bordered bg-greenn hover:bg-greenn/90 border-b-4 hover:border-b-1 text-black w-full"
