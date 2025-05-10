@@ -93,28 +93,28 @@ export const TechnologyDesign3Template = ({
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                   ? stakeholderData.photoPath
-                    ? "mb-3 md:mb-5"
+                    ? "mb-2 md:mb-4"
                     : "mb-4 md:mb-6"
                   : stakeholderData.photoPath
                   ? "mb-7 md:mb-12"
-                  : "mb-4 md:mb-7"
+                  : "mb-4 md:mb-6"
                 : mode === "PREVIEW"
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                   ? stakeholderData.photoPath
-                    ? "mb-5 md:mb-8"
+                    ? "mb-4 md:mb-8"
                     : "mb-7 md:mb-12"
                   : stakeholderData.photoPath
                   ? "mb-12 md:mb-24"
-                  : "mb-7 md:mb-13"
+                  : "mb-7 md:mb-8"
                 : participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                 ? stakeholderData.photoPath
                   ? "mb-4 md:mb-5"
-                  : "mb-7 md:mb-12"
+                  : "mb-7 md:mb-10"
                 : stakeholderData.photoPath
                 ? "mb-12 md:mb-12"
-                : "mb-7 md:mb-20",
+                : "mb-7 md:mb-10",
               mode === "CREATE/EDIT"
                 ? "gap-5 md:gap-5"
                 : mode === "PREVIEW"
@@ -127,13 +127,12 @@ export const TechnologyDesign3Template = ({
               mode={mode}
               className={cn(
                 mode === "CREATE/EDIT"
-                  ? "text-[8px] md:text-[9px]"
+                  ? "text-[10px] md:text-[11px]"
                   : mode === "PREVIEW"
-                  ? "text-[9px] md:text-[15px]"
-                  : "text-[11px] md:text-[15px]",
-                "font-light md:font-medium",
-                "text-white",
-                "tracking-widest",
+                  ? "text-[11px] md:text-[17px]"
+                  : "text-[12px] md:text-[17px]",
+                "font-medium font-roboto-condensed",
+                "text-white tracking-widest",
               )}
               onlyCertificateNumber={true}
             />
@@ -186,7 +185,7 @@ export const TechnologyDesign3Template = ({
               }
               classNamePhotoPath={
                 mode === "CREATE/EDIT"
-                  ? "w-21 h-21 md:w-24 md:h-24"
+                  ? "w-21.5 h-21.5 md:w-24 md:h-24"
                   : mode === "PREVIEW"
                   ? "w-24 h-24 md:w-41 md:h-41"
                   : "w-27 h-27 md:w-38 md:h-38"
@@ -203,13 +202,13 @@ export const TechnologyDesign3Template = ({
                       ? "mt-8 md:mt-9"
                       : "mt-1 md:mt-4"
                     : mode === "PREVIEW"
-                    ? "mt-4 md:mt-7"
-                    : "mt-6 md:mt-7"
+                    ? "mt-4 md:mt-10"
+                    : "mt-5 md:mt-7"
                   : mode === "CREATE/EDIT"
                   ? "mt-5 md:mt-5"
                   : mode === "PREVIEW"
-                  ? "mt-5 md:mt-9"
-                  : "mt-7 md:mt-9",
+                  ? "mt-6 md:mt-9"
+                  : "mt-7 md:mt-7",
               )}
             >
               {/* STAKEHOLDER NAME */}
@@ -217,24 +216,24 @@ export const TechnologyDesign3Template = ({
                 stakeholderData={stakeholderData}
                 className={cn(
                   mode === "CREATE/EDIT"
-                    ? "text-[11px] md:text-xs"
+                    ? "text-[11px] md:text-sm"
                     : mode === "PREVIEW"
-                    ? "text-xs md:text-lg"
-                    : "text-xs md:text-lg",
-                  "text-white",
+                    ? "text-xs md:text-2xl"
+                    : "text-[16px] md:text-2xl",
+                  "text-white font-roboto-condensed",
                 )}
               />
               {/* END STAKEHOLDER NAME */}
               <span
                 className={cn(
-                  "font-light",
+                  "font-light font-roboto-condensed",
                   "text-gray-300",
                   mode === "CREATE/EDIT"
-                    ? "text-[7px] md:text-[7px]"
+                    ? "text-[8px] md:text-[9px]"
                     : mode === "PREVIEW"
-                    ? "text-[9px] md:text-[10px]"
+                    ? "text-[9px] md:text-xs"
                     : "text-[9px] md:text-xs",
-                  "tracking-widest",
+                  "tracking-widest ",
                 )}
               >
                 PENANDATANGAN
@@ -242,16 +241,16 @@ export const TechnologyDesign3Template = ({
             </div>
             {/* END STAKEHOLDER DATA */}
             {/* EVENT DATA */}
-            <div className="flex flex-col items-center space-y-2">
+            <div className="flex flex-col items-center">
               <span
                 className={cn(
-                  "font-medium",
+                  "font-light font-roboto-condensed",
                   "text-white",
                   mode === "CREATE/EDIT"
-                    ? "text-[9px] md:text-[9px]"
+                    ? "text-[12px] md:text-[14px]"
                     : mode === "PREVIEW"
                     ? "text-[9px] md:text-[18px]"
-                    : "text-[10px] md:text-sm",
+                    : "text-xs md:text-[18px]",
                 )}
               >
                 Dalam Kegiatan
@@ -261,24 +260,25 @@ export const TechnologyDesign3Template = ({
                 participantCertificateData={participantCertificateData}
                 className={cn(
                   mode === "CREATE/EDIT"
-                    ? "text-xs md:text-sm"
+                    ? "text-sm md:text-sm"
                     : mode === "PREVIEW"
                     ? "text-sm md:text-2xl"
                     : "text-sm md:text-2xl",
-                  "text-[#3F9AC9]",
+                  "text-[#3D92C4] font-roboto-condensed",
                 )}
               />
               {/* END EVENT NAME */}
               {/* EVENT THEME */}
               <TemplateEventTheme
                 participantCertificateData={participantCertificateData}
-                className={
+                className={cn(
                   mode === "CREATE/EDIT"
-                    ? "text-[9px] md:text-[9px]"
+                    ? "text-[8px] md:text-[9px]"
                     : mode === "PREVIEW"
                     ? "text-[9px] md:text-xs"
-                    : "text-[10px] md:text-sm"
-                }
+                    : "text-[10px] md:text-xs",
+                  "font-light tracking-[1px]",
+                )}
               />
               {/* END EVENT THEME */}
             </div>

@@ -1,8 +1,6 @@
 import { IEventResponse } from "@/lib/types/Event";
 import { updateEventSchema } from "@/lib/types/General";
 import { NextRequest, NextResponse } from "next/server";
-import { eventNames } from "process";
-import { EnumValues } from "zod";
 
 export async function PATCH(
   req: NextRequest,
@@ -49,7 +47,6 @@ export async function PATCH(
       ...validatedFields.data,
       suffixCode: parseInt(validatedFields.data.suffixCode),
     };
-    console.log("REQUEST BODY: ", requestBody);
 
     const res = await fetch(
       `${process.env.BACKEND_URL}/api/events/${eventUid}/update`,
