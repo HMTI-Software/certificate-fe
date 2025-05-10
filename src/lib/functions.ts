@@ -1,4 +1,3 @@
-import QRcode from "qrcode";
 export const FormatDate = ({
   children,
   withDay,
@@ -30,11 +29,6 @@ export const FormatDate = ({
 
   if (!withDay) return `${day} ${monthName} ${year}`;
   return `${dayName} ${day} ${monthName} ${year}`;
-};
-
-export const textToQR = async (children: string) => {
-  const qrCodeString = await QRcode.toDataURL(children);
-  return `<img src=${qrCodeString} alt="QR Code" />`;
 };
 
 interface CropArea {
