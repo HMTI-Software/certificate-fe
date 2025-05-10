@@ -102,11 +102,11 @@ export const TechnologyDesign2Template = ({
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                   ? stakeholderData.photoPath
-                    ? "mb-11 md:mb-24"
-                    : "mb-10 md:mb-21"
+                    ? "mb-12 md:mb-24"
+                    : "mb-11 md:mb-21"
                   : stakeholderData.photoPath
                   ? "mb-12 md:mb-24"
-                  : "mb-10 md:mb-20"
+                  : "mb-11 md:mb-21"
                 : participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                 ? stakeholderData.photoPath
@@ -114,7 +114,7 @@ export const TechnologyDesign2Template = ({
                   : "mb-12 md:mb-21"
                 : stakeholderData.photoPath
                 ? "mb-12 md:mb-12"
-                : "mb-7 md:mb-20"
+                : "mb-12 md:mb-21"
             }
           >
             <TemplateCertificateNumber
@@ -126,7 +126,7 @@ export const TechnologyDesign2Template = ({
                   : mode === "PREVIEW"
                   ? "text-[7px] md:text-[11px]"
                   : "text-[9px] md:text-xs",
-                "font-light md:font-medium",
+                "font-light md:font-medium font-ramaraja uppercase",
                 "text-white",
                 "tracking-widest",
               )}
@@ -202,42 +202,31 @@ export const TechnologyDesign2Template = ({
                   : mode === "CREATE/EDIT"
                   ? "mt-8 md:mt-9"
                   : mode === "PREVIEW"
-                  ? "mt-9 md:mt-17"
+                  ? "mt-10 md:mt-17"
                   : "mt-11 md:mt-15",
               )}
             >
-              {
-                // stakeholderData.photoPath === null
-                // ? mode === "CREATE/EDIT"
-                //   ? stakeholderData.photoPath
-                //     ? "mt-10 md:mt-3"
-                //     : "mt-2 md:mt-5"
-                //   : "mt-3 md:mt-8"
-                // : mode === "PREVIEW"
-                // ? "mt-10 md:mt-17"
-                // : "mt-11 md:mt-15"
-              }
               {/* STAKEHOLDER NAME */}
               <TemplateStakeholderName
                 stakeholderData={stakeholderData}
                 className={cn(
                   mode === "CREATE/EDIT"
-                    ? "text-[10px] md:text-xs"
+                    ? "text-[10px] md:text-sm"
                     : mode === "PREVIEW"
                     ? "text-xs md:text-lg"
-                    : "text-xs md:text-lg",
-                  "text-white",
+                    : "text-sm md:text-xl",
+                  "text-white font-roboto-condensed font-bold",
                 )}
               />
               {/* END STAKEHOLDER NAME */}
               <span
                 className={cn(
-                  "font-light",
+                  "font-light font-roboto-condensed",
                   "text-gray-300",
                   mode === "CREATE/EDIT"
                     ? "text-[9px] md:text-[7px]"
                     : mode === "PREVIEW"
-                    ? "text-[9px] md:text-[10px]"
+                    ? "text-[9px] md:text-[12px]"
                     : "text-[9px] md:text-xs",
                   "tracking-widest",
                 )}
@@ -250,13 +239,13 @@ export const TechnologyDesign2Template = ({
             <div className="flex flex-col items-center space-y-2">
               <span
                 className={cn(
-                  "font-light",
+                  "font-light font-roboto-condensed tracking-wider",
                   "text-white",
                   mode === "CREATE/EDIT"
                     ? "text-[9px] md:text-xs"
                     : mode === "PREVIEW"
                     ? "text-[9px] md:text-[18px]"
-                    : "text-[9px] md:text-xs",
+                    : "text-xs md:text-[18px]",
                 )}
               >
                 Dalam Kegiatan
@@ -269,21 +258,22 @@ export const TechnologyDesign2Template = ({
                     ? "text-xs md:text-sm"
                     : mode === "PREVIEW"
                     ? "text-sm md:text-2xl"
-                    : "text-sm md:text-2xl",
-                  "text-[#3F9AC9]",
+                    : "text-lg md:text-2xl",
+                  "text-[#74b5d8] font-roboto-condensed font-bold tracking-wider",
                 )}
               />
               {/* END EVENT NAME */}
               {/* EVENT THEME */}
               <TemplateEventTheme
                 participantCertificateData={participantCertificateData}
-                className={
+                className={cn(
                   mode === "CREATE/EDIT"
                     ? "text-[9px] md:text-[9px]"
                     : mode === "PREVIEW"
-                    ? "text-[9px] md:text-xs"
-                    : "text-[9px] md:text-xs"
-                }
+                    ? "text-[9px] md:text-[13px]"
+                    : "text-[9px] md:text-xs",
+                  "tracking-widest",
+                )}
               />
               {/* END EVENT THEME */}
             </div>

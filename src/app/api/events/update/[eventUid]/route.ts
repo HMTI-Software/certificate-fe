@@ -1,6 +1,7 @@
 import { IEventResponse } from "@/lib/types/Event";
 import { updateEventSchema } from "@/lib/types/General";
 import { NextRequest, NextResponse } from "next/server";
+import { eventNames } from "process";
 import { EnumValues } from "zod";
 
 export async function PATCH(
@@ -44,38 +45,11 @@ export async function PATCH(
       );
     }
 
-    if (!payload || Object.keys(payload).length === 0) {
-      return NextResponse.json(
-        {
-          success: false,
-          status: 400,
-          message: "Invalid payload.",
-        },
-        { status: 400 },
-      );
-    }
-    const allowedFields = [
-      "eventName",
-      "description",
-      "activityAt",
-      "prefixCode",
-      "suffixCode",
-      "organizer",
-      "eventTheme",
-      "eventTemplate",
-    ];
-
-    const requestBody: Record<string, string | number | EnumValues> = {};
-
-    allowedFields.forEach((key) => {
-      if (
-        key in payload &&
-        payload[key] !== undefined &&
-        payload[key] !== null
-      ) {
-        requestBody[key] = payload[key];
-      }
-    });
+    const requestBody = {
+      ...validatedFields.data,
+      suffixCode: parseInt(validatedFields.data.suffixCode),
+    };
+    console.log("REQUEST BODY: ", requestBody);
 
     const res = await fetch(
       `${process.env.BACKEND_URL}/api/events/${eventUid}/update`,
