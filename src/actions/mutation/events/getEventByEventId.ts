@@ -22,7 +22,7 @@ export const getEventByEventId = async (eventUid: string) => {
       {
         method: "GET",
         next: {
-          revalidate: 60, // Revalidate every 60 seconds
+          revalidate: 60, // Revalidate cache every 60 seconds
           tags: ["events/" + eventUid],
         },
         headers: {
@@ -35,6 +35,8 @@ export const getEventByEventId = async (eventUid: string) => {
     if (!eventData.success && eventData.status !== 200) {
       return null;
     }
+    console.log("Event data fetched successfully", eventData.data);
+
     return eventData.data;
   } catch (error) {
     console.error(

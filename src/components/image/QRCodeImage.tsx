@@ -15,7 +15,7 @@ export const QRCodeImage = ({ qrCodeSource, alt }: QRCodeProps) => {
   const src = `https://certificate-be-production.up.railway.app${qrCodeSource}`;
 
   if (hasError) {
-    return <div className="text-red-500 text-xs">qrcode generated</div>;
+    return <div className="text-purplee text-xs">genereting...</div>;
   }
   return (
     <div className="relative w-[60px] h-[60px] flex items-center justify-center">
@@ -29,10 +29,9 @@ export const QRCodeImage = ({ qrCodeSource, alt }: QRCodeProps) => {
           isLoading ? "opacity-0" : "opacity-100"
         }`}
         onLoad={() => setIsLoading(false)}
-        onError={(error) => {
+        onError={() => {
           setIsLoading(false);
           setHasError(true);
-          console.log(error);
         }}
         loading="lazy"
       />

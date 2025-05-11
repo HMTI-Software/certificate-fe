@@ -126,7 +126,10 @@ export const EventStakeholderDetailSheet = ({
                       onLoad={() => {
                         return <LoadingCircle />;
                       }}
-                      priority
+                      loading="lazy"
+                      onError={(e) => {
+                        console.log("Error loading stakeholder image", e);
+                      }}
                     />
                   )}
                 </div>
@@ -183,6 +186,7 @@ export const EventStakeholderDetailSheet = ({
         eventUid={eventData.uid}
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
+        setOpenSheet={setOpen}
       />
     </>
   );

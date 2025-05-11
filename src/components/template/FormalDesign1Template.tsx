@@ -102,7 +102,7 @@ export const FormalDesign1Template = ({
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                   ? stakeholderData.photoPath
-                    ? "mb-[10px] md:mb-8"
+                    ? "mb-[10px] md:mb-[31px]"
                     : "mb-7 md:mb-12"
                   : stakeholderData.photoPath
                   ? "mb-[10px] md:mb-[31px]"

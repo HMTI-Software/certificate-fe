@@ -128,10 +128,9 @@ export const ParticipantActionOption = ({
           disabled={isLoading}
         >
           {isLoading ? (
-            <div>
-              <LoadingCircle />
-              <span className="ml-2">deleting...</span>
-            </div>
+            <span className="inline-flex items-center">
+              deleting... <LoadingCircle />
+            </span>
           ) : (
             <span className="inline-flex items-center">
               delete <Trash2 className="ml-2" />

@@ -12,17 +12,21 @@ import Image from "next/image";
 import { Crop } from "lucide-react";
 import { toast } from "sonner";
 import { uploadStakeholderImage } from "@/actions/mutation/events/uploadStakeholderImage";
+import { useRouter } from "next/navigation";
 
 type Props = {
   openDialog: boolean;
   setOpenDialog: (open: boolean) => void;
   eventUid: string;
+  setOpenSheet: (open: boolean) => void;
 };
 export const UploadStakeholderImageDialog = ({
   openDialog,
   setOpenDialog,
   eventUid,
+  setOpenSheet,
 }: Props) => {
+  const router = useRouter();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [croppedImage, setCroppedImage] = useState<File | null>(null);
 
@@ -44,7 +48,9 @@ export const UploadStakeholderImageDialog = ({
         success: (data) => {
           if (data.success) {
             setOpenDialog(false);
+            setOpenSheet(false);
             uploadStakeholderImageForm.reset();
+            router.refresh();
             return "Stakeholder image uploaded successfully!";
           }
           throw new Error(data.message);
@@ -76,7 +82,9 @@ export const UploadStakeholderImageDialog = ({
         success: (data) => {
           if (data.success) {
             setOpenDialog(false);
+            setOpenSheet(false);
             uploadStakeholderImageForm.reset();
+            router.refresh();
             return "Stakeholder image uploaded successfully!";
           }
           throw new Error(data.message);
