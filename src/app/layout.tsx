@@ -43,6 +43,7 @@ export default async function RootLayout({
               borderColor: "black",
               borderBottomWidth: "4px",
               borderBottomStyle: "solid",
+              backgroundColor: "white",
             },
             duration: 3000,
           }}

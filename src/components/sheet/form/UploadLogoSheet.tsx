@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { uploadEventLogo } from "@/actions/mutation/events/uploadEventLogo";
 import { TechnologyDesign2Template } from "@/components/template/TechnologyDesign2Template";
 import { Crop, Trash2 } from "lucide-react";
+import { FormalDesign1Template } from "@/components/template/FormalDesign1Template";
 
 type Props = {
   open: boolean;
@@ -243,7 +244,12 @@ export const UploadLogoSheet = ({ open, setOpen, eventData }: Props) => {
           participantCertificateData.eventTemplate === "DEFAULTDESIGN" ? (
             ""
           ) : participantCertificateData.eventTemplate === "FORMALDESIGN_1" ? (
-            ""
+            <div className="flex flex-col items-center justify-center">
+              <FormalDesign1Template
+                mode="CREATE/EDIT"
+                participantCertificateData={participantCertificateData}
+              />
+            </div>
           ) : participantCertificateData.eventTemplate === "FORMALDESIGN_2" ? (
             ""
           ) : participantCertificateData.eventTemplate === "FORMALDESIGN_3" ? (

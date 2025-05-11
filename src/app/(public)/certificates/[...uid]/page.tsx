@@ -1,3 +1,4 @@
+import { FormalDesign1Template } from "@/components/template/FormalDesign1Template";
 import { TechnologyDesign1Template } from "@/components/template/TechnologyDesign1Template";
 import { TechnologyDesign2Template } from "@/components/template/TechnologyDesign2Template";
 import { TechnologyDesign3Template } from "@/components/template/TechnologyDesign3Template";
@@ -75,7 +76,12 @@ const CertificateStakeholderPage = async ({
       {participantCertificateData.eventTemplate === "DEFAULTDESIGN" ? (
         "DEFAULT DESIGN"
       ) : participantCertificateData.eventTemplate === "FORMALDESIGN_1" ? (
-        "FORMAL DESIGN 1"
+        <div className="flex flex-col items-center justify-start md:justify-start min-h-screen">
+          <FormalDesign1Template
+            participantCertificateData={participantCertificateData}
+            mode="VIEW"
+          />
+        </div>
       ) : participantCertificateData.eventTemplate === "FORMALDESIGN_2" ? (
         "FORMAL DESIGN 2"
       ) : participantCertificateData.eventTemplate === "FORMALDESIGN_3" ? (
