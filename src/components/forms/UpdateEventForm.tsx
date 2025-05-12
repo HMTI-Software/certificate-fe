@@ -21,6 +21,7 @@ import { TechnologyDesign2Template } from "../template/TechnologyDesign2Template
 import { TechnologyDesign3Template } from "../template/TechnologyDesign3Template";
 import { FormalDesign1Template } from "../template/FormalDesign1Template";
 import { FormalDesign2Template } from "../template/FormalDesign2Template";
+import { FormalDesign3Template } from "../template/FormalDesign3Template";
 
 const templateOptions = [
   { value: "DEFAULTDESIGN", label: "Default Design" },
@@ -237,7 +238,12 @@ const UpdateEventForm = ({ eventData }: Props) => {
               </div>
             ) : participantCertificateData.eventTemplate ===
               "FORMALDESIGN_3" ? (
-              ""
+              <div className="flex flex-col items-center justify-center">
+                <FormalDesign3Template
+                  participantCertificateData={participantCertificateData}
+                  mode="CREATE/EDIT"
+                />
+              </div>
             ) : participantCertificateData.eventTemplate ===
               "TECHNOLOGYDESIGN_1" ? (
               <div className="flex flex-col items-center justify-center">

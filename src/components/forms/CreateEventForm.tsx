@@ -19,11 +19,11 @@ import GeneralDialog from "../popup/GeneralDialog";
 import { DefaultDesignTemplate } from "../template/DefaultDesignTemplate";
 import { FormalDesign1Template } from "../template/FormalDesign1Template";
 import { FormalDesign2Template } from "../template/FormalDesign2Template";
-import { FormalDesign3Template } from "../template/FormalDesign3Template";
 import { TechnologyDesign1Template } from "../template/TechnologyDesign1Template";
 import { TechnologyDesign2Template } from "../template/TechnologyDesign2Template";
 import { TechnologyDesign3Template } from "../template/TechnologyDesign3Template";
 import { IEventParticipantCertificate } from "@/lib/types/Event";
+import { FormalDesign3Template } from "../template/FormalDesign3Template";
 
 const templateOptions = [
   { value: "DEFAULTDESIGN", label: "Default Design" },
@@ -243,7 +243,12 @@ const CreateEventForm = () => {
                 </div>
               ) : participantCertificateData.eventTemplate ===
                 "FORMALDESIGN_3" ? (
-                <FormalDesign3Template eventData={form.getValues()} />
+                <div className="flex flex-col items-center justify-center">
+                  <FormalDesign3Template
+                    mode="CREATE/EDIT"
+                    participantCertificateData={participantCertificateData}
+                  />
+                </div>
               ) : participantCertificateData.eventTemplate ===
                 "TECHNOLOGYDESIGN_1" ? (
                 <div className="flex flex-col items-center justify-center">

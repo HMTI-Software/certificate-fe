@@ -35,8 +35,6 @@ export const getEventByEventId = async (eventUid: string) => {
     if (!eventData.success && eventData.status !== 200) {
       return null;
     }
-    console.log("Event data fetched successfully", eventData.data);
-
     return eventData.data;
   } catch (error) {
     console.error(
