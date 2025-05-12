@@ -211,7 +211,7 @@ export const TechnologyDesign2Template = ({
                 stakeholderData={stakeholderData}
                 className={cn(
                   mode === "CREATE/EDIT"
-                    ? "text-[10px] md:text-sm"
+                    ? "text-[10px] md:text-xs"
                     : mode === "PREVIEW"
                     ? "text-xs md:text-lg"
                     : "text-sm md:text-xl",

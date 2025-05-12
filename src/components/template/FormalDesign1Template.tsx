@@ -80,10 +80,10 @@ export const FormalDesign1Template = ({
           className={cn(
             "absolute inset-0 flex flex-col justify-center",
             mode === "CREATE/EDIT"
-              ? "py-10 md:py-11 px-7 md:px-8"
+              ? "py-10 pb-4 md:py-11 md:pb-6 px-7 md:px-8"
               : mode === "PREVIEW"
-              ? "py-12 md:py-18 px-8 md:px-13"
-              : "py-12 md:py-18 px-10 md:px-14",
+              ? "py-12 pb-7 md:py-18 md:pb-14 px-8 md:px-13"
+              : "py-12 pb-7 md:py-18 md:pb-14 px-10 md:px-14",
           )}
         >
           {/* HEADER */}
@@ -97,12 +97,12 @@ export const FormalDesign1Template = ({
                     : "mb-4 md:mb-5"
                   : stakeholderData.photoPath
                   ? "mb-7 md:mb-[14.2px]"
-                  : "mb-[10px] md:mb-[10px]"
+                  : "mb-[10px] md:mb-[19px]"
                 : mode === "PREVIEW"
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                   ? stakeholderData.photoPath
-                    ? "mb-[10px] md:mb-[31px]"
+                    ? "mb-[10px] md:mb-[34px]"
                     : "mb-7 md:mb-12"
                   : stakeholderData.photoPath
                   ? "mb-[10px] md:mb-[31px]"
@@ -110,11 +110,11 @@ export const FormalDesign1Template = ({
                 : participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                 ? stakeholderData.photoPath
-                  ? "mb-[17px] md:mb-4"
-                  : "mb-7 md:mb-10"
+                  ? "mb-[17px] md:mb-5"
+                  : "mb-7 md:mb-4"
                 : stakeholderData.photoPath
                 ? "mb-[17px] md:mb-[16px]"
-                : "mb-7 md:mb-10",
+                : "mb-4 md:mb-4",
               mode === "CREATE/EDIT"
                 ? "gap-1 md:gap-1"
                 : mode === "PREVIEW"
@@ -129,8 +129,8 @@ export const FormalDesign1Template = ({
                 mode === "CREATE/EDIT"
                   ? "text-[7px] md:text-[8px]"
                   : mode === "PREVIEW"
-                  ? "text-[7.7px] md:text-[15px]"
-                  : "text-[9px] md:text-[15px]",
+                  ? "text-[7.7px] md:text-[13px]"
+                  : "text-[9px] md:text-[13px]",
                 "font-[400] font-roboto-condensed",
                 "text-grayy tracking-widest",
               )}
@@ -181,7 +181,7 @@ export const FormalDesign1Template = ({
                   ? "w-18 h-18 md:w-21 md:h-21"
                   : mode === "PREVIEW"
                   ? "w-21 h-21 md:w-34 md:h-34"
-                  : "w-22 h-22 md:w-27 md:h-27"
+                  : "w-22 h-22 md:w-33 md:h-33"
               }
               classNamePhotoPath={
                 mode === "CREATE/EDIT"
@@ -200,15 +200,15 @@ export const FormalDesign1Template = ({
                   ? mode === "CREATE/EDIT"
                     ? stakeholderData.photoPath
                       ? "mt-8 md:mt-9"
-                      : "mt-1 md:mt-0"
+                      : "mt-2 md:mt-0"
                     : mode === "PREVIEW"
-                    ? "mt-5 md:mt-5"
-                    : "mt-5 md:mt-7"
+                    ? "mt-5 md:mt-6"
+                    : "mt-5 md:mt-2"
                   : mode === "CREATE/EDIT"
                   ? "mt-5 md:mt-5"
                   : mode === "PREVIEW"
-                  ? "mt-6 md:mt-9"
-                  : "mt-6 md:mt-8",
+                  ? "mt-6 md:mt-10"
+                  : "mt-6 md:mt-9",
               )}
             >
               {/* STAKEHOLDER NAME */}
@@ -216,10 +216,10 @@ export const FormalDesign1Template = ({
                 stakeholderData={stakeholderData}
                 className={cn(
                   mode === "CREATE/EDIT"
-                    ? "text-[11px] md:text-sm"
+                    ? "text-[11px] md:text-[12px]"
                     : mode === "PREVIEW"
-                    ? "text-xs md:text-2xl"
-                    : "text-[16px] md:text-2xl",
+                    ? "text-xs md:text-xl"
+                    : "text-[13px] md:text-xl",
                   "text-black font-roboto-condensed font-bold mb-1",
                 )}
               />
@@ -260,7 +260,7 @@ export const FormalDesign1Template = ({
                 participantCertificateData={participantCertificateData}
                 className={cn(
                   mode === "CREATE/EDIT"
-                    ? "text-sm md:text-lg"
+                    ? "text-sm md:text-sm"
                     : mode === "PREVIEW"
                     ? "text-lg md:text-3xl"
                     : "text-sm md:text-2xl",

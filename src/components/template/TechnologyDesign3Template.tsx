@@ -102,7 +102,7 @@ export const TechnologyDesign3Template = ({
                 ? participantCertificateData.logoFirst ||
                   participantCertificateData.logoSecond
                   ? stakeholderData.photoPath
-                    ? "mb-4 md:mb-8"
+                    ? "mb-4 md:mb-[28.5px]"
                     : "mb-7 md:mb-12"
                   : stakeholderData.photoPath
                   ? "mb-12 md:mb-24"
@@ -127,7 +127,7 @@ export const TechnologyDesign3Template = ({
               mode={mode}
               className={cn(
                 mode === "CREATE/EDIT"
-                  ? "text-[10px] md:text-[11px]"
+                  ? "text-[9px] md:text-[11px]"
                   : mode === "PREVIEW"
                   ? "text-[11px] md:text-[17px]"
                   : "text-[12px] md:text-[17px]",
@@ -207,8 +207,8 @@ export const TechnologyDesign3Template = ({
                   : mode === "CREATE/EDIT"
                   ? "mt-5 md:mt-5"
                   : mode === "PREVIEW"
-                  ? "mt-6 md:mt-9"
-                  : "mt-7 md:mt-7",
+                  ? "mt-6 md:mt-10"
+                  : "mt-6 md:mt-8",
               )}
             >
               {/* STAKEHOLDER NAME */}
@@ -216,10 +216,10 @@ export const TechnologyDesign3Template = ({
                 stakeholderData={stakeholderData}
                 className={cn(
                   mode === "CREATE/EDIT"
-                    ? "text-[11px] md:text-sm"
+                    ? "text-[11px] md:text-[13px]"
                     : mode === "PREVIEW"
-                    ? "text-xs md:text-2xl"
-                    : "text-[16px] md:text-2xl",
+                    ? "text-xs md:text-xl"
+                    : "text-[14px] md:text-xl",
                   "text-white font-roboto-condensed",
                 )}
               />
