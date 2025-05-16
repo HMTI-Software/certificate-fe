@@ -17,31 +17,19 @@ import { IAuthSession } from "@/lib/types/Auth";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-const LandingPageNavbar = ({
-  session,
-  mode = "landingpage",
-}: {
-  session: IAuthSession;
-  mode?: "landingpage" | "documentation";
-}) => {
+const LandingPageNavbar = ({ session }: { session: IAuthSession }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const MAX_SCROLL_LANDING_PAGE = 1000;
-  const MAX_SCROLL_DOCUMENTATION_PAGE = 500;
+  const MAX_SCROLL = 1000;
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(
-        window.scrollY >
-          (mode === "landingpage"
-            ? MAX_SCROLL_LANDING_PAGE
-            : MAX_SCROLL_DOCUMENTATION_PAGE),
-      );
+      setIsScrolled(window.scrollY > MAX_SCROLL);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [mode]);
+  }, []);
 
   const NavMenu: INavMenu[] = [
     {
@@ -86,7 +74,7 @@ const LandingPageNavbar = ({
           >
             <Image
               priority
-              src="/certify-logo-only-black.png"
+              src="/certify/certify-logo-only-black.png"
               alt="Certify Logo"
               width={40}
               height={40}
